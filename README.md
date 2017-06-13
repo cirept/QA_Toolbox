@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/67b6679b758d42c7bd09a8c35bce7f68)](https://www.codacy.com/app/cirept612/QA_Toolbox?utm_source=github.com&utm_medium=referral&utm_content=cirept/QA_Toolbox&utm_campaign=badger)
 [![GitHub release](https://img.shields.io/github/release/cirept/NextGen.svg)](https://github.com/cirept/NextGen/releases)   [![GitHub issues](https://img.shields.io/github/issues/cirept/NextGen.svg)](https://github.com/cirept/NextGen/issues)
 
 # Tool Descriptions<br>
