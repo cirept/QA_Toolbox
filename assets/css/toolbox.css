@@ -735,6 +735,24 @@ widget outline
 404 link checker
 ----------------------------------------
 */
+.success.opensWindow {
+    background: rgb(146, 232, 66);
+    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(86, 171, 47, .75) 26%, rgba(168, 224, 99, .75) 100%) !important;
+    border: none;
+}
+
+.error.opensWindow {
+    background: rgb(255, 124, 216);
+    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(240, 0, 0, .75) 26%, rgba(220, 40, 30, .75) 100%) !important;
+    border: none;
+}
+
+.otherDomain.opensWindow {
+    background: rgb(146, 232, 66);
+    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(0, 201, 255, .75) 26%, rgba(146, 254, 157, .75) 100%) !important;
+    border: none;
+}
+
 
 .error,
 body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.error,
@@ -799,23 +817,7 @@ body .page header #pmenu .mobilePhoneLink {
 
 
 
-.success.opensWindow {
-    background: rgb(146, 232, 66);
-    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(86, 171, 47, .75) 26%, rgba(168, 224, 99, .75) 100%) !important;
-    border: none;
-}
 
-.error.opensWindow {
-    background: rgb(255, 124, 216);
-    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(240, 0, 0, .75) 26%, rgba(220, 40, 30, .75) 100%) !important;
-    border: none;
-}
-
-.otherDomain.opensWindow {
-    background: rgb(146, 232, 66);
-    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(0, 201, 255, .75) 26%, rgba(146, 254, 157, .75) 100%) !important;
-    border: none;
-}
 
 .mobilePhoneLink.opensWindow,
 footer .card .content .text .link .siteLink.hasTitle.opensWindow,
