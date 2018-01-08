@@ -3185,7 +3185,7 @@
                         // if link is an image link
                         // ADD CLASS FLAGS TO DIV OVERLAY
                         // OTHERWISE ADD CLASS FLAGS TO LINK ELEMENT
-                        showURL($currentLink, isImageLink, $linkOverlay);
+                        checklinks.showURL($currentLink, isImageLink, $linkOverlay);
                         if (isImageLink) {
                             checkLinks.addFlagsToElements($linkOverlay, pageError404);
                         } else {
