@@ -799,31 +799,19 @@ body .page header #pmenu .mobilePhoneLink {
 
 
 
-.success.opensWindow,
-footer .card .content .text .link .siteLink.hasTitle.opensWindow,
-body .card .content .text .copy .siteLink.hasTitle.opensWindow,
-body .card .content .text .link .siteLink.hasTitle.opensWindow,
-body .card .content .media .imgOverlay.hasTitle.opensWindow {
+.success.opensWindow {
     background: rgb(146, 232, 66);
     background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(86, 171, 47, .75) 26%, rgba(168, 224, 99, .75) 100%) !important;
     border: none;
 }
 
-.error.opensWindow,
-footer .card .content .text .link .siteLink.noTitle.opensWindow,
-body .card .content .text .copy .siteLink.noTitle.opensWindow,
-body .card .content .text .link .siteLink.noTitle.opensWindow,
-body .card .content .media .imgOverlay.noTitle.opensWindow {
+.error.opensWindow {
     background: rgb(255, 124, 216);
     background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(240, 0, 0, .75) 26%, rgba(220, 40, 30, .75) 100%) !important;
     border: none;
 }
 
-.otherDomain.opensWindow,
-footer .card .content .text .link .siteLink.hasTitle.opensWindow,
-body .card .content .text .copy .siteLink.hasTitle.opensWindow,
-body .card .content .text .link .siteLink.hasTitle.opensWindow,
-body .card .content .media .imgOverlay.hasTitle.opensWindow {
+.otherDomain.opensWindow {
     background: rgb(146, 232, 66);
     background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(0, 201, 255, .75) 26%, rgba(146, 254, 157, .75) 100%) !important;
     border: none;
