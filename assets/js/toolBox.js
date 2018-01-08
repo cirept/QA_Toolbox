@@ -2682,6 +2682,7 @@
                 }),
                 '$legendContent': {
                     'otherDomain': 'Absolute URL*',
+                    'opensWindow': 'Opens In A New Window',
                     'jumpLink': 'Jump Link or "#" URL',
                     'attention': 'URL Empty or Undefined',
                     'mobilePhoneLink': 'Mobile Link',
@@ -2848,7 +2849,17 @@
             // check if link contains an image
             $image = $currentLink.find('img');
             isImageLink = this.isImageLink($image);
-
+            //check if link goes to another page
+            if ($currentLink.attr('target') === '_blank' ||
+                $currentLink.attr('target') === '_new' ||
+                $currentLink.attr('target') === 'custom') {
+                if (isImageLink) {
+                    $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    $linkOverlay.addClass('opensWindow');
+                } else {
+                    $currentLink.addClass('opensWindow');
+                }
+            }
             if (linkURL.indexOf('tel:') >= 0) {
                 if (isImageLink) {
                     $linkOverlay =
@@ -2877,6 +2888,14 @@
                 }
                 return true; // TEST THE ABSOLUTE URL REGARDLESS
             } else {
+                return true;
+            }
+        },
+
+        'verifyTarget': function ($currentLink) {
+            if ($currentLink.attr('target') === '_blank' ||
+                $currentLink.attr('target') === '_new' ||
+                $currentLink.attr('target') === 'custom') {
                 return true;
             }
         },
@@ -3166,6 +3185,7 @@
                         // if link is an image link
                         // ADD CLASS FLAGS TO DIV OVERLAY
                         // OTHERWISE ADD CLASS FLAGS TO LINK ELEMENT
+                        showURL($currentLink, isImageLink, $linkOverlay);
                         if (isImageLink) {
                             checkLinks.addFlagsToElements($linkOverlay, pageError404);
                         } else {
@@ -3203,6 +3223,16 @@
                 },
             });
         },
+
+        'showUrl': function ($currentLink, isImageLink, $linkOverlay) {
+            var linkURL = jQuery.trim($currentLink.attr('href'));
+            if(isImageLink) {
+                $linkOverlay.append(linkUrl);
+            } else {
+                $currentLink.append(linkUrl);
+            }
+        },
+
         'toggleDisable': function () {
             checkLinks.config.$activateButt.prop('disabled', function (index, value) {
                 return !value;
