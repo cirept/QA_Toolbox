@@ -3127,6 +3127,11 @@
             } else {
                 isImageLink = false;
             }
+            if(isImageLink && isNextGen) {
+                linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
+            }
+
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
             //            var $linkOverlay;
             //            var pageError404;
@@ -3177,7 +3182,6 @@
                             $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
 
                         }
-                        checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
 
                         // If value is false all class modifications should be done to the link itself
                         pageError404 = checkLinks.checkFor404(data);
@@ -3208,7 +3212,6 @@
                 'statusCode': {
                     '404': function () {
                         $currentLink.addClass('fourOfour');
-                        checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
 
                         if (isImageLink) {
                             checkLinks.error($linkOverlay);
