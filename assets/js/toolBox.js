@@ -138,6 +138,15 @@
             this.attachToImage(isNextGen, $currentLink, $currentCard);
             return this.$divOverlay;
         },
+        'addImgOverlay': function (isNextGen, $currentLink, $currentCard) {
+            // sets $currentCard to null for tetra site checks
+            $currentCard = $currentCard ? $currentCard : null;
+            this.cacheDOMOverlayElements($currentLink);
+            this.createOverlayElements(false);
+            this.buildOverlayElements(false);
+            this.attachToImage(true, $currentLink, $currentCard);
+            return this.$divOverlay;
+        },
         'cacheDOMOverlayElements': function ($currentLink /* , isNextGen*/ ) {
             // IF NEXTGEN SITE
             this.widthOfImage = $currentLink.find('img').width();
@@ -3131,7 +3140,7 @@
                 var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
                     var $currentImg = jQuery($currentCard.find('img')[0]);
-                    $linkOverlay = shared.addDivOverlay(false, $currentLink, $currentImg);
+                    $linkOverlay = shared.addImgOverlay(false, $currentLink, $currentImg);
                 } else {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
                 }
