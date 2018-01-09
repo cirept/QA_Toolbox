@@ -3129,9 +3129,8 @@
             }
             if(isImageLink && isNextGen) {
                 $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
-                checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
             }
-
+            checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
             //            var $linkOverlay;
             //            var pageError404;
@@ -3178,8 +3177,11 @@
 
                     if (isNextGen) {
                         // check to see if the card has an image prior to startin the ajax testing
+                        /*
                         if (isImageLink) {
-                        }
+                            $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
+
+                        }*/
 
                         // If value is false all class modifications should be done to the link itself
                         pageError404 = checkLinks.checkFor404(data);
@@ -3231,7 +3233,9 @@
             var linkURL = " "+jQuery.trim($currentLink.attr('href'));
             if(isImageLink) {
                 if($linkOverlay[0].innerHTML.indexOf(linkURL) == -1) {
-                    $linkOverlay.append(linkURL);
+                    if($linkOverlay != null) {
+                        $linkOverlay.append(linkURL);
+                    }
                 }
             } else {
                 if($currentLink[0].innerHTML.indexOf(linkURL) == -1) {
