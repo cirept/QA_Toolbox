@@ -3131,7 +3131,7 @@
                 var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
                     var $currentImg = jQuery($currentCard.find('img')[0]);
-                    $linkOverlay = imageChecker.addDivOverlay($currentImg);
+                    $linkOverlay = shared.addDivOverlay(false, $currentLink, $currentImg);
                 } else {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
                 }
