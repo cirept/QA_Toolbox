@@ -3225,9 +3225,13 @@
         'showURL': function ($currentLink, isImageLink, $linkOverlay) {
             var linkURL = " "+jQuery.trim($currentLink.attr('href'));
             if(isImageLink) {
-                $linkOverlay.append(linkURL);
+                if(!$($linkOverlay:contains(linkURL))) {
+                    $linkOverlay.append(linkURL);
+                }
             } else {
-                $currentLink.append(linkURL);
+                if(!$($currentLink:contains(linkURL))) {
+                    $currentLink.append(linkURL);
+                }
             }
         },
 
