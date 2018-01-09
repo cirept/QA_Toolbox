@@ -3121,7 +3121,7 @@
             var pageError404;
             var linkURL = checkLinks.addURLParameter($currentLink);
             var isNextGen = shared.nextGenCheck();
-            checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
+            
 
             if (isImageLink) {
                 isImageLink = isImageLink;
@@ -3177,7 +3177,7 @@
                         if (isImageLink) {
                             $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
                         }
-
+                        checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
                         // If value is false all class modifications should be done to the link itself
                         pageError404 = checkLinks.checkFor404(data);
 
