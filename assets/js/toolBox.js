@@ -2933,7 +2933,7 @@
                 // ----------------------------------------
                 // get all links defined in card
                 // should include all primary, secondary, and tenary links
-                $cardLinks = $cardLinkContainer.children('a'); // this is an array
+                $cardLinks = $cardLinkContainer.find('a'); // this is an array
                 meLength = $cardLinks.length;
                 if (meLength > 0) {
                     // set total tests to number of links on page
@@ -2944,7 +2944,7 @@
                 // CHECK ALL LINKS DEFINED IN SEO TEXT in COPY of RECORD
                 // ----------------------------------------
                 // get all text links in copy text of card
-                $copyTextLinks = $cardSEOContainer.children('a');
+                $copyTextLinks = $cardSEOContainer.find('a');
                 youLength = $copyTextLinks.length;
                 if (youLength > 0) {
                     // set total tests to number of links on page
@@ -2980,7 +2980,7 @@
                     // TEST other Links defined in card Settings
                     // check if other links exist, get all links defined in card
                     // should include all primary, secondary, and tenary links
-                    $cardLinks = $cardLinkContainer.children('a'); // this is an array
+                    $cardLinks = $cardLinkContainer.find('a'); // this is an array
                     meLength = $cardLinks.length;
                     if (meLength > 0) {
                         // set total tests to number of links on page
@@ -2990,7 +2990,7 @@
 
                     // TEST TEXT LINKS IN THE COPY OF THE CARD
                     // check copy container and grab all links
-                    $copyTextLinks = $cardSEOContainer.children('a');
+                    $copyTextLinks = $cardSEOContainer.find('a');
                     youLength = $copyTextLinks.length;
                     if (youLength > 0) {
                         // set total tests to number of links on page
