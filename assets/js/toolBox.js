@@ -3121,6 +3121,7 @@
             var pageError404;
             var linkURL = checkLinks.addURLParameter($currentLink);
             var isNextGen = shared.nextGenCheck();
+            checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
 
             if (isImageLink) {
                 isImageLink = isImageLink;
@@ -3183,7 +3184,6 @@
                         // if link is an image link
                         // ADD CLASS FLAGS TO DIV OVERLAY
                         // OTHERWISE ADD CLASS FLAGS TO LINK ELEMENT
-                        checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
                         if (isImageLink) {
                             checkLinks.addFlagsToElements($linkOverlay, pageError404);
                         } else {
@@ -3206,7 +3206,6 @@
                 'statusCode': {
                     '404': function () {
                         $currentLink.addClass('fourOfour');
-                        checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
                         if (isImageLink) {
                             checkLinks.error($linkOverlay);
                         } else {
