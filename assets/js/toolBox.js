@@ -3121,7 +3121,6 @@
             var pageError404;
             var linkURL = checkLinks.addURLParameter($currentLink);
             var isNextGen = shared.nextGenCheck();
-            checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
 
             if (isImageLink) {
                 isImageLink = isImageLink;
@@ -3176,7 +3175,9 @@
                         // check to see if the card has an image prior to startin the ajax testing
                         if (isImageLink) {
                             $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
+
                         }
+                        checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
 
                         // If value is false all class modifications should be done to the link itself
                         pageError404 = checkLinks.checkFor404(data);
@@ -3194,6 +3195,7 @@
                 'error': function (jqXHR) {
                     // set link in red if there is any errors with link
                     checkLinks.config.errors += 1;
+                    checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
 
                     if (jqXHR.status === 404) {
                         if (isImageLink) {
@@ -3206,6 +3208,8 @@
                 'statusCode': {
                     '404': function () {
                         $currentLink.addClass('fourOfour');
+                        checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
+
                         if (isImageLink) {
                             checkLinks.error($linkOverlay);
                         } else {
