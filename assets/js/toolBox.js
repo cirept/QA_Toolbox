@@ -3135,7 +3135,6 @@
                 } else {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
                 }
-                $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
             }
             checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
