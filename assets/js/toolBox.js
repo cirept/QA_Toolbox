@@ -3127,7 +3127,7 @@
             } else {
                 isImageLink = false;
             }
-            if(isImageLink && isNextGen) {
+            if(isNextGen && isImageLink) {
                 $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
             }
             checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
