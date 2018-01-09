@@ -3128,7 +3128,13 @@
                 isImageLink = false;
             }
             if(isNextGen && isImageLink) {
-                $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
+                var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
+                if (cardClass.indexOf('card-clickable-v2') > -1 ) {
+                    var $currentImg = $currentCard.find('div.media').find('img')[0];
+                    $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentImg);
+                } else {
+                    $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
+                }
             }
             checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
