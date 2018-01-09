@@ -2845,6 +2845,7 @@
             var isNextGen = shared.nextGenCheck();
             var $linkOverlay;
             var $image;
+            
 
             // check if link contains an image
             $image = $currentLink.find('img');
@@ -2862,8 +2863,9 @@
             }
             if (linkURL.indexOf('tel:') >= 0) {
                 if (isImageLink) {
-                    $linkOverlay =
-                        shared.addDivOverlay(isNextGen, $currentLink);
+                    if($linkOverlay == null) {
+                        $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    }
                     $linkOverlay.addClass('mobilePhoneLink');
                 } else {
                     $currentLink.addClass('mobilePhoneLink');
@@ -2881,7 +2883,9 @@
                 return false;
             } else if (linkURL.indexOf('www') > -1 || linkURL.indexOf('://') > -1) { // test for absolute path URLs
                 if (isImageLink) {
-                    $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    if($linkOverlay == null) {
+                        $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    }
                     $linkOverlay.addClass('otherDomain');
                 } else {
                     $currentLink.addClass('otherDomain');
@@ -2892,13 +2896,7 @@
             }
         },
 
-        'verifyTarget': function ($currentLink) {
-            if ($currentLink.attr('target') === '_blank' ||
-                $currentLink.attr('target') === '_new' ||
-                $currentLink.attr('target') === 'custom') {
-                return true;
-            }
-        },
+
         'nextgenTestLinks': function () {
             var $currentCard;
             var $sections = jQuery('main').find('section');
@@ -4472,6 +4470,14 @@
                     'rel': 'stylesheet',
                     'type': 'text/css',
                 }),
+                '$toolStyles': jQuery('<link>').attr({
+                    'id': 'mycss',
+                    'href': 'https://rawgit.com/cirept/QA_Toolbox/QuinnTest/assets/css/toolbox.css', // eslint-disable-line camelcase
+                    'rel': 'stylesheet',
+                    'type': 'text/css',
+                }),
+
+
                 '$animate': jQuery('<link>').attr({
                     'id': 'animate',
                     'href': 'https://rawgit.com/cirept/animate.css/master/animate.css',
@@ -4485,6 +4491,7 @@
                 .append(main.config.$myFont)
                 .append(main.config.$jQueryUIcss)
                 .append(main.config.$toolStyles)
+                .append(main.config.$mycss)                
                 .append(main.config.$fontAw)
                 .append(main.config.$animate);
         },
