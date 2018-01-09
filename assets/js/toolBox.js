@@ -2965,7 +2965,7 @@
                     isImageLink = true;
                     // find FIRST PRIMARY text link
                     // This is because the card will be linked to the first primary link
-                    $currentLink = $cardLinkContainer.children('a[class*="primary"]:first');
+                    $currentLink = $cardLinkContainer.find('a[class*="primary"]:first');
                     $currentLink.addClass('siteLink'); // add default flag class to links
                     //                    $image = $cardImageContainer.find('img');
                     // add div overlay to image
