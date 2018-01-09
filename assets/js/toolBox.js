@@ -3128,13 +3128,7 @@
                 isImageLink = false;
             }
             if(isNextGen && isImageLink) {
-                var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
-                if (cardClass.indexOf('card-clickable-v2') > -1 ) {
-                    var $currentImg = $currentCard.find('div.media').find('img')[0];
-                    $linkOverlay = shared.addDivOverlay(false, $currentLink, $currentCard);
-                } else {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
-                }
             }
             checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
