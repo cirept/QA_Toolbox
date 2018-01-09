@@ -3194,6 +3194,7 @@
                 'error': function (jqXHR) {
                     // set link in red if there is any errors with link
                     checkLinks.config.errors += 1;
+                    checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
                     if (jqXHR.status === 404) {
                         if (isImageLink) {
                             checkLinks.error($linkOverlay);
