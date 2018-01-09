@@ -2933,7 +2933,7 @@
                 // ----------------------------------------
                 // get all links defined in card
                 // should include all primary, secondary, and tenary links
-                $cardLinks = $cardLinkContainer.find('a'); // this is an array
+                $cardLinks = $cardLinkContainer.children('a'); // this is an array
                 meLength = $cardLinks.length;
                 if (meLength > 0) {
                     // set total tests to number of links on page
@@ -2944,7 +2944,7 @@
                 // CHECK ALL LINKS DEFINED IN SEO TEXT in COPY of RECORD
                 // ----------------------------------------
                 // get all text links in copy text of card
-                $copyTextLinks = $cardSEOContainer.find('a');
+                $copyTextLinks = $cardSEOContainer.children('a');
                 youLength = $copyTextLinks.length;
                 if (youLength > 0) {
                     // set total tests to number of links on page
@@ -2965,7 +2965,7 @@
                     isImageLink = true;
                     // find FIRST PRIMARY text link
                     // This is because the card will be linked to the first primary link
-                    $currentLink = $cardLinkContainer.find('a[class*="primary"]:first');
+                    $currentLink = $cardLinkContainer.children('a[class*="primary"]:first');
                     $currentLink.addClass('siteLink'); // add default flag class to links
                     //                    $image = $cardImageContainer.find('img');
                     // add div overlay to image
@@ -2980,7 +2980,7 @@
                     // TEST other Links defined in card Settings
                     // check if other links exist, get all links defined in card
                     // should include all primary, secondary, and tenary links
-                    $cardLinks = $cardLinkContainer.find('a'); // this is an array
+                    $cardLinks = $cardLinkContainer.children('a'); // this is an array
                     meLength = $cardLinks.length;
                     if (meLength > 0) {
                         // set total tests to number of links on page
@@ -2990,7 +2990,7 @@
 
                     // TEST TEXT LINKS IN THE COPY OF THE CARD
                     // check copy container and grab all links
-                    $copyTextLinks = $cardSEOContainer.find('a');
+                    $copyTextLinks = $cardSEOContainer.children('a');
                     youLength = $copyTextLinks.length;
                     if (youLength > 0) {
                         // set total tests to number of links on page
