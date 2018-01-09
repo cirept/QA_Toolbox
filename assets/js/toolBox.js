@@ -3128,7 +3128,7 @@
                 isImageLink = false;
             }
             if(isImageLink && isNextGen) {
-                linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
                 checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
             }
 
@@ -3179,8 +3179,6 @@
                     if (isNextGen) {
                         // check to see if the card has an image prior to startin the ajax testing
                         if (isImageLink) {
-                            $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
-
                         }
 
                         // If value is false all class modifications should be done to the link itself
