@@ -3206,7 +3206,7 @@
                 'statusCode': {
                     '404': function () {
                         $currentLink.addClass('fourOfour');
-                        checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
+                        /*checkLinks.showURL($currentLink, isImageLink, $linkOverlay);*/
                         if (isImageLink) {
                             checkLinks.error($linkOverlay);
                         } else {
