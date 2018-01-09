@@ -3225,11 +3225,11 @@
         'showURL': function ($currentLink, isImageLink, $linkOverlay) {
             var linkURL = " "+jQuery.trim($currentLink.attr('href'));
             if(isImageLink) {
-                if($linkOverlay.innerHTML.indexOf(linkURL) == -1) {
+                if($linkOverlay[0].innerHTML.indexOf(linkURL) == -1) {
                     $linkOverlay.append(linkURL);
                 }
             } else {
-                if($currentLink.innerHTML.indexOf(linkURL) == -1) {
+                if($currentLink[0].innerHTML.indexOf(linkURL) == -1) {
                     $currentLink.append(linkURL);
                 }
             }
