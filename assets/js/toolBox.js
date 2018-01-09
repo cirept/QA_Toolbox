@@ -142,7 +142,7 @@
             // IF NEXTGEN SITE
             this.widthOfImage = $currentLink.find('img').width();
             this.heightOfImage = $currentLink.find('img').height();
-            this.linkTitle = jQuery($currentLink).attr('title');
+            this.linkTitle = jQuery($currentLink)[0].innerHTML;
         },
         'createOverlayElements': function (isNextGen) {
             // create div overlay
