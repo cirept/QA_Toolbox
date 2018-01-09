@@ -144,7 +144,7 @@
             this.cacheDOMOverlayElements($currentLink);
             this.createOverlayElements(false);
             this.buildOverlayElements(false);
-            this.attachToImage(true, $currentLink, $currentCard);
+            this.attachImageToImage($currentCard);
             return this.$divOverlay;
         },
         'cacheDOMOverlayElements': function ($currentLink /* , isNextGen*/ ) {
@@ -193,6 +193,19 @@
                 // console.log($currentCard);
                 // console.log($currentLink);
             }
+        },
+        'attachImageToImage': function ($currentImage) {
+            // make parent image relative positioning
+            this.toggleOverlayClass($currentImage);
+            // place div overlay onto image
+            $currentImage.before(this.$divOverlay);
+
+            if (this.nextGenCheck()) {
+                this.centerDiv($currentImage, this.$divOverlay);
+            }
+        },
+        'toggleOverlayClass': function (currentImage) {
+            jQuery(currentImage).toggleClass('overlaid');
         },
         'centerDiv': function ($currentImage, $divOverlay) {
             var parent = $currentImage.closest('figure');
