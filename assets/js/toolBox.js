@@ -4464,16 +4464,16 @@
                     'href': 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/jquery-ui-1.12.1.custom/jquery-ui.min.css',
                     'rel': 'stylesheet',
                 }),
-                /*
+                
                 '$toolStyles': jQuery('<link>').attr({
                     'id': 'toolStyles',
                     'href': 'https://rawgit.com/cirept/QA_Toolbox/' + GM_info.script.version + '/assets/css/toolbox.css', // eslint-disable-line camelcase
                     'rel': 'stylesheet',
                     'type': 'text/css',
-                }),*/
+                }),
                 '$toolStyles': jQuery('<link>').attr({
                     'id': 'mycss',
-                    'href': 'https://rawgit.com/cirept/QA_Toolbox/v1.92/assets/css/toolbox.css', // eslint-disable-line camelcase
+                    'href': 'https://rawgit.com/cirept/QA_Toolbox/v1.93/assets/css/toolbox.css', // eslint-disable-line camelcase
                     'rel': 'stylesheet',
                     'type': 'text/css',
                 }),
@@ -4491,7 +4491,7 @@
                 .append(main.config.$toolboxStyles)
                 .append(main.config.$myFont)
                 .append(main.config.$jQueryUIcss)
-                /*.append(main.config.$toolStyles)*/
+                .append(main.config.$toolStyles)
                 .append(main.config.$mycss)                
                 .append(main.config.$fontAw)
                 .append(main.config.$animate);
