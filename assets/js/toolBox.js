@@ -197,7 +197,7 @@
             // make parent image relative positioning
             //this.toggleOverlayClass($currentImage);
             // place div overlay onto image
-            $currentImage.before(this.$divOverlay);
+            $currentImage[0].before(this.$divOverlay);
             //this.centerOverlay($currentImage);
         },
         /*'CenterOverlay': function ($currentImage) {
