@@ -197,21 +197,19 @@
         },
         'attachImageToImage': function ($currentImage) {
             // make parent image relative positioning
-            console.log(jQuery($currentImage));
-            console.log(this.$divOverlay);
             this.toggleOverlayClass(jQuery($currentImage));
             // place div overlay onto image
             jQuery($currentImage).before(this.$divOverlay);
             this.CenterOverlay(jQuery($currentImage));
         },
         'CenterOverlay': function ($currentImage) {
-            var parent = $currentImage.closest('figure');
+            var parent = jQuery($currentImage).closest('figure');
             this.$divOverlay.css({
                 'left': parent.width() / 2 - this.widthOfImage / 2 + 'px',
             });
         },
         'toggleOverlayClass': function ($currentImage) {
-            $currentImage.toggleClass('overlaid');
+            jQuery($currentImage).toggleClass('overlaid');
         },
         'centerDiv': function ($currentImage, $divOverlay) {
             var parent = $currentImage.closest('figure');
