@@ -2805,6 +2805,7 @@
             this.createOverlayElements();
             this.buildOverlayElements();
             this.attachToImage($currentImage);
+            return this.$divOverlay;
         },
         'cacheDOMOverlayElements': function ($currentImage) {
             this.imageAlt = jQuery($currentImage)[0].innerHtml;
@@ -3199,9 +3200,7 @@
                 var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
                     var $currentImg = jQuery($currentCard.find('img')[0]);
-                    this.addDivOverlay($currentImg);
-                    //$linkOverlay = this.$divOverlay;
-                    $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
+                    $linkOverlay = this.addDivOverlay($currentImg);
                 } else {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
                 }
