@@ -3214,11 +3214,12 @@
                 } else {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
                 }
+                if (checkLinks.verifyTarget(jQuery($currentLink))) {
+                    $linkOverlay.addClass('opensWindow');
+                }
             }
             //
-            if (checkLinks.verifyTarget(jQuery($currentLink))) {
-                $linkOverlay.addClass('opensWindow');
-            }
+            
             checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
             //            var $linkOverlay;
