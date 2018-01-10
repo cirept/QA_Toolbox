@@ -196,6 +196,7 @@
         'attachImageToImage': function ($currentImage) {
             // make parent image relative positioning
             console.log($currentImage);
+            console.log($divOverlay);
             this.toggleOverlayClass($currentImage);
             // place div overlay onto image
             $currentImage[0].before(this.$divOverlay);
@@ -3155,7 +3156,7 @@
             if(isNextGen && isImageLink) {
                 var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
-                    var $currentImg = jQuery($currentCard.find('img')[0]);
+                    var $currentImg = jQuery($currentCard.find('img'));
                     $linkOverlay = shared.addImgOverlay(false, $currentLink, $currentImg);
                 } else {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
