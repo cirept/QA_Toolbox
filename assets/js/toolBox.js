@@ -3216,7 +3216,7 @@
                 }
             }
             //
-            if (checkLinks.verifyTarget($currentLink)) {
+            if (checkLinks.verifyTarget(jQuery($currentLink))) {
                 $linkOverlay.addClass('opensWindow');
             }
             checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
