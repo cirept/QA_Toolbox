@@ -207,7 +207,7 @@
             });
         },*/
         'toggleOverlayClass': function ($currentImage) {
-            jQuery($currentImage).toggleClass('overlaid');
+            $currentImage[0].toggleClass('overlaid');
         },
         'centerDiv': function ($currentImage, $divOverlay) {
             var parent = $currentImage.closest('figure');
