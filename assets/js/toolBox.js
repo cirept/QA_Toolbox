@@ -199,14 +199,14 @@
             this.toggleOverlayClass($currentImage);
             // place div overlay onto image
             $currentImage[0].before(this.$divOverlay);
-            this.CenterOverlay($currentImage);
+            //this.CenterOverlay($currentImage);
         },
-        'CenterOverlay': function ($currentImage) {
+        /*'CenterOverlay': function ($currentImage) {
             var parent = $currentImage.closest('figure');
             this.$divOverlay.css({
                 'left': parent.width() / 2 - this.widthOfImage / 2 + 'px',
             });
-        },
+        },*/
         'toggleOverlayClass': function ($currentImage) {
             $currentImage.toggleClass('overlaid');
         },
