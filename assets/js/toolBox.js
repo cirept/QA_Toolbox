@@ -144,7 +144,7 @@
             this.cacheDOMOverlayElements($currentLink);
             this.createOverlayElements(false);
             this.buildOverlayElements(false);
-            //this.attachImageToImage($currentImage);
+            this.attachImageToImage($currentImage);
             return this.$divOverlay;
         },
         'cacheDOMOverlayElements': function ($currentLink /* , isNextGen*/ ) {
