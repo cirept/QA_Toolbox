@@ -3212,8 +3212,9 @@
                 $currentLink.attr('target') === 'custom') {
                     $linkOverlay.addClass('opensWindow');
                 }
-                var currentURL = jQuery.trim(jQuery($currentLink).attr('href'));
-                /*if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) { // test for absolute path URLs
+                var href = $currentLink.attr('href');
+                /*var currentURL = jQuery.trim(jQuery($currentLink).attr('href'));
+                if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) { // test for absolute path URLs
                     $linkOverlay.addClass('otherDomain');
                 }*/
             }
