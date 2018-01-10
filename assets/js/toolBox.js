@@ -195,7 +195,7 @@
         },
         'attachImageToImage': function ($currentImage) {
             // make parent image relative positioning
-            //this.toggleOverlayClass($currentImage);
+            this.toggleOverlayClass($currentImage);
             // place div overlay onto image
             $currentImage[0].before(this.$divOverlay);
             //this.centerOverlay($currentImage);
@@ -205,10 +205,10 @@
             this.$divOverlay.css({
                 'left': parent.width() / 2 - this.widthOfImage / 2 + 'px',
             });
-        },
+        },*/
         'toggleOverlayClass': function ($currentImage) {
             jQuery($currentImage).toggleClass('overlaid');
-        },*/
+        },
         'centerDiv': function ($currentImage, $divOverlay) {
             var parent = $currentImage.closest('figure');
             $divOverlay.css({
