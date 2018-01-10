@@ -138,13 +138,13 @@
             this.attachToImage(isNextGen, $currentLink, $currentCard);
             return this.$divOverlay;
         },
-        'addImgOverlay': function (isNextGen, $currentLink, $currentCard) {
+        'addImgOverlay': function (isNextGen, $currentLink, $currentImage) {
             // sets $currentCard to null for tetra site checks
             $currentCard = $currentCard ? $currentCard : null;
             this.cacheDOMOverlayElements($currentLink);
             this.createOverlayElements(false);
             this.buildOverlayElements(false);
-            this.attachImageToImage($currentCard);
+            this.attachImageToImage($currentImage);
             return this.$divOverlay;
         },
         'cacheDOMOverlayElements': function ($currentLink /* , isNextGen*/ ) {
@@ -199,10 +199,7 @@
             this.toggleOverlayClass($currentImage);
             // place div overlay onto image
             $currentImage.before(this.$divOverlay);
-
-            if (this.nextGenCheck()) {
-                this.centerDiv($currentImage, this.$divOverlay);
-            }
+            this.centerDiv($currentImage, this.$divOverlay);
         },
         'toggleOverlayClass': function (currentImage) {
             jQuery(currentImage).toggleClass('overlaid');
