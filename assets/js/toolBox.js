@@ -200,7 +200,7 @@
             console.log(this.$divOverlay);
             this.toggleOverlayClass(jQuery($currentImage));
             // place div overlay onto image
-            jQuery($currentImage).before(this.$divOverlay);
+            jQuery($currentImage[0]).before(this.$divOverlay);
             this.CenterOverlay(jQuery($currentImage));
         },
         'CenterOverlay': function ($currentImage) {
