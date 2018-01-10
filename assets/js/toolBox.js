@@ -201,7 +201,7 @@
             this.centerOverlay($currentImage);
         },
         'CenterOverlay': function ($currentImage) {
-            var parent = $currentImage[0].closest('figure');
+            var parent = $currentImage.closest('figure');
             this.$divOverlay.css({
                 'left': parent.width() / 2 - this.widthOfImage / 2 + 'px',
             });
