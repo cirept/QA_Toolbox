@@ -3140,6 +3140,13 @@
             }
             return false;
         },
+        'verifyTarget': function ($currentLink) {
+            if ($currentLink.attr('target') === '_blank' ||
+                $currentLink.attr('target') === '_new' ||
+                $currentLink.attr('target') === 'custom') {
+                return true;
+            }
+        },
         // checks the data returned for KEY 404 indentifiers
         // will return TRUE if a identifier is found
         // will return FALSE if no identifier is found
@@ -3196,6 +3203,7 @@
             } else {
                 isImageLink = false;
             }
+            //If card-clickable-v2, we want to only overlay the img, as the rest of the card could have links
             if(isNextGen && isImageLink) {
                 var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
@@ -3206,6 +3214,10 @@
                 } else {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
                 }
+            }
+            //
+            if (checkLinks.verifyTarget($currentLink)) {
+                $linkOverlay.addClass('opensWindow');
             }
             checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
