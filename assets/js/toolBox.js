@@ -143,8 +143,7 @@
             this.cacheDOMOverlayElements($currentLink);
             this.createOverlayElements(isNextGen);
             this.buildOverlayElements(isNextGen);
-            console.log($currentImage[0]);
-            console.log(this.$divOverlay);
+            
             //this.attachImageToImage($currentImage);
             return this.$divOverlay;
         },
