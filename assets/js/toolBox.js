@@ -205,7 +205,7 @@
             this.$divOverlay.css({
                 'left': parent.width() / 2 - this.widthOfImage / 2 + 'px',
             });
-        }
+        },
         'toggleOverlayClass': function ($currentImage) {
             jQuery($currentImage).toggleClass('overlaid');
         },
