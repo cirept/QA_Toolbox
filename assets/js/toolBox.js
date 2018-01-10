@@ -2799,9 +2799,51 @@
 
             checkLinks.config.$offButt.on('click', this.showLegend);
         },
+        //Img Overlay Functions for Card-Clickable-V2
+        'addDivOverlay': function ($currentImage) {
+            this.cacheDOMOverlayElements($currentImage);
+            this.createOverlayElements();
+            this.buildOverlayElements();
+            this.attachToImage($currentImage);
+        },
+        'cacheDOMOverlayElements': function ($currentImage) {
+            this.imageAlt = jQuery($currentImage)[0].innerHtml;
+            // gets sizing of images
+            this.widthOfImage = jQuery($currentImage).width();
+            this.heightOfImage = jQuery($currentImage).height();
+        },
+        'createOverlayElements': function () {
+            // create div overlay
+            this.$divOverlay = jQuery('<div>').attr({
+                'class': 'imgOverlay',
+            });
+        },
+        'buildOverlayElements': function () {
+            // make the div overlay the same dimensions as the image
+            this.$divOverlay.css({
+                'width': this.widthOfImage + 'px',
+                'height': this.heightOfImage + 'px',
+            });
+        },
+        'attachToImage': function ($currentImage) {
+            // make parent image relative positioning
+            this.toggleOverlayClass($currentImage);
+            // place div overlay onto image
+            $currentImage
+                .before(this.$divOverlay);
+
+            if (shared.nextGenCheck()) {
+                this.$divOverlay =
+                    shared.centerDiv($currentImage, this.$divOverlay);
+            }
+        },
+        'toggleOverlayClass': function (currentImage) {
+            jQuery(currentImage).toggleClass('overlaid');
+        },
         // ----------------------------------------
         // tier 1 functions
         // ----------------------------------------
+
         'platformChooser': function () {
             var isNextGen = shared.nextGenCheck();
             if (isNextGen) {
@@ -3157,7 +3199,8 @@
                 var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
                     var $currentImg = jQuery($currentCard.find('img')[0]);
-                    $linkOverlay = shared.addImgOverlay(false, $currentLink, $currentImg);
+                    this.addDivOverlay($currentImg);
+                    $linkOverlay = this.$divOverlay;
                 } else {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
                 }
