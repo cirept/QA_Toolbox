@@ -208,7 +208,7 @@
             });
         },
         'toggleOverlayClass': function ($currentImage) {
-            $currentImage[0].toggleClass('overlaid');
+            $currentImage.toggleClass('overlaid');
         },
         'centerDiv': function ($currentImage, $divOverlay) {
             var parent = $currentImage.closest('figure');
