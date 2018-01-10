@@ -196,8 +196,6 @@
         },
         'attachImageToImage': function ($currentImage) {
             // make parent image relative positioning
-            console.log(jquery($currentImage));
-            console.log(this.$divOverlay);
             this.toggleOverlayClass(jQuery($currentImage));
             // place div overlay onto image
             jQuery($currentImage[0]).before(this.$divOverlay);
@@ -921,6 +919,7 @@
         },
         'attachToImage': function ($currentImage) {
             // make parent image relative positioning
+            console.log($currentImage);
             this.toggleOverlayClass($currentImage);
             // place div overlay onto image
             $currentImage
