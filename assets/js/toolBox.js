@@ -141,8 +141,8 @@
         'addImgOverlay': function (isNextGen, $currentLink, $currentImage) {
             // sets $currentCard to null for tetra site checks
             this.cacheDOMOverlayElements($currentLink);
-            this.createOverlayElements(false);
-            this.buildOverlayElements(false);
+            this.createOverlayElements(isNextGen);
+            this.buildOverlayElements(isNextGen);
             this.attachImageToImage($currentImage);
             return this.$divOverlay;
         },
