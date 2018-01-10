@@ -3211,7 +3211,10 @@
                 $currentLink.attr('target') === '_new' ||
                 $currentLink.attr('target') === 'custom') {
                     $linkOverlay.addClass('opensWindow');
-                }   
+                }
+                if (linkURL.indexOf('www') > -1 || linkURL.indexOf('://') > -1) { // test for absolute path URLs
+                    $linkOverlay.addClass('otherDomain');
+                }
             }
             //
             
