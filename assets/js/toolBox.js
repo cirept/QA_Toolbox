@@ -3140,13 +3140,6 @@
             }
             return false;
         },
-        'verifyTarget': function ($currentLink) {
-            if ($currentLink.attr('target') === '_blank' ||
-                $currentLink.attr('target') === '_new' ||
-                $currentLink.attr('target') === 'custom') {
-                return true;
-            }
-        },
         // checks the data returned for KEY 404 indentifiers
         // will return TRUE if a identifier is found
         // will return FALSE if no identifier is found
@@ -3214,9 +3207,11 @@
                 } else {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
                 }
-                if (checkLinks.verifyTarget(jQuery($currentLink))) {
+                if ($currentLink.attr('target') === '_blank' ||
+                $currentLink.attr('target') === '_new' ||
+                $currentLink.attr('target') === 'custom') {
                     $linkOverlay.addClass('opensWindow');
-                }
+                }   
             }
             //
             
