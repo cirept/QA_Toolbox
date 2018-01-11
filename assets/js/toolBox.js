@@ -3212,14 +3212,17 @@
                 $currentLink.attr('target') === 'custom') {
                     $linkOverlay.addClass('opensWindow');
                 }
-                debugger;
                 var href = jQuery($currentLink).attr('href');
-                /*var currentURL = jQuery.trim(jQuery($currentLink).attr('href'));
-                if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) { // test for absolute path URLs
-                    $linkOverlay.addClass('otherDomain');
-                }*/
+                //try in case theres a problem with href
+                try {
+                    var currentURL = jQuery.trim(href);
+                    if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) { // test for absolute path URLs
+                        $linkOverlay.addClass('otherDomain');
+                    }
+                } catch (e) {
+                }
             }
-            //
+            
             
             checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
