@@ -4580,7 +4580,7 @@
                 }),
                 '$toolStyles': jQuery('<link>').attr({
                     'id': 'mycss',
-                    'href': 'https://rawgit.com/cirept/QA_Toolbox/5.50/assets/css/toolbox.css', // eslint-disable-line camelcase
+                    'href': 'https://rawgit.com/cirept/QA_Toolbox/5.51/assets/css/toolbox.css', // eslint-disable-line camelcase
                     'rel': 'stylesheet',
                     'type': 'text/css',
                 }),
