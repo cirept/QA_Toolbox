@@ -3239,7 +3239,7 @@
                 'method': 'get',
                 'dataType': 'html',
                 'success': function (data) {
-
+                    debugger;
                     if (!isNextGen) {
                         // checks to see if link is an image link
                         hasImage = $currentLink.has('img').length;
