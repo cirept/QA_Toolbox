@@ -2985,9 +2985,10 @@
             }
         },
         'checkCard': function ($currentCard) {
-            var $cardLinkContainer = $currentCard.find('div.link');
-            var $cardSEOContainer = $currentCard.find('div.copy');
-            var $cardImageContainer = $currentCard.find('div.media');
+            // debugger;
+            var $cardLinkContainer = $currentCard.children('div.content').find('div.link');
+            var $cardSEOContainer = $currentCard.children('div.content').find('div.copy');
+            var $cardImageContainer = $currentCard.children('div.content').find('div.media');
             var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
             var isImageLink = false;
             var $cardLinks;
@@ -3002,6 +3003,7 @@
                 // ----------------------------------------
                 // get all links defined in card
                 // should include all primary, secondary, and tenary links
+                // debugger;
                 $cardLinks = $cardLinkContainer.find('a'); // this is an array
                 meLength = $cardLinks.length;
                 if (meLength > 0) {
@@ -3239,7 +3241,6 @@
                 'method': 'get',
                 'dataType': 'html',
                 'success': function (data) {
-                    debugger;
                     if (!isNextGen) {
                         // checks to see if link is an image link
                         hasImage = $currentLink.has('img').length;
@@ -3276,7 +3277,6 @@
                             $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
 
                         }*/
-
                         // If value is false all class modifications should be done to the link itself
                         pageError404 = checkLinks.checkFor404(data);
 
