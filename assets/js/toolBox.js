@@ -3214,9 +3214,10 @@
                 }
                 var href = jQuery($currentLink).attr('href');
                 //try in case theres a problem with href
+                debugger;
                 try {
                     var currentURL = jQuery.trim(href);
-                    if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) { // test for absolute path URLs
+                    if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) {
                         $linkOverlay.addClass('otherDomain');
                     }
                 } catch (e) {
