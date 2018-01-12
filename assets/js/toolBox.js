@@ -138,15 +138,6 @@
             this.attachToImage(isNextGen, $currentLink, $currentCard);
             return this.$divOverlay;
         },
-        'addImgOverlay': function (isNextGen, $currentLink, $currentImage) {
-            // sets $currentCard to null for tetra site checks
-            this.cacheDOMOverlayElements($currentLink);
-            this.createOverlayElements(isNextGen);
-            this.buildOverlayElements(isNextGen);
-            
-            //this.attachImageToImage($currentImage);
-            return this.$divOverlay;
-        },
         'cacheDOMOverlayElements': function ($currentLink /* , isNextGen*/ ) {
             // IF NEXTGEN SITE
             this.widthOfImage = $currentLink.find('img').width();
@@ -193,19 +184,6 @@
                 // console.log($currentCard);
                 // console.log($currentLink);
             }
-        },
-        'attachImageToImage': function ($currentImage) {
-            // make parent image relative positioning
-            this.toggleOverlayClass(jQuery($currentImage));
-            // place div overlay onto image
-            jQuery($currentImage[0]).before(this.$divOverlay);
-            this.CenterOverlay(jQuery($currentImage));
-        },
-        'CenterOverlay': function ($currentImage) {
-            var parent = jQuery($currentImage).closest('figure');
-            this.$divOverlay.css({
-                'left': parent.width() / 2 - this.widthOfImage / 2 + 'px',
-            });
         },
         'toggleOverlayClass': function ($currentImage) {
             jQuery($currentImage).toggleClass('overlaid');
@@ -3226,7 +3204,7 @@
             }
             
             
-            checkLinks.showURL($currentLink, isImageLink, $linkOverlay);
+            checkLinks.showURL($currentLink, isImageLink, $linkOverlay, linkURL);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
             //            var $linkOverlay;
             //            var pageError404;
@@ -3324,7 +3302,36 @@
         },
 
         'showURL': function ($currentLink, isImageLink, $linkOverlay) {
-            var linkURL = " "+jQuery.trim($currentLink.attr('href'));
+            var linkURL = jQuery.trim($currentLink.attr('href'));
+            //Use Co 
+            //try {
+            //     jQuery.get(linkURL, function (data) {
+            //         var i = 0;  
+            //         //parse the pageLabel from the contextManager                   
+            //         var firstLetter = 12+data.indexOf('pageLabel', data.indexOf('ContextManager'));
+            //         var lastLetter = data.indexOf('"', firstLetter);
+            //         var pageLabel = "";
+            //         for(i=firstLetter; i <lastLetter; i++) {
+            //             pageLabel+=data[i];
+            //         }
+            //         var append = "URL: "+linkURL+" PAGELABEL: "+pageLabel;
+            //         if(isImageLink) {
+            //             if($linkOverlay[0].innerHTML.indexOf(append) == -1) {
+            //                 if($linkOverlay != null) {
+            //                     $linkOverlay.append(append);
+            //                 }
+            //             }
+            //         } else {
+            //             if($currentLink[0].innerHTML.indexOf(append) == -1) {
+            //                 $currentLink.append(append);
+            //             }
+            //         }
+                    
+                    
+                   
+            //     }, 'html');
+            // } catch (e) {
+            linkURL=" Url: "+linkURL;
             if(isImageLink) {
                 if($linkOverlay[0].innerHTML.indexOf(linkURL) == -1) {
                     if($linkOverlay != null) {
