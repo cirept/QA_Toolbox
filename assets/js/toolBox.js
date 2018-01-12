@@ -1742,6 +1742,7 @@
             var bannedWords = [];
             var text, pElm, elm, unmarked;
             var self = this;
+
             var franchises=unsafeWindow.ContextManager.getFranchises();
             //highlight banned words for every OEM related to this
             for(var f =0, len = franchises.length; f < len; f++) {
@@ -1750,6 +1751,7 @@
                 if(!bannedWords) {
                     return;
                 }
+
                 //Check page for banned words
                 wordList.forEach(function (n) {
                     var lowerText = n.nodeValue.toLowerCase();
