@@ -1669,6 +1669,7 @@
          * Gets all text on page and tests words against custom dictionary
          */
         'spellCheckPage': function () {
+            spellCheck.bannedWords();
             var dictionary = new Typo('en_US', false, false, {
                 'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/addingAutofillTags/typo/dictionaries/',
                 //                'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/master/typo/dictionaries/',
@@ -1683,7 +1684,6 @@
 
             // get all visible text on page
             wordList = this.treeWalk();
-
             wordList.forEach(function (n) {
                 // get all text on the page
                 text = n.nodeValue;
@@ -1716,10 +1716,64 @@
                 if (!pElm) {
                     pElm = elm;
                 } else if (!pElm.contains(elm)) {
-                    self.replaceMarkers(pElm);
+                    self.replaceMarkers(pElm, true);
                     pElm = elm;
                 }
             });
+            
+        },
+        /**
+        * Highlight all banned words associated with this OEM
+        */
+        'bannedWords': function () {
+            var wordList = this.treeWalk();
+            var bannedWords = [];
+            var text, pElm, elm, unmarked;
+            var self = this;
+            var franchises=unsafeWindow.ContextManager.getFranchises();
+            //highlight banned words for every OEM related to this
+            //for(var f =0, len = franchises.length; f < len; f++) {
+                //get banned phrases from OEM franchise
+                bannedWords=["special allocation", "special allotment", "special acquisition", "factory authorized", "factory challenge", "manufacturer authorized", "manufacturer challenge", "INFINITI authorized", "INFINITI challenge", "volume discount", "volume savings", "outlet", "liquidation", "liquidate", "liquidating", "blowout", "blowing them out", "bail out", "sell off", "sell down", "close out", "closing them out", "clear out", "clean out", "overstocked", "inventory sell-a-thon", "we will not be undersold", "won’t be undersold", "nobody undersells", "priced too low to advertise", "so low they can’t be advertised", "no haggle", "retailer cost", "our cost", "meet", "beat", "match", "finance anyone", "Bad credit? No problem."];
+                //Check page for banned words
+                wordList.forEach(function (n) {
+                    var lowerText = n.nodeValue.toLowerCase();
+                    text = n.nodeValue;
+
+                    elm = n.parentElement;
+
+                    // skip iteration if no words are found
+                     if (!(text.match(/[%’'\w]+/g))) {
+                        return;
+                    }
+                    //test text against banned words
+                    for(var w=0, length = bannedWords.length; w<length; w++) {
+                        var startIndex = 0, curIndex=0;
+                        var words = bannedWords[w];
+                        var word;
+                        var searchLen = words.length;
+                        //find every instance of banned word
+                        while((curIndex = lowerText.indexOf(words.toLowerCase(), startIndex)) > -1) {
+                           
+                            startIndex = curIndex+searchLen;
+                            word = lowerText.slice(curIndex, curIndex+searchLen);
+                            unmarked = new RegExp('\(' + word + '\)(?!@~~)', 'g');
+                            text = text.replace(unmarked, '~~@$&@~~');
+                        }
+                    }
+
+                    n.nodeValue = text;
+                    
+
+                    if (!pElm) {
+                        pElm = elm;
+                    } else if (!pElm.contains(elm)) {
+                        debugger;
+                        self.replaceMarkers(pElm, false);
+                        pElm = elm;
+                    }
+                });
+            //}
         },
         /**
          * Toggle the tools legend
@@ -1744,10 +1798,15 @@
                 .replace(/^'*(.*?)'*$/, '$1')
                 .replace('%', '\%');
         },
-        'replaceMarkers': function (elm) {
+        'replaceMarkers': function (elm, spelling) {
             if (elm) {
-                elm.innerHTML = elm.innerHTML
-                    .replace(/~~@(.*?)@~~/g, '<span class="spell-check misspelled">$1</span>');
+                if(spelling) {
+                    elm.innerHTML = elm.innerHTML
+                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check misspelled">$1</span>');
+                } else {
+                    elm.innerHTML = elm.innerHTML
+                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
+                }
             }
         },
         'removeHighlights': function () {
