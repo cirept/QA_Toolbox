@@ -1554,7 +1554,10 @@
     // **************************************** Spell Check ****************************************
     // ********************************************************************************
     var spellCheck = {
+
         'init': function (callingPanel) {
+            
+            this.bannedWordsMap();
             this.createElements();
             this.buildLegend();
             this.cacheDOM(callingPanel);
@@ -1666,6 +1669,13 @@
             }
             return wordArray;
         },
+        'bannedWordsMap': function() {
+            spellCheck.OEMap = new Map();
+            this.OEMap.set('INFINITI', ["Huge Savings", "Best Savings", "Aggressive Deals", "Aggressive Savings", "special allocation", "special allotment", "special acquisition", "factory authorized", "factory challenge", "manufacturer authorized", "manufacturer challenge", "INFINITI authorized", "INFINITI challenge", "volume discount", "volume savings", "outlet", "liquidation", "liquidate", "liquidating", "blowout", "blowing them out", "bail out", "sell off", "sell down", "close out", "closing them out", "clear out", "clean out", "overstocked", "inventory sell-a-thon", "we will not be undersold", "won’t be undersold", "nobody undersells", "priced too low to advertise", "so low they can’t be advertised", "no haggle", "retailer cost", "our cost", "meet", "beat", "match", "finance anyone", "Bad credit? No problem.", "thousands off MSRP",  "half off MSRP", "Invoice", "Below Invoice",  "Under Invoice", "Discount", "Clearance", "Reduction", "Rebates", "Cash Back", "Coupon", "Dealer Incentives", "Factory Incentives", "Cash Incentives", "We pay sales tax."]);
+            this.OEMap.set('Nissan', ["allocation", "allotment", "special acquisition", "special purchase", "special pricing", "special offer", "factory challenge", "factory challenged", "manufacturer authorized", "manufacturer challenge", "special test market", "volume discount", "outlet", "factory outlet", "headquarters", "factory authorized", "manufacturer challenged", "Nissan authorized", "Nissan challenge", "Nissan challenged", "Nissan-approved sale", "Nissan-suggested sale", "liquidate", "blowout", "distress", "bailout", "we will not be undersold", "sell off", "sell down", "clearance", "prices too low to advertise", "overstock", "meet", "beat", "match", "unbeatable", "deal beater", "surpass", "crush", "wholesale", "invoice", "Dealer cost", "employee cost", "our cost", "employee pricing", "guaranteed lowest price", "lowest price guaranteed", "lowest price guarantee", "inventory reduction", "reduce our inventory", "inventory disposal", "disposal", "save thousands", "thousands off", "thousands in savings", "% off", "save %", "% in savings"]);
+            this.OEMap.set('Mazda', ["liquidate", "overstocked", "clearance", "employee", "pricing", "closeout", "blowout", "supplier pricing", "red tag sale", "fleet pricing", "S-Plan", "buy one, get one", "BOGO", "meet", "beat", "match", "special allocation", "special pricing", "special test marketing", "member pricing", "special allowance", "special program", "special discount", "biggest", "newest", "best", "largest", "#1", "cost", "factory", "invoice"]);
+            this.OEMap.set('Cadillac', ["Bargain", "Below invoice", "Blowout", "Clearance", "Close-out", "Dealer discounts available", "Dealer invoice", "Discount", "Factory-authorized sale", "Factory-authorized pricing", "Factory-to-dealer incentives", "Free", "Guaranteed low price", "Inventory reduction", "Invoice price", "Invoice sale", "Liquidation sale", "blowout sale", "inventory reduction sale", "Markdown", "Official lease termination center", "Outlet sales", "Overstocked", "Savings", "Special allocation", "Special purchase", "The price will never be lower", "We’ll finance anyone", "We’ll meet or beat any price", "Luxury for Less", "Free Maintenance", "Maintenance Free", "No Charge Maintenance", "Volume discount from Cadillac", "Volume discount from GM", "The Cadillac store/outlet", "Cadillac’s official tri-county dealer", "Official lease termination center", "Official Cadillac service center", "Official GM service center", "Your exclusive Cadillac dealer", "We service all GM new vehicles"]);
+        },
         /**
          * Gets all text on page and tests words against custom dictionary
          */
@@ -1727,15 +1737,19 @@
         * Highlight all banned words associated with this OEM
         */
         'bannedWords': function () {
+
             var wordList = this.treeWalk();
             var bannedWords = [];
             var text, pElm, elm, unmarked;
             var self = this;
             var franchises=unsafeWindow.ContextManager.getFranchises();
             //highlight banned words for every OEM related to this
-            //for(var f =0, len = franchises.length; f < len; f++) {
+            for(var f =0, len = franchises.length; f < len; f++) {
                 //get banned phrases from OEM franchise
-                bannedWords=["special allocation", "special allotment", "special acquisition", "factory authorized", "factory challenge", "manufacturer authorized", "manufacturer challenge", "INFINITI authorized", "INFINITI challenge", "volume discount", "volume savings", "outlet", "liquidation", "liquidate", "liquidating", "blowout", "blowing them out", "bail out", "sell off", "sell down", "close out", "closing them out", "clear out", "clean out", "overstocked", "inventory sell-a-thon", "we will not be undersold", "won’t be undersold", "nobody undersells", "priced too low to advertise", "so low they can’t be advertised", "no haggle", "retailer cost", "our cost", "meet", "beat", "match", "finance anyone", "Bad credit? No problem."];
+                bannedWords=self.OEMap.get(franchises[f])
+                if(!bannedWords) {
+                    return;
+                }
                 //Check page for banned words
                 wordList.forEach(function (n) {
                     var lowerText = n.nodeValue.toLowerCase();
@@ -1755,7 +1769,7 @@
                         var searchLen = words.length;
                         //find every instance of banned word
                         while((curIndex = lowerText.indexOf(words.toLowerCase(), startIndex)) > -1) {
-                           
+                            //“$XXXX Savings,” “$XXXX Discount,” “$XXXX Off,” “XX% Off,” “Save$XXXX,” “Save XX%,” “Save $XXXX off MSRP,” need regular expressions  
                             startIndex = curIndex+searchLen;
                             word = lowerText.slice(curIndex, curIndex+searchLen);
                             unmarked = new RegExp('\(' + word + '\)(?!@~~)', 'g');
@@ -1769,12 +1783,11 @@
                     if (!pElm) {
                         pElm = elm;
                     } else if (!pElm.contains(elm)) {
-                        debugger;
                         self.replaceMarkers(pElm, false);
                         pElm = elm;
                     }
                 });
-            //}
+            }
         },
         /**
          * Toggle the tools legend
