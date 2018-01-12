@@ -1590,6 +1590,7 @@
                 }),
                 '$legendContent': {
                     'spell-check misspelled': 'word misspelled',
+                    'spell-check banned': 'Banned by OEM',
                 },
             };
         },
@@ -4646,7 +4647,7 @@
                 }),
                 '$toolStyles': jQuery('<link>').attr({
                     'id': 'mycss',
-                    'href': 'https://rawgit.com/cirept/QA_Toolbox/5.54/assets/css/toolbox.css', // eslint-disable-line camelcase
+                    'href': 'https://rawgit.com/cirept/QA_Toolbox/5.55/assets/css/toolbox.css', // eslint-disable-line camelcase
                     'rel': 'stylesheet',
                     'type': 'text/css',
                 }),
