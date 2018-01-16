@@ -1594,7 +1594,7 @@
                     'spell-check misspelled': 'word misspelled',
                     'spell-check banned': 'Banned by OEM',
                 },
-                'OEMBannedWordsFile': 'https://cdn.rawgit.com/cirept/QA_Toolbox/bw1.1/resources/OEM_Banned_Words.json',  
+                'OEMBannedWordsFile': 'https://cdn.rawgit.com/cirept/QA_Toolbox/bw1.2/resources/OEM_Banned_Words.json',  
             };
         },
         /**
