@@ -1761,8 +1761,8 @@
             //highlight banned words for every OEM related to this
             for(var f =0, len = franchises.length; f < len; f++) {
                 //get banned phrases from OEM franchise
-                bannedWords=self.OEMap.get(franchises[f])
-                debugger;
+                bannedWords=self.OEMap.get(franchises[f]);
+
                 if(!bannedWords) {
                     return;
                 }
@@ -1782,16 +1782,9 @@
                     for(var w=0, length = bannedWords.length; w<length; w++) {
                         var startIndex = 0, curIndex=0;
                         var words = bannedWords[w];
-                        var word;
-                        var searchLen = words.length;
-                        //find every instance of banned word
-                        while((curIndex = text.toLowerCase().indexOf(words.toLowerCase(), startIndex)) > -1) {
-                            //“$XXXX Savings,” “$XXXX Discount,” “$XXXX Off,” “XX% Off,” “Save$XXXX,” “Save XX%,” “Save $XXXX off MSRP,” need regular expressions
-                            startIndex = curIndex+searchLen;
-                            word = text.slice(curIndex, curIndex+searchLen);
-                            unmarked = new RegExp('\(' + word + '\)(?!@~~)', 'g');
-                            text = text.replace(unmarked, '~~@$&@~~');
-                        }
+                        unmarked = new RegExp('\(' + words + '\)(?!@~~)', 'g');
+                        text = text.replace(unmarked, '~~@$&@~~');
+
                     }
 
                     n.nodeValue = text;
