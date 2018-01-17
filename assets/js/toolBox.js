@@ -1594,7 +1594,7 @@
                     'spell-check misspelled': 'word misspelled',
                     'spell-check banned': 'Banned by OEM',
                 },
-                'OEMBannedWordsFile': 'https://cdn.rawgit.com/cirept/QA_Toolbox/bw1.3/resources/OEM_Banned_Words.json',  
+                'OEMBannedWordsFile': 'https://rawgit.com/cirept/QA_Toolbox/bw1.3/resources/OEM_Banned_Words.json',  
             };
         },
         /**
@@ -1669,20 +1669,23 @@
             }
             return wordArray;
         },
-        'bannedWordsMap': function() {
-           
-            var OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;
-                            
+        'bannedWordsMap': function() {       
+            spellCheck.OEMap = new Map();   
+            var OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;    
             $.getJSON(OEMBannedWordsFile, function(d) {
-                alert("success");
-            }).fail( function(d, textStatus, error) {
-                debugger;
-                console.error("getJSON failed, status: " + textStatus + ", error: "+error)
+                
+                var items = new Map();
+                $.each(d, function(key, value) {
+                    spellCheck.OEMap.set(key, value.sort(function(a, b) {
+                      return a.length - b.length || a.localeCompare(b);    
+                    }));
+                })
+                
             });
                              
 
-            spellCheck.OEMap = new Map();
-            this.OEMap.set('INFINITI', ["Huge Savings", "Best Savings", "Aggressive Deals", "Aggressive Savings", "special allocation", "special allotment", "special acquisition", "factory authorized", "factory challenge", "manufacturer authorized", "manufacturer challenge", "INFINITI authorized", "INFINITI challenge", "volume discount", "volume savings", "outlet", "liquidation", "liquidate", "liquidating", "blowout", "blowing them out", "bail out", "sell off", "sell down", "close out", "closing them out", "clear out", "clean out", "overstocked", "inventory sell-a-thon", "we will not be undersold", "won’t be undersold", "nobody undersells", "priced too low to advertise", "so low they can’t be advertised", "no haggle", "retailer cost", "our cost", "meet", "beat", "match", "finance anyone", "Bad credit? No problem.", "thousands off MSRP",  "half off MSRP", "Invoice", "Below Invoice",  "Under Invoice", "Discount", "Clearance", "Reduction", "Rebates", "Cash Back", "Coupon", "Dealer Incentives", "Factory Incentives", "Cash Incentives", "We pay sales tax"]);
+            
+            /*this.OEMap.set('INFINITI', ["Huge Savings", "Best Savings", "Aggressive Deals", "Aggressive Savings", "special allocation", "special allotment", "special acquisition", "factory authorized", "factory challenge", "manufacturer authorized", "manufacturer challenge", "INFINITI authorized", "INFINITI challenge", "volume discount", "volume savings", "outlet", "liquidation", "liquidate", "liquidating", "blowout", "blowing them out", "bail out", "sell off", "sell down", "close out", "closing them out", "clear out", "clean out", "overstocked", "inventory sell-a-thon", "we will not be undersold", "won’t be undersold", "nobody undersells", "priced too low to advertise", "so low they can’t be advertised", "no haggle", "retailer cost", "our cost", "meet", "beat", "match", "finance anyone", "Bad credit? No problem.", "thousands off MSRP",  "half off MSRP", "Invoice", "Below Invoice",  "Under Invoice", "Discount", "Clearance", "Reduction", "Rebates", "Cash Back", "Coupon", "Dealer Incentives", "Factory Incentives", "Cash Incentives", "We pay sales tax"]);
             this.OEMap.set('Nissan', ["allocation", "allotment", "special acquisition", "special purchase", "special pricing", "special offer", "factory challenge", "factory challenged", "manufacturer authorized", "manufacturer challenge", "special test market", "volume discount", "outlet", "factory outlet", "headquarters", "factory authorized", "manufacturer challenged", "Nissan authorized", "Nissan challenge", "Nissan challenged", "Nissan-approved sale", "Nissan-suggested sale", "liquidate", "blowout", "distress", "bailout", "we will not be undersold", "sell off", "sell down", "clearance", "prices too low to advertise", "overstock", "meet", "beat", "match", "unbeatable", "deal beater", "surpass", "crush", "wholesale", "invoice", "Dealer cost", "employee cost", "our cost", "employee pricing", "guaranteed lowest price", "lowest price guaranteed", "lowest price guarantee", "inventory reduction", "reduce our inventory", "inventory disposal", "disposal", "save thousands", "thousands off", "thousands in savings", "% off", "save %", "% in savings"]);
             this.OEMap.set('Mazda', ["liquidate", "overstocked", "clearance", "employee", "pricing", "closeout", "blowout", "supplier pricing", "red tag sale", "fleet pricing", "S-Plan", "buy one, get one", "BOGO", "meet", "beat", "match", "special allocation", "special pricing", "special test marketing", "member pricing", "special allowance", "special program", "special discount", "biggest", "newest", "best", "largest", "#1", "cost", "factory", "invoice"]);
             this.OEMap.set('Ford', ["above cost", "below cost", "at cost", "above invoice", "below invoice", "at invoice", "dealer invoice", "factory invoice", "dealer cost", "wholesale cost", "guaranteed credit approval", "no credit rejected", "all credit accepted", "we finance everyone", "bad credit, no problem", "liquidation", "good credit, bad credit—all applications accepted", "factory authorized", "factory challenged", "authorized distribution center", "public notice", "public sale", "discount center", "wholesale center", "outlet", "warehouse", "warehouse store", "warehouse price", "you qualify for a new test-marketing program", "special purchase", "special pricing", "pricing so low, it’s like buying from the factory", "Buy-back", "supplier or employee pricing for everyone", "employee pricing for everyone", "supplier pricing for everyone", "program headquarters", "bailout", "we will not be undersold"]);
@@ -1699,13 +1702,13 @@
             this.OEMap.set('Lexus', ["Above Cost", "Below Cost", "At Cost", "Guaranteed Lowest Price", "Above Invoice", "Below Invoice", "At Invoice", "Liquidation", "Acronyms W.A.", "and O.A.", "Low Price Guaranteed", "As seen on TV ", "Bad Credit, No Problem", "No Credit Rejected", "Overstocked", "Clearance ", "Price Protection Guarantee", "Dealer Cost ", "Rebate", "Cash Rebate", "Dealer Invoice ", "We Finance Everyone", "Factory Invoice ", "We Won’t be Undersold", "Good Credit, Bad Credit-All Applications Accepted ", "Wholesale Cost", "Guaranteed Credit Approval"]);
             this.OEMap.set('Kia', ["liquidation", "discount center", "wholesale center", "outlet", "warehouse", "2-for-1 sale", "buy 1 get 1 free", "cost", "pricing so low it’s like buying from the factory", "meet", "beat", "match", "we will not be undersold", "we honor all dealers' ads", "bring the competition to us", "employee cost", "price protection guarantee", "sell-off", "sell-down", "closeout", "clear-out", "blowout", "bailout", "volume discount", "everyone approved", "finance price", "best price guaranteed", "inventory reduction", "special price", "special purchase", "clearance", "biggest", "largest", "Factory authorized", "Factory outlet", "Special allocation", "Special allotment", "Special acquisition", "We have been authorized", "Headquarters"]);
             this.OEMap.set('Lincoln', ["Above cost", "Below cost", "At cost", "Dealer cost", "Wholesale cost", "Above invoice", "Below invoice", "At invoice", "Invoice", "Dealer invoice", "Factory invoice", "Warehouse Price", "Special pricing", "Special purchase ", "Lowest price guarantee", "Best price guarantee", "Pricing so low", "it’s like buying from the factory", "Supplier pricing for everyone", "Employee pricing for everyone", "Guaranteed credit approval", "No credit rejected", "All credit accepted", "We finance anyone", "Bad credit", "no problem", "Good credit", "bad credit-all applications accepted", "Factory authorized", "Lincoln authorized", "Manufacturer authorized", "Authorized distribution center", "Special allocation", "Special allotment", "Special acquisition", "Program headquarters", "You qualify for a new test-marketing program", "Liquidation", "Volume discount", "Factory challenged", "Lincoln challenged", "Public notice", "Public sale", "Discount center", "Wholesale center",  "Warehouse store", "Outlet", "Warehouse", "Bailout", "Closeout", "Blowout", "Clear-out", "Cleanout", "We will not be undersold", "Meet Inventory reduction", "Beat inventory reduction", "Match inventory reduction", "Inventory sell-a-thon", "Holdback", "Buy Back", "Clearance", "Discount packages", "Free", "No Charge"]);
-            this.OEMap.set('Mini', ["hottest bottom line deals around"]);
+            this.OEMap.set('Mini', ["hottest bottom line deals around"]);*/
         },
         /**
          * Gets all text on page and tests words against custom dictionary
          */
         'spellCheckPage': function () {
-            spellCheck.bannedWords();
+            
             var dictionary = new Typo('en_US', false, false, {
                 'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/addingAutofillTags/typo/dictionaries/',
                 //                'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/master/typo/dictionaries/',
@@ -1756,7 +1759,7 @@
                     pElm = elm;
                 }
             });
-            
+            spellCheck.bannedWords();
         },
         /**
         * Highlight all banned words associated with this OEM
@@ -1793,8 +1796,10 @@
                     for(var w=0, length = bannedWords.length; w<length; w++) {
                         var startIndex = 0, curIndex=0;
                         var words = bannedWords[w];
-                        unmarked = new RegExp('\(' + words + '\)(?!@~~)', 'g');
+                        //unmarked = new RegExp('\(^|[^~~@])(' + words + '\)(?!@~~)', 'gi');
+                        unmarked = new RegExp('\(' + words + '\)(?!@~~)', 'gi');
                         text = text.replace(unmarked, '~~@$&@~~');
+
 
                     }
 
