@@ -1677,7 +1677,7 @@
                 var items = new Map();
                 $.each(d, function(key, value) {
                     spellCheck.OEMap.set(key, value.sort(function(a, b) {
-                      return a.length - b.length || a.localeCompare(b);    
+                      return b.length - a.length || a.localeCompare(b);    
                     }));
                 })
                 
@@ -1799,8 +1799,6 @@
                         //unmarked = new RegExp('\(^|[^~~@])(' + words + '\)(?!@~~)', 'gi');
                         unmarked = new RegExp('\(' + words + '\)(?!@~~)', 'gi');
                         text = text.replace(unmarked, '~~@$&@~~');
-
-
                     }
 
                     n.nodeValue = text;
@@ -1845,6 +1843,10 @@
                 } else {
                     elm.innerHTML = elm.innerHTML
                         .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
+                    if(elm.innerHTML.indexOf("~~@")>-1) {
+                        elm.innerHTML = elm.innerHTML
+                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
+                    }
                 }
             }
         },
@@ -1852,7 +1854,20 @@
             // remove highlight overlay
             jQuery('span.spell-check').each(function (index, value) {
                 jQuery(value).replaceWith(function () {
-                    return value.childNodes[0].nodeValue;
+                    var string="";
+                    for(var x =0; x <value.childNodes.length; x++) {
+                        //debugger;
+                        if(value.childNodes[x].nodeValue == null) {
+                            string +=value.childNodes[x].childNodes[0].nodeValue;
+                        }else {
+                            string += value.childNodes[x].nodeValue;
+                        }
+
+                    }
+                    return string;
+                    
+                    
+                    
                 });
             });
         },
