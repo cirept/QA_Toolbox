@@ -217,6 +217,12 @@
 
 - This tool will highlight all misspelled words along with all words/phrases that are banned by the OEM.<br>
 
+### **Turning the tool on:**<br>
+- Click the 'web page test' button inside the 'qa tools' panel.<br>
+
+### **Turning the tool off:**<br>
+-- When you are done using the tool, simply click the "turn off" on the legend and the tool will turn itself off.<br>
+
 ### **Features**<br>
 
 - All misspelled words will be highlighted in red.<br>
