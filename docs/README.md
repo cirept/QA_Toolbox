@@ -215,19 +215,17 @@
 
 ## **Spellcheck Page**<br>
 
-![Spell Checker DEMO](gifs/spellcheckDEMO.gif)
-
-- This tool will send the current page to be spell checked via third party website, W3.org.<br>
+- This tool will highlight all misspelled words along with all words/phrases that are banned by the OEM.<br>
 
 ### **Features**<br>
 
-- A new tab will open with the page already queued up for spell checking.<br>
-- Once the spell checking is complete the page will autofill with all the ***possible*** miss-spelled words.<br>
+- All misspelled words will be highlighted in red.<br>
+- All banned words will be highlighted in yellow.<br>
 
 | Spell Check Results Example |
 | --- |
 | ![Spell Checker](images/spellCheck.png) |
-| ***Please verify that all the words on the page is in fact spelt wrong*** |
+| ***Please verify that all the words on the page is in fact spelt wrong, and that the context of the banned word warrants it being banned (For example, meet or beat is often banned for pricing, but not for general use)*** |
 
 
 <br>

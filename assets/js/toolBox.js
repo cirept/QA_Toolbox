@@ -897,7 +897,6 @@
         },
         'attachToImage': function ($currentImage) {
             // make parent image relative positioning
-            console.log($currentImage);
             this.toggleOverlayClass($currentImage);
             // place div overlay onto image
             $currentImage
@@ -1770,7 +1769,7 @@
             var bannedWords = [];
             var text, pElm, elm, unmarked;
             var self = this;
-
+            //debugger;
             var franchises=unsafeWindow.ContextManager.getFranchises();
             //highlight banned words for every OEM related to this
             for(var f =0, len = franchises.length; f < len; f++) {
