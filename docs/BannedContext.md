@@ -1,4 +1,4 @@
-# Cases where banned words can be used in a compliant way<br>
+# Tool Descriptions<br>
 Terms that are restricted if they are referring to price. For example: “We’ll meet any price you find from our competitors” - this is not compliant because it involves pricing. “Meet our staff!” – this is compliant because it doesn’t refer to pricing.
 •	Meet
 •	Beat
