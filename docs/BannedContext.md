@@ -1,19 +1,19 @@
-# Tool Descriptions<br>
-Terms that are restricted if they are referring to price. For example: “We’ll meet any price you find from our competitors” - this is not compliant because it involves pricing. “Meet our staff!” – this is compliant because it doesn’t refer to pricing.
-•	Meet
-•	Beat
-•	Match
-•	Free
-•	Deal
+# Banned Word Context<br>
+Terms that are restricted if they are referring to price. For example: “We’ll meet any price you find from our competitors” - this is not compliant because it involves pricing. “Meet our staff!” – this is compliant because it doesn’t refer to pricing.<br>
+•	Meet<br>
+•	Beat<br>
+•	Match<br>
+•	Free<br>
+•	Deal<br>
 •	Save
 •	Cost
 •	Surpass
 •	Crush
 
 Terms that are restricted if they have no proof to back a claim. For example: “We are the biggest Ford dealer in Oregon!” – this claim needs to be supported by reasonable sources, otherwise it is not compliant.
-•	Biggest
-•	Newest
-•	Best
+•	Biggest<br>
+•	Newest<br>
+•	Best<br>
 •	Largest
 •	First
 •	Safest
