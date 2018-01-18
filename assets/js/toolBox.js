@@ -1764,12 +1764,11 @@
         * Highlight all banned words associated with this OEM
         */
         'bannedWords': function () {
-
             var wordList = this.treeWalk();
             var bannedWords = [];
             var text, pElm, elm, unmarked;
             var self = this;
-            //debugger;
+           
             var franchises=unsafeWindow.ContextManager.getFranchises();
             //highlight banned words for every OEM related to this
             for(var f =0, len = franchises.length; f < len; f++) {
@@ -1796,12 +1795,13 @@
                         var startIndex = 0, curIndex=0;
                         var words = bannedWords[w];
                         //unmarked = new RegExp('\(^|[^~~@])(' + words + '\)(?!@~~)', 'gi');
+                        //find and replace banned words
                         unmarked = new RegExp('\(' + words + '\)(?!@~~)', 'gi');
                         text = text.replace(unmarked, '~~@$&@~~');
                     }
 
                     n.nodeValue = text;
-
+                    //replace when the whole area has been searched
                     if (!pElm) {
                         pElm = elm;
                     } else if (!pElm.contains(elm)) {
