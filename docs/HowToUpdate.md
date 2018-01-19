@@ -59,8 +59,10 @@ Please contact the code owner(s) to get set up with the proper permissions.
 ### Updating your branch
 
 **Tip:**  Add a linter addon to your preferred IDE.  Any popular IDE out there should have linter addons for your to install.  Shoot for adding a linter that uses **ESLint.**
-2. write your code and update your branch with w/e enhancement or new tool that your heart desires.
-3. if using Tampermonkey, you can write your code and test it very easily.  I will explain this in this next.
+
+1. write your code and update your branch with w/e enhancement or new tool that your heart desires.
+
+2. if using Tampermonkey, you can write your code and test it very easily.  I will explain this in this next.
 
 **Additional Tips:**
 - This project uses strict **ESLint rules**, that are in place to help others read your code, but it often times helps YOU read your own code.  Have you ever had one of those days where you pump out a bazilion lines of code then revisit it a day later then not no what you are looking at?  Well this should help this not happen!
@@ -71,24 +73,24 @@ With Tampermonkey, you are able to laod your local js file and run it on the web
 
 If you don't already have Tampermonkey installed on your Chrome browser, please do so now.
 
-2. Navigate to the **Extensions** menu.
+1. Navigate to the **Extensions** menu.
 
     - Click the link to learn how [https://support.google.com/chrome_webstore/answer/2664769?hl=en](https://support.google.com/chrome_webstore/answer/2664769?hl=en)
 
-3. Find the "Tampermonkey" extension.  *if you have a ton of extensions, the list may be long.  Keep scrolling and you should find it eventually*
+2. Find the "Tampermonkey" extension.  *if you have a ton of extensions, the list may be long.  Keep scrolling and you should find it eventually*
 
-4. There will be TWO (2) CHECKBOXES:
+3. There will be TWO (2) CHECKBOXES:
     - "Allow in incognito"
     - "Allow access to file URLs"    <-- **CHECK THIS OPTION**
 
-5. You are done with this tab, close it out.
-6. Click on the Tampermonkey icon in your "extension logo soup" area.
+4. You are done with this tab, close it out.
+5. Click on the Tampermonkey icon in your "extension logo soup" area.
 
 > ![Click Addon Icon](images/clickIcon.png)
 
-7. Navigate to "Dashboard", the dashboard will show you all the userscripts installed in Tampermonkey.
-8. Create a duplicate copy of the QA Tool userscript. We are going to modify the code.
-9. Replace the @require line of code to the main JS file, which should look like this.
+6. Navigate to "Dashboard", the dashboard will show you all the userscripts installed in Tampermonkey.
+7. Create a duplicate copy of the QA Tool userscript. We are going to modify the code.
+8. Replace the @require line of code to the main JS file, which should look like this.
 
 > ![Userscript Update](images/localFileAccessBefore.jpg)
 
@@ -206,29 +208,22 @@ The review process is split into two (2) parts: **Human Review** and **Code Qual
 1. test if the update works
 2. is it bug free
 3. does it work as expected from reading the README documentation.
+4. Are the instructions easy to understand?
+4. Enhancement suggestions that would make the tool better? *(up to you if you want to develop these features)*
 
 You know the typical QA stuff. I can't stress enough that the documentation is important!  The goal of the README instructions is to be as *clear as possible*.  You want your documentation to be good enough where you can send them a link to the README page and be done with them!
-
-**Reviewers will be testing for:**
-1. funtionality of the tool.
-    - is it easy to use?
-    - if not, are the instructions describing how to use it?
-    - enhancement suggestions that would make the tool better? *(up to you if you want to develop these features)*
-2. A great description of the update in the README.md file
-    - There are a lot of people that currently use the tool and not all of them will understand **how to use** certain tools or **why** they should use it.
-    - It helps with maintenance, in the event that business rules change a user can point it out and have it addressed.
 
 :star2: An approval review will be given if all the criteria are met.
 
 > ![Approval Given](images/approvalGiven.jpg)
 
-If there are changes needed, the reviewer will place them in the pull request as a comment.
+:x: If there are changes needed, the reviewer will place them in the pull request as a comment.
 
 > ![Changes Requested](images/changesRequested.jpg)
 
 #### The 'code quality' portion:
 
-1. Codacy pass :white_check_mark: / fail :X: grade
+1. Codacy pass :white_check_mark: / fail :x: grade
 
 Simple enough.  If you followed installed a linter, as I suggested earlier, this part shouldn't take long.  In fact you might get a passing grade first try!  If you don't get a passing grade first try, you can navigate to the Codacy page and see what issues you need to fix.
 
