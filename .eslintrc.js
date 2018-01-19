@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-"use strict";
+'use strict';
 
 module.exports = {
     'env': {
         'browser': true,
         'greasemonkey': true,
         'jquery': true,
-        'es6': true,
+        'es6': true
     },
     'rules': {
         // The rules below are listed in the order they appear on the eslint
@@ -51,7 +51,7 @@ module.exports = {
         'no-extra-parens': [2, 'all', {
             'conditionalAssign': false,
             'returnAssign': false,
-            'nestedBinaryExpressions': false,
+            'nestedBinaryExpressions': false
         }],
         'no-extra-semi': 2, // eslint:recommended
         'no-func-assign': 2, // eslint:recommended
@@ -69,12 +69,23 @@ module.exports = {
         'no-unsafe-negation': 0,
         'use-isnan': 2, // eslint:recommended
         'valid-jsdoc': [2, {
-            'requireParamDescription': false,
-            'requireReturnDescription': false,
+            'requireParamDescription': true,
+            'requireReturnDescription': true,
             'requireReturn': false,
+            'requireReturnType': true,
             'prefer': {
-                'returns': 'return',
+                'arg': 'param',
+                'argument': 'param',
+                'class': 'constructor',
+                'return': 'return',
+                'virtual': 'abstract'
             },
+            'preferType': {
+                'Boolean': 'boolean',
+                'Number': 'number',
+                'object': 'Object',
+                'String': 'string'
+            }
     }],
         'valid-typeof': 2, // eslint:recommended
 
@@ -146,7 +157,7 @@ module.exports = {
         'no-void': 0,
         'no-warning-comments': [0, {
             'terms': ['todo', 'fixme', 'xxx'],
-            'location': 'start',
+            'location': 'start'
         }],
         'no-with': 2,
         'radix': 0,
@@ -173,7 +184,8 @@ module.exports = {
         'no-undef': 2, // eslint:recommended
         'no-undefined': 0,
         'no-unused-vars': [2, {
-            'args': 'none',
+            'vars': 'all',
+            'args': 'all'
         }], // eslint:recommended
         'no-use-before-define': 2,
 
@@ -199,7 +211,7 @@ module.exports = {
         'block-spacing': 0,
         'brace-style': [2, '1tbs'],
         'camelcase': [2, {
-            'properties': 'always',
+            'properties': 'always'
         }],
         'comma-dangle': [2, 'never'],
         'comma-spacing': 2,
@@ -219,11 +231,11 @@ module.exports = {
         'jsx-quotes': 0,
         'key-spacing': [2, {
             'beforeColon': false,
-            'afterColon': true,
+            'afterColon': true
         }],
         'keyword-spacing': 2,
         'line-comment-position': [2, {
-            'position': 'above',
+            'position': 'above'
         }],
         'linebreak-style': 2,
         'lines-around-comment': 0,
@@ -236,7 +248,7 @@ module.exports = {
             'ignoreTrailingComments': true,
             'ignoreTemplateLiterals': true,
             'ignoreRegExpLiterals': true,
-            'ignoreUrls': true,
+            'ignoreUrls': true
     }],
         'max-lines': 0,
         'max-nested-callbacks': 0,
@@ -258,13 +270,13 @@ module.exports = {
         'no-mixed-operators': 0,
         'no-mixed-spaces-and-tabs': 2, // eslint:recommended
         'no-multiple-empty-lines': [2, {
-            'max': 2,
+            'max': 2
         }],
         'no-negated-condition': 0,
         'no-nested-ternary': 2,
         'no-new-object': 2,
         'no-plusplus': ['error', {
-            'allowForLoopAfterthoughts': true,
+            'allowForLoopAfterthoughts': true
         }],
         'no-restricted-syntax': 0,
         'no-tabs': 0,
@@ -280,7 +292,7 @@ module.exports = {
         'one-var': [2, {
             'var': 'never',
             'let': 'never',
-            'const': 'never',
+            'const': 'never'
     }],
         'operator-assignment': [2, 'always'],
         'operator-linebreak': 0,
@@ -288,18 +300,20 @@ module.exports = {
         'quote-props': [2, 'consistent'],
         'quotes': [2, 'single', {
             'allowTemplateLiterals': true,
-            'avoidEscape': true,
+            'avoidEscape': true
         }],
         'require-jsdoc': [2, {
             'require': {
                 'FunctionDeclaration': true,
                 'MethodDefinition': true,
                 'ClassDeclaration': true,
-            },
+                'ArrowFunctionExpression': true,
+                'FunctionExpression': true
+            }
     }],
         'semi-spacing': [2, {
             'before': false,
-            'after': true,
+            'after': true
         }],
         'semi': 2,
         'sort-keys': 0,
@@ -308,16 +322,16 @@ module.exports = {
         'space-before-function-paren': ['error', {
             'anonymous': 'always',
             'named': 'never',
-            'asyncArrow': 'always',
+            'asyncArrow': 'always'
     }],
         'space-in-parens': [0, 'never'],
         'space-infix-ops': 2,
         'space-unary-ops': [2, {
             'words': true,
-            'nonwords': false,
+            'nonwords': false
         }],
         'spaced-comment': [2, 'always', {
-            'markers': ['global'],
+            'markers': ['global']
         }],
         'unicode-bom': 0,
         'wrap-regex': 2,
@@ -332,7 +346,7 @@ module.exports = {
         // setting so "always" is used.
         'arrow-spacing': [2, {
             'before': true,
-            'after': true,
+            'after': true
         }],
         'constructor-super': 2, // eslint:recommended
         'generator-star-spacing': [2, 'after'],
@@ -361,6 +375,6 @@ module.exports = {
         'sort-imports': 0,
         'symbol-description': 0,
         'template-curly-spacing': 0,
-        'yield-star-spacing': [2, 'after'],
-    },
+        'yield-star-spacing': [2, 'after']
+    }
 };
