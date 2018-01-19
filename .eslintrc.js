@@ -93,16 +93,16 @@ module.exports = {
         // braces with the exception of simple,
         // single-line if statements.
         'default-case': 1,
-        'dot-location': 0,
-        'dot-notation': 0,
+        'dot-location': 2,
+        'dot-notation': 2,
         'eqeqeq': 2,
         'guard-for-in': 2,
         'no-alert': 0,
         'no-caller': 2,
         'no-case-declarations': 2, // eslint:recommended
         'no-div-regex': 0,
-        'no-else-return': 0,
-        'no-empty-function': 0,
+        'no-else-return': 2,
+        'no-empty-function': 2,
         'no-empty-pattern': 2, // eslint:recommended
         'no-eq-null': 0,
         'no-eval': 2,
@@ -199,9 +199,9 @@ module.exports = {
         'block-spacing': 0,
         'brace-style': [2, '1tbs'],
         'camelcase': [2, {
-            'properties': 'never',
+            'properties': 'always',
         }],
-        'comma-dangle': [2, 'always-multiline'],
+        'comma-dangle': [2, 'never'],
         'comma-spacing': 2,
         'comma-style': 2,
         'computed-property-spacing': 2,
@@ -209,7 +209,7 @@ module.exports = {
         'eol-last': 2,
         'func-call-spacing': 2,
         'func-name-matching': 0,
-        'func-names': 0,
+        'func-names': 2,
         'func-style': [0, 'declaration'],
         'id-blacklist': 0,
         'id-length': 0,
@@ -222,7 +222,9 @@ module.exports = {
             'afterColon': true,
         }],
         'keyword-spacing': 2,
-        'line-comment-position': 0,
+        'line-comment-position': [2, {
+            'position': 'above',
+        }],
         'linebreak-style': 2,
         'lines-around-comment': 0,
         'lines-around-directive': 0,
@@ -252,14 +254,14 @@ module.exports = {
         'no-bitwise': 0,
         'no-continue': 0,
         'no-inline-comments': 0,
-        'no-lonely-if': 0,
+        'no-lonely-if': 2,
         'no-mixed-operators': 0,
         'no-mixed-spaces-and-tabs': 2, // eslint:recommended
         'no-multiple-empty-lines': [2, {
             'max': 2,
         }],
         'no-negated-condition': 0,
-        'no-nested-ternary': 0,
+        'no-nested-ternary': 2,
         'no-new-object': 2,
         'no-plusplus': ['error', {
             'allowForLoopAfterthoughts': true,
@@ -269,7 +271,7 @@ module.exports = {
         'no-ternary': 0,
         'no-trailing-spaces': 2,
         'no-underscore-dangle': 2,
-        'no-unneeded-ternary': 0,
+        'no-unneeded-ternary': 2,
         'no-whitespace-before-property': 0,
         'object-curly-newline': 0,
         'object-curly-spacing': 2,
@@ -280,7 +282,7 @@ module.exports = {
             'let': 'never',
             'const': 'never',
     }],
-        'operator-assignment': [0, 'always'],
+        'operator-assignment': [2, 'always'],
         'operator-linebreak': 0,
         'padded-blocks': [2, 'never'],
         'quote-props': [2, 'consistent'],
@@ -318,17 +320,20 @@ module.exports = {
             'markers': ['global'],
         }],
         'unicode-bom': 0,
-        'wrap-regex': 0,
+        'wrap-regex': 2,
 
         // ECMAScript 6
         // http://eslint.org/docs/rules/#ecmascript-6
         // ------------------------------------------
-        'arrow-body-style': 0,
+        'arrow-body-style': [2, 'as-needed'],
         'arrow-parens': [2, 'always'], // TODO(philipwalton): technically arrow
         // parens are optional but recommended.
         // ESLint doesn't support a *consistent*
         // setting so "always" is used.
-        'arrow-spacing': 0,
+        'arrow-spacing': [2, {
+            'before': true,
+            'after': true,
+        }],
         'constructor-super': 2, // eslint:recommended
         'generator-star-spacing': [2, 'after'],
         'no-class-assign': 0,
@@ -342,10 +347,10 @@ module.exports = {
         'no-useless-computed-key': 0,
         'no-useless-constructor': 0,
         'no-useless-rename': 0,
-        'no-var': 0,
+        'no-var': 2,
         'object-shorthand': 0,
         'prefer-arrow-callback': 0,
-        'prefer-const': 0,
+        'prefer-const': 2,
         'prefer-numeric-literals': 0,
         'prefer-reflect': 0,
         'prefer-rest-params': 2,
