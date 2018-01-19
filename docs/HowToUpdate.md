@@ -96,7 +96,7 @@ If you don't already have Tampermonkey installed on your Chrome browser, please 
 
 > // @require https://cdn.rawgit.com/cirept/QA_Toolbox/3.3.1.4-prerelease/assets/js/toolBox.js
 
-Replace it with
+**Replace it with**
 
 > // @require file://FULL_FILE_PATH_TO_YOUR_CUSTOM_JS_FILE
 
@@ -225,7 +225,17 @@ You know the typical QA stuff. I can't stress enough that the documentation is i
 
 1. Codacy pass :white_check_mark: / fail :x: grade
 
-Simple enough.  If you followed installed a linter, as I suggested earlier, this part shouldn't take long.  In fact you might get a passing grade first try!  If you don't get a passing grade first try, you can navigate to the Codacy page and see what issues you need to fix.
+**Simple enough.**
+
+If you followed my tip and installed a linter, this part shouldn't take long.
+
+=)
+
+In fact, you might get a passing grade first try!
+
+=(
+
+If you don't get a passing grade first try, you can navigate to the Codacy page and see what issues you need to fix.
 
 > ![Navigate to Codacy Site](images/Codacy_details.jpg)
 
@@ -233,3 +243,11 @@ It is a requirement to get a passing grade by **Codacy**.
 > For more info on Codacy, please check out their [site](https://www.codacy.com/product).
 
 For this project we are using **ESLint rules** and **Codacy** has been set up using said ESLint rules.  The rules are may be strict at first, but you will get used to writing code with rules.  ***These rules help create quality code that is easy to maintain AND make it easy for humans to read.***  There are also "best practice" rules as well to ensure that everyone is using good habits while writing code.
+
+> This may take long depending on the quality of code that was written.
+
+> **Look at it as a learning experience!**
+
+> **You are learning how to refactor your code!**
+
+> Learning how to do things differently, sometimes more efficiently, is the name of the game here.  **Efficient** *almost always* **= speed**.
