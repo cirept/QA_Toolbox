@@ -300,6 +300,7 @@
 - This tool will check every link on the site and highlight the link according to what the results of the test is.<br>
 - All the links on the page will be tested for validity and then will be highlighted accordingly.<br>
 - For the most part only links that are internal links will be eligible to be flagged as 'Link is Real' due to security restrictions.<br>
+- This tool also appends the url of the link after the link's title
 ***This tool works for both TETRA and NEXTGEN***<br>
 
 ### Turning the tool on:<br>
@@ -329,8 +330,8 @@
 | All links that result in a 404 error (link leads to a page that doesn't exist) with be flagged and should be addressed. |
 | 
 
-![Href]
-| For every link, the href(url destination) of the link will be appended to the title of the link following, "URL: ". 
+**'Href'**
+-For every link, the href(url destination) of the link will be appended to the title of the link following, "URL: ". 
 
 <br>
 <br>
