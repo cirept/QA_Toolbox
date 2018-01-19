@@ -328,7 +328,7 @@
 | All links that lead to an actual page will be flagged. |
 | ***'404 Link'*** |
 | All links that result in a 404 error (link leads to a page that doesn't exist) with be flagged and should be addressed. |
-| **'Href'** |
+| ***'Href'*** |
 | For every link, "URL: " followed by the href(url destination) of the link will be appended to the title of the link following, "URL: ". |
 
 <br>
