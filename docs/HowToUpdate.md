@@ -58,13 +58,13 @@ Please contact the code owner(s) to get set up with the proper permissions.
 
 ### Updating your branch
 
-**Tip:**  Add a linter addon to your preferred IDE.  Any popular IDE out there should have linter addons for your to install.  Shoot for adding a linter that uses **ESLint.**
+> **Tip:**  Add a linter addon to your preferred IDE.  Any popular IDE out there should have linter addons for your to install.  Shoot for adding a linter that uses **ESLint.**
 
 1. write your code and update your branch with w/e enhancement or new tool that your heart desires.
 
 2. if using Tampermonkey, you can write your code and test it very easily.  I will explain this in this next.
 
-**Additional Tips:**
+> **Additional Tip:**
 - This project uses strict **ESLint rules**, that are in place to help others read your code, but it often times helps YOU read your own code.  Have you ever had one of those days where you pump out a bazilion lines of code then revisit it a day later then not no what you are looking at?  Well this should help this not happen!
 
 With Tampermonkey, you are able to laod your local js file and run it on the webpage!  Greeaaatttt right?!  Here's how!
@@ -125,10 +125,10 @@ In this step we will create a pre-release version of the QA Tool.  This step wil
 
 Please update these lines in the meta.js file
 
-**@version X.X.X.X**
+> **@version X.X.X.X**
 - update the version number to what will be the latest version when your changes gets published.  For example, if the current version is 3.3.1 that would mean when your changes are published the version you will be using could be 3.4 or 3.3.2, depending on the modifications you are making (more on Semantic Versioning later).  So you would put either of those two version numbers here.
 
-**@require https://cdn.rawgit.com/cirept/QA_Toolbox/XXXXXXXXXX/assets/js/toolBox.js**
+> **@require https://cdn.rawgit.com/cirept/QA_Toolbox/XXXXXXXXXX/assets/js/toolBox.js**
 - update the file path to link to the PRE-RELEASE version you will create.
 
 ### Create a Pre-Release
