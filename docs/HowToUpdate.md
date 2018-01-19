@@ -1,19 +1,28 @@
 # how to update the QA Tool
 
 **first a little back story behind this particular process**
-- The QA Tool is a custom userscript and uses Tampermonkey as a primary userscript manager.  Please follow these instructions when performing modifications to the tool in order to quickly and easily get your changes approved and published to all the QA Tool's users.  These instructions proven to work, so please try not to stray away from the beaten path, unless of course you find a better way.  Then I am all ears.  :]
+
+- Please follow these instructions when performing modifications to the tool in order to quickly and easily get your changes approved and published to all the QA Tool's users.  If you find a better way.  Then I am all ears.  :]
 
 - If you are not familiar with using Github, don't fret!  There are a ton of guides out there to learn the git workflow.  Here are a few good resources to start you off.
     - https://guides.github.com/introduction/flow/
     - https://gist.github.com/blackfalcon/8428401
 
-- and finally because Tampermonkey is the main medium for using this custom userscript.  Become familiar with using Tampermonkey.  And when I say familiar, all I mean is just know how to:
+- The QA Tool is a custom userscript and uses Tampermonkey as a primary userscript manager so I hope you are familiar with it.  And when I say familiar, all I mean is just know how to:
     1. add a usersctipt
     2. modify a userscript
     3. how to force an update request.  <-- I will provide instructions on this step
 
-## and we are off!
-In order to modify this tool just follow these steps
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+## and we are off!   :rocket:
+In order to modify this tool just follow these simple steps:
 1. [Create your custom branch](#Create-your-custom-branch)
 2. [Update your branch with your new tool or enhancement](#Update-your-branch)
 3. [Test your new code, using Tampermonkey](#Test-your-code)
@@ -24,15 +33,29 @@ In order to modify this tool just follow these steps
 
 Allow me to explain these steps in depth to make it as easy as possible to update this tool.
 
-## the deep dive
+<br>
+<br>
 
-### Create your custom branch
+---
+
+<br>
+<br>
+
+## Create your custom branch
 
 Create a branch from the 'master' repo on GitHub, please use a descriptive name in order to clearly identify branch purpose.
 
 - if you are unable to do so, that means you do not have permission to modify the code.  Please contact the code owner(s) to get set up with the proper permissions.
 
-### Update your branch
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+### Updating your branch
 
 **Tip:**  Add a linter addon to your preferred IDE.  Any popular IDE out there should have linter addons for your to install.  Shoot for adding a linter that use **ESLint.**
 2. write your code and update your branch with w/e enhancement or new tool that your heart desires.
@@ -77,8 +100,15 @@ You're done!  Navigate to a CDK page and reload the page, you should see YOUR ve
 
 Build away!
 
+<br>
+<br>
 
-### Test your code
+---
+
+<br>
+<br>
+
+## Test your code
 In this step we will create a pre-release version of the QA Tool.  This step will help weed out any issues that you may encounter when publishing your release to the world.  But before we create a pre-release there is a file that needs updating.
 
 - QA_Toolbox/assets/js/meta.js
@@ -101,13 +131,29 @@ Please update these lines in the meta.js file
 - if the current version is 3.3.1.4, YOUR version should be **3.3.1.5-beta** or **3.3.2-alpha** or **3.4-beta** depending on the type of update you are making.  For more information on Semantic Versioning, [see here](http://semver.org/).
 - One more thing to note is how I included, -beta, -alpha.  This is recommended during the testing phase to reserve that version number for YOUR release, in the event that various updates are made at once.  Once you get your changes merged to the master branch, you should drop the extra fluff in the version number and it will be just the number.  **3.3.1.5** or **3.3.2** or **3.4**.
 
-### Documentation
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+## Documentation
 
 Please update the README.md file with detailed information on the tool that you created or modified.
 
 Please update the ChangeLog.md file with a general overview of the changes you made to the tool.
 
-### Open a pull request
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+## Open a pull request
 
 [How to do a pull request](https://help.github.com/articles/creating-a-pull-request/)
 
