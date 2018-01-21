@@ -30,8 +30,8 @@ In order to modify this tool just follow these simple steps:
 3. [Test your new code, using Tampermonkey](#3-test-your-code)
 4. [Documentation](#4-documentation)
 5. [Open a pull request to get your code merged with the master and sent out to the world!](#5-open-a-pull-request)
-6. [Update the meta.js file](#6-update-meta-js-file)
-7. [Publish You Release](#6-publishing-your-release)
+6. [Update the meta.js file](#6.-update-metajs-file)
+7. [Publish You Release](#7-publishing-your-release)
 
 **Easy Right!?**
 
@@ -260,23 +260,23 @@ If you don't get a passing grade first try, you can navigate to the Codacy page 
 
 Don't Merge your branch just yet!  Now that you have gotten your pull request approvals.  You need to update the meta.js file again.
 
-- [ ] Update the meta.js file
+**Update the meta.js file**
 
-    - [ ] @name - update the version number
+    - **@name** - update the version number
 
     ```
     Public Release Version Will Be 4.5.6
     // @name QA Toolbox 4.5.6
     ```
 
-    - [ ] @version - update the version number
+    - **@version** - update the version number
 
     ```
     Public Release Version Will Be 4.5.6
     // @version 4.5.6
     ```
 
-    - [ ] @required - update the URL for the toolBox.js file to the RELEASE VERSION you will use on your public release.
+    - **@required** - update the URL for the toolBox.js file to the RELEASE VERSION you will use on your public release.
 
     ```
     Pre-Release Version = 4.5.6-alpha9
