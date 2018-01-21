@@ -259,17 +259,28 @@ If you don't get a passing grade first try, you can navigate to the Codacy page 
 
 You have gotten this far, **Congratulations!**  Once you have successfully merged your branch, in order for everyone to recieve the udpates you made we need to publish your pre-release.
 
-1. Open your final pre-release.
-    > This is the same version you submitted with your pull request
+1. **Open your final pre-release** - This is the same version you submitted with your pull request
 
-Here is a Checklist of the actions that should be performed before updating your pre-release to public release.
+2. **Change the "Tag Version"** - Remove the testing phrases that was added to the pre-release version number.
+    - For example: pre-release version: 4.5.6-alpha9.
+    - Your public release version will be : 4.5.6
 
-[ ] Update the meta.js file
+3. **Uncheck "This is a pre-release"** - at the bottom of the release.
 
-    - `@name` - update the version number
-    - `@version` - update the version number
-    - `@required` - update the URL for the toolBox.js file to the RELEASE VERSION you will use on your public release.
+4. **Test the release was done correctly** - Go into Tampermonkey and do a manual update on the QA Tool.  If you DID NOT receive the update, double check that every step was followed then try again.  If problem persists, contact the code owner(s) for assistance.
 
-    ```javascript
-    ie. hello world
+** Quick Summary **
+
+- [ ] Update the meta.js file
+
+    - [ ] @name - update the version number
+    - [ ] @version - update the version number
+    - [ ] @required - update the URL for the toolBox.js file to the RELEASE VERSION you will use on your public release.
+
+    ```
+    Pre-Release Version = 4.5.6-alpha9
+    // @require https://cdn.rawgit.com/cirept/QA_Toolbox/4.5.6-alpha9/assets/js/toolBox.js
+
+    Public Release Version = 4.5.6
+    // @require https://cdn.rawgit.com/cirept/QA_Toolbox/4.5.6/assets/js/toolBox.js
     ```
