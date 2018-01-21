@@ -31,7 +31,7 @@ In order to modify this tool just follow these simple steps:
 4. [Documentation](#4-documentation)
 5. [Open a pull request to get your code merged with the master and sent out to the world!](#5-open-a-pull-request)
 6. [Update the meta.js file](#6-update-metajs-file)
-7. [Publish You Release](#7-publishing-your-release)
+7. [Publish Your Release](#7-publishing-your-release)
 
 **Easy Right!?**
 
@@ -189,7 +189,7 @@ If you do create multiple pre-releases, please delete unused copies as they will
 
     ![Read me update](images/readmeUpdate.jpg)
 
-2. **Udate the ChangeLog.md** - Update the changelog file with a general overview of the changes you made to the tool.  Again follow the general outline of the current information on the ChangeLog file when creating a new section.
+2. **Update the ChangeLog.md** - Update the changelog file with a general overview of the changes you made to the tool.  Again follow the general outline of the current information on the ChangeLog file when creating a new section.
 
     ![Change Log Update](images/changelogUpdate.jpg)
 
@@ -288,7 +288,7 @@ Don't Merge your branch just yet!  Now that you have gotten your pull request ap
 
 ## 7. Publishing Your Release
 
-You have gotten this far, **Congratulations!**  Once you have successfully merged your branch.  Now in order for everyone to recieve the udpate that you made, we need to publish your pre-release.
+You have gotten this far, **Congratulations!**  Once you have successfully merged your branch.  Now in order for everyone to receive the update that you made, we need to publish your pre-release.
 
 1. **Open your Github pre-release** - This is the pre-release that you submitted with your pull request
 
