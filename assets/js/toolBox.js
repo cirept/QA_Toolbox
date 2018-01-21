@@ -6,7 +6,7 @@
     // ********************************************************************************
     // **************************************** Toolbox Shared Functions ****************************************
     // ********************************************************************************
-    var shared = {
+    const shared = {
         /**
          * Tampermonkey function.
          * Save value to local storage for program to use.
@@ -27,8 +27,8 @@
         /**
          * Tampermonkey function.
          * Get value to local storage for program to use.
-         * @param {string} variable The variable that will be looked up.
-         * @return {bool} The saved value of current variable.
+         * @param {String} variable The variable that will be looked up.
+         * @return {Boolean} The saved value of current variable.
          */
         'getValue': function (variable) {
             return GM_getValue(variable, false); // eslint-disable-line new-cap
@@ -50,22 +50,21 @@
             GM_openInTab(openThis); // eslint-disable-line new-cap
         },
         'nextGenCheck': function () {
-            var nextGenFlag = jQuery.trim(document.firstChild.data);
+            const nextGenFlag = jQuery.trim(document.firstChild.data);
 
             if (typeof nextGenFlag === 'undefined' || nextGenFlag === '') {
                 return false;
-            } else {
-                return true;
             }
+            return true;
         },
         'toggleFeature': function (e) {
-            var $callingElement = jQuery(e.target).siblings('.toolsPanel');
+            const $callingElement = jQuery(e.target).siblings('.toolsPanel');
             return $callingElement.slideToggle(500);
         },
         'saveState': function (e) {
             // get current state
-            var vName = jQuery(e.target).siblings('.toolsPanel').attr('id');
-            var currState = shared.getValue(vName);
+            const vName = jQuery(e.target).siblings('.toolsPanel').attr('id');
+            const currState = shared.getValue(vName);
             // sets usingM4 value
             shared.saveValue(vName, !currState);
         },
@@ -79,12 +78,12 @@
             }
         },
         'programData': function () {
-            var allVariables = shared.programVariables(); // global function
-            var length = allVariables.length;
-            var a = 0;
-            var varList = {};
-            var key = '';
-            var value = '';
+            const allVariables = shared.programVariables(); // global function
+            const length = allVariables.length;
+            let a = 0;
+            const varList = {};
+            let key = '';
+            let value = '';
             // add variables to list
             for (a; a < length; a += 1) {
                 key = allVariables[a];
@@ -94,8 +93,8 @@
             return varList;
         },
         'buildLegendContent': function ($legendContent, $legendListContainer) {
-            var key = '';
-            var value = '';
+            let key = '';
+            let value = '';
             // loop through Legend Content list
             for (key in $legendContent) {
                 if ($legendContent.hasOwnProperty(key)) {
@@ -106,7 +105,7 @@
                     value = $legendContent[key];
                     // build listing element
                     this.$listItem = jQuery('<li>').attr({
-                        'class': key,
+                        'class': key
                     }).append(value);
                     // attach to legend list
                     $legendListContainer.append(this.$listItem);
@@ -114,10 +113,10 @@
             }
         },
         'displayPanel': function ($toolPanel) {
-            var variables = this.programData();
-            var panelId = $toolPanel.attr('id');
-            var state = '';
-            var key = '';
+            const variables = this.programData();
+            const panelId = $toolPanel.attr('id');
+            let state = '';
+            let key = '';
 
             // loop through variable list to find the panel title
             for (key in variables) {
@@ -186,7 +185,7 @@
             }
         },
         'centerDiv': function ($currentImage, $divOverlay) {
-            var parent = $currentImage.closest('figure');
+            let parent = $currentImage.closest('figure');
             $divOverlay.css({
                 'left': parent.width() / 2 - $divOverlay.width() / 2 + 'px',
             });
@@ -194,9 +193,9 @@
         },
         // FLAG ALL BUTTONS AS A BUTTON ELEMENT
         'flagButtons': function () {
-            var buttons = jQuery('body').find(':button');
-            var length = buttons.length;
-            var a = 0;
+            let buttons = jQuery('body').find(':button');
+            let length = buttons.length;
+            let a = 0;
 
             for (a; a < length; a += 1) {
                 jQuery(buttons[a]).addClass('buttonFlag');
@@ -207,7 +206,7 @@
     // ********************************************************************************
     // **************************************** Build container for toolbox ****************************************
     // ********************************************************************************
-    var qaToolbox = {
+    let qaToolbox = {
         'init': function () {
             this.createElements();
             this.cacheDOM();
@@ -262,7 +261,7 @@
     // ********************************************************************************
     // **************************************** Dealership Name ****************************************
     // ********************************************************************************
-    var dealerName = {
+    let dealerName = {
         'init': function () {
             this.createElements();
             this.buildTool();
@@ -301,7 +300,7 @@
             dealerName.config.$dealerName.html(this.dealerName);
         },
         'returnTool': function () {
-            var panel = dealerName.config.$dealerNameContainer;
+            let panel = dealerName.config.$dealerNameContainer;
             return panel;
         },
     };
@@ -309,7 +308,7 @@
     // ********************************************************************************
     // **************************************** Web Id ****************************************
     // ********************************************************************************
-    var webID = {
+    let webID = {
         'init': function () {
             this.createElements();
             this.buildTool();
@@ -349,7 +348,7 @@
             webID.config.$webID.html(this.webID);
         },
         'returnTool': function () {
-            var panel = webID.config.$webIDContainer;
+            let panel = webID.config.$webIDContainer;
             return panel;
         },
     };
@@ -357,7 +356,7 @@
     // ********************************************************************************
     // **************************************** Page Name ****************************************
     // ********************************************************************************
-    var pageName = {
+    let pageName = {
         'init': function () {
             this.createElements();
             this.buildTool();
@@ -419,7 +418,7 @@
             }
         },
         'returnTool': function () {
-            var panel = pageName.config.$pageNameContainer;
+            let panel = pageName.config.$pageNameContainer;
             return panel;
         },
     };
@@ -427,7 +426,7 @@
     // ********************************************************************************
     // **************************************** H Tags ****************************************
     // ********************************************************************************
-    var hTags = {
+    let hTags = {
         'init': function () {
             this.createElements();
             this.cacheDOM();
@@ -474,9 +473,9 @@
             };
         },
         'cacheDOM': function () {
-            var key;
-            var total;
-            var tags;
+            let key;
+            let total;
+            let tags;
             for (key in hTags.config.hTagsTotal) {
                 if (hTags.config.hTagsTotal.hasOwnProperty(key)) {
                     // takes key from hTagsTotal and
@@ -502,10 +501,10 @@
                 .append(hTags.config.$removeBut);
         },
         'displayData': function () {
-            var html = '';
-            var key;
-            var $hContainer;
-            var $hCount = jQuery('<span>').attr({
+            let html = '';
+            let key;
+            let $hContainer;
+            let $hCount = jQuery('<span>').attr({
                 'class': 'count',
             });
 
@@ -528,10 +527,10 @@
             hTags.config.$hTags.html(html);
         },
         'tagDetails': function () {
-            var key;
-            var a = 0;
-            var length;
-            var html = '';
+            let key;
+            let a = 0;
+            let length;
+            let html = '';
 
             for (key in hTags.config.hTags) {
                 if (hTags.config.hTags.hasOwnProperty(key)) {
@@ -551,14 +550,14 @@
             hTags.config.$removeBut.on('click', this.removeDisplay);
         },
         'returnTool': function () {
-            var panel = hTags.config.$hTagsContainer;
+            let panel = hTags.config.$hTagsContainer;
             return panel;
         },
         // ----------------------------------------
         // tier 2 functions
         // ----------------------------------------
         'highlightZero': function ($hContainer, hCount) {
-            var count = jQuery(hCount).text();
+            let count = jQuery(hCount).text();
 
             if (count === '0') {
                 $hContainer.attr({
@@ -579,7 +578,7 @@
     // ********************************************************************************
     // **************************************** Page Information Panel ****************************************
     // ********************************************************************************
-    var pageInformation = {
+    let pageInformation = {
         'init': function () {
             // initialize module
             this.createElements();
@@ -649,12 +648,12 @@
         // ----------------------------------------
         'hoverEffect': function (event) {
             // apply hover effects
-            var element = event.currentTarget;
+            let element = event.currentTarget;
             jQuery(element).toggleClass('highlight');
         },
         'copyToClipboard': function (event) {
             // copy page info
-            var copyThisText = event.currentTarget.innerHTML;
+            let copyThisText = event.currentTarget.innerHTML;
             shared.clipboardCopy(copyThisText);
         },
     };
@@ -666,7 +665,7 @@
     // ********************************************************************************
     // **************************************** QA Tools Panel ****************************************
     // ********************************************************************************
-    var qaTools = {
+    let qaTools = {
         'init': function () {
             // initialize module
             this.createElements();
@@ -723,7 +722,7 @@
     // ********************************************************************************
     // **************************************** image checker ****************************************
     // ********************************************************************************
-    var imageChecker = {
+    let imageChecker = {
         'init': function (callingPanel) {
             this.createElements(callingPanel);
             this.buildLegend();
@@ -805,9 +804,9 @@
         // ----------------------------------------
         'highlightImages': function () {
             // add tool styles
-            var iaLength;
-            var a = 0;
-            var $this;
+            let iaLength;
+            let a = 0;
+            let $this;
 
             // cache data from page
             this.cacheDOM();
@@ -833,8 +832,8 @@
                 });
         },
         'removeHighlights': function () {
-            var iaLength = this.imageArrayLength;
-            var a = 0;
+            let iaLength = this.imageArrayLength;
+            let a = 0;
             // removes special overlay class on images
             for (a; a < iaLength; a += 1) {
                 this.toggleOverlayClass(this.$allImages[a]);
@@ -856,7 +855,7 @@
             this.attachToImage($currentImage);
         },
         'checkForAltText': function (currentImage) {
-            var $image = jQuery(currentImage);
+            let $image = jQuery(currentImage);
             // find first case that returns true
 
             if (typeof $image.attr('alt') === 'undefined') { // if alt is undefined
@@ -919,7 +918,7 @@
     // ********************************************************************************
     // **************************************** link checker ****************************************
     // ********************************************************************************
-    var linkChecker = {
+    let linkChecker = {
         'init': function (callingPanel) {
             this.createElements(callingPanel);
             this.getData();
@@ -972,7 +971,7 @@
             };
         },
         'getData': function () {
-            var datedPagesURL = linkChecker.config.datedPagesfileURL;
+            let datedPagesURL = linkChecker.config.datedPagesfileURL;
             jQuery.getJSON(datedPagesURL, function (data) {
                 linkChecker.config.unsupportedPages = data.datedPages;
             });
@@ -1048,7 +1047,7 @@
                 });
         },
         'removeHighlights': function () {
-            var key;
+            let key;
             // removes special overlay class on images
             for (key in linkChecker.config.$legendContent) {
                 if (linkChecker.config.$legendContent.hasOwnProperty(key)) {
@@ -1076,12 +1075,12 @@
             this.$otherLinks = jQuery('header, footer').find('a');
         },
         'nextGenSiteCheck': function () {
-            var $sections = this.$sections;
-            var len = $sections.length;
-            var a = 0;
-            var isImageLink;
-            var $currentCard;
-            var cardClass;
+            let $sections = this.$sections;
+            let len = $sections.length;
+            let a = 0;
+            let isImageLink;
+            let $currentCard;
+            let cardClass;
 
             // TEST LINKS FOUND IN HEADER AND FOOTER OF SITE
             // TESTS TO BODY LINKS WILL BE HANDLED DIFFERENTLY
@@ -1105,16 +1104,16 @@
             }
         },
         'tetraSiteCheck': function () {
-            var length = this.linksArrayLength;
-            var a = 0;
-            var $currentLink;
-            var $image;
-            var isImageLink;
-            var isQLPlink;
-            var dataCell;
-            var $closestLi;
-            var height;
-            var width;
+            let length = this.linksArrayLength;
+            let a = 0;
+            let $currentLink;
+            let $image;
+            let isImageLink;
+            let isQLPlink;
+            let dataCell;
+            let $closestLi;
+            let height;
+            let width;
 
             // loop through all links on page
             for (a; a < length; a += 1) {
@@ -1186,9 +1185,9 @@
             }
         },
         'removeClass': function (array, removeClass) {
-            var arrlength = array.length;
-            var a = 0;
-            var $obj;
+            let arrlength = array.length;
+            let a = 0;
+            let $obj;
             for (a; a < arrlength; a += 1) {
                 $obj = jQuery(array[a]);
                 $obj.removeClass(removeClass);
@@ -1199,10 +1198,10 @@
         // ----------------------------------------
         'testHeaderFooter': function () {
             // TEST LINKS FOUND IN HEADER AND FOOTER OF SITE
-            var jLength = this.$otherLinks.length;
-            var j = 0;
-            var $currentLink;
-            var isImageLink;
+            let jLength = this.$otherLinks.length;
+            let j = 0;
+            let $currentLink;
+            let isImageLink;
 
             // loop through array of links found in header and footer of site
             for (j; j < jLength; j += 1) {
@@ -1218,15 +1217,15 @@
             }
         },
         'testCard': function ($currentCard, cardClass, isImageLink) {
-            var $cardLinkContainer = $currentCard.find('div.link');
-            var $cardSEOContainer = $currentCard.find('div.copy');
-            var $cardImageContainer = $currentCard.find('div.media');
-            var $cardLinks;
-            var myLength;
-            var $copyTextLinks;
-            var youLength;
-            var $currentLink;
-            var $linkOverlay;
+            let $cardLinkContainer = $currentCard.find('div.link');
+            let $cardSEOContainer = $currentCard.find('div.copy');
+            let $cardImageContainer = $currentCard.find('div.media');
+            let $cardLinks;
+            let myLength;
+            let $copyTextLinks;
+            let youLength;
+            let $currentLink;
+            let $linkOverlay;
 
             if (cardClass.indexOf('link-clickable') > -1 ||
                 cardClass.indexOf('none-clickable') > -1) {
@@ -1330,9 +1329,9 @@
         // Tier 5
         // ----------------------------------------
         'testLinks': function ($linkArray, isImageLink) {
-            var q = 0;
-            var myLength = $linkArray.length;
-            var $currentLink;
+            let q = 0;
+            let myLength = $linkArray.length;
+            let $currentLink;
 
             if (myLength > 1) {
                 for (q; q < myLength; q += 1) {
@@ -1429,7 +1428,7 @@
         },
         'checkForTitleText': function ($currentLink, isImageLink) {
             // text links
-            var $obj = isImageLink ? this.$divOverlay : $currentLink;
+            let $obj = isImageLink ? this.$divOverlay : $currentLink;
 
             if (typeof $currentLink.attr('title') === 'undefined' ||
                 $currentLink.attr('title') === '') { // link has no title
@@ -1439,8 +1438,8 @@
             }
         },
         'checkURL': function ($currentLink, isImageLink) {
-            var href = $currentLink.attr('href');
-            var modElement = isImageLink ? this.$divOverlay : $currentLink;
+            let href = $currentLink.attr('href');
+            let modElement = isImageLink ? this.$divOverlay : $currentLink;
 
             // regular text links
             if (typeof href === 'undefined') { // link is undefined
@@ -1479,7 +1478,7 @@
             }
         },
         'checkURLNextGen': function ($currentLink, isImageLink, $linkOverlay) {
-            var href = $currentLink.attr('href');
+            let href = $currentLink.attr('href');
 
             if (typeof href === 'undefined') { // link is undefined
                 this.apndClass($linkOverlay, 'brokenURL');
@@ -1524,10 +1523,10 @@
         },
         // check if leads to out dated page
         'datedURL': function (elem) {
-            var datedPages = linkChecker.config.unsupportedPages;
-            var datedPagesLength = datedPages.length;
-            var z = 0;
-            var datedPage;
+            let datedPages = linkChecker.config.unsupportedPages;
+            let datedPagesLength = datedPages.length;
+            let z = 0;
+            let datedPage;
 
             for (z; z < datedPagesLength; z += 1) {
                 datedPage = datedPages[z];
@@ -1549,7 +1548,7 @@
     // ********************************************************************************
     // **************************************** Spell Check ****************************************
     // ********************************************************************************
-    var spellCheck = {
+    let spellCheck = {
         'init': function (callingPanel) {
             this.createElements();
             this.buildLegend();
@@ -1651,8 +1650,8 @@
          * @return {(object:array)} All the visible text on the page
          */
         'treeWalk': function () {
-            var treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-            var wordArray = [];
+            let treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+            let wordArray = [];
 
             while (treeWalker.nextNode()) {
                 if (treeWalker.currentNode.nodeType === 3) {
@@ -1665,17 +1664,17 @@
          * Gets all text on page and tests words against custom dictionary
          */
         'spellCheckPage': function () {
-            var dictionary = new Typo('en_US', false, false, {
+            let dictionary = new Typo('en_US', false, false, {
                 'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/addingAutofillTags/typo/dictionaries/',
                 //                'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/master/typo/dictionaries/',
             });
-            var wordList = [];
-            var self = this;
-            var pElm;
-            var text;
-            var words;
-            var elm;
-            var unmarked;
+            let wordList = [];
+            let self = this;
+            let pElm;
+            let text;
+            let words;
+            let elm;
+            let unmarked;
 
             // get all visible text on page
             wordList = this.treeWalk();
@@ -1759,7 +1758,7 @@
     // ********************************************************************************
     // **************************************** Test WebPage ****************************************
     // ********************************************************************************
-    var speedtestPage = {
+    let speedtestPage = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -1831,7 +1830,7 @@
             this.isNextGenPlatform = this.nextGenVar(this.nextGen);
         },
         'buildOptions': function () {
-            var $listItem;
+            let $listItem;
 
             jQuery.each(speedtestPage.config.browserOptions, function (key, text) {
                 $listItem = jQuery('<option>').val(key).html(text);
@@ -1886,24 +1885,24 @@
         },
         'storeData': function () {
             // save user input
-            var userEmail = jQuery('#WPTemail').val();
+            let userEmail = jQuery('#WPTemail').val();
             shared.saveValue('email', userEmail);
         },
         'sendPage': function () {
-            var browser = jQuery('#WPTbSelect option:selected').val();
-            var selectedKey = jQuery('#WPTkeySelect option:selected').val();
-            var browserName = jQuery('#WPTbSelect option:selected').text();
-            var email = shared.getValue('email');
-            var params = {
+            let browser = jQuery('#WPTbSelect option:selected').val();
+            let selectedKey = jQuery('#WPTkeySelect option:selected').val();
+            let browserName = jQuery('#WPTbSelect option:selected').text();
+            let email = shared.getValue('email');
+            let params = {
                 'k': selectedKey,
                 'runs': '3',
                 'fvonly': '1',
                 'notify': email,
                 'location': 'Dulles' + browser,
             };
-            var desktopURL;
-            var mobileURL;
-            var testURL = speedtestPage.config.testURL;
+            let desktopURL;
+            let mobileURL;
+            let testURL = speedtestPage.config.testURL;
 
             // build url
             jQuery.each(params, function (index, value) {
@@ -1951,7 +1950,7 @@
     // ********************************************************************************
     // **************************************** Other Tools Panel ****************************************
     // ********************************************************************************
-    var otherTools = {
+    let otherTools = {
         'init': function () {
             // initialize module
             this.createElements();
@@ -2008,7 +2007,7 @@
     // ********************************************************************************
     // **************************************** Show Navigation ****************************************
     // ********************************************************************************
-    var showNavigation = {
+    let showNavigation = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -2113,11 +2112,11 @@
 
         },
         'bindLegendElements': function () {
-            var $myMenu = jQuery('nav');
-            var findThis;
-            var flaggedMajorPages;
-            var flaggedCustomPages;
-            var flaggedCheckedLinks;
+            let $myMenu = jQuery('nav');
+            let findThis;
+            let flaggedMajorPages;
+            let flaggedCustomPages;
+            let flaggedCheckedLinks;
 
             showNavigation.config.$legendList.children().each(function (index, value) {
                 findThis = jQuery(value).attr('class');
@@ -2147,8 +2146,8 @@
         // tier 2 functions
         // ----------------------------------------
         'toggleFeatures': function () {
-            var isNextGen = this.isNextGenPlatform;
-            var majorPages = 'a[href*=Form], a[href*=ContactUs], a[href=HoursAndDirections], a[href*=VehicleSearchResults]';
+            let isNextGen = this.isNextGenPlatform;
+            let majorPages = 'a[href*=Form], a[href*=ContactUs], a[href=HoursAndDirections], a[href*=VehicleSearchResults]';
             if (isNextGen) {
                 this.$navTabs
                     .toggleClass('showNav customAdd');
@@ -2182,8 +2181,8 @@
                     });
         },
         'bindClicks': function () {
-            var i = 0;
-            var length = this.$navTabsLinks.length;
+            let i = 0;
+            let length = this.$navTabsLinks.length;
 
             for (i; i < length; i += 1) {
                 jQuery(this.$navTabsLinks[i])
@@ -2203,7 +2202,7 @@
     // ********************************************************************************
     // **************************************** View Mobile Site ****************************************
     // ********************************************************************************
-    var viewMobile = {
+    let viewMobile = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -2239,8 +2238,8 @@
         // tier 2 functions
         // ----------------------------------------
         'viewMobile': function () {
-            var auto = '?device=mobile&nextGen=false';
-            var openThis = this.siteURL + this.pageName + auto;
+            let auto = '?device=mobile&nextGen=false';
+            let openThis = this.siteURL + this.pageName + auto;
             shared.openNewTab(openThis);
         },
     };
@@ -2248,7 +2247,7 @@
     // ********************************************************************************
     // **************************************** SEO Simplify ****************************************
     // ********************************************************************************
-    var seoSimplify = {
+    let seoSimplify = {
         'init': function (callingPanel) {
             this.createElements();
             this.buildElements();
@@ -2297,10 +2296,10 @@
                 .append(seoSimplify.config.$removeBut);
         },
         'loadData': function () {
-            var x = 0;
-            var oems = seoSimplify.config.oemFiles;
-            var vehicles = seoSimplify.config.vehicles;
-            var xLength = oems.length;
+            let x = 0;
+            let oems = seoSimplify.config.oemFiles;
+            let vehicles = seoSimplify.config.vehicles;
+            let xLength = oems.length;
 
             // load link URL information from oem files
             // and save it into local array
@@ -2331,7 +2330,7 @@
             });
         },
         'simplifySEO': function () {
-            var $input = this.getInput();
+            let $input = this.getInput();
 
             // skip cleaning if input is empty
             if ($input === null || $input === '') {
@@ -2349,9 +2348,9 @@
             seoSimplify.config.$seoDisplay.empty();
         },
         'changeToTextarea': function (event) {
-            var $this = jQuery(event.currentTarget);
-            var input = seoSimplify.config.$seoDisplay.html();
-            var $seoTextArea = jQuery('<textarea>').attr({
+            let $this = jQuery(event.currentTarget);
+            let input = seoSimplify.config.$seoDisplay.html();
+            let $seoTextArea = jQuery('<textarea>').attr({
                 'class': 'inputDisplay',
             });
             $seoTextArea.html(input);
@@ -2363,8 +2362,8 @@
         // tier 3 functions
         // ----------------------------------------
         'getInput': function () {
-            var input = prompt('Enter Your SEO Text - HTML format'); // eslint-disable-line no-alert
-            var $input = jQuery('<div>');
+            let input = prompt('Enter Your SEO Text - HTML format'); // eslint-disable-line no-alert
+            let $input = jQuery('<div>');
 
             // trim input
             input = jQuery.trim(input); // eslint-disable-line no-alert
@@ -2406,12 +2405,12 @@
             return $input;
         },
         'cleanUpLinks': function ($input) {
-            var allLinks = $input.find('a');
-            var len = allLinks.length;
-            var i = 0;
-            var linkURL;
-            var $this;
-            var titleText;
+            let allLinks = $input.find('a');
+            let len = allLinks.length;
+            let i = 0;
+            let linkURL;
+            let $this;
+            let titleText;
 
             for (i; i < len; i += 1) {
                 $this = jQuery(allLinks[i]);
@@ -2449,9 +2448,9 @@
                 .append($input.html());
         },
         'revertDiv': function (event) {
-            var $this = jQuery(event.target);
-            var $thisText = jQuery(event.target).text();
-            var $replacementArea = seoSimplify.config.$seoDisplay;
+            let $this = jQuery(event.target);
+            let $thisText = jQuery(event.target).text();
+            let $replacementArea = seoSimplify.config.$seoDisplay;
 
             $replacementArea.html($thisText);
 
@@ -2477,15 +2476,15 @@
             }
         },
         'refineURL': function (url) {
-            var ezURL = url.split('%');
-            var removeThese = ['LINKCONTEXTNAME', 'LINKPAGENAME'];
-            var i = 0;
-            var j = 0;
-            var x = 0;
-            var findThis = 'ModelDetails';
-            var actualURL;
-            var nURL;
-            var len;
+            let ezURL = url.split('%');
+            let removeThese = ['LINKCONTEXTNAME', 'LINKPAGENAME'];
+            let i = 0;
+            let j = 0;
+            let x = 0;
+            let findThis = 'ModelDetails';
+            let actualURL;
+            let nURL;
+            let len;
 
             ezURL = ezURL.filter(Boolean);
             nURL = ezURL[0].split('_');
@@ -2511,7 +2510,7 @@
             }
         },
         'emptyTarget': function (elem) {
-            var $this = elem;
+            let $this = elem;
             // if target is undefined or empty remove target attribute
             if (seoSimplify.isUndefined($this, 'target') || seoSimplify.isEmpty($this, 'target')) {
                 jQuery(elem).removeAttr('target');
@@ -2521,15 +2520,15 @@
         // tier 5 functions
         // ----------------------------------------
         'getURL': function (vehicle) {
-            var vehicleArray = vehicle.split(' ');
-            var make = 'no match found';
-            var model = '';
-            var oems = seoSimplify.config.oems;
-            var oemsLen = oems.length;
-            var x = 0;
-            var b = 1;
-            var detailsURL = '';
-            var vehiclesArr = seoSimplify.config.vehicles;
+            let vehicleArray = vehicle.split(' ');
+            let make = 'no match found';
+            let model = '';
+            let oems = seoSimplify.config.oems;
+            let oemsLen = oems.length;
+            let x = 0;
+            let b = 1;
+            let detailsURL = '';
+            let vehiclesArr = seoSimplify.config.vehicles;
 
             if (vehicleArray.length >= 3) {
                 for (b; b < vehicleArray.length; b += 1) {
@@ -2570,7 +2569,7 @@
     // ********************************************************************************
     // **************************************** add widget outlines ****************************************
     // ********************************************************************************
-    var widgetOutlines = {
+    let widgetOutlines = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -2606,20 +2605,20 @@
             this.addCustomStyles(this);
         },
         'addCustomStyles': function () {
-            var self = this;
+            let self = this;
             jQuery(this.overlayStyles).each(function (index, value) {
                 self.$toolboxStyles.append(value);
             });
         },
         'addOverlay': function (array) {
-            var self = this;
+            let self = this;
             jQuery(array).each(function (index, value) {
-                var $currentObject = jQuery(value);
-                var widgetID = $currentObject.attr('id');
-                var toolClass = 'showWidgetData';
-                var w = $currentObject.width();
-                var h = $currentObject.height();
-                var addThis = '#' + widgetID + '.' + toolClass + ':after { height: ' + h + 'px; width: ' + w + 'px; }';
+                let $currentObject = jQuery(value);
+                let widgetID = $currentObject.attr('id');
+                let toolClass = 'showWidgetData';
+                let w = $currentObject.width();
+                let h = $currentObject.height();
+                let addThis = '#' + widgetID + '.' + toolClass + ':after { height: ' + h + 'px; width: ' + w + 'px; }';
                 // add tool class
                 $currentObject.addClass('showWidgetData');
                 self.bindClickCallback($currentObject, widgetID);
@@ -2656,7 +2655,7 @@
     // ********************************************************************************
     // **************************************** broken link checker ****************************************
     // ********************************************************************************
-    var checkLinks = {
+    let checkLinks = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -2776,7 +2775,7 @@
         // tier 1 functions
         // ----------------------------------------
         'platformChooser': function () {
-            var isNextGen = shared.nextGenCheck();
+            let isNextGen = shared.nextGenCheck();
             if (isNextGen) {
                 this.nextgenTestLinks();
             } else {
@@ -2784,11 +2783,11 @@
             }
         },
         'tetraTestLinks': function () {
-            var j = 0;
-            var $currentLink;
-            var passedChecks = false;
-            var $pageLinks = jQuery('a');
-            var pageLinksLength = $pageLinks.length;
+            let j = 0;
+            let $currentLink;
+            let passedChecks = false;
+            let $pageLinks = jQuery('a');
+            let pageLinksLength = $pageLinks.length;
 
             // set total tests to number of links on page
             checkLinks.config.totalTests = pageLinksLength;
@@ -2812,8 +2811,8 @@
         // checks current window URL and if it contains nextGen parameter
         // add the same URL parameters to the link before testing.
         'addURLParameter': function ($currentLink) {
-            var curWindow = window.location.href;
-            var linkURL = jQuery.trim($currentLink.attr('href'));
+            let curWindow = window.location.href;
+            let linkURL = jQuery.trim($currentLink.attr('href'));
             // append nextGen
             if (curWindow.indexOf('nextGen=false') > -1) {
                 // apply nextGen=false
@@ -2838,12 +2837,12 @@
          * Add classes to $currentLink if link url does not pass tests
          */
         'testURLs': function ($currentLink) {
-            var linkURL = jQuery.trim($currentLink.attr('href'));
+            let linkURL = jQuery.trim($currentLink.attr('href'));
             // set variable true or false, if image exists inside link
-            var isImageLink = $currentLink.find('img') > 0;
-            var isNextGen = shared.nextGenCheck();
-            var $linkOverlay;
-            var $image;
+            let isImageLink = $currentLink.find('img') > 0;
+            let isNextGen = shared.nextGenCheck();
+            let $linkOverlay;
+            let $image;
 
             // check if link contains an image
             $image = $currentLink.find('img');
@@ -2881,10 +2880,10 @@
             }
         },
         'nextgenTestLinks': function () {
-            var $currentCard;
-            var $sections = jQuery('main').find('section');
-            var a = 0;
-            var len = $sections.length;
+            let $currentCard;
+            let $sections = jQuery('main').find('section');
+            let a = 0;
+            let len = $sections.length;
 
             this.testHeaderFooter();
 
@@ -2899,17 +2898,17 @@
             }
         },
         'checkCard': function ($currentCard) {
-            var $cardLinkContainer = $currentCard.find('div.link');
-            var $cardSEOContainer = $currentCard.find('div.copy');
-            var $cardImageContainer = $currentCard.find('div.media');
-            var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
-            var isImageLink = false;
-            var $cardLinks;
-            var $copyTextLinks;
-            var meLength;
-            var youLength;
-            var $currentLink;
-            //            var $image;
+            let $cardLinkContainer = $currentCard.find('div.link');
+            let $cardSEOContainer = $currentCard.find('div.copy');
+            let $cardImageContainer = $currentCard.find('div.media');
+            let cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
+            let isImageLink = false;
+            let $cardLinks;
+            let $copyTextLinks;
+            let meLength;
+            let youLength;
+            let $currentLink;
+            //            let $image;
 
             if (cardClass.indexOf('link-clickable') > -1 || cardClass.indexOf('none-clickable') > -1) {
                 // CHECK ALL LINKS DEFINED IN CARD SETTINGS
@@ -2988,9 +2987,9 @@
          * TESTS TO BODY LINKS WILL BE HANDLED DIFFERENTLY
          */
         'testHeaderFooter': function () {
-            var jLength = this.$otherLinks.length;
-            var j = 0;
-            var $currentLink;
+            let jLength = this.$otherLinks.length;
+            let j = 0;
+            let $currentLink;
 
             // set total tests to number of links on page
             checkLinks.config.totalTests = jLength;
@@ -3012,9 +3011,9 @@
             }
         },
         'testLinks': function ($linkArray) {
-            var q = 0;
-            var myLength;
-            var $currentLink;
+            let q = 0;
+            let myLength;
+            let $currentLink;
 
             if ($linkArray.length > 1) {
                 // set limit to for loop
@@ -3098,12 +3097,12 @@
             }
         },
         'ajaxTest': function ($currentLink, isImageLink, $currentCard) {
-            var hasImage = 0;
-            var wrappedContents = false;
-            var $linkOverlay;
-            var pageError404;
-            var linkURL = checkLinks.addURLParameter($currentLink);
-            var isNextGen = shared.nextGenCheck();
+            let hasImage = 0;
+            let wrappedContents = false;
+            let $linkOverlay;
+            let pageError404;
+            let linkURL = checkLinks.addURLParameter($currentLink);
+            let isNextGen = shared.nextGenCheck();
 
             if (isImageLink) {
                 isImageLink = isImageLink;
@@ -3111,10 +3110,10 @@
                 isImageLink = false;
             }
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
-            //            var $linkOverlay;
-            //            var pageError404;
-            //            var linkURL = checkLinks.addURLParameter($currentLink);
-            //            var isNextGen = shared.nextGenCheck();
+            //            let $linkOverlay;
+            //            let pageError404;
+            //            let linkURL = checkLinks.addURLParameter($currentLink);
+            //            let isNextGen = shared.nextGenCheck();
 
             // test each link
             jQuery.ajax({
@@ -3212,7 +3211,7 @@
             checkLinks.config.$legend.slideToggle(500);
         },
         'separateID': function (myWebID) {
-            var split = myWebID.split('-');
+            let split = myWebID.split('-');
             return split[1];
         },
         'ajaxStart': function () {
@@ -3263,7 +3262,7 @@
     // ********************************************************************************
     // **************************************** next gen toggle ****************************************
     // ********************************************************************************
-    var nextGenToggle = {
+    let nextGenToggle = {
         'init': function (callingPanel) {
             this.createElements();
             this.buildTool();
@@ -3323,21 +3322,21 @@
         // ----------------------------------------
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = nextGenToggle.config.$FAtoggle;
+            let $toggle = nextGenToggle.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-off')
                 .addClass('fa-toggle-on');
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = nextGenToggle.config.$FAtoggle;
+            let $toggle = nextGenToggle.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-on')
                 .addClass('fa-toggle-off');
         },
         'flipTheSwitch': function () {
             // set saved variable to opposite of current value
-            var toggle = shared.getValue('isNextGen');
+            let toggle = shared.getValue('isNextGen');
             shared.saveValue('isNextGen', !toggle);
 
             // set toggle
@@ -3369,7 +3368,7 @@
     // ********************************************************************************
     // **************************************** m4 checkbox toggle ****************************************
     // ********************************************************************************
-    var m4Check = {
+    let m4Check = {
         'init': function (callingPanel) {
             this.createElements();
             this.buildTool();
@@ -3429,21 +3428,21 @@
         // ----------------------------------------
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = m4Check.config.$FAtoggle;
+            let $toggle = m4Check.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-off')
                 .addClass('fa-toggle-on');
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = m4Check.config.$FAtoggle;
+            let $toggle = m4Check.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-on')
                 .addClass('fa-toggle-off');
         },
         'flipTheSwitch': function () {
             // set saved variable to opposite of current value
-            var toggle = shared.getValue('usingM4');
+            let toggle = shared.getValue('usingM4');
             shared.saveValue('usingM4', !toggle);
 
             // set toggle
@@ -3475,7 +3474,7 @@
     // ********************************************************************************
     // **************************************** autofill toggle ****************************************
     // ********************************************************************************
-    var autofillToggle = {
+    let autofillToggle = {
         'init': function (callingPanel) {
             this.createElements();
             this.buildTool();
@@ -3535,21 +3534,21 @@
         // ----------------------------------------
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = autofillToggle.config.$FAtoggle;
+            let $toggle = autofillToggle.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-off')
                 .addClass('fa-toggle-on');
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = autofillToggle.config.$FAtoggle;
+            let $toggle = autofillToggle.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-on')
                 .addClass('fa-toggle-off');
         },
         'flipTheSwitch': function () {
             // set saved variable to opposite of current value
-            var toggle = shared.getValue('applyAutofill');
+            let toggle = shared.getValue('applyAutofill');
             shared.saveValue('applyAutofill', !toggle);
 
             // set toggle
@@ -3580,7 +3579,7 @@
     // ********************************************************************************
     // **************************************** URL MODIFIER Panel ****************************************
     // ********************************************************************************
-    var urlModifiers = {
+    let urlModifiers = {
         'init': function () {
             // initialize module
             this.createElements();
@@ -3653,7 +3652,7 @@
         },
         'setToggle': function () {
             // get value of custom variable and set toggles accordingly
-            var currentToggle = shared.getValue('autoApplyParameters');
+            let currentToggle = shared.getValue('autoApplyParameters');
 
             if (currentToggle) {
                 this.toggleOn();
@@ -3679,29 +3678,29 @@
         // ----------------------------------------
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = urlModifiers.config.$FAtoggle;
+            let $toggle = urlModifiers.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-off')
                 .addClass('fa-toggle-on');
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = urlModifiers.config.$FAtoggle;
+            let $toggle = urlModifiers.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-on')
                 .addClass('fa-toggle-off');
         },
         'applyParameters': function () {
-            var urlParameters2 = {
+            let urlParameters2 = {
                 'nextGen=': nextGenToggle.isToggleOn(),
                 'relative=': m4Check.isToggleOn(),
                 'disableAutofill=': autofillToggle.isToggleOn(),
             };
-            var findThis = '';
-            var key = '';
-            var matchesFound = [];
-            var hasKey;
-            var isOn;
+            let findThis = '';
+            let key = '';
+            let matchesFound = [];
+            let hasKey;
+            let isOn;
 
             for (key in urlParameters2) {
                 if (urlParameters2.hasOwnProperty(key)) {
@@ -3728,7 +3727,7 @@
         },
         'flipTheSwitch': function () {
             // set saved variable to opposite of current value
-            var toggle = shared.getValue('autoApplyParameters');
+            let toggle = shared.getValue('autoApplyParameters');
             shared.saveValue('autoApplyParameters', !toggle);
 
             // set toggle
@@ -3922,9 +3921,9 @@
         'reloadPage': function (matchesFound) {
             // determine if all parameters are found in the URL
             // will stop the page from reloading after initial build.
-            var q = 0;
-            var matchLength = matchesFound.length;
-            var reloadPage = false;
+            let q = 0;
+            let matchLength = matchesFound.length;
+            let reloadPage = false;
 
             // loop through array to determine if page should reload
             for (q; q < matchLength; q += 1) {
@@ -3951,7 +3950,7 @@
     // ********************************************************************************
     // **************************************** Toggle Tools Panel ****************************************
     // ********************************************************************************
-    var toggles = {
+    let toggles = {
         'init': function () {
             // initialize module
             this.createElements();
@@ -4008,7 +4007,7 @@
     // ********************************************************************************
     // **************************************** Refresh Page toggle ****************************************
     // ********************************************************************************
-    var refreshPage = {
+    let refreshPage = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -4087,7 +4086,7 @@
         },
         'flipTheSwitch': function () {
             // set saved variable to opposite of current value
-            var toggle = shared.getValue('useRefreshButton');
+            let toggle = shared.getValue('useRefreshButton');
             shared.saveValue('useRefreshButton', !toggle);
 
             // set toggle
@@ -4095,13 +4094,13 @@
         },
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = refreshPage.config.$FAtoggle;
+            let $toggle = refreshPage.config.$FAtoggle;
             $toggle.removeClass('fa-toggle-off');
             $toggle.addClass('fa-toggle-on');
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = refreshPage.config.$FAtoggle;
+            let $toggle = refreshPage.config.$FAtoggle;
             $toggle.removeClass('fa-toggle-on');
             $toggle.addClass('fa-toggle-off');
         },
@@ -4110,7 +4109,7 @@
     // ********************************************************************************
     // **************************************** hide preview toolbar toggle ****************************************
     // ********************************************************************************
-    var previewBarToggle = {
+    let previewBarToggle = {
         'init': function (callingPanel) {
             this.createElements();
             this.buildTool();
@@ -4147,8 +4146,8 @@
         },
         'setToggle': function () {
             // get value of custom variable and set toggles accordingly
-            var varName = previewBarToggle.config.varName;
-            var storedValue = shared.getValue(varName);
+            let varName = previewBarToggle.config.varName;
+            let storedValue = shared.getValue(varName);
 
             if (storedValue) {
                 this.toggleOn();
@@ -4184,14 +4183,14 @@
         // ----------------------------------------
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = previewBarToggle.config.$FAtoggle;
+            let $toggle = previewBarToggle.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-off')
                 .addClass('fa-toggle-on');
         },
         'togglePreviewToolbar': function () {
-            var varName = previewBarToggle.config.varName;
-            var hidePreviewToolbar = shared.getValue(varName);
+            let varName = previewBarToggle.config.varName;
+            let hidePreviewToolbar = shared.getValue(varName);
 
             // if 'hidePreviewToolbar is toggled ON'
             if (hidePreviewToolbar) {
@@ -4208,13 +4207,13 @@
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = previewBarToggle.config.$FAtoggle;
+            let $toggle = previewBarToggle.config.$FAtoggle;
             $toggle.removeClass('fa-toggle-on');
             $toggle.addClass('fa-toggle-off');
         },
         'flipTheSwitch': function () {
-            var varName = previewBarToggle.config.varName;
-            var storedValue = shared.getValue(varName);
+            let varName = previewBarToggle.config.varName;
+            let storedValue = shared.getValue(varName);
             // set saved variable to opposite of current value
             shared.saveValue(varName, !storedValue);
             // set toggle
@@ -4225,7 +4224,7 @@
     // ********************************************************************************
     // **************************************** dynamic panel ****************************************
     // ********************************************************************************
-    var dynamicDisplay = {
+    let dynamicDisplay = {
         'init': function () {
             this.createElements();
             this.buildPanel();
@@ -4340,9 +4339,9 @@
         },
         'displayPanel': function () {
             // loop through variable list to find the panel title
-            var variables = this.variableList;
-            var state = '';
-            var key = '';
+            let variables = this.variableList;
+            let state = '';
+            let key = '';
             for (key in variables) {
                 if (variables.hasOwnProperty(key)) {
                     if (key === 'showToolbox') {
@@ -4371,8 +4370,8 @@
         },
         'saveState': function () {
             // get current state
-            var vName = 'showToolbox';
-            var currState = shared.getValue(vName, false);
+            let vName = 'showToolbox';
+            let currState = shared.getValue(vName, false);
 
             // sets usingM4 value
             shared.saveValue(vName, !currState);
@@ -4388,7 +4387,7 @@
     // ********************************************************************************
     // **************************************** MAIN ****************************************
     // ********************************************************************************
-    var main = {
+    let main = {
         'init': function () {
             this.cacheDOM();
             this.checkEnvironment();
@@ -4465,7 +4464,7 @@
             pageInformation.init();
         },
         'qaToolsPanel': function () {
-            var panelID = '#mainTools';
+            let panelID = '#mainTools';
             qaTools.init();
             imageChecker.init(panelID);
             linkChecker.init(panelID);
@@ -4474,7 +4473,7 @@
             checkLinks.init(panelID);
         },
         'otherToolsPanel': function () {
-            var panelID = '#otherTools';
+            let panelID = '#otherTools';
             otherTools.init();
             showNavigation.init(panelID);
             seoSimplify.init(panelID);
@@ -4486,13 +4485,13 @@
             }
         },
         'togglesPanel': function () {
-            var panelID = '#toggleTools';
+            let panelID = '#toggleTools';
             toggles.init();
             refreshPage.init(panelID);
             previewBarToggle.init(panelID);
         },
         'urlModPanel': function () {
-            var panelID = '#urlModTools';
+            let panelID = '#urlModTools';
             urlModifiers.init();
             nextGenToggle.init(panelID);
             autofillToggle.init(panelID);
@@ -4554,7 +4553,7 @@
             }
         },
         //        'checkHideChangeLog': function () {
-        //            var test = 'hide change log? ' + shared.getValue('hideChangeLog');
+        //            let test = 'hide change log? ' + shared.getValue('hideChangeLog');
         //        },
         'showChangeLog': function () {
             qaToolbox.config.$changeLogDisplay.dialog({
@@ -4566,15 +4565,15 @@
                     'click': function () {
                         shared.saveValue('hideChangeLog', true);
                         jQuery(this).dialog('close');
-                    },
-                }],
+                    }
+                }]
             });
 
             // set max height for TETRA sites
             if (!shared.nextGenCheck()) {
                 qaToolbox.config.$changeLogDisplay.dialog('option', 'maxHeight', 800);
             }
-        },
+        }
     };
 
     // ********************************************************************************

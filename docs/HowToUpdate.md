@@ -1,6 +1,8 @@
-# how to update the QA Tool
+# How to Update the QA Tool
 
-**first a little back story behind this particular process**
+**Before we start here is a little prerequisite information for this process**
+
+- These instructions will guide you through the process of modifying the QA Tool and releasing your changes to the public. (In case the title is not clear)
 
 - Please follow these instructions when performing modifications to the tool in order to quickly and easily get your changes approved and published to all the QA Tool's users.  If you find a better way.  Then I am all ears.  :]
 
@@ -23,11 +25,11 @@
 
 ## and we are off!   :rocket:
 In order to modify this tool just follow these simple steps:
-1. [Create your custom branch](#Create-your-custom-branch)
-2. [Update your branch with your new tool or enhancement](#Update-your-branch)
-3. [Test your new code, using Tampermonkey](#Test-your-code)
-4. [Documentation](#Documentation)
-5. [Open a pull request to get your code merged with the master and sent out to the world!](#Open-a-pull-request)
+1. [Create your custom branch](#1.-create-your-custom-branch)
+2. [Update your branch with your new tool or enhancement](#2.-update-your-branch)
+3. [Test your new code, using Tampermonkey](#3.-test-your-code)
+4. [Documentation](#4.-documentation)
+5. [Open a pull request to get your code merged with the master and sent out to the world!](#5.-open-a-pull-request)
 
 **Easy Right!?**
 
@@ -41,12 +43,13 @@ Allow me to explain these steps in depth to make it as easy as possible to updat
 <br>
 <br>
 
-## Create your custom branch
+## 1. Create your custom branch
 
-Create a branch from the 'master' repo on GitHub, please use a descriptive name in order to clearly identify branch purpose.
+> Create a branch from the 'master' repo on GitHub, please use a descriptive name in order to clearly identify branch purpose.
 
-- if you are unable to do so, that means you do not have permission to modify the code.
-Please contact the code owner(s) to get set up with the proper permissions.
+- If you are unable to do so, that means you do not have permission to modify the code.
+
+**Please contact the code owner(s) to get set up with the proper permissions.**
 
 <br>
 <br>
@@ -56,45 +59,49 @@ Please contact the code owner(s) to get set up with the proper permissions.
 <br>
 <br>
 
-### Updating your branch
+### 2. Updating your branch
 
-> **Tip:**  Add a linter addon to your preferred IDE.  Any popular IDE out there should have linter addons for your to install.  Shoot for adding a linter that uses **ESLint.**
+1. Write your code and update your branch with w/e enhancement or new tool that your heart desires.
 
-1. write your code and update your branch with w/e enhancement or new tool that your heart desires.
+2. If using Tampermonkey, you can write your code and test it very easily.  *(I will explain this next)*
 
-2. if using Tampermonkey, you can write your code and test it very easily.  I will explain this in this next.
+    > **Tip:**  Add a linter addon to your preferred IDE.  Any popular IDE out there should have linter addons for your to install.  Shoot for adding a linter that uses **ESLint.**
 
-> **Additional Tip:**
-- This project uses strict **ESLint rules**, that are in place to help others read your code, but it often times helps YOU read your own code.  Have you ever had one of those days where you pump out a bazilion lines of code then revisit it a day later then not no what you are looking at?  Well this should help this not happen!
+#### Tampermonkey Local File Access
 
-With Tampermonkey, you are able to laod your local js file and run it on the webpage!  Greeaaatttt right?!  Here's how!
+With Tampermonkey, you are able to load your local js file and run it on the webpage!  Greeaaatttt right?!  Here's how!
 
-**Discalimer: these steps have only been tested with Chrome, so yeah...**
+***Disclaimer**: these steps have only been tested with Chrome, so yeah...*
 
-If you don't already have Tampermonkey installed on your Chrome browser, please do so now.
+If you don't already have Tampermonkey installed on your Chrome browser, please do that before continuing.
 
 1. Navigate to the **Extensions** menu.
 
-    - Click the link to learn how [https://support.google.com/chrome_webstore/answer/2664769?hl=en](https://support.google.com/chrome_webstore/answer/2664769?hl=en)
+    > Click the link to learn how [https://support.google.com/chrome_webstore/answer/2664769?hl=en](https://support.google.com/chrome_webstore/answer/2664769?hl=en)
 
-2. Find the "Tampermonkey" extension.  *if you have a ton of extensions, the list may be long.  Keep scrolling and you should find it eventually*
+2. Find the "Tampermonkey" extension.
 
-3. There will be TWO (2) CHECKBOXES:
-    - "Allow in incognito"
-    - "Allow access to file URLs"    <-- **CHECK THIS OPTION**
+    > *if you have a ton of extensions, the list may be long.  Keep scrolling and you should find it eventually*
+
+3. Check the box for "Allow access to file URLs"
+
+    > There will be TWO (2) CHECKBOXES:
+    > - "Allow in incognito"
+    > - "Allow access to file URLs"
 
 4. You are done with this tab, close it out.
+
 5. Click on the Tampermonkey icon in your "extension logo soup" area.
 
-> ![Click Addon Icon](images/clickIcon.png)
+    > ![Click Addon Icon](images/clickIcon.png)
 
 6. Navigate to "Dashboard", the dashboard will show you all the userscripts installed in Tampermonkey.
 7. Create a duplicate copy of the QA Tool userscript. We are going to modify the code.
 8. Replace the @require line of code to the main JS file, which should look like this.
 
-> ![Userscript Update](images/localFileAccessBefore.jpg)
+    > ![Userscript Update](images/localFileAccessBefore.jpg)
 
-> // @require https://cdn.rawgit.com/cirept/QA_Toolbox/3.3.1.4-prerelease/assets/js/toolBox.js
+    > // @require https://cdn.rawgit.com/cirept/QA_Toolbox/3.3.1.4-prerelease/assets/js/toolBox.js
 
 **Replace it with**
 
@@ -108,6 +115,9 @@ You're done!  Navigate to a CDK page and reload the page, you should see YOUR ve
 
 Build away!
 
+> **Additional Tip:**
+> - This project uses strict **ESLint rules**, that are in place to help others read your code, but it often times helps YOU read your own code.  Have you ever had one of those days where you pump out a bazilion lines of code then revisit it a day later then not no what you are looking at?  Well this should help this not happen!
+
 <br>
 <br>
 
@@ -116,7 +126,7 @@ Build away!
 <br>
 <br>
 
-## Test your code
+## 3. Test your code
 In this step we will create a pre-release version of the QA Tool.  This step will help weed out any issues that you may encounter when publishing your release to the world.  But before we create a pre-release there is a file that needs updating.
 
 ### Update the meta.js file
@@ -165,17 +175,17 @@ If for some reason, you need to create multiple pre-releases.  Perhaps the meta.
 <br>
 <br>
 
-## Documentation
+## 4. Documentation
 
 Markdown is used to create the documentation.  It won't be hard to learn.  I promise.
 
 - **Please update the README.md** file with detailed information on the tool that you created or modified.  Follow the general outline of the current README when creating a new section or updating information.
 
-> ![Read me update](images/readmeUpdate.jpg)
+    > ![Read me update](images/readmeUpdate.jpg)
 
 - **Please update the ChangeLog.md** file with a general overview of the changes you made to the tool.  Again follow the general outline of the current information on the ChangeLog file when creating a new section.
 
-> ![Change Log Update](images/changelogUpdate.jpg)
+    > ![Change Log Update](images/changelogUpdate.jpg)
 
 <br>
 <br>
@@ -185,7 +195,7 @@ Markdown is used to create the documentation.  It won't be hard to learn.  I pro
 <br>
 <br>
 
-## Open a pull request
+## 5. Open a pull request
 
 For a quick overview of how to create a pull request. Read [How to do a pull request](https://help.github.com/articles/creating-a-pull-request/)
 
@@ -223,17 +233,13 @@ You know the typical QA stuff. I can't stress enough that the documentation is i
 
 #### The 'code quality' portion:
 
-1. Codacy pass :white_check_mark: / fail :x: grade
+For this project we are using **ESLint rules** and **Codacy** has been set up using said ESLint rules.  The rules are may be strict at first, but you will get used to writing code with rules.  ***These rules help create quality code that is easy to maintain AND make it easy for humans to read.***  There are also "best practice" rules as well to ensure that everyone is using good habits while writing code.
+
+> Codacy uses a pass :white_check_mark: / fail :x: grading system.
 
 **Simple enough.**
 
 If you followed my tip and installed a linter, this part shouldn't take long.
-
-=)
-
-In fact, you might get a passing grade first try!
-
-=(
 
 If you don't get a passing grade first try, you can navigate to the Codacy page and see what issues you need to fix.
 
@@ -241,8 +247,6 @@ If you don't get a passing grade first try, you can navigate to the Codacy page 
 
 It is a requirement to get a passing grade by **Codacy**.
 > For more info on Codacy, please check out their [site](https://www.codacy.com/product).
-
-For this project we are using **ESLint rules** and **Codacy** has been set up using said ESLint rules.  The rules are may be strict at first, but you will get used to writing code with rules.  ***These rules help create quality code that is easy to maintain AND make it easy for humans to read.***  There are also "best practice" rules as well to ensure that everyone is using good habits while writing code.
 
 > This may take long depending on the quality of code that was written.
 

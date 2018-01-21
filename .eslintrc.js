@@ -12,6 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+
+         "func-names": [2, "as-needed"],
+        "func-style": [2, "expression"],
  */
 'use strict';
 
@@ -221,8 +224,8 @@ module.exports = {
         'eol-last': 2,
         'func-call-spacing': 2,
         'func-name-matching': 0,
-        'func-names': 2,
-        'func-style': [0, 'declaration'],
+        'func-names': [2, 'as-needed'],
+        'func-style': [2, 'expression'],
         'id-blacklist': 0,
         'id-length': 0,
         'id-match': 0,
@@ -298,7 +301,7 @@ module.exports = {
         'operator-linebreak': 0,
         'padded-blocks': [2, 'never'],
         'quote-props': [2, 'consistent'],
-        'quotes': [2, 'single', {
+        'quotes': [1, 'single', {
             'allowTemplateLiterals': true,
             'avoidEscape': true
         }],
