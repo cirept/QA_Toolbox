@@ -26,10 +26,11 @@
 ## and we are off!   :rocket:
 In order to modify this tool just follow these simple steps:
 1. [Create your custom branch](#1-create-your-custom-branch)
-2. [Update your branch with your new tool or enhancement](#2-update-your-branch)
+2. [Update your branch with your new tool or enhancement](#2-updating-your-branch)
 3. [Test your new code, using Tampermonkey](#3-test-your-code)
 4. [Documentation](#4-documentation)
 5. [Open a pull request to get your code merged with the master and sent out to the world!](#5-open-a-pull-request)
+6. [Public You Release](#6-publishing-your-release)
 
 **Easy Right!?**
 
@@ -218,11 +219,11 @@ The review process is split into two (2) parts: **Human Review** and **Code Qual
 
 **The 'human review' portion:**
 
-- :white_circle: Test if the update works
-- :white_circle: Is it bug free
-- :white_circle: Does it work as expected from reading the README documentation.
-- :white_circle: Are the instructions easy to understand?
-- :white_circle: Enhancement suggestions that would make the tool better? *(up to you if you want to develop these features)*
+- [ ] Test if the update works
+- [ ] Is it bug free
+- [ ] Does it work as expected from reading the README documentation.
+- [ ] Are the instructions easy to understand?
+- [ ] Enhancement suggestions that would make the tool better? *(up to you if you want to develop these features)*
 
 The documentation is important!  The goal of the README instructions is to be able to send someone a link to the README page and that's it!
 
@@ -253,3 +254,22 @@ If you don't get a passing grade first try, you can navigate to the Codacy page 
 **Look at it as a learning experience!**  **You are learning how to refactor your code!**
 
 > Learning how to do things differently, sometimes more efficiently, is the name of the game here.  **Efficient** *almost always* **= speed**.
+
+## Publishing Your Release
+
+You have gotten this far, **Congratulations!**  Once you have successfully merged your branch, in order for everyone to recieve the udpates you made we need to publish your pre-release.
+
+1. Open your final pre-release.
+    > This is the same version you submitted with your pull request
+
+Here is a Checklist of the actions that should be performed before updating your pre-release to public release.
+
+[ ] Update the meta.js file
+
+    - `@name` - update the version number
+    - `@version` - update the version number
+    - `@required` - update the URL for the toolBox.js file to the RELEASE VERSION you will use on your public release.
+
+    ```javascript
+    ie. hello world
+    ```
