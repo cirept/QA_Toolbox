@@ -262,29 +262,29 @@ Don't Merge your branch just yet!  Now that you have gotten your pull request ap
 
 **Update the meta.js file**
 
-    - **@name** - update the version number
+- **@name** - update the version number
 
-        ```
-        Public Release Version Will Be 4.5.6
-        // @name QA Toolbox 4.5.6
-        ```
+    ```
+    Public Release Version Will Be 4.5.6
+    // @name QA Toolbox 4.5.6
+    ```
 
-    - **@version** - update the version number
+- **@version** - update the version number
 
-        ```
-        Public Release Version Will Be 4.5.6
-        // @version 4.5.6
-        ```
+    ```
+    Public Release Version Will Be 4.5.6
+    // @version 4.5.6
+    ```
 
-    - **@required** - update the URL for the toolBox.js file to the RELEASE VERSION you will use on your public release.
+- **@required** - update the URL for the toolBox.js file to the RELEASE VERSION you will use on your public release.
 
-        ```
-        Pre-Release Version = 4.5.6-alpha9
-        // @require https://cdn.rawgit.com/cirept/QA_Toolbox/4.5.6-alpha9/assets/js/toolBox.js
+    ```
+    Pre-Release Version = 4.5.6-alpha9
+    // @require https://cdn.rawgit.com/cirept/QA_Toolbox/4.5.6-alpha9/assets/js/toolBox.js
 
-        Public Release Version Will Be 4.5.6
-        // @require https://cdn.rawgit.com/cirept/QA_Toolbox/4.5.6/assets/js/toolBox.js
-        ```
+    Public Release Version Will Be 4.5.6
+    // @require https://cdn.rawgit.com/cirept/QA_Toolbox/4.5.6/assets/js/toolBox.js
+    ```
 
 ## 7. Publishing Your Release
 
