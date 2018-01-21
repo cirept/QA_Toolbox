@@ -30,7 +30,8 @@ In order to modify this tool just follow these simple steps:
 3. [Test your new code, using Tampermonkey](#3-test-your-code)
 4. [Documentation](#4-documentation)
 5. [Open a pull request to get your code merged with the master and sent out to the world!](#5-open-a-pull-request)
-6. [Public You Release](#6-publishing-your-release)
+6. [Update the meta.js file](#6-update-meta-js-file)
+7. [Publish You Release](#6-publishing-your-release)
 
 **Easy Right!?**
 
@@ -255,32 +256,47 @@ If you don't get a passing grade first try, you can navigate to the Codacy page 
 
 > Learning how to do things differently, sometimes more efficiently, is the name of the game here.  **Efficient** *almost always* **= speed**.
 
-## Publishing Your Release
+## 6 Update meta.js file
 
-You have gotten this far, **Congratulations!**  Once you have successfully merged your branch, in order for everyone to recieve the udpates you made we need to publish your pre-release.
-
-1. **Open your final pre-release** - This is the same version you submitted with your pull request
-
-2. **Change the "Tag Version"** - Remove the testing phrases that was added to the pre-release version number.
-    - For example: pre-release version: 4.5.6-alpha9.
-    - Your public release version will be : 4.5.6
-
-3. **Uncheck "This is a pre-release"** - at the bottom of the release.
-
-4. **Test the release was done correctly** - Go into Tampermonkey and do a manual update on the QA Tool.  If you DID NOT receive the update, double check that every step was followed then try again.  If problem persists, contact the code owner(s) for assistance.
-
-** Quick Summary **
+Don't Merge your branch just yet!  Now that you have gotten your pull request approvals.  You need to update the meta.js file again.
 
 - [ ] Update the meta.js file
 
     - [ ] @name - update the version number
+
+    ```
+    Public Release Version Will Be 4.5.6
+    // @name QA Toolbox 4.5.6
+    ```
+
     - [ ] @version - update the version number
+
+    ```
+    Public Release Version Will Be 4.5.6
+    // @version 4.5.6
+    ```
+
     - [ ] @required - update the URL for the toolBox.js file to the RELEASE VERSION you will use on your public release.
 
     ```
     Pre-Release Version = 4.5.6-alpha9
     // @require https://cdn.rawgit.com/cirept/QA_Toolbox/4.5.6-alpha9/assets/js/toolBox.js
 
-    Public Release Version = 4.5.6
+    Public Release Version Will Be 4.5.6
     // @require https://cdn.rawgit.com/cirept/QA_Toolbox/4.5.6/assets/js/toolBox.js
     ```
+
+## 7. Publishing Your Release
+
+You have gotten this far, **Congratulations!**  Once you have successfully merged your branch.  Now in order for everyone to recieve the udpate that you made, we need to publish your pre-release.
+
+1. **Open your Github pre-release** - This is the pre-release that you submitted with your pull request
+
+2. **Change the "Tag Version"** - Shorten the version to only include the version number.
+    - For example:
+    - pre-release version: 4.5.6-alpha9.
+    - public release version : 4.5.6
+
+3. **Uncheck "This is a pre-release"** - at the bottom of the release.
+
+4. **Test the release was done correctly** - Go into Tampermonkey and do a manual update on the QA Tool.  If you DID NOT receive the update, double check that every step was followed then try again.  If problem persists, contact the code owner(s) for assistance.
