@@ -25,11 +25,11 @@
 
 ## and we are off!   :rocket:
 In order to modify this tool just follow these simple steps:
-1. [Create your custom branch](#1.-create-your-custom-branch)
-2. [Update your branch with your new tool or enhancement](#2.-update-your-branch)
-3. [Test your new code, using Tampermonkey](#3.-test-your-code)
-4. [Documentation](#4.-documentation)
-5. [Open a pull request to get your code merged with the master and sent out to the world!](#5.-open-a-pull-request)
+1. [Create your custom branch](#1-create-your-custom-branch)
+2. [Update your branch with your new tool or enhancement](#2-update-your-branch)
+3. [Test your new code, using Tampermonkey](#3-test-your-code)
+4. [Documentation](#4-documentation)
+5. [Open a pull request to get your code merged with the master and sent out to the world!](#5-open-a-pull-request)
 
 **Easy Right!?**
 
@@ -47,9 +47,7 @@ Allow me to explain these steps in depth to make it as easy as possible to updat
 
 > Create a branch from the 'master' repo on GitHub, please use a descriptive name in order to clearly identify branch purpose.
 
-- If you are unable to do so, that means you do not have permission to modify the code.
-
-**Please contact the code owner(s) to get set up with the proper permissions.**
+If you are unable to do so, that means you do not have permission to modify the code.  Please contact the code owner(s) to get set up with the proper permissions.
 
 <br>
 <br>
@@ -96,27 +94,24 @@ If you don't already have Tampermonkey installed on your Chrome browser, please 
     > ![Click Addon Icon](images/clickIcon.png)
 
 6. Navigate to "Dashboard", the dashboard will show you all the userscripts installed in Tampermonkey.
-7. Create a duplicate copy of the QA Tool userscript. We are going to modify the code.
-8. Replace the @require line of code to the main JS file, which should look like this.
+7. Create a duplicate copy of the QA Tool userscript.  *We are going to modify the code.*
+8. Replace the **@require** line of code to the main JS file, which should look like this.
 
-    > ![Userscript Update](images/localFileAccessBefore.jpg)
+    >  // @require https://cdn.rawgit.com/cirept/QA_Toolbox/3.3.1.4-prerelease/assets/js/toolBox.js
 
-    > // @require https://cdn.rawgit.com/cirept/QA_Toolbox/3.3.1.4-prerelease/assets/js/toolBox.js
+    ![Userscript Update](images/localFileAccessBefore.jpg)
 
 **Replace it with**
 
 > // @require file://FULL_FILE_PATH_TO_YOUR_CUSTOM_JS_FILE
 
-> ![Userscript Update](images/localFileAccessAfter.jpg)
+![Userscript Update](images/localFileAccessAfter.jpg)
 
 You're done!  Navigate to a CDK page and reload the page, you should see YOUR version of the QA Tool.
 
 [for more information on getting Tampermonkey to read your local js file](https://forum.tampermonkey.net/viewtopic.php?t=316)
 
-Build away!
-
-> **Additional Tip:**
-> - This project uses strict **ESLint rules**, that are in place to help others read your code, but it often times helps YOU read your own code.  Have you ever had one of those days where you pump out a bazilion lines of code then revisit it a day later then not no what you are looking at?  Well this should help this not happen!
+> **Tip**: - This project uses strict **ESLint rules**, that are in place to help others read your code, but it often times helps YOU read your own code.  Have you ever had one of those days where you pump out a bazilion lines of code then revisit it a day later then not no what you are looking at?  Well this should help this not happen!
 
 <br>
 <br>
@@ -135,36 +130,45 @@ In this step we will create a pre-release version of the QA Tool.  This step wil
 
 Please update these lines in the meta.js file
 
-> **@version X.X.X.X**
-- update the version number to what will be the latest version when your changes gets published.  For example, if the current version is 3.3.1 that would mean when your changes are published the version you will be using could be 3.4 or 3.3.2, depending on the modifications you are making (more on Semantic Versioning later).  So you would put either of those two version numbers here.
+> **@version X.X.X.X** - update the version number to what will be the latest version when your changes gets published.  For example, if the current version is 3.3.1 that would mean when your changes are published the version you will be using could be 3.4 or 3.3.2, depending on the modifications you are making (more on Semantic Versioning later).  So you would put either of those two version numbers here.
 
-> **@require https://cdn.rawgit.com/cirept/QA_Toolbox/XXXXXXXXXX/assets/js/toolBox.js**
-- update the file path to link to the PRE-RELEASE version you will create.
+> **@require https://cdn.rawgit.com/cirept/QA_Toolbox/XXXXXXXXXX/assets/js/toolBox.js** - update the file path to link to the PRE-RELEASE version you will create.
 
 ### Create a Pre-Release
+
+[Click here to learn how to create a Release](https://help.github.com/articles/creating-releases/)
+
 Now we are ready to create a pre-release version of the QA Tool with YOUR code.
 
-- [Click here to learn how to create a Release](https://help.github.com/articles/creating-releases/).
+> **Tip**: Do not forget to select "This is a pre-release" at the bottom of the release creation page to ensure that your changes are published pre-maturely
 
-> Do not forget to select "This is a pre-release" at the bottom of the release creation page to ensure that your changes are published pre-maturely
+![Versioning Example](images/versioningExample.jpg)
+
+#### Semantic Versioning
 
 Please follow the semantic versioning increments of the current QA Tool.
 
-> ![Versioning Example](images/versioningExample.jpg)
+> For more information on Semantic Versioning, [see here](http://semver.org/)
 
-- if the current version is 3.3.1.4, YOUR version should be **3.3.1.5-beta** or **3.3.2-alpha** or **3.4-beta** depending on the type of update you are making.  For more information on Semantic Versioning, [see here](http://semver.org/).
-- One more thing to note is how I included, -beta, -alpha.  This is recommended during the testing phase to reserve that version number for YOUR release, in the event that various updates are made at once.  Once you get your changes merged to the master branch, you should drop the extra fluff in the version number and it will be just the number.  **3.3.1.5** or **3.3.2** or **3.4**.
+- If the current version is 3.3.1.4, YOUR version should be **3.3.1.5-beta** or **3.3.2-alpha** or **3.4-beta** depending on the type of update you are making.
+
+- One more thing to note is how I included, -beta, -alpha.  This is recommended during the testing phase to reserve that version number for YOUR release, in the event that various updates are made at once.
+
+- Once you get your changes merged to the master branch, you should drop the extra fluff in the version number and it will be just the number.  **3.3.1.5** or **3.3.2** or **3.4**.
 
 ### Multiple Pre-Releases
-If for some reason, you need to create multiple pre-releases.  Perhaps the meta.js file wasn't updated before you created the pre-release.  Please overwrite your current pre-release.
-- while on the "Releases" page, simply click the "Edit" button for your pre-release and update the TAG VERSION area.
 
-    - :star: the 'tag version' input will be the first input box on the page.
+If for some reason, you need to create multiple pre-releases.  Perhaps the meta.js file wasn't updated before you created the pre-release.
+**Please overwrite your current pre-release.**
 
-- If you do create multiple pre-releases, please delete unused copies as they will convolute the Release section.  **Goal here is to be able to see the latest release on the first page!**
+While on the "Releases" page, simply click the "Edit" button for your pre-release and update the TAG VERSION area.
 
+> :star: the 'tag version' input will be the first input box on the page.
+
+If you do create multiple pre-releases, please delete unused copies as they will convolute the Release section.  **Goal here is to be able to see the latest release on the first page!**
+
+![pre release updates](images/prereleaseUpdates.jpg)
 *Here is an example of what the RELEASE page should look like if you overwrote your pre-releases correctly.*
-> ![pre release updates](images/prereleaseUpdates.jpg)
 
 
 <br>
@@ -177,15 +181,15 @@ If for some reason, you need to create multiple pre-releases.  Perhaps the meta.
 
 ## 4. Documentation
 
-Markdown is used to create the documentation.  It won't be hard to learn.  I promise.
+**Markdown** is used to create the documentation.  It won't be hard to learn.  I promise.
 
-- **Please update the README.md** file with detailed information on the tool that you created or modified.  Follow the general outline of the current README when creating a new section or updating information.
+1. **Update the README.md** - Update the README with detailed information on the tool that you created or modified.  Follow the general outline of the current README when creating a new section or updating information.
 
-    > ![Read me update](images/readmeUpdate.jpg)
+    ![Read me update](images/readmeUpdate.jpg)
 
-- **Please update the ChangeLog.md** file with a general overview of the changes you made to the tool.  Again follow the general outline of the current information on the ChangeLog file when creating a new section.
+2. **Udate the ChangeLog.md** - Update the changelog file with a general overview of the changes you made to the tool.  Again follow the general outline of the current information on the ChangeLog file when creating a new section.
 
-    > ![Change Log Update](images/changelogUpdate.jpg)
+    ![Change Log Update](images/changelogUpdate.jpg)
 
 <br>
 <br>
@@ -197,31 +201,32 @@ Markdown is used to create the documentation.  It won't be hard to learn.  I pro
 
 ## 5. Open a pull request
 
-For a quick overview of how to create a pull request. Read [How to do a pull request](https://help.github.com/articles/creating-a-pull-request/)
-
-Additional resources:
-- [about pull requests](https://help.github.com/articles/about-pull-requests/)
-- [commenting on a pull request](https://help.github.com/articles/commenting-on-a-pull-request/)
+> For a information on how to create a pull request:<br>
+> [How to do a pull request](https://help.github.com/articles/creating-a-pull-request/) || [about pull requests](https://help.github.com/articles/about-pull-requests/) || [commenting on a pull request](https://help.github.com/articles/commenting-on-a-pull-request/)
 
 **When you create a pull request, please perform these steps:**
 1. Please include a **summary** of what changes that you made in the comments of the pull request.
 
 2. Add a **link to the pre-release version** in the comments so the reviewers can easily find the version you want to merge
-    - this pre-release should be the same pre-release you tested in the previous phase.
+    > This pre-release should be the same pre-release you used for testing.
+
+### Review Process
 
 The review process is split into two (2) parts: **Human Review** and **Code Quality**.
 
-### Human Review
+#### Human Review
 
-#### The 'human review' portion:
+**The 'human review' portion:**
 
-1. test if the update works
-2. is it bug free
-3. does it work as expected from reading the README documentation.
-4. Are the instructions easy to understand?
-4. Enhancement suggestions that would make the tool better? *(up to you if you want to develop these features)*
+- :white_circle: Test if the update works
+- :white_circle: Is it bug free
+- :white_circle: Does it work as expected from reading the README documentation.
+- :white_circle: Are the instructions easy to understand?
+- :white_circle: Enhancement suggestions that would make the tool better? *(up to you if you want to develop these features)*
 
-You know the typical QA stuff. I can't stress enough that the documentation is important!  The goal of the README instructions is to be as *clear as possible*.  You want your documentation to be good enough where you can send them a link to the README page and be done with them!
+The documentation is important!  The goal of the README instructions is to be able to send someone a link to the README page and that's it!
+
+**If everything is in order, you will get an approval review.**
 
 :star2: An approval review will be given if all the criteria are met.
 
@@ -231,27 +236,20 @@ You know the typical QA stuff. I can't stress enough that the documentation is i
 
 > ![Changes Requested](images/changesRequested.jpg)
 
-#### The 'code quality' portion:
+#### Code Review
 
-For this project we are using **ESLint rules** and **Codacy** has been set up using said ESLint rules.  The rules are may be strict at first, but you will get used to writing code with rules.  ***These rules help create quality code that is easy to maintain AND make it easy for humans to read.***  There are also "best practice" rules as well to ensure that everyone is using good habits while writing code.
+**The 'code quality' portion:**
 
-> Codacy uses a pass :white_check_mark: / fail :x: grading system.
+For this project we are using **ESLint rules** and **Codacy** has been set up using said ESLint rules.  The rules are may be strict at first, but you will get used to writing code with rules.  There are also "best practice" rules as well to ensure that everyone is using good habits while writing code.  If you followed my tip and installed a linter, this part shouldn't take long.  **It is a requirement to get a passing grade by Codacy**.
 
-**Simple enough.**
+> For more info on Codacy, please check out their [site](https://www.codacy.com/product)
 
-If you followed my tip and installed a linter, this part shouldn't take long.
+*These rules help create quality code that is easy to maintain AND make it easy for humans to read.*
 
 If you don't get a passing grade first try, you can navigate to the Codacy page and see what issues you need to fix.
 
-> ![Navigate to Codacy Site](images/Codacy_details.jpg)
+![Navigate to Codacy Site](images/Codacy_details.jpg)
 
-It is a requirement to get a passing grade by **Codacy**.
-> For more info on Codacy, please check out their [site](https://www.codacy.com/product).
-
-> This may take long depending on the quality of code that was written.
-
-> **Look at it as a learning experience!**
-
-> **You are learning how to refactor your code!**
+**Look at it as a learning experience!**  **You are learning how to refactor your code!**
 
 > Learning how to do things differently, sometimes more efficiently, is the name of the game here.  **Efficient** *almost always* **= speed**.
