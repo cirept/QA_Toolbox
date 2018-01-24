@@ -1669,15 +1669,15 @@
             return wordArray;
         },
         'bannedWordsMap': function () {
-            spellCheck.OEMap = new Map();   
-            var OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;    
+            spellCheck.OEMap = new Map();
+            var OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;
             // get banned words JSON
             $.getJSON(OEMBannedWordsFile, function(d) {
                 var items = new Map();
                 $.each(d, function(key, value) {
                     // sort so that longer words get highlighted over shorter ones
                     spellCheck.OEMap.set(key, value.sort(function(a, b) {
-                      return b.length - a.length || a.localeCompare(b);    
+                      return b.length - a.length || a.localeCompare(b);
                     }));
                 })
                 
@@ -1748,7 +1748,7 @@
             var bannedWords = [];
             var text, pElm, elm, unmarked;
             var self = this;
-           
+                       
             var franchises=unsafeWindow.ContextManager.getFranchises();
             //highlight banned words for every OEM related to this
             for(var f =0, len = franchises.length; f < len; f++) {
