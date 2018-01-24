@@ -3180,7 +3180,6 @@
             if(isNextGen && isImageLink) {
                 var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
-                    console.log();
                     $currentCard.remove('.imgOverlay');
                     var $currentImg = jQuery($currentCard.find('img')[0]);
                     $linkOverlay = this.addDivOverlay($currentImg);
