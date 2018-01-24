@@ -3002,7 +3002,7 @@
             }
             if (linkURL.indexOf('tel:') >= 0) {
                 if (isImageLink) {
-                    if($linkOverlay == null) {
+                    if($linkOverlay === null) {
                         $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                     }
                     $linkOverlay.addClass('mobilePhoneLink');
@@ -3022,7 +3022,7 @@
                 return false;
             } else if (linkURL.indexOf('www') > -1 || linkURL.indexOf('://') > -1) { // test for absolute path URLs
                 if (isImageLink) {
-                    if($linkOverlay == null) {
+                    if($linkOverlay === null) {
                         $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                     }
                     $linkOverlay.addClass('otherDomain');
