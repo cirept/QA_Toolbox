@@ -2776,7 +2776,7 @@
 
             checkLinks.config.$offButt.on('click', this.showLegend);
         },
-        //Img Overlay Functions for Card-Clickable-V2
+        // Img Overlay Functions for Card-Clickable-V2
         'addDivOverlay': function ($currentImage) {
             this.cacheDOMOverlayElements($currentImage);
             this.createOverlayElements();
@@ -2896,7 +2896,7 @@
             // check if link contains an image
             $image = $currentLink.find('img');
             isImageLink = this.isImageLink($image);
-            //check if link goes to another page
+            // check if link goes to another page
             if ($currentLink.attr('target') === '_blank' ||
                 $currentLink.attr('target') === '_new' ||
                 $currentLink.attr('target') === 'custom') {
@@ -3175,7 +3175,7 @@
             } else {
                 isImageLink = false;
             }
-            //If card-clickable-v2, we want to only overlay the img, as the rest of the card could have links
+            // If card-clickable-v2, we want to only overlay the img, as the rest of the card could have links
             if(isNextGen && isImageLink) {
                 var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
@@ -3191,7 +3191,7 @@
                     $linkOverlay.addClass('opensWindow');
                 }
                 var href = jQuery($currentLink).attr('href');
-                //try in case theres a problem with href
+                // try in case theres a problem with href
                 try {
                     var currentURL = jQuery.trim(href);
                     if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) {
@@ -3301,8 +3301,8 @@
 
         'showURL': function ($currentLink, isImageLink, $linkOverlay) {
             var linkURL = jQuery.trim($currentLink.attr('href'));
-            //Use Co 
-            //try {
+            // Use Co 
+            // try {
             //     jQuery.get(linkURL, function (data) {
             //         var i = 0;  
             //         //parse the pageLabel from the contextManager                   
