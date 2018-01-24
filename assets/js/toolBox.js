@@ -2909,7 +2909,7 @@
             }
             if (linkURL.indexOf('tel:') >= 0) {
                 if (isImageLink) {
-                    if($linkOverlay == null) {
+                    if ($linkOverlay == null) {
                         $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                     }
                     $linkOverlay.addClass('mobilePhoneLink');
@@ -2929,7 +2929,7 @@
                 return false;
             } else if (linkURL.indexOf('www') > -1 || linkURL.indexOf('://') > -1) { // test for absolute path URLs
                 if (isImageLink) {
-                    if($linkOverlay == null) {
+                    if ($linkOverlay == null) {
                         $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                     }
                     $linkOverlay.addClass('otherDomain');
@@ -3176,7 +3176,7 @@
                 isImageLink = false;
             }
             // If card-clickable-v2, we want to only overlay the img, as the rest of the card could have links
-            if(isNextGen && isImageLink) {
+            if (isNextGen && isImageLink) {
                 var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
                     $currentCard.remove('.imgOverlay');
@@ -3330,14 +3330,14 @@
             //     }, 'html');
             // } catch (e) {
             linkURL=" Url: "+linkURL;
-            if(isImageLink) {
-                if($linkOverlay[0].innerHTML.indexOf(linkURL) == -1) {
-                    if($linkOverlay != null) {
+            if (isImageLink) {
+                if ($linkOverlay[0].innerHTML.indexOf(linkURL) == -1) {
+                    if ($linkOverlay != null) {
                         $linkOverlay.append(linkURL);
                     }
                 }
             } else {
-                if($currentLink[0].innerHTML.indexOf(linkURL) == -1) {
+                if ($currentLink[0].innerHTML.indexOf(linkURL) == -1) {
                     $currentLink.append(linkURL);
                 }
             }
