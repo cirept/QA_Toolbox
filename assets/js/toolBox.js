@@ -1671,10 +1671,11 @@
         'bannedWordsMap': function () {
             spellCheck.OEMap = new Map();   
             var OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;    
+            // get banned words JSON
             $.getJSON(OEMBannedWordsFile, function(d) {
-                
                 var items = new Map();
                 $.each(d, function(key, value) {
+                    // sort so that longer words get highlighted over shorter ones
                     spellCheck.OEMap.set(key, value.sort(function(a, b) {
                       return b.length - a.length || a.localeCompare(b);    
                     }));
@@ -1758,7 +1759,7 @@
                     return;
                 }
 
-                //Check page for banned words
+                // Check page for banned words
                 wordList.forEach(function (n) {
                     
                     text = n.nodeValue;
@@ -1769,7 +1770,7 @@
                      if (!(text.match(/[%’'\w]+/g))) {
                         return;
                     }
-                    //test text against banned words
+                    // test text against banned words
                     for(var w=0, length = bannedWords.length; w<length; w++) {
                         var startIndex = 0, curIndex=0;
                         var words = bannedWords[w];
@@ -1780,7 +1781,7 @@
                     }
 
                     n.nodeValue = text;
-                    //replace when the whole area has been searched
+                    // replace when the whole area has been searched
                     if (!pElm) {
                         pElm = elm;
                     } else if (!pElm.contains(elm)) {
@@ -2868,7 +2869,7 @@
 
             checkLinks.config.$offButt.on('click', this.showLegend);
         },
-        //Img Overlay Functions for Card-Clickable-V2
+        // Img Overlay Functions for Card-Clickable-V2
         'addDivOverlay': function ($currentImage) {
             this.cacheDOMOverlayElements($currentImage);
             this.createOverlayElements();
