@@ -1668,7 +1668,7 @@
             }
             return wordArray;
         },
-        'bannedWordsMap': function () {       
+        'bannedWordsMap': function () {
             spellCheck.OEMap = new Map();   
             var OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;    
             $.getJSON(OEMBannedWordsFile, function(d) {
