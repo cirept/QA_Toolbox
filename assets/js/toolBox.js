@@ -2909,7 +2909,7 @@
             }
             if (linkURL.indexOf('tel:') >= 0) {
                 if (isImageLink) {
-                    if ($linkOverlay == null) {
+                    if ($linkOverlay === null) {
                         $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                     }
                     $linkOverlay.addClass('mobilePhoneLink');
@@ -2929,7 +2929,7 @@
                 return false;
             } else if (linkURL.indexOf('www') > -1 || linkURL.indexOf('://') > -1) { // test for absolute path URLs
                 if (isImageLink) {
-                    if ($linkOverlay == null) {
+                    if ($linkOverlay === null) {
                         $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                     }
                     $linkOverlay.addClass('otherDomain');
@@ -3331,13 +3331,13 @@
             // } catch (e) {
             linkURL=" Url: "+linkURL;
             if (isImageLink) {
-                if ($linkOverlay[0].innerHTML.indexOf(linkURL) == -1) {
+                if ($linkOverlay[0].innerHTML.indexOf(linkURL) === -1) {
                     if ($linkOverlay != null) {
                         $linkOverlay.append(linkURL);
                     }
                 }
             } else {
-                if ($currentLink[0].innerHTML.indexOf(linkURL) == -1) {
+                if ($currentLink[0].innerHTML.indexOf(linkURL) === -1) {
                     $currentLink.append(linkURL);
                 }
             }
