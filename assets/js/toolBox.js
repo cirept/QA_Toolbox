@@ -897,7 +897,6 @@
         },
         'attachToImage': function ($currentImage) {
             // make parent image relative positioning
-            console.log($currentImage);
             this.toggleOverlayClass($currentImage);
             // place div overlay onto image
             $currentImage
