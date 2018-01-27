@@ -3207,7 +3207,6 @@
                 }
             }
             
-            
             checkLinks.showURL($currentLink, isImageLink, $linkOverlay, linkURL);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
             //            var $linkOverlay;
