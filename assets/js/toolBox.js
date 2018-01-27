@@ -3200,7 +3200,8 @@
                     if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) {
                         $linkOverlay.addClass('otherDomain');
                     }
-                } catch (e) {
+                } finally {
+                    
                 }
             }
             
