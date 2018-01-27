@@ -3170,6 +3170,7 @@
             var linkURL = checkLinks.addURLParameter($currentLink);
             var isNextGen = shared.nextGenCheck();
             var cardClass;
+            var $currentImg;
             if (isImageLink) {
                 isImageLink = isImageLink;
             } else {
@@ -3180,7 +3181,7 @@
                 cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
                     $currentCard.remove('.imgOverlay');
-                    var $currentImg = jQuery($currentCard.find('img')[0]);
+                    $currentImg = jQuery($currentCard.find('img')[0]);
                     $linkOverlay = this.addDivOverlay($currentImg);
                 } else {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
