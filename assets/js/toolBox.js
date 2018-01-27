@@ -3200,8 +3200,10 @@
                     if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) {
                         $linkOverlay.addClass('otherDomain');
                     }
-                } finally {
-                    
+                } catch (e) {
+                    if (typeof $currentLink === 'undefined' || linkURL === '') { // test for undefined or empty URLs
+                        $currentLink.addClass('attention');
+                    }
                 }
             }
             
