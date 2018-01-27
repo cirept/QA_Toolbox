@@ -3264,6 +3264,7 @@
             var isNextGen = shared.nextGenCheck();
             var cardClass;
             var $currentImg;
+            var href;
             if (isImageLink) {
                 isImageLink = isImageLink;
             } else {
@@ -3284,7 +3285,7 @@
                 $currentLink.attr('target') === 'custom') {
                     $linkOverlay.addClass('opensWindow');
                 }
-                var href = jQuery($currentLink).attr('href');
+                href = jQuery($currentLink).attr('href');
                 //try in case theres a problem with href
                 try {
                     var currentURL = jQuery.trim(href);
