@@ -3169,7 +3169,7 @@
             var pageError404;
             var linkURL = checkLinks.addURLParameter($currentLink);
             var isNextGen = shared.nextGenCheck();
-
+            var cardClass;
             if (isImageLink) {
                 isImageLink = isImageLink;
             } else {
@@ -3177,7 +3177,7 @@
             }
             // If card-clickable-v2, we want to only overlay the img, as the rest of the card could have links
             if (isNextGen && isImageLink) {
-                var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
+                cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
                     $currentCard.remove('.imgOverlay');
                     var $currentImg = jQuery($currentCard.find('img')[0]);
