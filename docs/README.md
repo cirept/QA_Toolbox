@@ -226,7 +226,7 @@
 ### **Features**<br>
 
 - All misspelled words will be highlighted in red.<br>
-- All banned words will be highlighted in yellow.<br>
+- All banned words will be highlighted in yellow. You can find banned words at (\\Las-mgmt1.lasisi01a.las.san.dsghost.net\associate\sea\CS\++AssetRepository), and can find the compiled list used by the tool at (https://github.com/cirept/QA_Toolbox/tree/master/resources/OEM_Banned_Words.json) (<br>
 
 | Spell Check Results Example |
 | --- |
