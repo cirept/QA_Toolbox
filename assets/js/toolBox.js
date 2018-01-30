@@ -1687,7 +1687,6 @@
          * Gets all text on page and tests words against custom dictionary
          */
         'spellCheckPage': function () {
-            
             var dictionary = new Typo('en_US', false, false, {
                 'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/addingAutofillTags/typo/dictionaries/',
                 //                'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/master/typo/dictionaries/',
