@@ -789,7 +789,7 @@
             imageChecker.config.$activateButt.on('click', function () {
                 jQuery('html, body').scrollTop(0);
                 jQuery('html, body').animate({
-                    'scrollTop': jQuery(document).height(),
+                    'scrollTop': jQuery(document).height()
                 }, 4000).delay(1750).promise().done(function () {
                     jQuery('html, body').scrollTop(0);
                     imageChecker.highlightImages();
@@ -2627,7 +2627,7 @@
                 $currentObject.addClass('showWidgetData');
                 self.bindClickCallback($currentObject, widgetID);
                 $currentObject.attr({
-                    'title': 'Click to Copy Widget ID',
+                    'title': 'Click to Copy Widget ID'
                 });
 
                 // add height and width data to widget element
@@ -3287,7 +3287,7 @@
                         }
 
                         checkLinks.config.errors += 1;
-                    },
+                    }
                 },
                 'complete': function () {
                     checkLinks.config.count += 1;
