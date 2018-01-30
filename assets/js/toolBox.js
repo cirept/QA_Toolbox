@@ -2781,7 +2781,7 @@
             this.cacheDOMOverlayElements($currentImage);
             this.createOverlayElements();
             this.buildOverlayElements();
-            this.attachToImage($currentImage);
+            this.attachOverlayToImage($currentImage);
             return this.$divOverlay;
         },
         'cacheDOMOverlayElements': function ($currentImage) {
@@ -2803,7 +2803,7 @@
                 'height': this.heightOfImage + 'px',
             });
         },
-        'attachToImage': function ($currentImage) {
+        'attachOverlayToImage': function ($currentImage) {
             // make parent image relative positioning
             this.toggleOverlayClass($currentImage);
             // place div overlay onto image
@@ -3292,7 +3292,7 @@
                 'complete': function () {
                     checkLinks.config.count += 1;
                     checkLinks.config.$counter.text(checkLinks.config.count + ' of ' + checkLinks.config.totalTests);
-                },
+                }
             });
         },
 
