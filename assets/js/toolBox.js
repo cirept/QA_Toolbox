@@ -3226,7 +3226,7 @@
                         if (hasImage) {
                             isImageLink = true;
                             $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
-                        }      
+                        }
                         // checks to see if the link has inline css
                         // if it does wrap contents in in span tag and add classes to that
                         wrappedContents = Boolean($currentLink.attr('style'));
