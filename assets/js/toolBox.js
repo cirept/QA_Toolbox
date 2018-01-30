@@ -3298,7 +3298,7 @@
 
         'showURL': function ($currentLink, isImageLink, $linkOverlay) {
             var linkURL = jQuery.trim($currentLink.attr('href'));
-            // Use Co 
+            // Use Co
             // try {
             //     jQuery.get(linkURL, function (data) {
             //         var i = 0;  
