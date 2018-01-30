@@ -3205,14 +3205,13 @@
                         $currentLink.addClass('attention');
                     }
                 }
-            }            
+            }
             checkLinks.showURL($currentLink, isImageLink, $linkOverlay, linkURL);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
             //            var $linkOverlay;
             //            var pageError404;
             //            var linkURL = checkLinks.addURLParameter($currentLink);
             //            var isNextGen = shared.nextGenCheck();
-
             // test each link
             jQuery.ajax({
                 'url': linkURL, // be sure to check the right attribute
@@ -3228,7 +3227,7 @@
                             isImageLink = true;
                             $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                         }
-
+                        
                         // checks to see if the link has inline css
                         // if it does wrap contents in in span tag and add classes to that
                         wrappedContents = Boolean($currentLink.attr('style'));
