@@ -3226,8 +3226,7 @@
                         if (hasImage) {
                             isImageLink = true;
                             $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
-                        }
-                        
+                        }      
                         // checks to see if the link has inline css
                         // if it does wrap contents in in span tag and add classes to that
                         wrappedContents = Boolean($currentLink.attr('style'));
@@ -3235,10 +3234,8 @@
                             $currentLink.wrapInner('<span></span>');
                             $linkOverlay = jQuery($currentLink.children('span'));
                         }
-
                         // If value is false all class modifications should be done to the link itself
                         pageError404 = checkLinks.checkFor404(data);
-
                         // if link is an image link
                         // ADD CLASS FLAGS TO DIV OVERLAY
                         // OTHERWISE ADD CLASS FLAGS TO LINK ELEMENT
@@ -3248,7 +3245,6 @@
                             checkLinks.addFlagsToElements($currentLink, pageError404);
                         }
                     }
-
                     if (isNextGen) {
                         // check to see if the card has an image prior to startin the ajax testing
                         /*
