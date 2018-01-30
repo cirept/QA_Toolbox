@@ -3326,9 +3326,6 @@
             //                 $currentLink.append(append);
             //             }
             //         }
-                    
-                    
-                   
             //     }, 'html');
             // } catch (e) {
             linkURL=" Url: "+linkURL;
