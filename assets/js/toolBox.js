@@ -3301,8 +3301,8 @@
             // Use Co
             // try {
             //     jQuery.get(linkURL, function (data) {
-            //         var i = 0;  
-            //         //parse the pageLabel from the contextManager                   
+            //         var i = 0;
+            //         //parse the pageLabel from the contextManager
             //         var firstLetter = 12+data.indexOf('pageLabel', data.indexOf('ContextManager'));
             //         var lastLetter = data.indexOf('"', firstLetter);
             //         var pageLabel = "";
