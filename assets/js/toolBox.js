@@ -3323,7 +3323,7 @@
             //         }
             //     }, 'html');
             // } catch (e) {
-            linkURL=' Url: '+linkURL;
+            linkURL = ' Url: ' + linkURL;
             if (isImageLink) {
                 if ($linkOverlay[0].innerHTML.indexOf(linkURL) === -1) {
                     if ($linkOverlay != null) {
