@@ -304,6 +304,7 @@
 - This tool will check every link on the site and highlight the link according to what the results of the test is.<br>
 - All the links on the page will be tested for validity and then will be highlighted accordingly.<br>
 - For the most part only links that are internal links will be eligible to be flagged as 'Link is Real' due to security restrictions.<br>
+- This tool also appends "URL: " followed by the url of the link after the link's title<br>
 ***This tool works for both TETRA and NEXTGEN***<br>
 
 ### Turning the tool on:<br>
@@ -318,9 +319,11 @@
 
 | 404 Link Checker Legend |
 | --- |
-| ![404 Link Checker Legend](images/link404checkerLegend.png) |
+| ![404 Link Checker Legend](images/404LinkLegend.png) |
 | ***'Absolute URL*'*** |
 | All links that have a complete URL (e.g. http://nitra.wip.gmpsdealer.com/content15/VehicleSearchResults?search=new) as the link will be flagged.<br> All links that lead outside the site (e.g. https://confluence.cdk.com/display/DEV/CX+Innovation) will be flagged.<br> |
+| ***'Opens in new window*'*** |
+| All links that open in a new window will be flagged. This style will mix with link is real, 404 link and absolute url to show as much information as possible.
 | ***'f_link'*** |
 | All links that force the page to be framed in.<br>**This is more common on TETRA then in NEXTGEN** |
 | ***'Empty URL'*** |
@@ -329,7 +332,8 @@
 | All links that lead to an actual page will be flagged. |
 | ***'404 Link'*** |
 | All links that result in a 404 error (link leads to a page that doesn't exist) with be flagged and should be addressed. |
-
+| ***'Href'*** |
+| For every link, "URL: " followed by the url(href) of the link will be appended to the title of the link following, "URL: ". |
 
 <br>
 <br>

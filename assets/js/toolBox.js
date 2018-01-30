@@ -789,7 +789,7 @@
             imageChecker.config.$activateButt.on('click', function () {
                 jQuery('html, body').scrollTop(0);
                 jQuery('html, body').animate({
-                    'scrollTop': jQuery(document).height(),
+                    'scrollTop': jQuery(document).height()
                 }, 4000).delay(1750).promise().done(function () {
                     jQuery('html, body').scrollTop(0);
                     imageChecker.highlightImages();
@@ -2719,7 +2719,7 @@
                 $currentObject.addClass('showWidgetData');
                 self.bindClickCallback($currentObject, widgetID);
                 $currentObject.attr({
-                    'title': 'Click to Copy Widget ID',
+                    'title': 'Click to Copy Widget ID'
                 });
 
                 // add height and width data to widget element
@@ -2873,7 +2873,7 @@
             this.cacheDOMOverlayElements($currentImage);
             this.createOverlayElements();
             this.buildOverlayElements();
-            this.attachToImage($currentImage);
+            this.attachOverlayToImage($currentImage);
             return this.$divOverlay;
         },
         'cacheDOMOverlayElements': function ($currentImage) {
@@ -2895,7 +2895,7 @@
                 'height': this.heightOfImage + 'px',
             });
         },
-        'attachToImage': function ($currentImage) {
+        'attachOverlayToImage': function ($currentImage) {
             // make parent image relative positioning
             this.toggleOverlayClass($currentImage);
             // place div overlay onto image
@@ -2988,7 +2988,7 @@
             // check if link contains an image
             $image = $currentLink.find('img');
             isImageLink = this.isImageLink($image);
-            //check if link goes to another page
+            // check if link goes to another page
             if ($currentLink.attr('target') === '_blank' ||
                 $currentLink.attr('target') === '_new' ||
                 $currentLink.attr('target') === 'custom') {
@@ -3001,7 +3001,7 @@
             }
             if (linkURL.indexOf('tel:') >= 0) {
                 if (isImageLink) {
-                    if($linkOverlay === null) {
+                    if ($linkOverlay === null) {
                         $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                     }
                     $linkOverlay.addClass('mobilePhoneLink');
@@ -3021,7 +3021,7 @@
                 return false;
             } else if (linkURL.indexOf('www') > -1 || linkURL.indexOf('://') > -1) { // test for absolute path URLs
                 if (isImageLink) {
-                    if($linkOverlay === null) {
+                    if ($linkOverlay === null) {
                         $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                     }
                     $linkOverlay.addClass('otherDomain');
@@ -3264,13 +3264,14 @@
             var cardClass;
             var $currentImg;
             var href;
+            var currentURL;
             if (isImageLink) {
                 isImageLink = isImageLink;
             } else {
                 isImageLink = false;
             }
-            //If card-clickable-v2, we want to only overlay the img, as the rest of the card could have links
-            if(isNextGen && isImageLink) {
+            // If card-clickable-v2, we want to only overlay the img, as the rest of the card could have links
+            if (isNextGen && isImageLink) {
                 cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
                 if (cardClass.indexOf('card-clickable-v2') > -1 ) {
                     $currentCard.remove('.imgOverlay');
@@ -3285,24 +3286,24 @@
                     $linkOverlay.addClass('opensWindow');
                 }
                 href = jQuery($currentLink).attr('href');
-                //try in case theres a problem with href
+                // try in case theres a problem with href
                 try {
-                    var currentURL = jQuery.trim(href);
+                    currentURL = jQuery.trim(href);
                     if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) {
                         $linkOverlay.addClass('otherDomain');
                     }
                 } catch (e) {
+                    if (typeof $currentLink === 'undefined' || linkURL === '') {
+                        $currentLink.addClass('attention');
+                    }
                 }
             }
-            
-            
             checkLinks.showURL($currentLink, isImageLink, $linkOverlay, linkURL);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
             //            var $linkOverlay;
             //            var pageError404;
             //            var linkURL = checkLinks.addURLParameter($currentLink);
             //            var isNextGen = shared.nextGenCheck();
-
             // test each link
             jQuery.ajax({
                 'url': linkURL, // be sure to check the right attribute
@@ -3318,7 +3319,6 @@
                             isImageLink = true;
                             $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                         }
-
                         // checks to see if the link has inline css
                         // if it does wrap contents in in span tag and add classes to that
                         wrappedContents = Boolean($currentLink.attr('style'));
@@ -3326,10 +3326,8 @@
                             $currentLink.wrapInner('<span></span>');
                             $linkOverlay = jQuery($currentLink.children('span'));
                         }
-
                         // If value is false all class modifications should be done to the link itself
                         pageError404 = checkLinks.checkFor404(data);
-
                         // if link is an image link
                         // ADD CLASS FLAGS TO DIV OVERLAY
                         // OTHERWISE ADD CLASS FLAGS TO LINK ELEMENT
@@ -3339,7 +3337,6 @@
                             checkLinks.addFlagsToElements($currentLink, pageError404);
                         }
                     }
-
                     if (isNextGen) {
                         // check to see if the card has an image prior to startin the ajax testing
                         /*
@@ -3363,8 +3360,6 @@
                 'error': function (jqXHR) {
                     // set link in red if there is any errors with link
                     checkLinks.config.errors += 1;
-                    
-
                     if (jqXHR.status === 404) {
                         if (isImageLink) {
                             checkLinks.error($linkOverlay);
@@ -3384,22 +3379,22 @@
                         }
 
                         checkLinks.config.errors += 1;
-                    },
+                    }
                 },
                 'complete': function () {
                     checkLinks.config.count += 1;
                     checkLinks.config.$counter.text(checkLinks.config.count + ' of ' + checkLinks.config.totalTests);
-                },
+                }
             });
         },
 
         'showURL': function ($currentLink, isImageLink, $linkOverlay) {
             var linkURL = jQuery.trim($currentLink.attr('href'));
-            //Use Co 
-            //try {
+            // Use Co
+            // try {
             //     jQuery.get(linkURL, function (data) {
-            //         var i = 0;  
-            //         //parse the pageLabel from the contextManager                   
+            //         var i = 0;
+            //         //parse the pageLabel from the contextManager
             //         var firstLetter = 12+data.indexOf('pageLabel', data.indexOf('ContextManager'));
             //         var lastLetter = data.indexOf('"', firstLetter);
             //         var pageLabel = "";
@@ -3418,20 +3413,17 @@
             //                 $currentLink.append(append);
             //             }
             //         }
-                    
-                    
-                   
             //     }, 'html');
             // } catch (e) {
-            linkURL=" Url: "+linkURL;
-            if(isImageLink) {
-                if($linkOverlay[0].innerHTML.indexOf(linkURL) == -1) {
-                    if($linkOverlay != null) {
+            linkURL = ' Url: ' + linkURL;
+            if (isImageLink) {
+                if ($linkOverlay[0].innerHTML.indexOf(linkURL) === -1) {
+                    if ($linkOverlay !== null) {
                         $linkOverlay.append(linkURL);
                     }
                 }
             } else {
-                if($currentLink[0].innerHTML.indexOf(linkURL) == -1) {
+                if ($currentLink[0].innerHTML.indexOf(linkURL) === -1) {
                     $currentLink.append(linkURL);
                 }
             }
@@ -4670,7 +4662,6 @@
                     'href': 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/jquery-ui-1.12.1.custom/jquery-ui.min.css',
                     'rel': 'stylesheet',
                 }),
-                
                 '$toolStyles': jQuery('<link>').attr({
                     'id': 'toolStyles',
                     'href': 'https://rawgit.com/cirept/QA_Toolbox/' + GM_info.script.version + '/assets/css/toolbox.css', // eslint-disable-line camelcase
@@ -4683,8 +4674,6 @@
                     'rel': 'stylesheet',
                     'type': 'text/css',
                 }),
-
-
                 '$animate': jQuery('<link>').attr({
                     'id': 'animate',
                     'href': 'https://rawgit.com/cirept/animate.css/master/animate.css',
