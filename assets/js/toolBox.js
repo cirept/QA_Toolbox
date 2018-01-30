@@ -4575,7 +4575,6 @@
                     'href': 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/jquery-ui-1.12.1.custom/jquery-ui.min.css',
                     'rel': 'stylesheet',
                 }),
-                
                 '$toolStyles': jQuery('<link>').attr({
                     'id': 'toolStyles',
                     'href': 'https://rawgit.com/cirept/QA_Toolbox/' + GM_info.script.version + '/assets/css/toolbox.css', // eslint-disable-line camelcase
@@ -4588,8 +4587,6 @@
                     'rel': 'stylesheet',
                     'type': 'text/css',
                 }),
-
-
                 '$animate': jQuery('<link>').attr({
                     'id': 'animate',
                     'href': 'https://rawgit.com/cirept/animate.css/master/animate.css',
