@@ -1840,9 +1840,6 @@
 
                     }
                     return string;
-                    
-                    
-                    
                 });
             });
         },
@@ -2980,7 +2977,6 @@
             var isNextGen = shared.nextGenCheck();
             var $linkOverlay;
             var $image;
-
 
             // check if link contains an image
             $image = $currentLink.find('img');
