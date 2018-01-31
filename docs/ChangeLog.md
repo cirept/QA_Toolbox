@@ -1,5 +1,23 @@
 # Change Log
+## v3.3.2 - **(1/31/2018)**
 
+### Modified spell check tool
+* The Spellcheck tool now also checks for banned words
+    * Banned word lists for each oem were compiled
+    * any banned word found will be highlighted in Yellow
+* The Broken Link checker was updated
+    * The url of each link is pasted on the end of the link in the format " URL: /Url/of/link"
+    * On Card Clickable+Link, the link checker now only overlays the image so that you can see and click on the links as well
+    * Absolute URL's style was changed to a border so that the link checker can now display if a link is broken or a success as well as absolute
+    * A link that opens in a new window will now display with a yellow bar covering the left 25% of the link. If the link is also a success or failure, the other 75% of the link will be that color
+    * A bug was fixed that caused each link to be tested the number of times it was nested on the page. The # of links tested will now be accurate, and this eliminated some false positives. It should slightly speed up the checker as well.
+
+
+<br><br>
+
+---
+
+<br><br>
 ## v3.3.1.4 - **(12/20/2017)**
 
 ### Modified spell check tool
