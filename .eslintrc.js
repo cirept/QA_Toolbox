@@ -107,7 +107,7 @@ module.exports = {
         // braces with the exception of simple,
         // single-line if statements.
         'default-case': 1,
-        'dot-location': 2,
+        'dot-location': [2, 'property'],
         'dot-notation': 2,
         'eqeqeq': 2,
         'guard-for-in': 2,
