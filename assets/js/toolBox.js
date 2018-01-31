@@ -142,7 +142,7 @@
             // IF NEXTGEN SITE
             this.widthOfImage = $currentLink.find('img').width();
             this.heightOfImage = $currentLink.find('img').height();
-            this.linkTitle = jQuery($currentLink).attr('title');
+            this.linkTitle = jQuery($currentLink)[0].innerHTML;
         },
         'createOverlayElements': function (isNextGen) {
             // create div overlay
@@ -184,6 +184,9 @@
                 // console.log($currentCard);
                 // console.log($currentLink);
             }
+        },
+        'toggleOverlayClass': function ($currentImage) {
+            jQuery($currentImage).toggleClass('overlaid');
         },
         'centerDiv': function ($currentImage, $divOverlay) {
             var parent = $currentImage.closest('figure');
@@ -786,7 +789,7 @@
             imageChecker.config.$activateButt.on('click', function () {
                 jQuery('html, body').scrollTop(0);
                 jQuery('html, body').animate({
-                    'scrollTop': jQuery(document).height(),
+                    'scrollTop': jQuery(document).height()
                 }, 4000).delay(1750).promise().done(function () {
                     jQuery('html, body').scrollTop(0);
                     imageChecker.highlightImages();
@@ -1550,8 +1553,10 @@
     // **************************************** Spell Check ****************************************
     // ********************************************************************************
     var spellCheck = {
+
         'init': function (callingPanel) {
             this.createElements();
+            this.bannedWordsMap();
             this.buildLegend();
             this.cacheDOM(callingPanel);
             this.addTool();
@@ -1586,7 +1591,9 @@
                 }),
                 '$legendContent': {
                     'spell-check misspelled': 'word misspelled',
+                    'spell-check banned': 'Banned by OEM',
                 },
+                'OEMBannedWordsFile': 'https://rawgit.com/cirept/QA_Toolbox/bw1.3/resources/OEM_Banned_Words.json',
             };
         },
         /**
@@ -1661,6 +1668,20 @@
             }
             return wordArray;
         },
+        'bannedWordsMap': function () {
+            var OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;
+            spellCheck.OEMap = new Map();
+            // get banned words JSON
+            $.getJSON(OEMBannedWordsFile, function(d) {
+                var items = new Map();
+                $.each(d, function(key, value) {
+                    // sort so that longer words get highlighted over shorter ones
+                    spellCheck.OEMap.set(key, value.sort(function(a, b) {
+                      return b.length - a.length || a.localeCompare(b);
+                    }));
+                })
+            });
+        },
         /**
          * Gets all text on page and tests words against custom dictionary
          */
@@ -1679,7 +1700,6 @@
 
             // get all visible text on page
             wordList = this.treeWalk();
-
             wordList.forEach(function (n) {
                 // get all text on the page
                 text = n.nodeValue;
@@ -1712,10 +1732,60 @@
                 if (!pElm) {
                     pElm = elm;
                 } else if (!pElm.contains(elm)) {
-                    self.replaceMarkers(pElm);
+                    self.replaceMarkers(pElm, true);
                     pElm = elm;
                 }
             });
+            spellCheck.bannedWords();
+        },
+        /**
+        * Highlight all banned words associated with this OEM
+        */
+        'bannedWords': function () {
+            var wordList = this.treeWalk();
+            var bannedWords = [];
+            var text, pElm, elm, unmarked;
+            var self = this;
+            var franchises=unsafeWindow.ContextManager.getFranchises();
+            //highlight banned words for every OEM related to this
+            for(var f =0, len = franchises.length; f < len; f++) {
+                //get banned phrases from OEM franchise
+                bannedWords=self.OEMap.get(franchises[f]);
+
+                if(!bannedWords) {
+                    return;
+                }
+
+                // Check page for banned words
+                wordList.forEach(function (n) {
+                    text = n.nodeValue;
+
+                    elm = n.parentElement;
+
+                    // skip iteration if no words are found
+                     if (!(text.match(/[%’'\w]+/g))) {
+                        return;
+                    }
+                    // test text against banned words
+                    for(var w=0, length = bannedWords.length; w<length; w++) {
+                        var startIndex = 0, curIndex=0;
+                        var words = bannedWords[w];
+                        //unmarked = new RegExp('\(^|[^~~@])(' + words + '\)(?!@~~)', 'gi');
+                        //find and replace banned words
+                        unmarked = new RegExp('\(' + words + '\)(?!@~~)', 'gi');
+                        text = text.replace(unmarked, '~~@$&@~~');
+                    }
+
+                    n.nodeValue = text;
+                    // replace when the whole area has been searched
+                    if (!pElm) {
+                        pElm = elm;
+                    } else if (!pElm.contains(elm)) {
+                        self.replaceMarkers(pElm, false);
+                        pElm = elm;
+                    }
+                });
+            }
         },
         /**
          * Toggle the tools legend
@@ -1740,17 +1810,36 @@
                 .replace(/^'*(.*?)'*$/, '$1')
                 .replace('%', '\%');
         },
-        'replaceMarkers': function (elm) {
+        'replaceMarkers': function (elm, spelling) {
             if (elm) {
-                elm.innerHTML = elm.innerHTML
-                    .replace(/~~@(.*?)@~~/g, '<span class="spell-check misspelled">$1</span>');
+                if(spelling) {
+                    elm.innerHTML = elm.innerHTML
+                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check misspelled">$1</span>');
+                } else {
+                    elm.innerHTML = elm.innerHTML
+                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
+                    if(elm.innerHTML.indexOf("~~@")>-1) {
+                        elm.innerHTML = elm.innerHTML
+                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
+                    }
+                }
             }
         },
         'removeHighlights': function () {
             // remove highlight overlay
             jQuery('span.spell-check').each(function (index, value) {
                 jQuery(value).replaceWith(function () {
-                    return value.childNodes[0].nodeValue;
+                    var string="";
+                    for(var x =0; x <value.childNodes.length; x++) {
+                        //debugger;
+                        if(value.childNodes[x].nodeValue == null) {
+                            string +=value.childNodes[x].childNodes[0].nodeValue;
+                        }else {
+                            string += value.childNodes[x].nodeValue;
+                        }
+
+                    }
+                    return string;
                 });
             });
         },
@@ -2624,7 +2713,7 @@
                 $currentObject.addClass('showWidgetData');
                 self.bindClickCallback($currentObject, widgetID);
                 $currentObject.attr({
-                    'title': 'Click to Copy Widget ID',
+                    'title': 'Click to Copy Widget ID'
                 });
 
                 // add height and width data to widget element
@@ -2682,6 +2771,7 @@
                 }),
                 '$legendContent': {
                     'otherDomain': 'Absolute URL*',
+                    'opensWindow': 'Opens In A New Window',
                     'jumpLink': 'Jump Link or "#" URL',
                     'attention': 'URL Empty or Undefined',
                     'mobilePhoneLink': 'Mobile Link',
@@ -2772,9 +2862,52 @@
 
             checkLinks.config.$offButt.on('click', this.showLegend);
         },
+        // Img Overlay Functions for Card-Clickable-V2
+        'addDivOverlay': function ($currentImage) {
+            this.cacheDOMOverlayElements($currentImage);
+            this.createOverlayElements();
+            this.buildOverlayElements();
+            this.attachOverlayToImage($currentImage);
+            return this.$divOverlay;
+        },
+        'cacheDOMOverlayElements': function ($currentImage) {
+            this.imageAlt = jQuery($currentImage)[0].innerHtml;
+            // gets sizing of images
+            this.widthOfImage = jQuery($currentImage).width();
+            this.heightOfImage = jQuery($currentImage).height();
+        },
+        'createOverlayElements': function () {
+            // create div overlay
+            this.$divOverlay = jQuery('<div>').attr({
+                'class': 'imgOverlay',
+            });
+        },
+        'buildOverlayElements': function () {
+            // make the div overlay the same dimensions as the image
+            this.$divOverlay.css({
+                'width': this.widthOfImage + 'px',
+                'height': this.heightOfImage + 'px',
+            });
+        },
+        'attachOverlayToImage': function ($currentImage) {
+            // make parent image relative positioning
+            this.toggleOverlayClass($currentImage);
+            // place div overlay onto image
+            $currentImage
+                .before(this.$divOverlay);
+
+            if (shared.nextGenCheck()) {
+                this.$divOverlay =
+                    shared.centerDiv($currentImage, this.$divOverlay);
+            }
+        },
+        'toggleOverlayClass': function (currentImage) {
+            jQuery(currentImage).toggleClass('overlaid');
+        },
         // ----------------------------------------
         // tier 1 functions
         // ----------------------------------------
+
         'platformChooser': function () {
             var isNextGen = shared.nextGenCheck();
             if (isNextGen) {
@@ -2848,11 +2981,22 @@
             // check if link contains an image
             $image = $currentLink.find('img');
             isImageLink = this.isImageLink($image);
-
+            // check if link goes to another page
+            if ($currentLink.attr('target') === '_blank' ||
+                $currentLink.attr('target') === '_new' ||
+                $currentLink.attr('target') === 'custom') {
+                if (isImageLink) {
+                    $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    $linkOverlay.addClass('opensWindow');
+                } else {
+                    $currentLink.addClass('opensWindow');
+                }
+            }
             if (linkURL.indexOf('tel:') >= 0) {
                 if (isImageLink) {
-                    $linkOverlay =
-                        shared.addDivOverlay(isNextGen, $currentLink);
+                    if ($linkOverlay === null) {
+                        $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    }
                     $linkOverlay.addClass('mobilePhoneLink');
                 } else {
                     $currentLink.addClass('mobilePhoneLink');
@@ -2870,7 +3014,9 @@
                 return false;
             } else if (linkURL.indexOf('www') > -1 || linkURL.indexOf('://') > -1) { // test for absolute path URLs
                 if (isImageLink) {
-                    $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    if ($linkOverlay === null) {
+                        $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    }
                     $linkOverlay.addClass('otherDomain');
                 } else {
                     $currentLink.addClass('otherDomain');
@@ -2880,6 +3026,8 @@
                 return true;
             }
         },
+
+
         'nextgenTestLinks': function () {
             var $currentCard;
             var $sections = jQuery('main').find('section');
@@ -2899,9 +3047,10 @@
             }
         },
         'checkCard': function ($currentCard) {
-            var $cardLinkContainer = $currentCard.find('div.link');
-            var $cardSEOContainer = $currentCard.find('div.copy');
-            var $cardImageContainer = $currentCard.find('div.media');
+            // debugger;
+            var $cardLinkContainer = $currentCard.children('div.content').find('div.link');
+            var $cardSEOContainer = $currentCard.children('div.content').find('div.copy');
+            var $cardImageContainer = $currentCard.children('div.content').find('div.media');
             var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
             var isImageLink = false;
             var $cardLinks;
@@ -2916,6 +3065,7 @@
                 // ----------------------------------------
                 // get all links defined in card
                 // should include all primary, secondary, and tenary links
+                // debugger;
                 $cardLinks = $cardLinkContainer.find('a'); // this is an array
                 meLength = $cardLinks.length;
                 if (meLength > 0) {
@@ -3104,18 +3254,49 @@
             var pageError404;
             var linkURL = checkLinks.addURLParameter($currentLink);
             var isNextGen = shared.nextGenCheck();
-
+            var cardClass;
+            var $currentImg;
+            var href;
+            var currentURL;
             if (isImageLink) {
                 isImageLink = isImageLink;
             } else {
                 isImageLink = false;
             }
+            // If card-clickable-v2, we want to only overlay the img, as the rest of the card could have links
+            if (isNextGen && isImageLink) {
+                cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
+                if (cardClass.indexOf('card-clickable-v2') > -1 ) {
+                    $currentCard.remove('.imgOverlay');
+                    $currentImg = jQuery($currentCard.find('img')[0]);
+                    $linkOverlay = this.addDivOverlay($currentImg);
+                } else {
+                    $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
+                }
+                if ($currentLink.attr('target') === '_blank' ||
+                $currentLink.attr('target') === '_new' ||
+                $currentLink.attr('target') === 'custom') {
+                    $linkOverlay.addClass('opensWindow');
+                }
+                href = jQuery($currentLink).attr('href');
+                // try in case theres a problem with href
+                try {
+                    currentURL = jQuery.trim(href);
+                    if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) {
+                        $linkOverlay.addClass('otherDomain');
+                    }
+                } catch (e) {
+                    if (typeof $currentLink === 'undefined' || linkURL === '') {
+                        $currentLink.addClass('attention');
+                    }
+                }
+            }
+            checkLinks.showURL($currentLink, isImageLink, $linkOverlay, linkURL);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
             //            var $linkOverlay;
             //            var pageError404;
             //            var linkURL = checkLinks.addURLParameter($currentLink);
             //            var isNextGen = shared.nextGenCheck();
-
             // test each link
             jQuery.ajax({
                 'url': linkURL, // be sure to check the right attribute
@@ -3124,7 +3305,6 @@
                 'method': 'get',
                 'dataType': 'html',
                 'success': function (data) {
-
                     if (!isNextGen) {
                         // checks to see if link is an image link
                         hasImage = $currentLink.has('img').length;
@@ -3132,7 +3312,6 @@
                             isImageLink = true;
                             $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                         }
-
                         // checks to see if the link has inline css
                         // if it does wrap contents in in span tag and add classes to that
                         wrappedContents = Boolean($currentLink.attr('style'));
@@ -3140,10 +3319,8 @@
                             $currentLink.wrapInner('<span></span>');
                             $linkOverlay = jQuery($currentLink.children('span'));
                         }
-
                         // If value is false all class modifications should be done to the link itself
                         pageError404 = checkLinks.checkFor404(data);
-
                         // if link is an image link
                         // ADD CLASS FLAGS TO DIV OVERLAY
                         // OTHERWISE ADD CLASS FLAGS TO LINK ELEMENT
@@ -3153,13 +3330,13 @@
                             checkLinks.addFlagsToElements($currentLink, pageError404);
                         }
                     }
-
                     if (isNextGen) {
                         // check to see if the card has an image prior to startin the ajax testing
+                        /*
                         if (isImageLink) {
                             $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
-                        }
 
+                        }*/
                         // If value is false all class modifications should be done to the link itself
                         pageError404 = checkLinks.checkFor404(data);
 
@@ -3195,14 +3372,56 @@
                         }
 
                         checkLinks.config.errors += 1;
-                    },
+                    }
                 },
                 'complete': function () {
                     checkLinks.config.count += 1;
                     checkLinks.config.$counter.text(checkLinks.config.count + ' of ' + checkLinks.config.totalTests);
-                },
+                }
             });
         },
+
+        'showURL': function ($currentLink, isImageLink, $linkOverlay) {
+            var linkURL = jQuery.trim($currentLink.attr('href'));
+            // Use Co
+            // try {
+            //     jQuery.get(linkURL, function (data) {
+            //         var i = 0;
+            //         //parse the pageLabel from the contextManager
+            //         var firstLetter = 12+data.indexOf('pageLabel', data.indexOf('ContextManager'));
+            //         var lastLetter = data.indexOf('"', firstLetter);
+            //         var pageLabel = "";
+            //         for(i=firstLetter; i <lastLetter; i++) {
+            //             pageLabel+=data[i];
+            //         }
+            //         var append = "URL: "+linkURL+" PAGELABEL: "+pageLabel;
+            //         if(isImageLink) {
+            //             if($linkOverlay[0].innerHTML.indexOf(append) == -1) {
+            //                 if($linkOverlay != null) {
+            //                     $linkOverlay.append(append);
+            //                 }
+            //             }
+            //         } else {
+            //             if($currentLink[0].innerHTML.indexOf(append) == -1) {
+            //                 $currentLink.append(append);
+            //             }
+            //         }
+            //     }, 'html');
+            // } catch (e) {
+            linkURL = ' Url: ' + linkURL;
+            if (isImageLink) {
+                if ($linkOverlay[0].innerHTML.indexOf(linkURL) === -1) {
+                    if ($linkOverlay !== null) {
+                        $linkOverlay.append(linkURL);
+                    }
+                }
+            } else {
+                if ($currentLink[0].innerHTML.indexOf(linkURL) === -1) {
+                    $currentLink.append(linkURL);
+                }
+            }
+        },
+
         'toggleDisable': function () {
             checkLinks.config.$activateButt.prop('disabled', function (index, value) {
                 return !value;
@@ -4442,6 +4661,12 @@
                     'rel': 'stylesheet',
                     'type': 'text/css',
                 }),
+                '$toolStyles': jQuery('<link>').attr({
+                    'id': 'mycss',
+                    'href': 'https://rawgit.com/cirept/QA_Toolbox/5.57/assets/css/toolbox.css', // eslint-disable-line camelcase
+                    'rel': 'stylesheet',
+                    'type': 'text/css',
+                }),
                 '$animate': jQuery('<link>').attr({
                     'id': 'animate',
                     'href': 'https://rawgit.com/cirept/animate.css/master/animate.css',
@@ -4455,6 +4680,7 @@
                 .append(main.config.$myFont)
                 .append(main.config.$jQueryUIcss)
                 .append(main.config.$toolStyles)
+                .append(main.config.$mycss)                
                 .append(main.config.$fontAw)
                 .append(main.config.$animate);
         },

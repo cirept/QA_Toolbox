@@ -447,8 +447,9 @@ body .card .content .text .copy .siteLink.opensWindow,
 body .card .content .text .link .siteLink.opensWindow,
 body .card .content .media .imgOverlay.opensWindow {
     background: rgb(255, 165, 0);
-    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(255, 255, 255, 0) 26%, rgba(146, 232, 66, 0) 100%) !important;
+    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(255, 255, 255, 0) 26%, rgba(146, 232, 66, 0) 100%);
     border: none;
+    color:black;
 }
 
 .hasTitle.opensWindow,
@@ -565,6 +566,19 @@ spell checker styles
     color: inherit;
     font: inherit;
     background-color: rgb(255, 182, 193);
+    background-position: bottom;
+    background-repeat: repeat-x;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAMAAACDKl70AAAAFVBMVEX////+NQD+NQD+NQD+Sgz+NQD+NQCKU3Z/AAAAB3RSTlMAKVdwqL/ggPdRNgAAABdJREFUCNdjYGRiZGBgYWVhYGBmY2YAAADPAB54rWlqAAAAAElFTkSuQmCC")
+}
+
+.spell-check.banned {
+    display: inline-block;
+    vertical-align: initial;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    font: inherit;
+    background-color: rgb(255, 244, 184);
     background-position: bottom;
     background-repeat: repeat-x;
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAMAAACDKl70AAAAFVBMVEX////+NQD+NQD+NQD+Sgz+NQD+NQCKU3Z/AAAAB3RSTlMAKVdwqL/ggPdRNgAAABdJREFUCNdjYGRiZGBgYWVhYGBmY2YAAADPAB54rWlqAAAAAElFTkSuQmCC")
@@ -736,21 +750,8 @@ widget outline
 ----------------------------------------
 */
 
-.error,
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.error,
-.header.card .menu nav ul li:hover>ul li a.error,
-body .card .content .text .copy .siteLink.error,
-body .card .content .text .link .siteLink.error,
-body .card .content .media .imgOverlay.error,
-body .page header #pmenu .error {
-    background: rgb(240, 0, 0);
-    background: linear-gradient(to left, rgba(240, 0, 0, .75), rgba(220, 40, 30, .75));
-    border: none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    color: #ffffff;
-}
+
+
 
 .attention,
 body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.attention,
@@ -797,6 +798,26 @@ body .page header #pmenu .mobilePhoneLink {
     color: #ffffff;
 }
 
+.mobilePhoneLink.opensWindow,
+footer .card .content .text .link .siteLink.hasTitle.opensWindow,
+body .card .content .text .copy .siteLink.hasTitle.opensWindow,
+body .card .content .text .link .siteLink.hasTitle.opensWindow,
+body .card .content .media .imgOverlay.hasTitle.opensWindow {
+    background: rgb(146, 232, 66);
+    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(0,85,136, 1) 26%, rgba(0,85,136, 1) 100%) !important;
+    border: none;
+}
+
+.jumpLink.opensWindow,
+footer .card .content .text .link .siteLink.hasTitle.opensWindow,
+body .card .content .text .copy .siteLink.hasTitle.opensWindow,
+body .card .content .text .link .siteLink.hasTitle.opensWindow,
+body .card .content .media .imgOverlay.hasTitle.opensWindow {
+    background: rgb(146, 232, 66);
+    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, #FFAFBD 26%, #ffc3a0 100%) !important;
+    border: none;
+}
+
 .success,
 body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.success,
 .header.card .menu nav ul li:hover>ul li a.success,
@@ -820,15 +841,34 @@ body .card .content .text .copy .siteLink.otherDomain,
 body .card .content .text .link .siteLink.otherDomain,
 body .card .content .media .imgOverlay.otherDomain,
 body .page header #pmenu .otherDomain {
-    background: #92FE9D;
+    /*background: #92FE9D;
     background: linear-gradient(to left, rgba(0, 201, 255, .75), rgba(146, 254, 157, .75));
     border: none;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    color: #000000;
+    color: #000000;*/
+    -moz-box-shadow: inset 0 0 0 3px purple;
+    -webkit-box-shadow: inset 0 0 0 3px purple;
+    box-shadow: inset 0 0 0 3px purple;
+    border: none;
 }
 
+.error,
+body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.error,
+.header.card .menu nav ul li:hover>ul li a.error,
+body .card .content .text .copy .siteLink.error,
+body .card .content .text .link .siteLink.error,
+body .card .content .media .imgOverlay.error,
+body .page header #pmenu .error {
+    background: rgb(240, 0, 0);
+    background: linear-gradient(to left, rgba(240, 0, 0, .75), rgba(220, 40, 30, .75));
+    border: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #ffffff;
+}
 .checkMessage {
     margin: 5px auto;
     padding: 5px;
@@ -838,6 +878,37 @@ body .page header #pmenu .otherDomain {
     text-align: center;
     background: white;
 }
+
+/*.otherDomain.opensWindow,
+footer .card .content .text .link .siteLink.opensWindow.opensWindow,
+body .card .content .text .copy .siteLink.opensWindow.opensWindow,
+body .card .content .text .link .siteLink.opensWindow.opensWindow,
+body .card .content .media .imgOverlay.opensWindow.opensWindow {
+    background: rgb(146, 232, 66);
+    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(146, 254, 157, .75) 26%, rgba(0, 201, 255, .75) 100%) !important;
+    border: none;
+}*/
+
+.success.opensWindow, .success.opensWindow.otherDomain
+footer .card .content .text .link .siteLink.success.opensWindow,
+body .card .content .text .copy .siteLink.success.opensWindow,
+body .card .content .text .link .siteLink.success.opensWindow,
+body .card .content .media .imgOverlay.success.opensWindow {
+    background: rgb(146, 232, 66);
+    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(86, 171, 47, .75) 26%, rgba(168, 224, 99, .75) 100%) !important;
+    border: none;
+}
+
+.error.opensWindow,
+footer .card .content .text .link .siteLink.error.opensWindow,
+body .card .content .text .copy .siteLink.error.opensWindow,
+body .card .content .text .link .siteLink.error.opensWindow,
+body .card .content .media .imgOverlay.error.opensWindow {
+    background: rgb(255, 124, 216);
+    background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(240, 0, 0, .75) 26%, rgba(220, 40, 30, .75) 100%) !important;
+    border: none;
+}
+
 
 
 /*
