@@ -1553,8 +1553,10 @@
     // **************************************** Spell Check ****************************************
     // ********************************************************************************
     var spellCheck = {
+
         'init': function (callingPanel) {
             this.createElements();
+            this.bannedWordsMap();
             this.buildLegend();
             this.cacheDOM(callingPanel);
             this.addTool();
@@ -1589,7 +1591,9 @@
                 }),
                 '$legendContent': {
                     'spell-check misspelled': 'word misspelled',
+                    'spell-check banned': 'Banned by OEM',
                 },
+                'OEMBannedWordsFile': 'https://rawgit.com/cirept/QA_Toolbox/bw1.3/resources/OEM_Banned_Words.json',
             };
         },
         /**
@@ -1664,6 +1668,20 @@
             }
             return wordArray;
         },
+        'bannedWordsMap': function () {
+            var OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;
+            spellCheck.OEMap = new Map();
+            // get banned words JSON
+            $.getJSON(OEMBannedWordsFile, function(d) {
+                var items = new Map();
+                $.each(d, function(key, value) {
+                    // sort so that longer words get highlighted over shorter ones
+                    spellCheck.OEMap.set(key, value.sort(function(a, b) {
+                      return b.length - a.length || a.localeCompare(b);
+                    }));
+                })
+            });
+        },
         /**
          * Gets all text on page and tests words against custom dictionary
          */
@@ -1682,7 +1700,6 @@
 
             // get all visible text on page
             wordList = this.treeWalk();
-
             wordList.forEach(function (n) {
                 // get all text on the page
                 text = n.nodeValue;
@@ -1715,10 +1732,60 @@
                 if (!pElm) {
                     pElm = elm;
                 } else if (!pElm.contains(elm)) {
-                    self.replaceMarkers(pElm);
+                    self.replaceMarkers(pElm, true);
                     pElm = elm;
                 }
             });
+            spellCheck.bannedWords();
+        },
+        /**
+        * Highlight all banned words associated with this OEM
+        */
+        'bannedWords': function () {
+            var wordList = this.treeWalk();
+            var bannedWords = [];
+            var text, pElm, elm, unmarked;
+            var self = this;
+            var franchises=unsafeWindow.ContextManager.getFranchises();
+            //highlight banned words for every OEM related to this
+            for(var f =0, len = franchises.length; f < len; f++) {
+                //get banned phrases from OEM franchise
+                bannedWords=self.OEMap.get(franchises[f]);
+
+                if(!bannedWords) {
+                    return;
+                }
+
+                // Check page for banned words
+                wordList.forEach(function (n) {
+                    text = n.nodeValue;
+
+                    elm = n.parentElement;
+
+                    // skip iteration if no words are found
+                     if (!(text.match(/[%’'\w]+/g))) {
+                        return;
+                    }
+                    // test text against banned words
+                    for(var w=0, length = bannedWords.length; w<length; w++) {
+                        var startIndex = 0, curIndex=0;
+                        var words = bannedWords[w];
+                        //unmarked = new RegExp('\(^|[^~~@])(' + words + '\)(?!@~~)', 'gi');
+                        //find and replace banned words
+                        unmarked = new RegExp('\(' + words + '\)(?!@~~)', 'gi');
+                        text = text.replace(unmarked, '~~@$&@~~');
+                    }
+
+                    n.nodeValue = text;
+                    // replace when the whole area has been searched
+                    if (!pElm) {
+                        pElm = elm;
+                    } else if (!pElm.contains(elm)) {
+                        self.replaceMarkers(pElm, false);
+                        pElm = elm;
+                    }
+                });
+            }
         },
         /**
          * Toggle the tools legend
@@ -1743,17 +1810,36 @@
                 .replace(/^'*(.*?)'*$/, '$1')
                 .replace('%', '\%');
         },
-        'replaceMarkers': function (elm) {
+        'replaceMarkers': function (elm, spelling) {
             if (elm) {
-                elm.innerHTML = elm.innerHTML
-                    .replace(/~~@(.*?)@~~/g, '<span class="spell-check misspelled">$1</span>');
+                if(spelling) {
+                    elm.innerHTML = elm.innerHTML
+                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check misspelled">$1</span>');
+                } else {
+                    elm.innerHTML = elm.innerHTML
+                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
+                    if(elm.innerHTML.indexOf("~~@")>-1) {
+                        elm.innerHTML = elm.innerHTML
+                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
+                    }
+                }
             }
         },
         'removeHighlights': function () {
             // remove highlight overlay
             jQuery('span.spell-check').each(function (index, value) {
                 jQuery(value).replaceWith(function () {
-                    return value.childNodes[0].nodeValue;
+                    var string="";
+                    for(var x =0; x <value.childNodes.length; x++) {
+                        //debugger;
+                        if(value.childNodes[x].nodeValue == null) {
+                            string +=value.childNodes[x].childNodes[0].nodeValue;
+                        }else {
+                            string += value.childNodes[x].nodeValue;
+                        }
+
+                    }
+                    return string;
                 });
             });
         },
@@ -2891,7 +2977,6 @@
             var isNextGen = shared.nextGenCheck();
             var $linkOverlay;
             var $image;
-
 
             // check if link contains an image
             $image = $currentLink.find('img');
@@ -4578,7 +4663,7 @@
                 }),
                 '$toolStyles': jQuery('<link>').attr({
                     'id': 'mycss',
-                    'href': 'https://rawgit.com/cirept/QA_Toolbox/5.6/assets/css/toolbox.css', // eslint-disable-line camelcase
+                    'href': 'https://rawgit.com/cirept/QA_Toolbox/5.57/assets/css/toolbox.css', // eslint-disable-line camelcase
                     'rel': 'stylesheet',
                     'type': 'text/css',
                 }),

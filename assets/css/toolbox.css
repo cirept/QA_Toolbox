@@ -571,6 +571,19 @@ spell checker styles
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAMAAACDKl70AAAAFVBMVEX////+NQD+NQD+NQD+Sgz+NQD+NQCKU3Z/AAAAB3RSTlMAKVdwqL/ggPdRNgAAABdJREFUCNdjYGRiZGBgYWVhYGBmY2YAAADPAB54rWlqAAAAAElFTkSuQmCC")
 }
 
+.spell-check.banned {
+    display: inline-block;
+    vertical-align: initial;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    font: inherit;
+    background-color: rgb(255, 244, 184);
+    background-position: bottom;
+    background-repeat: repeat-x;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAMAAACDKl70AAAAFVBMVEX////+NQD+NQD+NQD+Sgz+NQD+NQCKU3Z/AAAAB3RSTlMAKVdwqL/ggPdRNgAAABdJREFUCNdjYGRiZGBgYWVhYGBmY2YAAADPAB54rWlqAAAAAElFTkSuQmCC")
+}
+
 
 /*
 ----------------------------------------
