@@ -13,7 +13,7 @@ Terms that are restricted if they are referring to price. For example: “We’l
 •	Crush<br>
 
 ## Claims
-Terms that are restricted if they have no proof to back a claim. For example: “We are the biggest Ford dealer in Oregon!” – this claim needs to be supported by reasonable sources, otherwise it is not compliant.
+Terms that are restricted if they have no proof to back a claim. For example: “We are the biggest Ford dealer in Oregon!” – this claim needs to be supported by reasonable sources, otherwise it is not compliant. <br>
 •	Biggest<br>
 •	Newest<br>
 •	Best<br>
