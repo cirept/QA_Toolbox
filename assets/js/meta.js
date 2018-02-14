@@ -9,7 +9,7 @@
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
 // @require https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js
 // @require https://cdn.rawgit.com/cirept/Typo.js/master/typo/typo.js
-// @require https://rawgit.com/cirept/QA_Toolbox/3.3.2-beta3/assets/js/toolBox.js
+// @require https://rawgit.com/cirept/QA_Toolbox/3.3.2-beta4/assets/js/toolBox.js
 // @run-at document-end
 // @grant GM_openInTab
 // @grant GM_setClipboard

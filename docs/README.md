@@ -226,7 +226,7 @@
 ### **Features**<br>
 
 - All misspelled words will be highlighted in red.<br>
-- All banned words will be highlighted in yellow. The banned word lists were compiled by reading requirements from OEM's at the [\\\\Las-mgmt1.lasisi01a.las.san.dsghost.net\associate\sea\CS\\++AssetRepository]. You can find the compiled list of Banned Words for each OEM that is used by the tool here: [Banned Word List](../resources/OEM_Banned_Words.json) (<br>
+- All banned words will be highlighted in yellow. The banned word lists were compiled by reading requirements from OEM's at the [\\\\Las-mgmt1.lasisi01a.las.san.dsghost.net\associate\sea\CS\\++AssetRepository]. You can find the compiled list of Banned Words for each OEM that is used by the tool here: [Banned Word List](../resources/OEM_Banned_Words.json) <br>
 - There are some contexts were a word that is highlighted as banned may be acceptable. You can read about them here: [Banned Context](BannedContext.md) <br>
 
 | Spell Check Results Example |
