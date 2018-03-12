@@ -7,45 +7,45 @@
     // **************************************** Toolbox Shared Functions ****************************************
     // ********************************************************************************
     var shared = {
-        /**
-         * Tampermonkey function.
-         * Save value to local storage for program to use.
-         * @param {string} variable The variable that will be looked up.
-         * @param {bool} val The value that the variable will be set too.
-         */
+    /**
+     * Tampermonkey function.
+     * Save value to local storage for program to use.
+     * @param {string} variable The variable that will be looked up.
+     * @param {bool} val The value that the variable will be set too.
+     */
         'saveValue': function (variable, val) {
             GM_setValue(variable, val); // eslint-disable-line new-cap
         },
         /**
-         * Tampermonkey function.
-         * Copy text to the clipboard.
-         * @param {string} variable The variable that will be copied to the clipboard.
-         */
+     * Tampermonkey function.
+     * Copy text to the clipboard.
+     * @param {string} variable The variable that will be copied to the clipboard.
+     */
         'clipboardCopy': function (variable) {
             GM_setClipboard(variable, 'text'); // eslint-disable-line new-cap
         },
         /**
-         * Tampermonkey function.
-         * Get value to local storage for program to use.
-         * @param {string} variable The variable that will be looked up.
-         * @return {bool} The saved value of current variable.
-         */
+     * Tampermonkey function.
+     * Get value to local storage for program to use.
+     * @param {string} variable The variable that will be looked up.
+     * @return {bool} The saved value of current variable.
+     */
         'getValue': function (variable) {
             return GM_getValue(variable, false); // eslint-disable-line new-cap
         },
         /**
-         * Tampermonkey function.
-         * to retrieve all the program variables from local storage.
-         * @return {object} The list of saved values.
-         */
+     * Tampermonkey function.
+     * to retrieve all the program variables from local storage.
+     * @return {object} The list of saved values.
+     */
         'programVariables': function () {
             return GM_listValues(); // eslint-disable-line new-cap
         },
         /**
-         * Tampermonkey function.
-         * to open URL in a new tab.
-         * @param {string} openThis A URL that will be opened in a new window.
-         */
+     * Tampermonkey function.
+     * to open URL in a new tab.
+     * @param {string} openThis A URL that will be opened in a new window.
+     */
         'openNewTab': function (openThis) {
             GM_openInTab(openThis); // eslint-disable-line new-cap
         },
@@ -59,12 +59,15 @@
             }
         },
         'toggleFeature': function (e) {
-            var $callingElement = jQuery(e.target).siblings('.toolsPanel');
+            var $callingElement = jQuery(e.target)
+                .siblings('.toolsPanel');
             return $callingElement.slideToggle(500);
         },
         'saveState': function (e) {
             // get current state
-            var vName = jQuery(e.target).siblings('.toolsPanel').attr('id');
+            var vName = jQuery(e.target)
+                .siblings('.toolsPanel')
+                .attr('id');
             var currState = shared.getValue(vName);
             // sets usingM4 value
             shared.saveValue(vName, !currState);
@@ -105,9 +108,11 @@
 
                     value = $legendContent[key];
                     // build listing element
-                    this.$listItem = jQuery('<li>').attr({
-                        'class': key,
-                    }).append(value);
+                    this.$listItem = jQuery('<li>')
+                        .attr({
+                            'class': key,
+                        })
+                        .append(value);
                     // attach to legend list
                     $legendListContainer.append(this.$listItem);
                 }
@@ -140,20 +145,25 @@
         },
         'cacheDOMOverlayElements': function ($currentLink /* , isNextGen*/ ) {
             // IF NEXTGEN SITE
-            this.widthOfImage = $currentLink.find('img').width();
-            this.heightOfImage = $currentLink.find('img').height();
-            this.linkTitle = jQuery($currentLink).attr('title');
+            this.widthOfImage = $currentLink.find('img')
+                .width();
+            this.heightOfImage = $currentLink.find('img')
+                .height();
+            this.linkTitle = jQuery($currentLink)
+                .attr('title');
         },
         'createOverlayElements': function (isNextGen) {
             // create div overlay
             if (isNextGen) {
-                this.$divOverlay = jQuery('<div>').attr({
-                    'class': 'cardOverlay',
-                });
+                this.$divOverlay = jQuery('<div>')
+                    .attr({
+                        'class': 'cardOverlay',
+                    });
             } else {
-                this.$divOverlay = jQuery('<div>').attr({
-                    'class': 'siteLink imgOverlay',
-                });
+                this.$divOverlay = jQuery('<div>')
+                    .attr({
+                        'class': 'siteLink imgOverlay',
+                    });
             }
         },
         'buildOverlayElements': function (isNextGen) {
@@ -194,12 +204,14 @@
         },
         // FLAG ALL BUTTONS AS A BUTTON ELEMENT
         'flagButtons': function () {
-            var buttons = jQuery('body').find(':button');
+            var buttons = jQuery('body')
+                .find(':button');
             var length = buttons.length;
             var a = 0;
 
             for (a; a < length; a += 1) {
-                jQuery(buttons[a]).addClass('buttonFlag');
+                jQuery(buttons[a])
+                    .addClass('buttonFlag');
             }
         },
     };
@@ -219,19 +231,23 @@
         // ----------------------------------------
         'createElements': function () {
             qaToolbox.config = {
-                '$legendContainer': jQuery('<div>').attr({
-                    'class': 'legendContainer',
-                }),
-                '$toolboxContainer': jQuery('<div>').attr({
-                    'class': 'toolboxContainer',
-                    'id': 'showToolbox',
-                }),
-                '$changeLogUpdateContainer': jQuery('<div>').attr({
-                    'id': 'overlayContainer',
-                }),
-                '$changeLogDisplay': jQuery('<div>').attr({
-                    'id': 'changeLog',
-                }),
+                '$legendContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'legendContainer',
+                    }),
+                '$toolboxContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'toolboxContainer',
+                        'id': 'showToolbox',
+                    }),
+                '$changeLogUpdateContainer': jQuery('<div>')
+                    .attr({
+                        'id': 'overlayContainer',
+                    }),
+                '$changeLogDisplay': jQuery('<div>')
+                    .attr({
+                        'id': 'changeLog',
+                    }),
             };
         },
         'cacheDOM': function () {
@@ -273,19 +289,23 @@
         },
         'createElements': function () {
             dealerName.config = {
-                '$dealerNameContainer': jQuery('<div>').attr({
-                    'id': 'dealerNameContainer',
-                }),
+                '$dealerNameContainer': jQuery('<div>')
+                    .attr({
+                        'id': 'dealerNameContainer',
+                    }),
                 // dealership name title
-                '$dealerNameTitle': jQuery('<label>').attr({
-                    'class': 'tbLabel',
-                }).text('Dealer Name'),
+                '$dealerNameTitle': jQuery('<label>')
+                    .attr({
+                        'class': 'tbLabel',
+                    })
+                    .text('Dealer Name'),
                 // dealership name display
-                '$dealerName': jQuery('<div>').attr({
-                    'class': 'tbInfo',
-                    'title': 'Copy Dealership Name',
-                    'id': 'dealerName',
-                }),
+                '$dealerName': jQuery('<div>')
+                    .attr({
+                        'class': 'tbInfo',
+                        'title': 'Copy Dealership Name',
+                        'id': 'dealerName',
+                    }),
             };
         },
         'buildTool': function () {
@@ -320,19 +340,23 @@
         },
         'createElements': function () {
             webID.config = {
-                '$webIDContainer': jQuery('<div>').attr({
-                    'id': 'webIDContainer',
-                }),
+                '$webIDContainer': jQuery('<div>')
+                    .attr({
+                        'id': 'webIDContainer',
+                    }),
                 // web id title
-                '$webIDTitle': jQuery('<label>').attr({
-                    'class': 'tbLabel',
-                }).text('Web-Id'),
+                '$webIDTitle': jQuery('<label>')
+                    .attr({
+                        'class': 'tbLabel',
+                    })
+                    .text('Web-Id'),
                 // web is display
-                '$webID': jQuery('<div>').attr({
-                    'class': 'tbInfo',
-                    'title': 'Copy web-id',
-                    'id': 'webID',
-                }),
+                '$webID': jQuery('<div>')
+                    .attr({
+                        'class': 'tbInfo',
+                        'title': 'Copy web-id',
+                        'id': 'webID',
+                    }),
             };
         },
         'buildTool': function () {
@@ -369,29 +393,36 @@
         },
         'createElements': function () {
             pageName.config = {
-                '$pageNameContainer': jQuery('<div>').attr({
-                    'id': 'pageNameContainer',
-                }),
+                '$pageNameContainer': jQuery('<div>')
+                    .attr({
+                        'id': 'pageNameContainer',
+                    }),
                 // page name title
-                '$pageNameTitle': jQuery('<label>').attr({
-                    'class': 'tbLabel',
-                }).text('Page Name'),
+                '$pageNameTitle': jQuery('<label>')
+                    .attr({
+                        'class': 'tbLabel',
+                    })
+                    .text('Page Name'),
                 // pange name display
-                '$pageName': jQuery('<div>').attr({
-                    'class': 'tbInfo',
-                    'title': 'Copy Page Name',
-                    'id': 'pageName',
-                }),
+                '$pageName': jQuery('<div>')
+                    .attr({
+                        'class': 'tbInfo',
+                        'title': 'Copy Page Name',
+                        'id': 'pageName',
+                    }),
                 // page label title
-                '$pageLabelTitle': jQuery('<label>').attr({
-                    'class': 'tbLabel',
-                }).text('Custom Page Name'),
+                '$pageLabelTitle': jQuery('<label>')
+                    .attr({
+                        'class': 'tbLabel',
+                    })
+                    .text('Custom Page Name'),
                 // page label display
-                '$pageLabel': jQuery('<div>').attr({
-                    'class': 'tbInfo',
-                    'title': 'Copy Page Label',
-                    'id': 'pageLabel',
-                }),
+                '$pageLabel': jQuery('<div>')
+                    .attr({
+                        'class': 'tbInfo',
+                        'title': 'Copy Page Label',
+                        'id': 'pageLabel',
+                    }),
             };
         },
         'buildTool': function () {
@@ -443,16 +474,20 @@
         // ----------------------------------------
         'createElements': function () {
             hTags.config = {
-                '$hTagsContainer': jQuery('<div>').attr({
-                    'id': 'hTagsContainer',
-                }),
-                '$hTagsTitle': jQuery('<label>').attr({
-                    'class': 'tbLabel',
-                }).text('h tags'),
-                '$hTags': jQuery('<div>').attr({
-                    'title': 'Click to show hTags on page',
-                    'class': 'hTags',
-                }),
+                '$hTagsContainer': jQuery('<div>')
+                    .attr({
+                        'id': 'hTagsContainer',
+                    }),
+                '$hTagsTitle': jQuery('<label>')
+                    .attr({
+                        'class': 'tbLabel',
+                    })
+                    .text('h tags'),
+                '$hTags': jQuery('<div>')
+                    .attr({
+                        'title': 'Click to show hTags on page',
+                        'class': 'hTags',
+                    }),
                 'hTagsTotal': {
                     'h1': 0,
                     'h2': 0,
@@ -460,17 +495,20 @@
                     'h4': 0,
                 },
                 'hTags': {},
-                '$removeBut': jQuery('<input>').attr({
-                    'type': 'button',
-                    'class': 'myEDOBut removeDiv',
-                    'value': 'REMOVE',
-                }),
-                '$hTagDisplay': jQuery('<div>').attr({
-                    'class': 'hTagDisplay',
-                }),
-                '$hTagDisplayContainer': jQuery('<div>').attr({
-                    'class': 'hTagDisplayContainer',
-                }),
+                '$removeBut': jQuery('<input>')
+                    .attr({
+                        'type': 'button',
+                        'class': 'myEDOBut removeDiv',
+                        'value': 'REMOVE',
+                    }),
+                '$hTagDisplay': jQuery('<div>')
+                    .attr({
+                        'class': 'hTagDisplay',
+                    }),
+                '$hTagDisplayContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'hTagDisplayContainer',
+                    }),
             };
         },
         'cacheDOM': function () {
@@ -505,16 +543,19 @@
             var html = '';
             var key;
             var $hContainer;
-            var $hCount = jQuery('<span>').attr({
-                'class': 'count',
-            });
+            var $hCount = jQuery('<span>')
+                .attr({
+                    'class': 'count',
+                });
 
             for (key in hTags.config.hTagsTotal) {
                 if (hTags.config.hTagsTotal.hasOwnProperty(key)) {
-                    $hContainer = jQuery('<div>').attr({
-                        'class': 'hCount',
-                        'id': key + 'Count',
-                    }).text(key + ' : ');
+                    $hContainer = jQuery('<div>')
+                        .attr({
+                            'class': 'hCount',
+                            'id': key + 'Count',
+                        })
+                        .text(key + ' : ');
 
                     $hCount.text(hTags.config.hTagsTotal[key]);
 
@@ -558,7 +599,8 @@
         // tier 2 functions
         // ----------------------------------------
         'highlightZero': function ($hContainer, hCount) {
-            var count = jQuery(hCount).text();
+            var count = jQuery(hCount)
+                .text();
 
             if (count === '0') {
                 $hContainer.attr({
@@ -595,21 +637,25 @@
         'createElements': function () {
             // main panel container
             pageInformation.config = {
-                '$pageInfoContainer': jQuery('<div>').attr({
-                    'class': 'toolBox',
-                    'id': 'pageInfoContainer',
-                }),
+                '$pageInfoContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'toolBox',
+                        'id': 'pageInfoContainer',
+                    }),
                 // panel title
-                '$pageInfoTitle': jQuery('<div>').attr({
-                    'class': 'panelTitle',
-                    'id': 'pageInfoTitle',
-                    'title': 'Click to Minimize/Maximize',
-                }).text('Page Information'),
+                '$pageInfoTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'panelTitle',
+                        'id': 'pageInfoTitle',
+                        'title': 'Click to Minimize/Maximize',
+                    })
+                    .text('Page Information'),
                 // tool panel
-                '$pageInfo': jQuery('<div>').attr({
-                    'class': 'toolsPanel',
-                    'id': 'pageInfo',
-                }),
+                '$pageInfo': jQuery('<div>')
+                    .attr({
+                        'class': 'toolsPanel',
+                        'id': 'pageInfo',
+                    }),
             };
         },
         'buildPanel': function () {
@@ -650,7 +696,8 @@
         'hoverEffect': function (event) {
             // apply hover effects
             var element = event.currentTarget;
-            jQuery(element).toggleClass('highlight');
+            jQuery(element)
+                .toggleClass('highlight');
         },
         'copyToClipboard': function (event) {
             // copy page info
@@ -681,19 +728,23 @@
                 // ----------------------------------------
                 // QA Tools Panel
                 // ----------------------------------------
-                '$mainToolsContainer': jQuery('<div>').attr({
-                    'class': 'toolBox',
-                    'id': 'mainToolsContainer',
-                }),
-                '$mainToolsPanel': jQuery('<div>').attr({
-                    'class': 'toolsPanel',
-                    'id': 'mainTools',
-                }),
-                '$mainToolsTitle': jQuery('<div>').attr({
-                    'class': 'panelTitle',
-                    'id': 'mainToolsTitle',
-                    'title': 'Click to Minimize/Maximize',
-                }).text('QA Tools'),
+                '$mainToolsContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'toolBox',
+                        'id': 'mainToolsContainer',
+                    }),
+                '$mainToolsPanel': jQuery('<div>')
+                    .attr({
+                        'class': 'toolsPanel',
+                        'id': 'mainTools',
+                    }),
+                '$mainToolsTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'panelTitle',
+                        'id': 'mainToolsTitle',
+                        'title': 'Click to Minimize/Maximize',
+                    })
+                    .text('QA Tools'),
             };
         },
         'buildPanel': function () {
@@ -735,40 +786,47 @@
         // ----------------------------------------
         'createElements': function (callingPanel) {
             imageChecker.config = {
-                '$activateButt': jQuery('<button>').attr({
-                    'class': 'myEDOBut',
-                    'id': 'imageChecker',
-                    'title': 'Image Alt Checker',
-                }).text('Image Alt Checker'),
-                '$legend': jQuery('<div>').attr({
-                    'class': 'tbLegend imageChecker',
-                }),
-                '$legendTitle': jQuery('<div>').attr({
-                    'class': 'legendTitle',
-                }).text('Image Checker Legend'),
-                '$legendList': jQuery('<ul>').attr({
-                    'class': 'legendList',
-                }),
+                '$activateButt': jQuery('<button>')
+                    .attr({
+                        'class': 'myEDOBut',
+                        'id': 'imageChecker',
+                        'title': 'Image Alt Checker',
+                    })
+                    .text('Image Alt Checker'),
+                '$legend': jQuery('<div>')
+                    .attr({
+                        'class': 'tbLegend imageChecker',
+                    }),
+                '$legendTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'legendTitle',
+                    })
+                    .text('Image Checker Legend'),
+                '$legendList': jQuery('<ul>')
+                    .attr({
+                        'class': 'legendList',
+                    }),
                 '$legendContent': {
                     'noAlt': 'No Alt Text',
                     'hasAlt': 'Has Alt Text',
                 },
-                '$offButt': jQuery('<input>').attr({
-                    'type': 'button',
-                    'class': 'myEDOBut offButt',
-                    'value': 'Turn Off',
-                }),
+                '$offButt': jQuery('<input>')
+                    .attr({
+                        'type': 'button',
+                        'class': 'myEDOBut offButt',
+                        'value': 'Turn Off',
+                    }),
                 '$toolsPanel': jQuery(callingPanel),
                 '$legendContainer': jQuery('.legendContainer'),
             };
         },
         'buildLegend': function () {
             imageChecker.config.$legend
-                // attach legend title
+            // attach legend title
                 .append(imageChecker.config.$legendTitle)
-                // attach list
+            // attach list
                 .append(imageChecker.config.$legendList)
-                // attach turn off button
+            // attach turn off button
                 .append(imageChecker.config.$offButt);
             // fill list
             shared.buildLegendContent(
@@ -784,15 +842,22 @@
         'bindEvents': function () {
             // main button
             imageChecker.config.$activateButt.on('click', function () {
-                jQuery('html, body').scrollTop(0);
-                jQuery('html, body').animate({
-                    'scrollTop': jQuery(document).height(),
-                }, 4000).delay(1750).promise().done(function () {
-                    jQuery('html, body').scrollTop(0);
-                    imageChecker.highlightImages();
-                    imageChecker.showLegend();
-                    imageChecker.toggleDisable();
-                });
+                jQuery('html, body')
+                    .scrollTop(0);
+                jQuery('html, body')
+                    .animate({
+                        'scrollTop': jQuery(document)
+                            .height(),
+                    }, 4000)
+                    .delay(1750)
+                    .promise()
+                    .done(function () {
+                        jQuery('html, body')
+                            .scrollTop(0);
+                        imageChecker.highlightImages();
+                        imageChecker.showLegend();
+                        imageChecker.toggleDisable();
+                    });
             });
             // off button
             imageChecker.config.$offButt
@@ -840,13 +905,15 @@
                 this.toggleOverlayClass(this.$allImages[a]);
             }
             // remove highlight overlay
-            jQuery('.imgOverlay').remove();
+            jQuery('.imgOverlay')
+                .remove();
         },
         // ----------------------------------------
         // tier 3
         // ----------------------------------------
         'cacheDOM': function () {
-            this.$allImages = jQuery('body').find('img');
+            this.$allImages = jQuery('body')
+                .find('img');
             this.imageArrayLength = this.$allImages.length;
         },
         'addDivOverlay': function ($currentImage) {
@@ -871,16 +938,20 @@
         // tier 4
         // ----------------------------------------
         'cacheDOMOverlayElements': function ($currentImage) {
-            this.imageAlt = jQuery($currentImage).attr('alt');
+            this.imageAlt = jQuery($currentImage)
+                .attr('alt');
             // gets sizing of images
-            this.widthOfImage = jQuery($currentImage).width();
-            this.heightOfImage = jQuery($currentImage).height();
+            this.widthOfImage = jQuery($currentImage)
+                .width();
+            this.heightOfImage = jQuery($currentImage)
+                .height();
         },
         'createOverlayElements': function () {
             // create div overlay
-            this.$divOverlay = jQuery('<div>').attr({
-                'class': 'imgOverlay',
-            });
+            this.$divOverlay = jQuery('<div>')
+                .attr({
+                    'class': 'imgOverlay',
+                });
         },
         'buildOverlayElements': function () {
             // make the div overlay the same dimensions as the image
@@ -901,7 +972,7 @@
 
             if (shared.nextGenCheck()) {
                 this.$divOverlay =
-                    shared.centerDiv($currentImage, this.$divOverlay);
+          shared.centerDiv($currentImage, this.$divOverlay);
             }
         },
         'togClass': function ($image, addClass) {
@@ -912,7 +983,8 @@
         // tier 5
         // ----------------------------------------
         'toggleOverlayClass': function (currentImage) {
-            jQuery(currentImage).toggleClass('overlaid');
+            jQuery(currentImage)
+                .toggleClass('overlaid');
         },
     };
 
@@ -932,20 +1004,26 @@
         // ----------------------------------------
         'createElements': function (callingPanel) {
             linkChecker.config = {
-                '$activateButt': jQuery('<button>').attr({
-                    'class': 'myEDOBut',
-                    'id': 'linkChecker',
-                    'title': 'Check Links',
-                }).text('Link Checker'),
-                '$legend': jQuery('<div>').attr({
-                    'class': 'tbLegend linkChecker',
-                }),
-                '$legendTitle': jQuery('<div>').attr({
-                    'class': 'legendTitle',
-                }).text('Link Checker Legend'),
-                '$legendList': jQuery('<ul>').attr({
-                    'class': 'legendList',
-                }),
+                '$activateButt': jQuery('<button>')
+                    .attr({
+                        'class': 'myEDOBut',
+                        'id': 'linkChecker',
+                        'title': 'Check Links',
+                    })
+                    .text('Link Checker'),
+                '$legend': jQuery('<div>')
+                    .attr({
+                        'class': 'tbLegend linkChecker',
+                    }),
+                '$legendTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'legendTitle',
+                    })
+                    .text('Link Checker Legend'),
+                '$legendList': jQuery('<ul>')
+                    .attr({
+                        'class': 'legendList',
+                    }),
                 '$legendContent': {
                     'noTitle': 'No Title Text',
                     'hasTitle': 'Has Title Text',
@@ -957,14 +1035,17 @@
                     'buttonFlag': 'Button Element',
                     'linkChecked': 'Clicked Link',
                 },
-                '$offButt': jQuery('<input>').attr({
-                    'type': 'button',
-                    'class': 'myEDOBut offButt',
-                    'value': 'Turn Off',
-                }),
-                '$hint': jQuery('<div>').attr({
-                    'class': 'hint',
-                }).text('ctrl+left click to open link in a new tab'),
+                '$offButt': jQuery('<input>')
+                    .attr({
+                        'type': 'button',
+                        'class': 'myEDOBut offButt',
+                        'value': 'Turn Off',
+                    }),
+                '$hint': jQuery('<div>')
+                    .attr({
+                        'class': 'hint',
+                    })
+                    .text('ctrl+left click to open link in a new tab'),
                 '$toolsPanel': jQuery(callingPanel),
                 '$legendContainer': jQuery('.legendContainer'),
                 'datedPagesfileURL': 'https://cdn.rawgit.com/cirept/NextGen/a9b9d06f/resources/dated_pages.json',
@@ -979,13 +1060,13 @@
         },
         'buildLegend': function () {
             linkChecker.config.$legend
-                // attach legend title
+            // attach legend title
                 .append(linkChecker.config.$legendTitle)
-                // attach list
+            // attach list
                 .append(linkChecker.config.$legendList)
-                // attach turn off button
+            // attach turn off button
                 .append(linkChecker.config.$offButt)
-                // attach hint
+            // attach hint
                 .append(linkChecker.config.$hint);
             // fill list
             shared.buildLegendContent(
@@ -1001,16 +1082,23 @@
         'bindEvents': function () {
             // main button
             linkChecker.config.$activateButt.on('click', function () {
-                jQuery('html, body').scrollTop(0);
-                jQuery('html, body').animate({
-                    'scrollTop': jQuery(document).height(),
-                }, 4000).delay(1750).promise().done(function () {
-                    jQuery('html, body').scrollTop(0);
-                    shared.flagButtons();
-                    linkChecker.checkLinks();
-                    linkChecker.showLegend();
-                    linkChecker.toggleDisable();
-                });
+                jQuery('html, body')
+                    .scrollTop(0);
+                jQuery('html, body')
+                    .animate({
+                        'scrollTop': jQuery(document)
+                            .height(),
+                    }, 4000)
+                    .delay(1750)
+                    .promise()
+                    .done(function () {
+                        jQuery('html, body')
+                            .scrollTop(0);
+                        shared.flagButtons();
+                        linkChecker.checkLinks();
+                        linkChecker.showLegend();
+                        linkChecker.toggleDisable();
+                    });
             });
             // off button
             linkChecker.config.$offButt
@@ -1053,11 +1141,13 @@
             for (key in linkChecker.config.$legendContent) {
                 if (linkChecker.config.$legendContent.hasOwnProperty(key)) {
                     this.removeClass(this.$allLinks, key);
-                    this.removeClass(jQuery('body').find('button'), key);
+                    this.removeClass(jQuery('body')
+                        .find('button'), key);
                 }
             }
             // remove div overlay
-            jQuery('.imgOverlay').remove();
+            jQuery('.imgOverlay')
+                .remove();
             // remove overlaid class
             this.removeClass(this.$allImageLinks, 'overlaid');
             // turn off custom link class
@@ -1067,13 +1157,16 @@
         // tier 3 functions
         // ----------------------------------------
         'cacheDOM': function () {
-            this.$allLinks = jQuery('body').find('a');
+            this.$allLinks = jQuery('body')
+                .find('a');
             this.$allImageLinks = this.$allLinks.find('img');
             this.linksArrayLength = this.$allLinks.length;
             this.imageLinksArrayLength = this.$allImageLinks.length;
             //            this.$toolboxStyles = jQuery('#qa_toolbox');
-            this.$sections = jQuery('main').find('section');
-            this.$otherLinks = jQuery('header, footer').find('a');
+            this.$sections = jQuery('main')
+                .find('section');
+            this.$otherLinks = jQuery('header, footer')
+                .find('a');
         },
         'nextGenSiteCheck': function () {
             var $sections = this.$sections;
@@ -1126,8 +1219,10 @@
 
                 // skip main nav menu items
                 if (typeof $currentLink.attr('class') !== 'undefined') {
-                    if ($currentLink.attr('class').indexOf('main') > -1 &&
-                        $currentLink.attr('class').indexOf('main') > -1) {
+                    if ($currentLink.attr('class')
+                        .indexOf('main') > -1 &&
+            $currentLink.attr('class')
+                .indexOf('main') > -1) {
                         continue;
                     }
                 }
@@ -1135,17 +1230,21 @@
                 $image = $currentLink.find('img');
                 isImageLink = this.isImageLink($image);
                 // create check for links inside quick links widget
-                if ($currentLink.closest('.cell').attr('data-cell')) {
-                    dataCell = $currentLink.closest('.cell').attr('data-cell');
+                if ($currentLink.closest('.cell')
+                    .attr('data-cell')) {
+                    dataCell = $currentLink.closest('.cell')
+                        .attr('data-cell');
                     // check if link is within a quick links widget
                     if (dataCell.indexOf('Quick_Links_Plus') > -1) {
                         // checks if QLP is modified by modules
 
                         // IF LINK IS INSIDE A QUICK LINKS WIDGET MARK IT AS NOT AN IMAGE LINK
                         // PREPEND DIV OVERLAY INSIDE OF LINK.
-                        if ($currentLink.parent().attr('class')) {
+                        if ($currentLink.parent()
+                            .attr('class')) {
                             $closestLi = $currentLink.closest('li');
-                            if ($closestLi.attr('class').indexOf('co-card') > -1) {
+                            if ($closestLi.attr('class')
+                                .indexOf('co-card') > -1) {
                                 // if ($currentLink.closest('li').attr('class').indexOf('co-card') > -1) {
                                 isQLPlink = true;
                                 $currentLink.addClass('QLPLink');
@@ -1166,8 +1265,10 @@
                 if (isQLPlink) {
                     // Only apply the div overlay if the image contained inside the QLP card has a width and a height
                     // if the width and height is 0 that means that there is no image
-                    height = jQuery($image).height();
-                    width = jQuery($image).width();
+                    height = jQuery($image)
+                        .height();
+                    width = jQuery($image)
+                        .width();
 
                     if (height !== 0 && width !== 0) {
                         this.addDivOverlay($currentLink, $image, isQLPlink);
@@ -1229,7 +1330,7 @@
             var $linkOverlay;
 
             if (cardClass.indexOf('link-clickable') > -1 ||
-                cardClass.indexOf('none-clickable') > -1) {
+        cardClass.indexOf('none-clickable') > -1) {
                 // THERE SHOULD BE NO NEED TO CHECK FOR IMAGES IN THIS STYLE OF CARD
                 // THE IMAGE WILL NEVER BE A LINK THUS NOT NEEDING TO BE CHECKED
 
@@ -1252,7 +1353,7 @@
                     this.testLinks($copyTextLinks);
                 }
             } else if (cardClass.indexOf('card-clickable-v2') > -1 ||
-                cardClass.indexOf('card-clickable') > -1) {
+        cardClass.indexOf('card-clickable') > -1) {
                 // check if card has an image
                 if ($cardImageContainer.is(':empty')) {
                     // this shouldn't happen if the card is made to be clickable, it should mean that the card will have an image as a 'best practice'
@@ -1310,7 +1411,7 @@
         'runTests': function ($currentLink, isImageLink) {
             // check to see if isImageLink parameter was passed
             isImageLink =
-                typeof isImageLink === 'undefined' ? false : isImageLink;
+        typeof isImageLink === 'undefined' ? false : isImageLink;
             // check target of link
             this.checkTarget($currentLink, isImageLink);
             // check title of link
@@ -1364,9 +1465,11 @@
             // check to see if isImageLink parameter was passed
             if (typeof isImageLink === 'undefined') {
                 isImageLink = false;
-            } else {
-                isImageLink = isImageLink;
             }
+            // TODO Remove this line if the tool still works after this modification
+            // else {
+            //     isImageLink = isImageLink;
+            // }
             // check target of link
             this.checkTargetNextGen($currentLink, $linkOverlay);
             // check title of link
@@ -1375,25 +1478,31 @@
             this.checkURLNextGen($currentLink, isImageLink, $linkOverlay);
         },
         'cacheDOMOverlayElements': function ($currentLink, $currentImage) {
-            this.linkTitle = jQuery($currentLink).find('a').attr('title');
+            this.linkTitle = jQuery($currentLink)
+                .find('a')
+                .attr('title');
             // gets sizing of images
-            this.widthOfImage = jQuery($currentImage).width();
-            this.heightOfImage = jQuery($currentImage).height();
+            this.widthOfImage = jQuery($currentImage)
+                .width();
+            this.heightOfImage = jQuery($currentImage)
+                .height();
         },
         'createOverlayElements': function () {
             // create div overlay
-            this.$divOverlay = jQuery('<div>').attr({
-                'class': 'imgOverlay',
-            });
+            this.$divOverlay = jQuery('<div>')
+                .attr({
+                    'class': 'imgOverlay',
+                });
         },
         'buildOverlayElements': function () {
             // make the div overlay the same dimensions as the image
             this.$divOverlay.attr({
                 'class': 'imgOverlay',
-            }).css({
-                'width': this.widthOfImage + 'px',
-                'height': this.heightOfImage + 'px',
-            });
+            })
+                .css({
+                    'width': this.widthOfImage + 'px',
+                    'height': this.heightOfImage + 'px',
+                });
 
             // add content to div
             this.$divOverlay.append(this.linkTitle);
@@ -1408,14 +1517,15 @@
 
             if (shared.nextGenCheck()) {
                 this.$divOverlay =
-                    shared.centerDiv($currentImage, this.$divOverlay);
+          shared.centerDiv($currentImage, this.$divOverlay);
             }
 
             // make parent image relative positionin
             this.apndClass($currentImage, 'overlaid');
 
             // place div overlay onto image
-            jQuery($currentImage).before(this.$divOverlay);
+            jQuery($currentImage)
+                .before(this.$divOverlay);
         },
         'checkTarget': function ($currentLink, isImageLink) {
             // check if link opens in a new window
@@ -1432,7 +1542,7 @@
             var $obj = isImageLink ? this.$divOverlay : $currentLink;
 
             if (typeof $currentLink.attr('title') === 'undefined' ||
-                $currentLink.attr('title') === '') { // link has no title
+        $currentLink.attr('title') === '') { // link has no title
                 this.apndClass($obj, 'noTitle');
             } else if ($currentLink.attr('title') !== '') { // link has a title
                 this.apndClass($obj, 'hasTitle');
@@ -1472,7 +1582,7 @@
         'checkForTitleTextNextGen': function ($currentLink, isImageLink, $linkOverlay) {
             // text links
             if (typeof $currentLink.attr('title') === 'undefined' ||
-                $currentLink.attr('title') === '') { // link has no title
+        $currentLink.attr('title') === '') { // link has no title
                 this.apndClass($linkOverlay, 'noTitle');
             } else if ($currentLink.attr('title') !== '') { // link has a title
                 this.apndClass($linkOverlay, 'hasTitle');
@@ -1498,8 +1608,8 @@
         },
         'verifyTarget': function ($currentLink) {
             if ($currentLink.attr('target') === '_blank' ||
-                $currentLink.attr('target') === '_new' ||
-                $currentLink.attr('target') === 'custom') {
+        $currentLink.attr('target') === '_new' ||
+        $currentLink.attr('target') === 'custom') {
                 return true;
             }
         },
@@ -1561,46 +1671,53 @@
         // tier 1 functions
         // ----------------------------------------
         /**
-         * Create all the module DOM elements
-         */
+     * Create all the module DOM elements
+     */
         'createElements': function () {
             spellCheck.config = {
-                '$activateButt': jQuery('<button>').attr({
-                    'class': 'myEDOBut',
-                    'id': 'spellCheck',
-                    'title': 'Check Spelling',
-                }).text('Spellcheck Page'),
-                '$offButt': jQuery('<input>').attr({
-                    'type': 'button',
-                    'class': 'myEDOBut offButt',
-                    'value': 'Turn Off',
-                }),
-                '$legend': jQuery('<div>').attr({
-                    'class': 'tbLegend spellCheck',
-                }),
-                '$legendTitle': jQuery('<div>').attr({
-                    'class': 'legendTitle',
-                }).text('Spell Check Legend'),
-                '$legendList': jQuery('<ul>').attr({
-                    'class': 'legendList',
-                }),
+                '$activateButt': jQuery('<button>')
+                    .attr({
+                        'class': 'myEDOBut',
+                        'id': 'spellCheck',
+                        'title': 'Check Spelling',
+                    })
+                    .text('Spellcheck Page'),
+                '$offButt': jQuery('<input>')
+                    .attr({
+                        'type': 'button',
+                        'class': 'myEDOBut offButt',
+                        'value': 'Turn Off',
+                    }),
+                '$legend': jQuery('<div>')
+                    .attr({
+                        'class': 'tbLegend spellCheck',
+                    }),
+                '$legendTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'legendTitle',
+                    })
+                    .text('Spell Check Legend'),
+                '$legendList': jQuery('<ul>')
+                    .attr({
+                        'class': 'legendList',
+                    }),
                 '$legendContent': {
                     'spell-check misspelled': 'word misspelled',
                 },
             };
         },
         /**
-         * Build the legend for the tool
-         */
+     * Build the legend for the tool
+     */
         'buildLegend': function () {
             spellCheck.config.$legend
-                // attach legend title
+            // attach legend title
                 .append(spellCheck.config.$legendTitle)
-                // attach list
+            // attach list
                 .append(spellCheck.config.$legendList)
-                // attach turn off button
+            // attach turn off button
                 .append(spellCheck.config.$offButt)
-                // attach hint
+            // attach hint
                 .append(spellCheck.config.$hint);
 
             // fill list
@@ -1609,18 +1726,18 @@
                 spellCheck.config.$legendList);
         },
         /**
-         * Grab all the information/element references from the DOM
-         * that the tool needs to run.
-         */
+     * Grab all the information/element references from the DOM
+     * that the tool needs to run.
+     */
         'cacheDOM': function (callingPanel) {
             this.$toolsPanel = jQuery(callingPanel);
             // DOM elements
             this.$legendContainer = jQuery('.legendContainer');
         },
         /**
-         * Add the tool to the QA toolbox
-         * Will add the tool to the MAIN TOOLS panel
-         */
+     * Add the tool to the QA toolbox
+     * Will add the tool to the MAIN TOOLS panel
+     */
         'addTool': function () {
             this.$toolsPanel
                 .append(spellCheck.config.$activateButt);
@@ -1628,8 +1745,8 @@
                 .append(spellCheck.config.$legend);
         },
         /**
-         * binds all the Activate and Off
-         */
+     * binds all the Activate and Off
+     */
         'bindEvents': function () {
             // activate button
             spellCheck.config.$activateButt
@@ -1647,9 +1764,9 @@
         // tier 2 functions
         // ----------------------------------------
         /**
-         * traverses the DOM and grabs all visible text
-         * @return {(object:array)} All the visible text on the page
-         */
+     * traverses the DOM and grabs all visible text
+     * @return {(object:array)} All the visible text on the page
+     */
         'treeWalk': function () {
             var treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
             var wordArray = [];
@@ -1662,8 +1779,8 @@
             return wordArray;
         },
         /**
-         * Gets all text on page and tests words against custom dictionary
-         */
+     * Gets all text on page and tests words against custom dictionary
+     */
         'spellCheckPage': function () {
             var dictionary = new Typo('en_US', false, false, {
                 'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/addingAutofillTags/typo/dictionaries/',
@@ -1697,9 +1814,9 @@
                 // search each word in array for dictionary match
                 // flag word if not found in dictionary
                 words.forEach(function (word) {
-
                     // is word NOT in the dictionary AND NOT a number
-                    if (!dictionary.check(self.clean(word)) && !(/^\d+$/).test(word)) {
+                    if (!dictionary.check(self.clean(word)) && !(/^\d+$/)
+                        .test(word)) {
                         // create regex expression to find word in string
                         // Included (?!@~~) to skip already replaced word in string
                         unmarked = new RegExp('\(' + word + '\)(?!@~~)', 'g');
@@ -1718,15 +1835,15 @@
             });
         },
         /**
-         * Toggle the tools legend
-         */
+     * Toggle the tools legend
+     */
         'showLegend': function () {
             spellCheck.config.$legend.slideToggle(500);
         },
         /**
-         * Toggle the 'activate' button from being clicked multiple time
-         * @return {bool} return the opposite of what the current state is
-         */
+     * Toggle the 'activate' button from being clicked multiple time
+     * @return {bool} return the opposite of what the current state is
+     */
         'toggleDisable': function () {
             spellCheck.config.$activateButt.prop('disabled', function (index, value) {
                 return !value;
@@ -1748,11 +1865,13 @@
         },
         'removeHighlights': function () {
             // remove highlight overlay
-            jQuery('span.spell-check').each(function (index, value) {
-                jQuery(value).replaceWith(function () {
-                    return value.childNodes[0].nodeValue;
+            jQuery('span.spell-check')
+                .each(function (index, value) {
+                    jQuery(value)
+                        .replaceWith(function () {
+                            return value.childNodes[0].nodeValue;
+                        });
                 });
-            });
         },
     };
 
@@ -1773,36 +1892,44 @@
         // ----------------------------------------
         'createElements': function () {
             speedtestPage.config = {
-                '$activateButt': jQuery('<button>').attr({
-                    'class': 'myEDOBut',
-                    'id': 'testPage',
-                    'title': 'Queue up a Page Test',
-                }).text('Web Page Test'),
+                '$activateButt': jQuery('<button>')
+                    .attr({
+                        'class': 'myEDOBut',
+                        'id': 'testPage',
+                        'title': 'Queue up a Page Test',
+                    })
+                    .text('Web Page Test'),
                 'email': GM_getValue('email', 'your.name@cdk.com'), // eslint-disable-line new-cap
-                '$emailTitle': jQuery('<div>').text('Enter your email'),
-                '$emailInput': jQuery('<input>').attr({
-                    'class': 'WPT email',
-                    'id': 'WPTemail',
-                    'type': 'text',
-                    'placeholder': 'your.name@cdk.com',
-                }),
-                '$panelContainer': jQuery('<div>').attr({
-                    'class': 'WPT input',
-                }),
+                '$emailTitle': jQuery('<div>')
+                    .text('Enter your email'),
+                '$emailInput': jQuery('<input>')
+                    .attr({
+                        'class': 'WPT email',
+                        'id': 'WPTemail',
+                        'type': 'text',
+                        'placeholder': 'your.name@cdk.com',
+                    }),
+                '$panelContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'WPT input',
+                    }),
                 'browserOptions': {
                     '_IE11': 'IE11',
                     ':Chrome': 'Chrome',
                     ':FireFox': 'Firefox',
                 },
-                '$browserSelect': jQuery('<select>').attr({
-                    'class': 'WPT bSelect',
-                    'id': 'WPTbSelect',
-                }),
-                '$browserTitle': jQuery('<div>').text('Choose a Browser'),
-                '$keySelect': jQuery('<select>').attr({
-                    'class': 'WPT keySelect',
-                    'id': 'WPTkeySelect',
-                }),
+                '$browserSelect': jQuery('<select>')
+                    .attr({
+                        'class': 'WPT bSelect',
+                        'id': 'WPTbSelect',
+                    }),
+                '$browserTitle': jQuery('<div>')
+                    .text('Choose a Browser'),
+                '$keySelect': jQuery('<select>')
+                    .attr({
+                        'class': 'WPT keySelect',
+                        'id': 'WPTkeySelect',
+                    }),
                 'keyOptions': {
                     'key1': 'A.26fc3fe634ca1277825369f20eb25a90',
                     'key2': 'A.1b40e6dc41916bd77b0541187ac9e74b',
@@ -1813,13 +1940,15 @@
                     'key7': 'A.517503243d1253bf66ea52d153905c41',
                     'key8': 'A.7987f0cf2ec2ac0dc644ec9e6b54f883',
                 },
-                '$keyTitle': jQuery('<div>').text('Choose Key'),
+                '$keyTitle': jQuery('<div>')
+                    .text('Choose Key'),
                 'testURL': 'http://www.webpagetest.org/runtest.php?',
-                '$sendButt': jQuery('<input>').attr({
-                    'type': 'button',
-                    'class': 'myEDOBut offButt',
-                    'value': 'Send Test',
-                }),
+                '$sendButt': jQuery('<input>')
+                    .attr({
+                        'type': 'button',
+                        'class': 'myEDOBut offButt',
+                        'value': 'Send Test',
+                    }),
             };
         },
         'cacheDOM': function (callingPanel) {
@@ -1834,13 +1963,17 @@
             var $listItem;
 
             jQuery.each(speedtestPage.config.browserOptions, function (key, text) {
-                $listItem = jQuery('<option>').val(key).html(text);
+                $listItem = jQuery('<option>')
+                    .val(key)
+                    .html(text);
                 speedtestPage.config.$browserSelect
                     .append($listItem);
             });
 
             jQuery.each(speedtestPage.config.keyOptions, function (key, text) {
-                $listItem = jQuery('<option>').val(text).html(key);
+                $listItem = jQuery('<option>')
+                    .val(text)
+                    .html(key);
                 speedtestPage.config.$keySelect
                     .append($listItem);
             });
@@ -1886,13 +2019,17 @@
         },
         'storeData': function () {
             // save user input
-            var userEmail = jQuery('#WPTemail').val();
+            var userEmail = jQuery('#WPTemail')
+                .val();
             shared.saveValue('email', userEmail);
         },
         'sendPage': function () {
-            var browser = jQuery('#WPTbSelect option:selected').val();
-            var selectedKey = jQuery('#WPTkeySelect option:selected').val();
-            var browserName = jQuery('#WPTbSelect option:selected').text();
+            var browser = jQuery('#WPTbSelect option:selected')
+                .val();
+            var selectedKey = jQuery('#WPTkeySelect option:selected')
+                .val();
+            var browserName = jQuery('#WPTbSelect option:selected')
+                .text();
             var email = shared.getValue('email');
             var params = {
                 'k': selectedKey,
@@ -1912,31 +2049,30 @@
 
             // alert user
             if (this.isNextGenPlatform) {
-
                 desktopURL = testURL + 'url=' + this.siteURL +
-                    this.pageName + '?nextGen=true';
+          this.pageName + '?nextGen=true';
 
                 if (confirm('----------------------------------------\n' + // eslint-disable-line no-alert
-                        'Test the Desktop and Mobile site?\n' +
-                        '----------------------------------------\n' +
-                        'Browser : ' + browserName + '\n' +
-                        'Send Results To : ' + email + '\n' +
-                        '----------------------------------------') === true) {
+            'Test the Desktop and Mobile site?\n' +
+            '----------------------------------------\n' +
+            'Browser : ' + browserName + '\n' +
+            'Send Results To : ' + email + '\n' +
+            '----------------------------------------') === true) {
                     shared.openNewTab(desktopURL);
                 }
             } else {
                 desktopURL = testURL + 'url=' + this.siteURL +
-                    this.pageName + '?device=immobile';
+          this.pageName + '?device=immobile';
 
                 mobileURL = testURL + 'url=' + this.siteURL +
-                    this.pageName + '?device=mobile';
+          this.pageName + '?device=mobile';
 
                 if (confirm('----------------------------------------\n' + // eslint-disable-line no-alert
-                        'Test the Desktop and Mobile site?\n' +
-                        '----------------------------------------\n' +
-                        'Browser : ' + browserName + '\n' +
-                        'Send Results To : ' + email + '\n' +
-                        '----------------------------------------') === true) {
+            'Test the Desktop and Mobile site?\n' +
+            '----------------------------------------\n' +
+            'Browser : ' + browserName + '\n' +
+            'Send Results To : ' + email + '\n' +
+            '----------------------------------------') === true) {
                     shared.openNewTab(desktopURL);
                     shared.openNewTab(mobileURL);
                 }
@@ -1966,19 +2102,23 @@
                 // ----------------------------------------
                 // QA Tools Panel
                 // ----------------------------------------
-                '$otherToolsContainer': jQuery('<div>').attr({
-                    'class': 'toolBox',
-                    'id': 'otherToolsContainer',
-                }),
-                '$otherToolsPanel': jQuery('<div>').attr({
-                    'class': 'toolsPanel',
-                    'id': 'otherTools',
-                }),
-                '$otherToolsTitle': jQuery('<div>').attr({
-                    'class': 'panelTitle',
-                    'id': 'otherToolsTitle',
-                    'title': 'Click to Minimize/Maximize',
-                }).text('Other Tools'),
+                '$otherToolsContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'toolBox',
+                        'id': 'otherToolsContainer',
+                    }),
+                '$otherToolsPanel': jQuery('<div>')
+                    .attr({
+                        'class': 'toolsPanel',
+                        'id': 'otherTools',
+                    }),
+                '$otherToolsTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'panelTitle',
+                        'id': 'otherToolsTitle',
+                        'title': 'Click to Minimize/Maximize',
+                    })
+                    .text('Other Tools'),
             };
         },
         'buildPanel': function () {
@@ -2021,33 +2161,42 @@
         // ----------------------------------------
         'createElements': function () {
             showNavigation.config = {
-                '$activateButt': jQuery('<button>').attr({
-                    'class': 'myEDOBut',
-                    'id': 'showNavigation',
-                    'title': 'Show Navigation (Highlights Major Pages)',
-                }).text('Show Navigation'),
-                '$offButt': jQuery('<input>').attr({
-                    'type': 'button',
-                    'class': 'myEDOBut offButt',
-                    'value': 'Turn Off',
-                }),
-                '$legend': jQuery('<div>').attr({
-                    'class': 'tbLegend showNavigation',
-                }),
-                '$legendTitle': jQuery('<div>').attr({
-                    'class': 'legendTitle',
-                }).text('Show Navigation Legend'),
-                '$legendList': jQuery('<ul>').attr({
-                    'class': 'legendList',
-                }),
+                '$activateButt': jQuery('<button>')
+                    .attr({
+                        'class': 'myEDOBut',
+                        'id': 'showNavigation',
+                        'title': 'Show Navigation (Highlights Major Pages)',
+                    })
+                    .text('Show Navigation'),
+                '$offButt': jQuery('<input>')
+                    .attr({
+                        'type': 'button',
+                        'class': 'myEDOBut offButt',
+                        'value': 'Turn Off',
+                    }),
+                '$legend': jQuery('<div>')
+                    .attr({
+                        'class': 'tbLegend showNavigation',
+                    }),
+                '$legendTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'legendTitle',
+                    })
+                    .text('Show Navigation Legend'),
+                '$legendList': jQuery('<ul>')
+                    .attr({
+                        'class': 'legendList',
+                    }),
                 '$legendContent': {
                     'majorPage': 'Major Page',
                     'customPage': 'Landing Page',
                     'linkChecked': 'Link Clicked',
                 },
-                '$hint': jQuery('<div>').attr({
-                    'class': 'hint',
-                }).html('ctrl+left click to open link in a new tab.'),
+                '$hint': jQuery('<div>')
+                    .attr({
+                        'class': 'hint',
+                    })
+                    .html('ctrl+left click to open link in a new tab.'),
             };
         },
         'cacheDOM': function (callingPanel) {
@@ -2076,13 +2225,13 @@
         },
         'buildLegend': function () {
             showNavigation.config.$legend
-                // attach legend title
+            // attach legend title
                 .append(showNavigation.config.$legendTitle)
-                // attach list
+            // attach list
                 .append(showNavigation.config.$legendList)
-                // attach turn off button
+            // attach turn off button
                 .append(showNavigation.config.$offButt)
-                // attach hint
+            // attach hint
                 .append(showNavigation.config.$hint);
             // fill list
             shared.buildLegendContent(
@@ -2110,7 +2259,6 @@
             showNavigation.config.$offButt
                 .on('click', this.toggleFeatures.bind(this))
                 .on('click', this.toggleDisable);
-
         },
         'bindLegendElements': function () {
             var $myMenu = jQuery('nav');
@@ -2119,29 +2267,34 @@
             var flaggedCustomPages;
             var flaggedCheckedLinks;
 
-            showNavigation.config.$legendList.children().each(function (index, value) {
-                findThis = jQuery(value).attr('class');
-                switch (findThis) {
+            showNavigation.config.$legendList.children()
+                .each(function (index, value) {
+                    findThis = jQuery(value)
+                        .attr('class');
+                    switch (findThis) {
                     case 'majorPage':
                         flaggedMajorPages = $myMenu.find('.' + findThis);
-                        jQuery(value).on('click', function () {
-                            flaggedMajorPages.toggleClass('majorPage');
-                        });
+                        jQuery(value)
+                            .on('click', function () {
+                                flaggedMajorPages.toggleClass('majorPage');
+                            });
                         break;
                     case 'customPage':
                         flaggedCustomPages = $myMenu.find('.' + findThis);
-                        jQuery(value).on('click', function () {
-                            flaggedCustomPages.toggleClass('customPage');
-                        });
+                        jQuery(value)
+                            .on('click', function () {
+                                flaggedCustomPages.toggleClass('customPage');
+                            });
                         break;
                     case 'linkChecked':
                         flaggedCheckedLinks = $myMenu.find('.' + findThis);
-                        jQuery(value).on('click', function () {
-                            flaggedCheckedLinks.toggleClass('linkChecked');
-                        });
+                        jQuery(value)
+                            .on('click', function () {
+                                flaggedCheckedLinks.toggleClass('linkChecked');
+                            });
                         break;
-                }
-            });
+                    }
+                });
         },
         // ----------------------------------------
         // tier 2 functions
@@ -2172,7 +2325,8 @@
                 this.$navTabs.toggleClass('showNav');
             }
             showNavigation.config.$legend.slideToggle(500);
-            this.$navTabs.find('.linkChecked').removeClass('linkChecked');
+            this.$navTabs.find('.linkChecked')
+                .removeClass('linkChecked');
         },
         'toggleDisable': function () {
             showNavigation.config.$activateButt
@@ -2195,7 +2349,8 @@
         // ----------------------------------------
         'linkChecked': function (currentLink) {
             return function () {
-                jQuery(currentLink).addClass('linkChecked');
+                jQuery(currentLink)
+                    .addClass('linkChecked');
             };
         },
     };
@@ -2215,11 +2370,13 @@
         // ----------------------------------------
         'createElements': function () {
             viewMobile.config = {
-                '$activateButt': jQuery('<button>').attr({
-                    'class': 'myEDOBut',
-                    'id': 'viewMobile',
-                    'title': 'View Mobile Site',
-                }).text('View Mobile Site'),
+                '$activateButt': jQuery('<button>')
+                    .attr({
+                        'class': 'myEDOBut',
+                        'id': 'viewMobile',
+                        'title': 'View Mobile Site',
+                    })
+                    .text('View Mobile Site'),
             };
         },
         'cacheDOM': function (callingPanel) {
@@ -2262,31 +2419,36 @@
         // ----------------------------------------
         'createElements': function () {
             seoSimplify.config = {
-                '$activateButt': jQuery('<button>').attr({
-                    'class': 'myEDOBut',
-                    'id': 'simpleSEO',
-                    'title': 'Simplify My SEO Text',
-                }).text('SEO Simplify'),
-                '$removeBut': jQuery('<input>').attr({
-                    'type': 'button',
-                    'class': 'myEDOBut removeDiv',
-                    'value': 'REMOVE',
-                }),
-                '$seoDisplay': jQuery('<div>').attr({
-                    'class': 'inputDisplay',
-                }),
-                '$seoContainer': jQuery('<div>').attr({
-                    'class': 'inputContainer',
-                }),
+                '$activateButt': jQuery('<button>')
+                    .attr({
+                        'class': 'myEDOBut',
+                        'id': 'simpleSEO',
+                        'title': 'Simplify My SEO Text',
+                    })
+                    .text('SEO Simplify'),
+                '$removeBut': jQuery('<input>')
+                    .attr({
+                        'type': 'button',
+                        'class': 'myEDOBut removeDiv',
+                        'value': 'REMOVE',
+                    }),
+                '$seoDisplay': jQuery('<div>')
+                    .attr({
+                        'class': 'inputDisplay',
+                    }),
+                '$seoContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'inputContainer',
+                    }),
                 'oems': ['Chevrolet', 'Buick', 'Cadillac', 'GMC', 'Hyundai', 'Volkswagen'],
                 'oemFiles': [
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/Chevrolet.json',
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/Buick.json',
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/Cadillac.json',
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/GMC.json',
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/Hyundai.json',
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/Volkswagen.json',
-                    ],
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/Chevrolet.json',
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/Buick.json',
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/Cadillac.json',
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/GMC.json',
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/Hyundai.json',
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/Volkswagen.json',
+                ],
                 'vehicles': [],
             };
         },
@@ -2351,11 +2513,13 @@
         'changeToTextarea': function (event) {
             var $this = jQuery(event.currentTarget);
             var input = seoSimplify.config.$seoDisplay.html();
-            var $seoTextArea = jQuery('<textarea>').attr({
-                'class': 'inputDisplay',
-            });
+            var $seoTextArea = jQuery('<textarea>')
+                .attr({
+                    'class': 'inputDisplay',
+                });
             $seoTextArea.html(input);
-            jQuery($this).replaceWith($seoTextArea);
+            jQuery($this)
+                .replaceWith($seoTextArea);
             $seoTextArea.focus();
             $seoTextArea.blur(this.revertDiv.bind(this));
         },
@@ -2380,22 +2544,30 @@
         },
         'cleanUpTags': function ($input) {
             // remove all empty elements
-            $input.find('*:empty').remove();
-            $input.find('*').each(function (index, value) {
-                if (jQuery.trim(jQuery(value).html()) === '') {
-                    jQuery(value).remove();
-                }
-            });
+            $input.find('*:empty')
+                .remove();
+            $input.find('*')
+                .each(function (index, value) {
+                    if (jQuery.trim(jQuery(value)
+                        .html()) === '') {
+                        jQuery(value)
+                            .remove();
+                    }
+                });
 
             // remove all style attributes
-            $input.find('style').remove();
-            $input.find('*').removeAttr('style');
+            $input.find('style')
+                .remove();
+            $input.find('*')
+                .removeAttr('style');
 
             // remove all br elements
-            $input.find('br').remove();
+            $input.find('br')
+                .remove();
 
             // remove all &nbsp; with ' '
-            $input.html($input.html().replace(/&nbsp;/gi, ' '));
+            $input.html($input.html()
+                .replace(/&nbsp;/gi, ' '));
 
             // remove all elements from text
             $input.find('div, font, span, b, strong, i, center, u, p')
@@ -2417,15 +2589,18 @@
                 $this = jQuery(allLinks[i]);
                 // check if title is empty or undefined
                 if (seoSimplify.isUndefined($this, 'title') ||
-                    seoSimplify.isEmpty($this, 'title')) {
+          seoSimplify.isEmpty($this, 'title')) {
                     // sets title to link text
-                    titleText = $this.text().toString().trim();
-                    titleText = titleText.substr(0, 1).toUpperCase() + titleText.substr(1);
+                    titleText = $this.text()
+                        .toString()
+                        .trim();
+                    titleText = titleText.substr(0, 1)
+                        .toUpperCase() + titleText.substr(1);
                     $this.attr('title', titleText);
                 }
                 // check if href is empty or undefined
                 if (seoSimplify.isUndefined($this, 'href') ||
-                    seoSimplify.isEmpty($this, 'href')) {
+          seoSimplify.isEmpty($this, 'href')) {
                     // sets href to # if none exists
                     $this.attr('href', '#');
                 }
@@ -2450,12 +2625,14 @@
         },
         'revertDiv': function (event) {
             var $this = jQuery(event.target);
-            var $thisText = jQuery(event.target).text();
+            var $thisText = jQuery(event.target)
+                .text();
             var $replacementArea = seoSimplify.config.$seoDisplay;
 
             $replacementArea.html($thisText);
 
-            jQuery($this).replaceWith($replacementArea);
+            jQuery($this)
+                .replaceWith($replacementArea);
 
             $replacementArea.click(this.changeToTextarea.bind(this));
         },
@@ -2463,14 +2640,16 @@
         // tier 4 functions
         // ----------------------------------------
         'isUndefined': function (elem, attr) {
-            if (typeof jQuery(elem).attr(attr) !== 'undefined') {
+            if (typeof jQuery(elem)
+                .attr(attr) !== 'undefined') {
                 return false;
             } else {
                 return true;
             }
         },
         'isEmpty': function (elem, attr) {
-            if (jQuery(elem).attr(attr) === '') {
+            if (jQuery(elem)
+                .attr(attr) === '') {
                 return true;
             } else {
                 return false;
@@ -2514,7 +2693,8 @@
             var $this = elem;
             // if target is undefined or empty remove target attribute
             if (seoSimplify.isUndefined($this, 'target') || seoSimplify.isEmpty($this, 'target')) {
-                jQuery(elem).removeAttr('target');
+                jQuery(elem)
+                    .removeAttr('target');
             }
         },
         // ----------------------------------------
@@ -2579,11 +2759,13 @@
         },
         'createElements': function () {
             widgetOutlines.config = {
-                '$activateButt': jQuery('<button>').attr({
-                    'class': 'myEDOBut',
-                    'id': 'widgetOutline',
-                    'title': 'Show Widget Outlines',
-                }).text('Show Widgets'),
+                '$activateButt': jQuery('<button>')
+                    .attr({
+                        'class': 'myEDOBut',
+                        'id': 'widgetOutline',
+                        'title': 'Show Widget Outlines',
+                    })
+                    .text('Show Widgets'),
             };
         },
         'cacheDOM': function (callingPanel) {
@@ -2607,34 +2789,36 @@
         },
         'addCustomStyles': function () {
             var self = this;
-            jQuery(this.overlayStyles).each(function (index, value) {
-                self.$toolboxStyles.append(value);
-            });
+            jQuery(this.overlayStyles)
+                .each(function (index, value) {
+                    self.$toolboxStyles.append(value);
+                });
         },
         'addOverlay': function (array) {
             var self = this;
-            jQuery(array).each(function (index, value) {
-                var $currentObject = jQuery(value);
-                var widgetID = $currentObject.attr('id');
-                var toolClass = 'showWidgetData';
-                var w = $currentObject.width();
-                var h = $currentObject.height();
-                var addThis = '#' + widgetID + '.' + toolClass + ':after { height: ' + h + 'px; width: ' + w + 'px; }';
-                // add tool class
-                $currentObject.addClass('showWidgetData');
-                self.bindClickCallback($currentObject, widgetID);
-                $currentObject.attr({
-                    'title': 'Click to Copy Widget ID',
-                });
+            jQuery(array)
+                .each(function (index, value) {
+                    var $currentObject = jQuery(value);
+                    var widgetID = $currentObject.attr('id');
+                    var toolClass = 'showWidgetData';
+                    var w = $currentObject.width();
+                    var h = $currentObject.height();
+                    var addThis = '#' + widgetID + '.' + toolClass + ':after { height: ' + h + 'px; width: ' + w + 'px; }';
+                    // add tool class
+                    $currentObject.addClass('showWidgetData');
+                    self.bindClickCallback($currentObject, widgetID);
+                    $currentObject.attr({
+                        'title': 'Click to Copy Widget ID',
+                    });
 
-                // add height and width data to widget element
-                $currentObject.attr({
-                    'data-content': widgetID + ' :: ' + w + 'px X ' + h + 'px',
-                });
+                    // add height and width data to widget element
+                    $currentObject.attr({
+                        'data-content': widgetID + ' :: ' + w + 'px X ' + h + 'px',
+                    });
 
-                // save custom css styles that will be added to the toolbox css styles later
-                self.overlayStyles.push(addThis);
-            });
+                    // save custom css styles that will be added to the toolbox css styles later
+                    self.overlayStyles.push(addThis);
+                });
         },
         'bindClickCallback': function ($currentObject, widgetID) {
             // bind click event
@@ -2666,20 +2850,26 @@
         },
         'createElements': function () {
             checkLinks.config = {
-                '$activateButt': jQuery('<button>').attr({
-                    'class': 'myEDOBut',
-                    'id': '404checker',
-                    'title': '404 Checker',
-                }).text('404 Link Checker'),
-                '$legend': jQuery('<div>').attr({
-                    'class': 'tbLegend checkLinks',
-                }),
-                '$legendTitle': jQuery('<div>').attr({
-                    'class': 'legendTitle',
-                }).text('404 Link Checker Legend'),
-                '$legendList': jQuery('<ul>').attr({
-                    'class': 'legendList',
-                }),
+                '$activateButt': jQuery('<button>')
+                    .attr({
+                        'class': 'myEDOBut',
+                        'id': '404checker',
+                        'title': '404 Checker',
+                    })
+                    .text('404 Link Checker'),
+                '$legend': jQuery('<div>')
+                    .attr({
+                        'class': 'tbLegend checkLinks',
+                    }),
+                '$legendTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'legendTitle',
+                    })
+                    .text('404 Link Checker Legend'),
+                '$legendList': jQuery('<ul>')
+                    .attr({
+                        'class': 'legendList',
+                    }),
                 '$legendContent': {
                     'otherDomain': 'Absolute URL*',
                     'jumpLink': 'Jump Link or "#" URL',
@@ -2689,31 +2879,40 @@
                     'success': 'Link is Real',
                     'error': '404 Link',
                 },
-                '$offButt': jQuery('<input>').attr({
-                    'type': 'button',
-                    'class': 'myEDOBut offButt',
-                    'value': 'remove legend',
-                }),
-                '$subText': jQuery('<div>').attr({
-                    'class': 'subText hint',
-                }).text('* Manually Check Link'),
-                '$container': jQuery('<div>').attr({
-                    'class': 'checkContainer',
-                }),
-                '$message': jQuery('<div>').attr({
-                    'class': 'checkMessage',
-                }),
-                '$counter': jQuery('<div>').attr({
-                    'id': 'count404',
-                }),
-                '$iconContainer': jQuery('<div>').attr({
-                    'id': 'iconContainer',
-                }),
+                '$offButt': jQuery('<input>')
+                    .attr({
+                        'type': 'button',
+                        'class': 'myEDOBut offButt',
+                        'value': 'remove legend',
+                    }),
+                '$subText': jQuery('<div>')
+                    .attr({
+                        'class': 'subText hint',
+                    })
+                    .text('* Manually Check Link'),
+                '$container': jQuery('<div>')
+                    .attr({
+                        'class': 'checkContainer',
+                    }),
+                '$message': jQuery('<div>')
+                    .attr({
+                        'class': 'checkMessage',
+                    }),
+                '$counter': jQuery('<div>')
+                    .attr({
+                        'id': 'count404',
+                    }),
+                '$iconContainer': jQuery('<div>')
+                    .attr({
+                        'id': 'iconContainer',
+                    }),
                 '$thinking': jQuery('<i id="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'),
                 '$done': jQuery('<i class="fa fa-check-circle fa-3x fa-fw"></i>'),
-                '$hint': jQuery('<div>').attr({
-                    'class': 'hint',
-                }).text('refresh page before running 404 checker again'),
+                '$hint': jQuery('<div>')
+                    .attr({
+                        'class': 'hint',
+                    })
+                    .text('refresh page before running 404 checker again'),
                 'count': 1,
                 'totalTests': 0,
                 'totalLinks': 0, // for future error reporting
@@ -2730,7 +2929,8 @@
             this.$toolsPanel = jQuery(callingPanel);
             this.$legendContainer = jQuery('.legendContainer');
             this.isNextGen = this.nextGenCheck;
-            this.$otherLinks = jQuery('header, footer').find('a');
+            this.$otherLinks = jQuery('header, footer')
+                .find('a');
         },
         'buildLegend': function () {
             checkLinks.config.$legend
@@ -2756,18 +2956,25 @@
         'bindEvents': function () {
             // main button
             checkLinks.config.$activateButt.on('click', function () {
-                jQuery('html, body').scrollTop(0);
-                jQuery('html, body').animate({
-                    'scrollTop': jQuery(document).height(),
-                }, 4000).delay(1750).promise().done(function () {
-                    jQuery('html, body').scrollTop(0);
-                    shared.flagButtons();
-                    checkLinks.toggleDisable();
-                    checkLinks.showLegend();
-                    checkLinks.ajaxStart();
-                    checkLinks.ajaxStop();
-                    checkLinks.platformChooser();
-                });
+                jQuery('html, body')
+                    .scrollTop(0);
+                jQuery('html, body')
+                    .animate({
+                        'scrollTop': jQuery(document)
+                            .height(),
+                    }, 4000)
+                    .delay(1750)
+                    .promise()
+                    .done(function () {
+                        jQuery('html, body')
+                            .scrollTop(0);
+                        shared.flagButtons();
+                        checkLinks.toggleDisable();
+                        checkLinks.showLegend();
+                        checkLinks.ajaxStart();
+                        checkLinks.ajaxStop();
+                        checkLinks.platformChooser();
+                    });
             });
 
             checkLinks.config.$offButt.on('click', this.showLegend);
@@ -2834,9 +3041,9 @@
             return linkURL;
         },
         /**
-         * Test link URL.
-         * Add classes to $currentLink if link url does not pass tests
-         */
+     * Test link URL.
+     * Add classes to $currentLink if link url does not pass tests
+     */
         'testURLs': function ($currentLink) {
             var linkURL = jQuery.trim($currentLink.attr('href'));
             // set variable true or false, if image exists inside link
@@ -2852,7 +3059,7 @@
             if (linkURL.indexOf('tel:') >= 0) {
                 if (isImageLink) {
                     $linkOverlay =
-                        shared.addDivOverlay(isNextGen, $currentLink);
+            shared.addDivOverlay(isNextGen, $currentLink);
                     $linkOverlay.addClass('mobilePhoneLink');
                 } else {
                     $currentLink.addClass('mobilePhoneLink');
@@ -2860,7 +3067,7 @@
                 checkLinks.config.totalTests -= 1; // minus this from the running total of links
                 return false;
             } else if (linkURL.indexOf('javascript') >= 0 ||
-                (linkURL.indexOf('#') === 0 || linkURL.indexOf('#') === 1)) { // test for javascript links or Jump Links
+        (linkURL.indexOf('#') === 0 || linkURL.indexOf('#') === 1)) { // test for javascript links or Jump Links
                 $currentLink.addClass('jumpLink');
                 checkLinks.config.totalTests -= 1; // minus this from the running total of links
                 return false;
@@ -2882,7 +3089,8 @@
         },
         'nextgenTestLinks': function () {
             var $currentCard;
-            var $sections = jQuery('main').find('section');
+            var $sections = jQuery('main')
+                .find('section');
             var a = 0;
             var len = $sections.length;
 
@@ -2984,9 +3192,9 @@
             }
         },
         /**
-         * TEST LINKS FOUND IN HEADER AND FOOTER OF SITE
-         * TESTS TO BODY LINKS WILL BE HANDLED DIFFERENTLY
-         */
+     * TEST LINKS FOUND IN HEADER AND FOOTER OF SITE
+     * TESTS TO BODY LINKS WILL BE HANDLED DIFFERENTLY
+     */
         'testHeaderFooter': function () {
             var jLength = this.$otherLinks.length;
             var j = 0;
@@ -3068,11 +3276,16 @@
         // Will return false if link is inside a QLP widget
         'checkForQuickLinksWidget': function ($currentLink) {
             // create check for links inside quick links widget
-            if ($currentLink.closest('.cell').attr('data-cell')) {
+            if ($currentLink.closest('.cell')
+                .attr('data-cell')) {
                 // check if link is within a quick links widget
-                if ($currentLink.closest('.cell').attr('data-cell').indexOf('Quick_Links_Plus') > -1) {
+                if ($currentLink.closest('.cell')
+                    .attr('data-cell')
+                    .indexOf('Quick_Links_Plus') > -1) {
                     // checks if QLP is modified by modules
-                    if ($currentLink.closest('section').attr('class').indexOf('customTemplate') === -1) {
+                    if ($currentLink.closest('section')
+                        .attr('class')
+                        .indexOf('customTemplate') === -1) {
                         return false;
                     }
                 }
@@ -3082,19 +3295,19 @@
         // classes will make it clear to the user via CSS that is already added to the site
         'addFlagsToElements': function ($visualElement, pageError404) {
             switch (true) {
-                // if internal page 404
-                case pageError404:
-                    checkLinks.error($visualElement);
-                    checkLinks.config.errors += 1;
-                    break;
+            // if internal page 404
+            case pageError404:
+                checkLinks.error($visualElement);
+                checkLinks.config.errors += 1;
+                break;
 
-                    // if link IS legit
-                case !pageError404:
-                    checkLinks.success($visualElement);
-                    break;
+                // if link IS legit
+            case !pageError404:
+                checkLinks.success($visualElement);
+                break;
 
-                default:
-                    // do nothing
+            default:
+          // do nothing
             }
         },
         'ajaxTest': function ($currentLink, isImageLink, $currentCard) {
@@ -3124,10 +3337,10 @@
                 'method': 'get',
                 'dataType': 'html',
                 'success': function (data) {
-
                     if (!isNextGen) {
                         // checks to see if link is an image link
-                        hasImage = $currentLink.has('img').length;
+                        hasImage = $currentLink.has('img')
+                            .length;
                         if (hasImage) {
                             isImageLink = true;
                             $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
@@ -3216,36 +3429,38 @@
             return split[1];
         },
         'ajaxStart': function () {
-            jQuery(document).ajaxStart(function () {
-                checkLinks.config.$message
-                    .text('checking links')
-                    .append(checkLinks.config.$counter)
-                    .append(checkLinks.config.$iconContainer)
-                    .append(checkLinks.config.$thinking);
-                checkLinks.config.$container
-                    .append(checkLinks.config.$message);
-            });
+            jQuery(document)
+                .ajaxStart(function () {
+                    checkLinks.config.$message
+                        .text('checking links')
+                        .append(checkLinks.config.$counter)
+                        .append(checkLinks.config.$iconContainer)
+                        .append(checkLinks.config.$thinking);
+                    checkLinks.config.$container
+                        .append(checkLinks.config.$message);
+                });
         },
         'ajaxStop': function () {
-            jQuery(document).ajaxStop(function () {
-                checkLinks.config.$message
-                    .empty();
-                checkLinks.config.$thinking
-                    .remove();
-                checkLinks.config.$message
-                    .text('all links checked');
-                checkLinks.config.$iconContainer
-                    .append(checkLinks.config.$done);
-                checkLinks.config.$message
-                    .append(checkLinks.config.$iconContainer);
-                checkLinks.config.$message
-                    .delay(7000)
-                    .fadeOut(2000,
-                        function () {
-                            checkLinks.config.$container
-                                .remove();
-                        });
-            });
+            jQuery(document)
+                .ajaxStop(function () {
+                    checkLinks.config.$message
+                        .empty();
+                    checkLinks.config.$thinking
+                        .remove();
+                    checkLinks.config.$message
+                        .text('all links checked');
+                    checkLinks.config.$iconContainer
+                        .append(checkLinks.config.$done);
+                    checkLinks.config.$message
+                        .append(checkLinks.config.$iconContainer);
+                    checkLinks.config.$message
+                        .delay(7000)
+                        .fadeOut(2000,
+                            function () {
+                                checkLinks.config.$container
+                                    .remove();
+                            });
+                });
         },
         'error': function ($this) {
             // ITS SUPPOSED TO ADD THE ERROR CLASS TO THE DIV OVERLAY IF THE LINK IS AN IMAGE LINK
@@ -3277,16 +3492,18 @@
         // ----------------------------------------
         'createElements': function () {
             nextGenToggle.config = {
-                '$nextGenTogContainer': jQuery('<div>').attr({
-                    'id': 'nextGenToggleInput',
-                    'class': 'toggleTool',
-                    'title': 'Apply NextGen=true',
-                }),
+                '$nextGenTogContainer': jQuery('<div>')
+                    .attr({
+                        'id': 'nextGenToggleInput',
+                        'class': 'toggleTool',
+                        'title': 'Apply NextGen=true',
+                    }),
                 '$nextGenTogTitle': jQuery('<div>')
                     .text('nextGen parameters?'),
-                '$nextGenTogIcon': jQuery('<div>').attr({
-                    'id': 'nextGenToggleIcon',
-                }),
+                '$nextGenTogIcon': jQuery('<div>')
+                    .attr({
+                        'id': 'nextGenToggleIcon',
+                    }),
                 '$FAtoggle': jQuery('<i class="fa fa-toggle-off fa-lg"></i>'),
             };
         },
@@ -3383,16 +3600,18 @@
         // ----------------------------------------
         'createElements': function () {
             m4Check.config = {
-                '$m4Container': jQuery('<div>').attr({
-                    'id': 'm4Input',
-                    'class': 'toggleTool',
-                    'title': 'Apply relative and comments parameters',
-                }),
+                '$m4Container': jQuery('<div>')
+                    .attr({
+                        'id': 'm4Input',
+                        'class': 'toggleTool',
+                        'title': 'Apply relative and comments parameters',
+                    }),
                 '$m4CheckTitle': jQuery('<div>')
                     .text('M4 Parameters?'),
-                '$m4Checkbox': jQuery('<div>').attr({
-                    'id': 'm4toggle',
-                }),
+                '$m4Checkbox': jQuery('<div>')
+                    .attr({
+                        'id': 'm4toggle',
+                    }),
                 '$FAtoggle': jQuery('<i class="fa fa-toggle-off fa-lg"></i>'),
             };
         },
@@ -3489,16 +3708,18 @@
         // ----------------------------------------
         'createElements': function () {
             autofillToggle.config = {
-                '$autofillTogContainer': jQuery('<div>').attr({
-                    'id': 'autofillToggleInput',
-                    'class': 'toggleTool',
-                    'title': 'Show all autofill tags on page',
-                }),
+                '$autofillTogContainer': jQuery('<div>')
+                    .attr({
+                        'id': 'autofillToggleInput',
+                        'class': 'toggleTool',
+                        'title': 'Show all autofill tags on page',
+                    }),
                 '$autofillTogTitle': jQuery('<div>')
                     .text('show autofill tags?'),
-                '$autofillTogIcon': jQuery('<div>').attr({
-                    'id': 'autofillToggleIcon',
-                }),
+                '$autofillTogIcon': jQuery('<div>')
+                    .attr({
+                        'id': 'autofillToggleIcon',
+                    }),
                 '$FAtoggle': jQuery('<i class="fa fa-toggle-off fa-lg"></i>'),
             };
         },
@@ -3597,29 +3818,37 @@
         'createElements': function () {
             // main panel container
             urlModifiers.config = {
-                '$urlModContainer': jQuery('<div>').attr({
-                    'class': 'toolBox',
-                    'id': 'urlModContainer',
-                }),
-                '$urlModPanel': jQuery('<div>').attr({
-                    'class': 'toolsPanel',
-                    'id': 'urlModTools',
-                }),
-                '$urlModTitle': jQuery('<div>').attr({
-                    'class': 'panelTitle',
-                    'id': 'urlModTitle',
-                    'title': 'Click to Minimize / Maximize',
-                }).text('URL Modifiers'),
-                '$autoApplyContainer': jQuery('<div>').attr({
-                    'class': 'toggleTool autoApplyInput',
-                    'title': 'will auto apply URL modifiers to current URL\n*please reload the page to update the URL to current settings*',
-                }),
-                '$autoApplyTitle': jQuery('<div>').attr({
-                    'class': 'autoApply',
-                }).text('Auto Apply Modifiers?'),
-                '$autoApplyIcon': jQuery('<div>').attr({
-                    'id': 'autoApplyIcon',
-                }),
+                '$urlModContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'toolBox',
+                        'id': 'urlModContainer',
+                    }),
+                '$urlModPanel': jQuery('<div>')
+                    .attr({
+                        'class': 'toolsPanel',
+                        'id': 'urlModTools',
+                    }),
+                '$urlModTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'panelTitle',
+                        'id': 'urlModTitle',
+                        'title': 'Click to Minimize / Maximize',
+                    })
+                    .text('URL Modifiers'),
+                '$autoApplyContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'toggleTool autoApplyInput',
+                        'title': 'will auto apply URL modifiers to current URL\n*please reload the page to update the URL to current settings*',
+                    }),
+                '$autoApplyTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'autoApply',
+                    })
+                    .text('Auto Apply Modifiers?'),
+                '$autoApplyIcon': jQuery('<div>')
+                    .attr({
+                        'id': 'autoApplyIcon',
+                    }),
                 '$FAtoggle': jQuery('<i class="fa fa-toggle-off fa-lg"></i>'),
             };
         },
@@ -3767,156 +3996,156 @@
             // toggle functions
             // --------------------------------------------------------
             switch (findThis) {
+            // --------------------------------------------------------
+            // NEXTGEN PARAMETER
+            // --------------------------------------------------------
+            case 'nextGen=':
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is ON'
+                if (hasKey && isOn) {
+                    // if 'parameter is set to false'
+                    if (this.newURL.indexOf('nextGen=false') >= 0) {
+                        this.newURL = this.newURL.replace('nextGen=false', 'nextGen=true');
+                        return false;
+                    }
+                    // if 'parameter is set to true'
+                    if (this.newURL.indexOf('nextGen=true') >= 0) {
+                        // do nothing
+                        return true;
+                    }
+                }
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is OFF'
+                if (hasKey && !isOn) {
+                    // if 'parameter is set to true'
+                    if (this.newURL.indexOf('nextGen=true') >= 0) {
+                        this.newURL = this.newURL.replace('nextGen=true', 'nextGen=false');
+                        return false;
+                    }
+                    // if 'parameter is set to false'
+                    if (this.newURL.indexOf('nextGen=false') >= 0) {
+                        // do nothing
+                        return true;
+                    }
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is ON'
+                if (!hasKey && isOn) {
+                    // Add parameter to url string
+                    this.newURL += '&nextGen=true';
+                    return false;
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is OFF'
+                if (!hasKey && !isOn) {
+                    // Add parameter to url string
+                    this.newURL += '&nextGen=false';
+                    return false;
+                }
+                break;
                 // --------------------------------------------------------
-                // NEXTGEN PARAMETER
+                // DISABLE AUOTFILL PARAMETER
                 // --------------------------------------------------------
-                case 'nextGen=':
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is ON'
-                    if (hasKey && isOn) {
-                        // if 'parameter is set to false'
-                        if (this.newURL.indexOf('nextGen=false') >= 0) {
-                            this.newURL = this.newURL.replace('nextGen=false', 'nextGen=true');
-                            return false;
-                        }
-                        // if 'parameter is set to true'
-                        if (this.newURL.indexOf('nextGen=true') >= 0) {
-                            // do nothing
-                            return true;
-                        }
-                    }
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is OFF'
-                    if (hasKey && !isOn) {
-                        // if 'parameter is set to true'
-                        if (this.newURL.indexOf('nextGen=true') >= 0) {
-                            this.newURL = this.newURL.replace('nextGen=true', 'nextGen=false');
-                            return false;
-                        }
-                        // if 'parameter is set to false'
-                        if (this.newURL.indexOf('nextGen=false') >= 0) {
-                            // do nothing
-                            return true;
-                        }
-                    }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is ON'
-                    if (!hasKey && isOn) {
-                        // Add parameter to url string
-                        this.newURL += '&nextGen=true';
+            case 'disableAutofill=':
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is ON'
+                if (hasKey && isOn) {
+                    // if 'parameter is set to false'
+                    if (this.newURL.indexOf('disableAutofill=false') >= 0) {
+                        this.newURL = this.newURL.replace('disableAutofill=false', 'disableAutofill=true');
                         return false;
                     }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is OFF'
-                    if (!hasKey && !isOn) {
-                        // Add parameter to url string
-                        this.newURL += '&nextGen=false';
-                        return false;
-                    }
-                    break;
-                    // --------------------------------------------------------
-                    // DISABLE AUOTFILL PARAMETER
-                    // --------------------------------------------------------
-                case 'disableAutofill=':
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is ON'
-                    if (hasKey && isOn) {
-                        // if 'parameter is set to false'
-                        if (this.newURL.indexOf('disableAutofill=false') >= 0) {
-                            this.newURL = this.newURL.replace('disableAutofill=false', 'disableAutofill=true');
-                            return false;
-                        }
-                        // if 'parameter is set to true'
-                        if (this.newURL.indexOf('disableAutofill=true') >= 0) {
-                            // do nothing
-                            return true;
-                        }
-                    }
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is OFF'
-                    if (hasKey && !isOn) {
-                        // if 'parameter is set to true'
-                        if (this.newURL.indexOf('disableAutofill=true') >= 0) {
-                            this.newURL = this.newURL.replace('&disableAutofill=true', '');
-                            return false;
-                        }
-                        // if 'parameter is set to false'
-                        if (this.newURL.indexOf('disableAutofill=false') >= 0) {
-                            // remove parameter from url
-                            this.newURL = this.newURL.replace('&disableAutofill=false', '');
-                            return false;
-                        }
-                    }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is ON'
-                    if (!hasKey && isOn) {
-                        // Add parameter to url string
-                        this.newURL += '&disableAutofill=true';
-                        return false;
-                    }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is OFF'
-                    if (!hasKey && !isOn) {
+                    // if 'parameter is set to true'
+                    if (this.newURL.indexOf('disableAutofill=true') >= 0) {
                         // do nothing
                         return true;
                     }
-                    break;
-                    // --------------------------------------------------------
-                    // MILESTONE 4 PARAMETERS (TETRA SITES)
-                    // --------------------------------------------------------
-                case 'relative=':
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is turned on'
-                    if (hasKey && isOn) {
-                        // do nothing
-                        return true;
-                    }
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is off'
-                    if (hasKey && !isOn) {
-                        // remove ADDED parameter from URL
-                        this.newURL = this.newURL.replace('&comments=true&relative=true', '');
+                }
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is OFF'
+                if (hasKey && !isOn) {
+                    // if 'parameter is set to true'
+                    if (this.newURL.indexOf('disableAutofill=true') >= 0) {
+                        this.newURL = this.newURL.replace('&disableAutofill=true', '');
                         return false;
                     }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is ON'
-                    if (!hasKey && isOn) {
-                        // Add parameter to url string
-                        this.newURL += '&comments=true&relative=true';
+                    // if 'parameter is set to false'
+                    if (this.newURL.indexOf('disableAutofill=false') >= 0) {
+                        // remove parameter from url
+                        this.newURL = this.newURL.replace('&disableAutofill=false', '');
                         return false;
                     }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is OFF'
-                    if (!hasKey && !isOn) {
-                        // do nothing
-                        return true;
-                    }
-                    break;
-                default:
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is ON'
+                if (!hasKey && isOn) {
+                    // Add parameter to url string
+                    this.newURL += '&disableAutofill=true';
+                    return false;
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is OFF'
+                if (!hasKey && !isOn) {
+                    // do nothing
+                    return true;
+                }
+                break;
+                // --------------------------------------------------------
+                // MILESTONE 4 PARAMETERS (TETRA SITES)
+                // --------------------------------------------------------
+            case 'relative=':
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is turned on'
+                if (hasKey && isOn) {
+                    // do nothing
+                    return true;
+                }
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is off'
+                if (hasKey && !isOn) {
+                    // remove ADDED parameter from URL
+                    this.newURL = this.newURL.replace('&comments=true&relative=true', '');
+                    return false;
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is ON'
+                if (!hasKey && isOn) {
+                    // Add parameter to url string
+                    this.newURL += '&comments=true&relative=true';
+                    return false;
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is OFF'
+                if (!hasKey && !isOn) {
+                    // do nothing
+                    return true;
+                }
+                break;
+            default:
             }
         },
         'reloadPage': function (matchesFound) {
@@ -3966,19 +4195,23 @@
                 // ----------------------------------------
                 // Toggle Tools Panel
                 // ----------------------------------------
-                '$togglesContainer': jQuery('<div>').attr({
-                    'class': 'toolBox',
-                    'id': 'togglesContainer',
-                }),
-                '$togglesPanel': jQuery('<div>').attr({
-                    'class': 'toolsPanel',
-                    'id': 'toggleTools',
-                }),
-                '$togglesTitle': jQuery('<div>').attr({
-                    'class': 'panelTitle',
-                    'id': 'togglesTitle',
-                    'title': 'Click to Minimize/Maximize',
-                }).text('Toggles'),
+                '$togglesContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'toolBox',
+                        'id': 'togglesContainer',
+                    }),
+                '$togglesPanel': jQuery('<div>')
+                    .attr({
+                        'class': 'toolsPanel',
+                        'id': 'toggleTools',
+                    }),
+                '$togglesTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'panelTitle',
+                        'id': 'togglesTitle',
+                        'title': 'Click to Minimize/Maximize',
+                    })
+                    .text('Toggles'),
             };
         },
         'buildPanel': function () {
@@ -4022,23 +4255,28 @@
         // ----------------------------------------
         'createElements': function () {
             refreshPage.config = {
-                '$refreshContainer': jQuery('<div>').attr({
-                    'id': 'refreshMe',
-                    'class': 'toggleTool',
-                }),
-                '$refreshButtContainer': jQuery('<div>').attr({
-                    'class': 'refreshPageContainer',
-                }),
-                '$refreshButt': jQuery('<button>').attr({
-                    'class': 'myEDOBut refreshButt',
-                    'title': 'Refresh Page from Server ',
-                }),
+                '$refreshContainer': jQuery('<div>')
+                    .attr({
+                        'id': 'refreshMe',
+                        'class': 'toggleTool',
+                    }),
+                '$refreshButtContainer': jQuery('<div>')
+                    .attr({
+                        'class': 'refreshPageContainer',
+                    }),
+                '$refreshButt': jQuery('<button>')
+                    .attr({
+                        'class': 'myEDOBut refreshButt',
+                        'title': 'Refresh Page from Server ',
+                    }),
                 '$refresh': jQuery('<i class="fa fa-undo fa-flip-horizontal fa-3x">&nbsp;</i>'),
-                '$refreshTitle': jQuery('<div>').text('Refresh Button'),
-                '$refreshCheckbox': jQuery('<div>').attr({
-                    'id': 'refreshMetoggle',
-                    'title': 'toggle refresh button',
-                }),
+                '$refreshTitle': jQuery('<div>')
+                    .text('Refresh Button'),
+                '$refreshCheckbox': jQuery('<div>')
+                    .attr({
+                        'id': 'refreshMetoggle',
+                        'title': 'toggle refresh button',
+                    }),
                 '$FAtoggle': jQuery('<i class="fa fa-toggle-off fa-lg"></i>'),
             };
         },
@@ -4124,16 +4362,18 @@
         // ----------------------------------------
         'createElements': function () {
             previewBarToggle.config = {
-                '$previewBarToggleContainer': jQuery('<div>').attr({
-                    'id': 'previewBarToggleInput',
-                    'class': 'toggleTool',
-                    'title': 'hides PCE toolbar',
-                }),
+                '$previewBarToggleContainer': jQuery('<div>')
+                    .attr({
+                        'id': 'previewBarToggleInput',
+                        'class': 'toggleTool',
+                        'title': 'hides PCE toolbar',
+                    }),
                 '$previewBarToggleTitle': jQuery('<div>')
                     .text('hide preview toolbar?'),
-                '$previewBarToggleIcon': jQuery('<div>').attr({
-                    'id': 'previewBarToggleIcon',
-                }),
+                '$previewBarToggleIcon': jQuery('<div>')
+                    .attr({
+                        'id': 'previewBarToggleIcon',
+                    }),
                 '$FAtoggle': jQuery('<i class="fa fa-toggle-off fa-lg"></i>'),
                 'varName': 'hidePreviewToolbar',
             };
@@ -4197,12 +4437,12 @@
             if (hidePreviewToolbar) {
                 this.$toolboxStyles
                     .append(' #previewToolBarFrame { display: none; }') // ;
-                    // this.$toolboxStyles
+                // this.$toolboxStyles
                     .append(' .preview-wrapper { display: none; }');
             } else {
                 this.$toolboxStyles
                     .append(' #previewToolBarFrame { display: block; }') // ;
-                    // this.$toolboxStyles
+                // this.$toolboxStyles
                     .append(' .preview-wrapper { display: block; }');
             }
         },
@@ -4238,42 +4478,53 @@
         'createElements': function () {
             // main panel container
             dynamicDisplay.config = {
-                '$displayPanel': jQuery('<div>').attr({
-                    'class': 'toolBox',
-                    'id': 'displayPanel',
-                }),
+                '$displayPanel': jQuery('<div>')
+                    .attr({
+                        'class': 'toolBox',
+                        'id': 'displayPanel',
+                    }),
                 // panel title
-                '$displayTitle': jQuery('<div>').attr({
-                    'class': 'panelTitle',
-                }),
+                '$displayTitle': jQuery('<div>')
+                    .attr({
+                        'class': 'panelTitle',
+                    }),
                 // display area
-                '$displayArea': jQuery('<div>').attr({
-                    'id': 'displayArea',
-                }),
+                '$displayArea': jQuery('<div>')
+                    .attr({
+                        'id': 'displayArea',
+                    }),
                 // toolbox version
-                '$version': jQuery('<div>').attr({
-                    'id': 'version',
-                }).text('version: ' + GM_info.script.version), // eslint-disable-line camelcase
-                '$changeLog': jQuery('<div>').attr({
-                    'id': 'changeLog',
-                }),
-                '$changeLogLink': jQuery('<a>').attr({
-                    'href': '#',
-                    'title': 'View latest changes',
-                }).text('Change Log'),
+                '$version': jQuery('<div>')
+                    .attr({
+                        'id': 'version',
+                    })
+                    .text('version: ' + GM_info.script.version), // eslint-disable-line camelcase
+                '$changeLog': jQuery('<div>')
+                    .attr({
+                        'id': 'changeLog',
+                    }),
+                '$changeLogLink': jQuery('<a>')
+                    .attr({
+                        'href': '#',
+                        'title': 'View latest changes',
+                    })
+                    .text('Change Log'),
                 // toolbox show button
-                '$showToolbox': jQuery('<div>').attr({
-                    'class': 'showToolbox',
-                    'title': 'Show Toolbox',
-                }),
+                '$showToolbox': jQuery('<div>')
+                    .attr({
+                        'class': 'showToolbox',
+                        'title': 'Show Toolbox',
+                    }),
                 // font awesome icon
                 '$icon': jQuery('<i class="fa fa-power-off fa-2x"></i>'),
-                '$hideToolbox': jQuery('<div>').attr({
-                    'class': 'hideToolbox',
-                }),
-                '$minimizeIcon': jQuery('<span class="fa-stack fa-2x"><i class="fa fa-circle fa-stack-1x fa-inverse"></i><i class="fa fa-times-circle fa-stack-1x"></i></span>').attr({
-                    'title': 'Click to Hide Toolbox',
-                }),
+                '$hideToolbox': jQuery('<div>')
+                    .attr({
+                        'class': 'hideToolbox',
+                    }),
+                '$minimizeIcon': jQuery('<span class="fa-stack fa-2x"><i class="fa fa-circle fa-stack-1x fa-inverse"></i><i class="fa fa-times-circle fa-stack-1x"></i></span>')
+                    .attr({
+                        'title': 'Click to Hide Toolbox',
+                    }),
             };
         },
         'buildPanel': function () {
@@ -4417,36 +4668,42 @@
         },
         'createElements': function () {
             main.config = {
-                '$toolboxStyles': jQuery('<style></style>').attr({
-                    'id': 'qa_toolbox',
-                    'type': 'text/css',
-                }),
-                '$myFont': jQuery('<link>').attr({
-                    'id': 'toolFont',
-                    'href': 'https://fonts.googleapis.com/css?family=Montserrat',
-                    'rel': 'stylesheet',
-                }),
-                '$fontAw': jQuery('<link>').attr({
-                    'id': 'fontAwe',
-                    'href': 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/font-awesome-4.7.0/css/font-awesome.css',
-                    'rel': 'stylesheet',
-                }),
-                '$jQueryUIcss': jQuery('<link>').attr({
-                    'id': 'jqueryUI',
-                    'href': 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/jquery-ui-1.12.1.custom/jquery-ui.min.css',
-                    'rel': 'stylesheet',
-                }),
-                '$toolStyles': jQuery('<link>').attr({
-                    'id': 'toolStyles',
-                    'href': 'https://rawgit.com/cirept/QA_Toolbox/' + GM_info.script.version + '/assets/css/toolbox.css', // eslint-disable-line camelcase
-                    'rel': 'stylesheet',
-                    'type': 'text/css',
-                }),
-                '$animate': jQuery('<link>').attr({
-                    'id': 'animate',
-                    'href': 'https://rawgit.com/cirept/animate.css/master/animate.css',
-                    'rel': 'stylesheet',
-                }),
+                '$toolboxStyles': jQuery('<style></style>')
+                    .attr({
+                        'id': 'qa_toolbox',
+                        'type': 'text/css',
+                    }),
+                '$myFont': jQuery('<link>')
+                    .attr({
+                        'id': 'toolFont',
+                        'href': 'https://fonts.googleapis.com/css?family=Montserrat',
+                        'rel': 'stylesheet',
+                    }),
+                '$fontAw': jQuery('<link>')
+                    .attr({
+                        'id': 'fontAwe',
+                        'href': 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/font-awesome-4.7.0/css/font-awesome.css',
+                        'rel': 'stylesheet',
+                    }),
+                '$jQueryUIcss': jQuery('<link>')
+                    .attr({
+                        'id': 'jqueryUI',
+                        'href': 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/jquery-ui-1.12.1.custom/jquery-ui.min.css',
+                        'rel': 'stylesheet',
+                    }),
+                '$toolStyles': jQuery('<link>')
+                    .attr({
+                        'id': 'toolStyles',
+                        'href': 'https://rawgit.com/cirept/QA_Toolbox/' + GM_info.script.version + '/assets/css/toolbox.min.css', // eslint-disable-line camelcase
+                        'rel': 'stylesheet',
+                        'type': 'text/css',
+                    }),
+                '$animate': jQuery('<link>')
+                    .attr({
+                        'id': 'animate',
+                        'href': 'https://rawgit.com/cirept/animate.css/master/animate.css',
+                        'rel': 'stylesheet',
+                    }),
             };
         },
         'attachResources': function () {
@@ -4514,7 +4771,8 @@
             try {
                 // get version of CDK site
                 // if value does not exist, shut the toolbar down
-                if (this.contextManager.getVersion().length === 0) {
+                if (this.contextManager.getVersion()
+                    .length === 0) {
                     throw new Error('Shutting toolbox down');
                 }
             } catch (e) {
@@ -4537,13 +4795,16 @@
         },
         'styleButtons': function ($toolPanel) {
             // add class to buttons for styling
-            $toolPanel.children('.myEDOBut:even').addClass('evenEDObutts');
-            $toolPanel.children('.myEDOBut:odd').addClass('oddEDObutts');
+            $toolPanel.children('.myEDOBut:even')
+                .addClass('evenEDObutts');
+            $toolPanel.children('.myEDOBut:odd')
+                .addClass('oddEDObutts');
         },
         'wrapText': function ($toolPanel) {
             // wrapping interior text in order style text.
             // allows override of the !important tags used by CDK bundles.css
-            $toolPanel.find('.myEDOBut').wrapInner('<span></span>');
+            $toolPanel.find('.myEDOBut')
+                .wrapInner('<span></span>');
         },
         'jQueryUIedits': function () {
             //            this.checkHideChangeLog();
@@ -4565,7 +4826,8 @@
                     'icon': 'ui-icon-heart',
                     'click': function () {
                         shared.saveValue('hideChangeLog', true);
-                        jQuery(this).dialog('close');
+                        jQuery(this)
+                            .dialog('close');
                     },
                 }],
             });
@@ -4581,7 +4843,6 @@
     // **************************************** initialize toolbox ****************************************
     // ********************************************************************************
     main.init();
-
 })();
 
 console.log('my local files');
