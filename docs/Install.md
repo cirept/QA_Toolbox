@@ -43,12 +43,13 @@ There are separate instructions for the Chrome and Firefox extensions.
 
 ## Tampermonkey UserScript Installation Instructions
 
+:new: **If you have Tampermonkey installed, Tampermonkey will detect the script and will install it for you.  Click the "Install" button and you have installed the toolbar.**
 <br>
 
 ### 1. Open the link below in a new tab.  Copy all of the code.
 
 Link to Latest Toolbar Code:<br>
-[Latest Code](https://raw.githubusercontent.com/cirept/QA_Toolbox/master/assets/js/meta.js)<br>
+[Latest Code](https://raw.githubusercontent.com/cirept/QA_Toolbox/master/assets/js/meta.user.js)<br>
 *open in a new tab*
 
 <br>
