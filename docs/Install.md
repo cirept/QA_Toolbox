@@ -7,7 +7,7 @@
 
 <br>
 
-Tampermonkey/Greasemonkey is a browser add-on that is used to run the toolbar web app, please install the add-on.
+Tampermonkey is a browser add-on that is used to run the toolbar web app, please install the add-on.
 
 <br>
 
@@ -21,14 +21,12 @@ For additional help installing Chrome Extensions, Please check out this guide : 
 
 #### *Firefox*<br>
 
-~~[GreaseMonkey for Firefox ***(open in FireFox browser)***](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/)~~
-
 :new:
-**Tampermonkey is now available on FireFox.  GreaseMonkey is no longer needed to run the toolbar.**
+**Tampermonkey is now available on FireFox.**
 
 [Tampermonkey for Firefox ***(open in FireFox browser)***](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)
 
-For additiona help installing FireFox Extensions, Please check out this guide : [https://www.accessfirefox.org/Addons_Installation_Guide.php](https://www.accessfirefox.org/Addons_Installation_Guide.php)
+For additional help installing FireFox Extensions, Please check out this guide : [https://www.accessfirefox.org/Addons_Installation_Guide.php](https://www.accessfirefox.org/Addons_Installation_Guide.php)
 
 #### *ie11 does not support his extension*<br>
 
@@ -38,8 +36,7 @@ For additiona help installing FireFox Extensions, Please check out this guide : 
 
 <br>
 
-Once the Tampermonkey (Chrome) or Greasemonkey (FireFox) extension has been installed, please continue to the next set of instructions for installing the userscript.
-There are separate instructions for the Chrome and Firefox extensions.
+Once the Tampermonkey extension has been installed, please continue to the next set of instructions for installing the userscript.
 
 <br>
 
@@ -94,61 +91,6 @@ The icon is located next to "Install userscripts" tab.
 <br>
 
 **7. Done.  The toolbar will show up on any Proof/Live CDK site** :thumbsup:
-
-<br>
-
----
-
-<br>
-
-## Greasemonkey UserScript Installation Instructions
-
-<br>
-
-### 1. Open the link below in a new tab and copy all of the code.
-
-Link to Latest Toolbar Code:<br>
-*open this link in a new tab*
-[Latest Code](https://raw.githubusercontent.com/cirept/QA_Toolbox/master/assets/js/meta.js)<br>
-
-
-![Select All and Copy](images/selectAllCopy.jpg)
-
-<br>
-
-### 2. Click the down arrow next to the Greasemonkey icon in your browser
-
-![Click Addon Icon](images/firefox-greasemonkey.png)
-
-<br>
-
-### 3. Click on 'New User Script' menu item<br>
-This will open a new tab with the extension dashboard displayed ***(seen in step 3)***
-
-![Click Dashboard](images/selectNewUserScript-firefox.png)
-
-<br>
-
-### 4. A new window will pop up, click the 'Use Script From Clipboard' button<br>
-This will quickly create a new user script from what you copied in step 1.
-
-![Click New UserScript Icon](images/clickUseScriptFromClipboard-firefox.png)
-
-<br>
-
-### 5. A new window will pop up, Choose 'Save' to save the userscript.
-The script comes ready for use.  No changes are needed.
-
-![Save Script](images/saveScript-firefox.png)
-
-<br>
-
-### 6. Close out the window.
-
-<br>
-
-### 7. Done.
-**The toolbar will show up on any Proof/Live CDK site** :thumbsup:
 
 <br>
 
