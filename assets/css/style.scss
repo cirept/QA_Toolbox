@@ -1,0 +1,61 @@
+---
+---
+
+@import "{{ site.theme }}";
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+body {
+  font-family: 'Raleway', sans-serif;
+}
+
+header {
+  /*background: #348F50;  /* fallback for old browsers */
+  /*background: -webkit-linear-gradient(to left, #56B4D3, #348F50);  /* Chrome 10-25, Safari 5.1-6 */
+  /*background: linear-gradient(to left, #56B4D3, #348F50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, rgba(0,0,0,.5), rgba(0,0,0,.5)), #000000 url(https://source.unsplash.com/random/1920x920) 100% -155px fixed no-repeat;
+  padding: 330px 20px 85px 20px;
+  height: 300px;
+  position: absolute;
+}
+
+.wrapper {
+  width: 790px;
+}
+
+nav {
+  background: #f4f4f4;
+  border: 1px solid #c4c4c4;
+  padding-right: 15px;
+  padding-top: 15px;
+  left: 43%;
+  width: 305px;
+  z-index: -1;
+}
+
+section {
+  background: #ECE9E6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #FFFFFF, #ECE9E6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #FFFFFF, #ECE9E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  width: 800px;
+  margin-top: 715px;
+}
+
+footer {
+  left: inherit;
+  margin-left: -580px;
+  right: 9%;
+  text-align: left;
+  width: 300px;
+}
+
+#banner {
+  background: #67B26F;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  border: 1px solid #f4f4f4;
+  position: absolute;
+  top: 75%;
+}
+
+#banner .button {
+ display: none;
+}
