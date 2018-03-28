@@ -47,9 +47,9 @@ Once the Tampermonkey extension has been installed, please continue to the next 
 ## Tampermonkey UserScript Installation Instructions
 
 :new:<br>
-**If you have Tampermonkey installed, after clicking on the "Latest Code" text link Tampermonkey will detect the script and will install it for you.  Please click the "Install" button in the page that appears and that is all you need to do to instal the toolbar.** :sweat_smile:
+**If you have Tampermonkey installed, after clicking on the "Latest Code" text link Tampermonkey will detect the script and will install it for you.  Please click the "Install" button in the page that appears and that is all you need to do to install the toolbar.** :sweat_smile:
 
-**If the magic does not happen for you.  I am sorry to hear that.  :cry: <br>Please follow the steps below in order to install the toolbar.**
+**If the magic does not happen for you.  I am sorry to hear that.  :cry: <br>Please follow the rest of the steps below in order to install the toolbar.**
 <br>
 
 ### 1. Open the link below in a new tab.  Copy all of the code.
