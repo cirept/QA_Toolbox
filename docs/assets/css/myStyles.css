@@ -8,7 +8,7 @@ header {
   /*background: -webkit-linear-gradient(to left, #56B4D3, #348F50);  /* Chrome 10-25, Safari 5.1-6 */
   /*background: linear-gradient(to left, #56B4D3, #348F50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), #000000 url("https://source.unsplash.com/random/1920x920") 100% -155px fixed no-repeat;
-  padding: 255px 20px;
+  padding: 250px 0 145px 0;
   height: auto;
   width: auto;
   position: absolute; }
@@ -34,7 +34,7 @@ nav {
   width: 305px;
   z-index: 0; }
 
-nav > h2 {
+nav > h3 {
   background: #f4f4f4;
   background: linear-gradient(to left, rgb(76, 162, 205), rgb(103, 178, 111), rgba(255,255,255,0));
   line-height: 200%;
