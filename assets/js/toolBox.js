@@ -789,7 +789,7 @@
             imageChecker.config.$activateButt.on('click', function () {
                 jQuery('html, body').scrollTop(0);
                 jQuery('html, body').animate({
-                    'scrollTop': jQuery(document).height()
+                    'scrollTop': jQuery(document).height(),
                 }, 4000).delay(1750).promise().done(function () {
                     jQuery('html, body').scrollTop(0);
                     imageChecker.highlightImages();
@@ -1672,14 +1672,14 @@
             var OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;
             spellCheck.OEMap = new Map();
             // get banned words JSON
-            $.getJSON(OEMBannedWordsFile, function(d) {
+            $.getJSON(OEMBannedWordsFile, function (d) {
                 var items = new Map();
-                $.each(d, function(key, value) {
+                $.each(d, function (key, value) {
                     // sort so that longer words get highlighted over shorter ones
-                    spellCheck.OEMap.set(key, value.sort(function(a, b) {
-                      return b.length - a.length || a.localeCompare(b);
+                    spellCheck.OEMap.set(key, value.sort(function (a, b) {
+                        return b.length - a.length || a.localeCompare(b);
                     }));
-                })
+                });
             });
         },
         /**
@@ -1717,7 +1717,6 @@
                 // search each word in array for dictionary match
                 // flag word if not found in dictionary
                 words.forEach(function (word) {
-
                     // is word NOT in the dictionary AND NOT a number
                     if (!dictionary.check(self.clean(word)) && !(/^\d+$/).test(word)) {
                         // create regex expression to find word in string
@@ -1746,13 +1745,13 @@
             var bannedWords = [];
             var text, pElm, elm, unmarked;
             var self = this;
-            var franchises=unsafeWindow.ContextManager.getFranchises();
-            //highlight banned words for every OEM related to this
-            for(var f =0, len = franchises.length; f < len; f++) {
-                //get banned phrases from OEM franchise
-                bannedWords=self.OEMap.get(franchises[f]);
+            var franchises = unsafeWindow.ContextManager.getFranchises();
+            // highlight banned words for every OEM related to this
+            for (var f = 0, len = franchises.length; f < len; f++) {
+                // get banned phrases from OEM franchise
+                bannedWords = self.OEMap.get(franchises[f]);
 
-                if(!bannedWords) {
+                if (!bannedWords) {
                     return;
                 }
 
@@ -1763,15 +1762,15 @@
                     elm = n.parentElement;
 
                     // skip iteration if no words are found
-                     if (!(text.match(/[%’'\w]+/g))) {
+                    if (!text.match(/[%’'\w]+/g)) {
                         return;
                     }
                     // test text against banned words
-                    for(var w=0, length = bannedWords.length; w<length; w++) {
-                        var startIndex = 0, curIndex=0;
+                    for (var w = 0, length = bannedWords.length; w < length; w++) {
+                        var startIndex = 0, curIndex = 0;
                         var words = bannedWords[w];
-                        //unmarked = new RegExp('\(^|[^~~@])(' + words + '\)(?!@~~)', 'gi');
-                        //find and replace banned words
+                        // unmarked = new RegExp('\(^|[^~~@])(' + words + '\)(?!@~~)', 'gi');
+                        // find and replace banned words
                         unmarked = new RegExp('\(' + words + '\)(?!@~~)', 'gi');
                         text = text.replace(unmarked, '~~@$&@~~');
                     }
@@ -1812,15 +1811,15 @@
         },
         'replaceMarkers': function (elm, spelling) {
             if (elm) {
-                if(spelling) {
+                if (spelling) {
                     elm.innerHTML = elm.innerHTML
                         .replace(/~~@(.*?)@~~/g, '<span class="spell-check misspelled">$1</span>');
                 } else {
                     elm.innerHTML = elm.innerHTML
                         .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
-                    if(elm.innerHTML.indexOf("~~@")>-1) {
+                    if (elm.innerHTML.indexOf('~~@') > -1) {
                         elm.innerHTML = elm.innerHTML
-                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
+                            .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
                     }
                 }
             }
@@ -1829,15 +1828,14 @@
             // remove highlight overlay
             jQuery('span.spell-check').each(function (index, value) {
                 jQuery(value).replaceWith(function () {
-                    var string="";
-                    for(var x =0; x <value.childNodes.length; x++) {
-                        //debugger;
-                        if(value.childNodes[x].nodeValue == null) {
-                            string +=value.childNodes[x].childNodes[0].nodeValue;
-                        }else {
+                    var string = '';
+                    for (var x = 0; x < value.childNodes.length; x++) {
+                        // debugger;
+                        if (value.childNodes[x].nodeValue == null) {
+                            string += value.childNodes[x].childNodes[0].nodeValue;
+                        } else {
                             string += value.childNodes[x].nodeValue;
                         }
-
                     }
                     return string;
                 });
@@ -2001,7 +1999,6 @@
 
             // alert user
             if (this.isNextGenPlatform) {
-
                 desktopURL = testURL + 'url=' + this.siteURL +
                     this.pageName + '?nextGen=true';
 
@@ -2199,7 +2196,6 @@
             showNavigation.config.$offButt
                 .on('click', this.toggleFeatures.bind(this))
                 .on('click', this.toggleDisable);
-
         },
         'bindLegendElements': function () {
             var $myMenu = jQuery('nav');
@@ -2211,24 +2207,24 @@
             showNavigation.config.$legendList.children().each(function (index, value) {
                 findThis = jQuery(value).attr('class');
                 switch (findThis) {
-                    case 'majorPage':
-                        flaggedMajorPages = $myMenu.find('.' + findThis);
-                        jQuery(value).on('click', function () {
-                            flaggedMajorPages.toggleClass('majorPage');
-                        });
-                        break;
-                    case 'customPage':
-                        flaggedCustomPages = $myMenu.find('.' + findThis);
-                        jQuery(value).on('click', function () {
-                            flaggedCustomPages.toggleClass('customPage');
-                        });
-                        break;
-                    case 'linkChecked':
-                        flaggedCheckedLinks = $myMenu.find('.' + findThis);
-                        jQuery(value).on('click', function () {
-                            flaggedCheckedLinks.toggleClass('linkChecked');
-                        });
-                        break;
+                case 'majorPage':
+                    flaggedMajorPages = $myMenu.find('.' + findThis);
+                    jQuery(value).on('click', function () {
+                        flaggedMajorPages.toggleClass('majorPage');
+                    });
+                    break;
+                case 'customPage':
+                    flaggedCustomPages = $myMenu.find('.' + findThis);
+                    jQuery(value).on('click', function () {
+                        flaggedCustomPages.toggleClass('customPage');
+                    });
+                    break;
+                case 'linkChecked':
+                    flaggedCheckedLinks = $myMenu.find('.' + findThis);
+                    jQuery(value).on('click', function () {
+                        flaggedCheckedLinks.toggleClass('linkChecked');
+                    });
+                    break;
                 }
             });
         },
@@ -2369,13 +2365,13 @@
                 }),
                 'oems': ['Chevrolet', 'Buick', 'Cadillac', 'GMC', 'Hyundai', 'Volkswagen'],
                 'oemFiles': [
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/Chevrolet.json',
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/Buick.json',
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/Cadillac.json',
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/GMC.json',
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/Hyundai.json',
-                        'https://cdn.rawgit.com/cirept/NextGen/master/resources/Volkswagen.json',
-                    ],
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/Chevrolet.json',
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/Buick.json',
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/Cadillac.json',
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/GMC.json',
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/Hyundai.json',
+                    'https://cdn.rawgit.com/cirept/NextGen/master/resources/Volkswagen.json',
+                ],
                 'vehicles': [],
             };
         },
@@ -2713,7 +2709,7 @@
                 $currentObject.addClass('showWidgetData');
                 self.bindClickCallback($currentObject, widgetID);
                 $currentObject.attr({
-                    'title': 'Click to Copy Widget ID'
+                    'title': 'Click to Copy Widget ID',
                 });
 
                 // add height and width data to widget element
@@ -3232,18 +3228,18 @@
         // classes will make it clear to the user via CSS that is already added to the site
         'addFlagsToElements': function ($visualElement, pageError404) {
             switch (true) {
-                // if internal page 404
-                case pageError404:
-                    checkLinks.error($visualElement);
-                    checkLinks.config.errors += 1;
-                    break;
+            // if internal page 404
+            case pageError404:
+                checkLinks.error($visualElement);
+                checkLinks.config.errors += 1;
+                break;
 
-                    // if link IS legit
-                case !pageError404:
-                    checkLinks.success($visualElement);
-                    break;
+                // if link IS legit
+            case !pageError404:
+                checkLinks.success($visualElement);
+                break;
 
-                default:
+            default:
                     // do nothing
             }
         },
@@ -3372,54 +3368,33 @@
                         }
 
                         checkLinks.config.errors += 1;
-                    }
+                    },
                 },
                 'complete': function () {
                     checkLinks.config.count += 1;
                     checkLinks.config.$counter.text(checkLinks.config.count + ' of ' + checkLinks.config.totalTests);
-                }
+                },
             });
         },
-
         'showURL': function ($currentLink, isImageLink, $linkOverlay) {
             var linkURL = jQuery.trim($currentLink.attr('href'));
-            // Use Co
-            // try {
-            //     jQuery.get(linkURL, function (data) {
-            //         var i = 0;
-            //         //parse the pageLabel from the contextManager
-            //         var firstLetter = 12+data.indexOf('pageLabel', data.indexOf('ContextManager'));
-            //         var lastLetter = data.indexOf('"', firstLetter);
-            //         var pageLabel = "";
-            //         for(i=firstLetter; i <lastLetter; i++) {
-            //             pageLabel+=data[i];
+
+            // went with putting the URL in the title of the link vs.
+            // appending it to the link text for a cleaner look
+            $currentLink.attr('title', linkURL);
+
+            // linkURL = '<br><span class="tooltiptext link_url">URL: ' + linkURL + '</span>';
+            // if (isImageLink) {
+            //     if ($linkOverlay[0].innerHTML.indexOf(linkURL) === -1) {
+            //         if ($linkOverlay !== null) {
+            //             $linkOverlay.append(linkURL);
             //         }
-            //         var append = "URL: "+linkURL+" PAGELABEL: "+pageLabel;
-            //         if(isImageLink) {
-            //             if($linkOverlay[0].innerHTML.indexOf(append) == -1) {
-            //                 if($linkOverlay != null) {
-            //                     $linkOverlay.append(append);
-            //                 }
-            //             }
-            //         } else {
-            //             if($currentLink[0].innerHTML.indexOf(append) == -1) {
-            //                 $currentLink.append(append);
-            //             }
-            //         }
-            //     }, 'html');
-            // } catch (e) {
-            linkURL = ' Url: ' + linkURL;
-            if (isImageLink) {
-                if ($linkOverlay[0].innerHTML.indexOf(linkURL) === -1) {
-                    if ($linkOverlay !== null) {
-                        $linkOverlay.append(linkURL);
-                    }
-                }
-            } else {
-                if ($currentLink[0].innerHTML.indexOf(linkURL) === -1) {
-                    $currentLink.append(linkURL);
-                }
-            }
+            //     }
+            // } else {
+            //     if ($currentLink[0].innerHTML.indexOf(linkURL) === -1) {
+            //         $currentLink.append(linkURL);
+            //     }
+            // }
         },
 
         'toggleDisable': function () {
@@ -3986,156 +3961,156 @@
             // toggle functions
             // --------------------------------------------------------
             switch (findThis) {
+            // --------------------------------------------------------
+            // NEXTGEN PARAMETER
+            // --------------------------------------------------------
+            case 'nextGen=':
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is ON'
+                if (hasKey && isOn) {
+                    // if 'parameter is set to false'
+                    if (this.newURL.indexOf('nextGen=false') >= 0) {
+                        this.newURL = this.newURL.replace('nextGen=false', 'nextGen=true');
+                        return false;
+                    }
+                    // if 'parameter is set to true'
+                    if (this.newURL.indexOf('nextGen=true') >= 0) {
+                        // do nothing
+                        return true;
+                    }
+                }
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is OFF'
+                if (hasKey && !isOn) {
+                    // if 'parameter is set to true'
+                    if (this.newURL.indexOf('nextGen=true') >= 0) {
+                        this.newURL = this.newURL.replace('nextGen=true', 'nextGen=false');
+                        return false;
+                    }
+                    // if 'parameter is set to false'
+                    if (this.newURL.indexOf('nextGen=false') >= 0) {
+                        // do nothing
+                        return true;
+                    }
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is ON'
+                if (!hasKey && isOn) {
+                    // Add parameter to url string
+                    this.newURL += '&nextGen=true';
+                    return false;
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is OFF'
+                if (!hasKey && !isOn) {
+                    // Add parameter to url string
+                    this.newURL += '&nextGen=false';
+                    return false;
+                }
+                break;
                 // --------------------------------------------------------
-                // NEXTGEN PARAMETER
+                // DISABLE AUOTFILL PARAMETER
                 // --------------------------------------------------------
-                case 'nextGen=':
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is ON'
-                    if (hasKey && isOn) {
-                        // if 'parameter is set to false'
-                        if (this.newURL.indexOf('nextGen=false') >= 0) {
-                            this.newURL = this.newURL.replace('nextGen=false', 'nextGen=true');
-                            return false;
-                        }
-                        // if 'parameter is set to true'
-                        if (this.newURL.indexOf('nextGen=true') >= 0) {
-                            // do nothing
-                            return true;
-                        }
-                    }
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is OFF'
-                    if (hasKey && !isOn) {
-                        // if 'parameter is set to true'
-                        if (this.newURL.indexOf('nextGen=true') >= 0) {
-                            this.newURL = this.newURL.replace('nextGen=true', 'nextGen=false');
-                            return false;
-                        }
-                        // if 'parameter is set to false'
-                        if (this.newURL.indexOf('nextGen=false') >= 0) {
-                            // do nothing
-                            return true;
-                        }
-                    }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is ON'
-                    if (!hasKey && isOn) {
-                        // Add parameter to url string
-                        this.newURL += '&nextGen=true';
+            case 'disableAutofill=':
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is ON'
+                if (hasKey && isOn) {
+                    // if 'parameter is set to false'
+                    if (this.newURL.indexOf('disableAutofill=false') >= 0) {
+                        this.newURL = this.newURL.replace('disableAutofill=false', 'disableAutofill=true');
                         return false;
                     }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is OFF'
-                    if (!hasKey && !isOn) {
-                        // Add parameter to url string
-                        this.newURL += '&nextGen=false';
-                        return false;
-                    }
-                    break;
-                    // --------------------------------------------------------
-                    // DISABLE AUOTFILL PARAMETER
-                    // --------------------------------------------------------
-                case 'disableAutofill=':
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is ON'
-                    if (hasKey && isOn) {
-                        // if 'parameter is set to false'
-                        if (this.newURL.indexOf('disableAutofill=false') >= 0) {
-                            this.newURL = this.newURL.replace('disableAutofill=false', 'disableAutofill=true');
-                            return false;
-                        }
-                        // if 'parameter is set to true'
-                        if (this.newURL.indexOf('disableAutofill=true') >= 0) {
-                            // do nothing
-                            return true;
-                        }
-                    }
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is OFF'
-                    if (hasKey && !isOn) {
-                        // if 'parameter is set to true'
-                        if (this.newURL.indexOf('disableAutofill=true') >= 0) {
-                            this.newURL = this.newURL.replace('&disableAutofill=true', '');
-                            return false;
-                        }
-                        // if 'parameter is set to false'
-                        if (this.newURL.indexOf('disableAutofill=false') >= 0) {
-                            // remove parameter from url
-                            this.newURL = this.newURL.replace('&disableAutofill=false', '');
-                            return false;
-                        }
-                    }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is ON'
-                    if (!hasKey && isOn) {
-                        // Add parameter to url string
-                        this.newURL += '&disableAutofill=true';
-                        return false;
-                    }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is OFF'
-                    if (!hasKey && !isOn) {
+                    // if 'parameter is set to true'
+                    if (this.newURL.indexOf('disableAutofill=true') >= 0) {
                         // do nothing
                         return true;
                     }
-                    break;
-                    // --------------------------------------------------------
-                    // MILESTONE 4 PARAMETERS (TETRA SITES)
-                    // --------------------------------------------------------
-                case 'relative=':
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is turned on'
-                    if (hasKey && isOn) {
-                        // do nothing
-                        return true;
-                    }
-                    // ----------------------------------------
-                    // parameter found in url
-                    // ----------------------------------------
-                    // if 'found parameter in url' AND 'toggle is off'
-                    if (hasKey && !isOn) {
-                        // remove ADDED parameter from URL
-                        this.newURL = this.newURL.replace('&comments=true&relative=true', '');
+                }
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is OFF'
+                if (hasKey && !isOn) {
+                    // if 'parameter is set to true'
+                    if (this.newURL.indexOf('disableAutofill=true') >= 0) {
+                        this.newURL = this.newURL.replace('&disableAutofill=true', '');
                         return false;
                     }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is ON'
-                    if (!hasKey && isOn) {
-                        // Add parameter to url string
-                        this.newURL += '&comments=true&relative=true';
+                    // if 'parameter is set to false'
+                    if (this.newURL.indexOf('disableAutofill=false') >= 0) {
+                        // remove parameter from url
+                        this.newURL = this.newURL.replace('&disableAutofill=false', '');
                         return false;
                     }
-                    // ----------------------------------------
-                    // parameter not found in url
-                    // ----------------------------------------
-                    // if 'parameter not found in url' AND 'toggle is OFF'
-                    if (!hasKey && !isOn) {
-                        // do nothing
-                        return true;
-                    }
-                    break;
-                default:
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is ON'
+                if (!hasKey && isOn) {
+                    // Add parameter to url string
+                    this.newURL += '&disableAutofill=true';
+                    return false;
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is OFF'
+                if (!hasKey && !isOn) {
+                    // do nothing
+                    return true;
+                }
+                break;
+                // --------------------------------------------------------
+                // MILESTONE 4 PARAMETERS (TETRA SITES)
+                // --------------------------------------------------------
+            case 'relative=':
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is turned on'
+                if (hasKey && isOn) {
+                    // do nothing
+                    return true;
+                }
+                // ----------------------------------------
+                // parameter found in url
+                // ----------------------------------------
+                // if 'found parameter in url' AND 'toggle is off'
+                if (hasKey && !isOn) {
+                    // remove ADDED parameter from URL
+                    this.newURL = this.newURL.replace('&comments=true&relative=true', '');
+                    return false;
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is ON'
+                if (!hasKey && isOn) {
+                    // Add parameter to url string
+                    this.newURL += '&comments=true&relative=true';
+                    return false;
+                }
+                // ----------------------------------------
+                // parameter not found in url
+                // ----------------------------------------
+                // if 'parameter not found in url' AND 'toggle is OFF'
+                if (!hasKey && !isOn) {
+                    // do nothing
+                    return true;
+                }
+                break;
+            default:
             }
         },
         'reloadPage': function (matchesFound) {
@@ -4680,7 +4655,7 @@
                 .append(main.config.$myFont)
                 .append(main.config.$jQueryUIcss)
                 .append(main.config.$toolStyles)
-                .append(main.config.$mycss)                
+                .append(main.config.$mycss)
                 .append(main.config.$fontAw)
                 .append(main.config.$animate);
         },
@@ -4807,7 +4782,6 @@
     // **************************************** initialize toolbox ****************************************
     // ********************************************************************************
     main.init();
-
 })();
 
 console.log('my local files');
