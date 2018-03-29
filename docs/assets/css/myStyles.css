@@ -41,9 +41,9 @@ section {
   border: none; }
 
 footer {
-  left: inherit;
-  margin-left: -580px;
-  right: 9%;
+  left: 1%;
+  margin-left: 0;
+  right: inherit;
   text-align: left;
   width: 300px; }
 
@@ -60,5 +60,3 @@ footer {
 
 #banner .button {
   display: none; }
-
-/*# sourceMappingURL=style.css.map */
