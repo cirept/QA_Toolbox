@@ -33,6 +33,13 @@ nav {
   width: 305px;
   z-index: 0; }
 
+nav > h2 {
+  background: #f4f4f4;
+  background: linear-gradient(to left, rgb(76, 162, 205), rgb(103, 178, 111), rgba(255,255,255,0));
+  line-height: 200%;
+  color: rgb(255, 255, 255);
+  padding: 0 10px 0 0; }
+
 section {
   display: flex;
   flex-direction: column;
