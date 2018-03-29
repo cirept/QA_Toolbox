@@ -34,11 +34,15 @@ nav {
   z-index: 0; }
 
 section {
+  display: flex;
+  flex-direction: column;
   background: #ffffff;
   /* fallback for old browsers */
-  width: 800px;
-  margin-top: 715px;
-  border: none; }
+  width: 100%;
+  margin: 715px 0 0 0;
+  border: none;
+  border-left: 1px solid #f4f4f4;
+  box-shadow: none; }
 
 footer {
   left: 1%;
