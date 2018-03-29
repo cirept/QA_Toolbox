@@ -259,7 +259,8 @@
                 .append(qaToolbox.config.$changeLogDisplay);
 
             // load change log details
-            qaToolbox.config.$changeLogDisplay.load('https://cirept.github.io/QA_Toolbox/ChangeLog section');
+            qaToolbox.config.$changeLogDisplay.load(
+                'https://cirept.github.io/QA_Toolbox/ChangeLog section');
 
             // make legend container draggable
             qaToolbox.config.$legendContainer.draggable();
@@ -1191,7 +1192,8 @@
 
                 // save current card settings
                 // if currentCard has a class save it, if no class make variable equal ''
-                cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
+                cardClass = $currentCard.attr('class') ? $currentCard.attr(
+                    'class') : '';
 
                 // test links inside cards
                 this.testCard($currentCard, cardClass, isImageLink);
@@ -1362,9 +1364,11 @@
                     // find image in the card and apply a div overlay
                     isImageLink = true;
                     // find FIRST PRIMARY text link
-                    $currentLink = $cardLinkContainer.find('a[class*="primary"]:first');
+                    $currentLink = $cardLinkContainer.find(
+                        'a[class*="primary"]:first');
                     // add div overlay to image
-                    $linkOverlay = shared.addDivOverlay(true, $currentLink, $currentCard);
+                    $linkOverlay = shared.addDivOverlay(true, $currentLink,
+                        $currentCard);
                     // perform checks to link
                     // add flag class, check target, check title, check url
                     this.nextgenRunTests($currentLink, $linkOverlay, isImageLink);
@@ -1424,7 +1428,8 @@
             if (isImageLink) {
                 return $currentLink.one('mousedown', this.linkChecked(this.$divOverlay));
             } else {
-                return $currentLink.one('mousedown', this.linkChecked($currentLink));
+                return $currentLink.one('mousedown', this.linkChecked(
+                    $currentLink));
             }
         },
         // ----------------------------------------
@@ -1473,7 +1478,8 @@
             // check target of link
             this.checkTargetNextGen($currentLink, $linkOverlay);
             // check title of link
-            this.checkForTitleTextNextGen($currentLink, isImageLink, $linkOverlay);
+            this.checkForTitleTextNextGen($currentLink, isImageLink,
+                $linkOverlay);
             // check url of link
             this.checkURLNextGen($currentLink, isImageLink, $linkOverlay);
         },
@@ -1579,7 +1585,8 @@
                 this.apndClass($linkOverlay, 'opensWindow');
             }
         },
-        'checkForTitleTextNextGen': function ($currentLink, isImageLink, $linkOverlay) {
+        'checkForTitleTextNextGen': function ($currentLink, isImageLink,
+            $linkOverlay) {
             // text links
             if (typeof $currentLink.attr('title') === 'undefined' ||
         $currentLink.attr('title') === '') { // link has no title
@@ -1627,7 +1634,8 @@
         },
         // check for absolute URL
         'checkAbsoluteURL': function (elem) {
-            if (elem.indexOf('www') >= 0 || elem.indexOf('http') >= 0 || elem.indexOf('//') >= 0) {
+            if (elem.indexOf('www') >= 0 || elem.indexOf('http') >= 0 || elem.indexOf(
+                '//') >= 0) {
                 return true;
             }
             return false;
@@ -1768,7 +1776,8 @@
      * @return {(object:array)} All the visible text on the page
      */
         'treeWalk': function () {
-            var treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+            var treeWalker = document.createTreeWalker(document.body,
+                NodeFilter.SHOW_TEXT, null, false);
             var wordArray = [];
 
             while (treeWalker.nextNode()) {
@@ -1845,7 +1854,8 @@
      * @return {bool} return the opposite of what the current state is
      */
         'toggleDisable': function () {
-            spellCheck.config.$activateButt.prop('disabled', function (index, value) {
+            spellCheck.config.$activateButt.prop('disabled', function (index,
+                value) {
                 return !value;
             });
         },
@@ -1860,7 +1870,8 @@
         'replaceMarkers': function (elm) {
             if (elm) {
                 elm.innerHTML = elm.innerHTML
-                    .replace(/~~@(.*?)@~~/g, '<span class="spell-check misspelled">$1</span>');
+                    .replace(/~~@(.*?)@~~/g,
+                        '<span class="spell-check misspelled">$1</span>');
             }
         },
         'removeHighlights': function () {
@@ -1962,7 +1973,8 @@
         'buildOptions': function () {
             var $listItem;
 
-            jQuery.each(speedtestPage.config.browserOptions, function (key, text) {
+            jQuery.each(speedtestPage.config.browserOptions, function (key,
+                text) {
                 $listItem = jQuery('<option>')
                     .val(key)
                     .html(text);
@@ -2207,8 +2219,10 @@
 
             if (this.nextGenVar(this.nextGen)) {
                 this.$navTabs = jQuery('li[repeat*="mainNav"]');
-                this.$subNavMenuContainer = this.$navTabs.find('ul[if="cards.length"]');
-                this.$subNavItem = this.$subNavMenuContainer.find('li[repeat="cards"]');
+                this.$subNavMenuContainer = this.$navTabs.find(
+                    'ul[if="cards.length"]');
+                this.$subNavItem = this.$subNavMenuContainer.find(
+                    'li[repeat="cards"]');
                 this.$navTabsLinks = this.$subNavItem.find('a');
             } else {
                 this.$nav = jQuery('#pmenu');
@@ -2301,7 +2315,8 @@
         // ----------------------------------------
         'toggleFeatures': function () {
             var isNextGen = this.isNextGenPlatform;
-            var majorPages = 'a[href*=Form], a[href*=ContactUs], a[href=HoursAndDirections], a[href*=VehicleSearchResults]';
+            var majorPages =
+        'a[href*=Form], a[href*=ContactUs], a[href=HoursAndDirections], a[href*=VehicleSearchResults]';
             if (isNextGen) {
                 this.$navTabs
                     .toggleClass('showNav customAdd');
@@ -2390,7 +2405,8 @@
                 .append(viewMobile.config.$activateButt);
         },
         'bindEvents': function () {
-            viewMobile.config.$activateButt.on('click', this.viewMobile.bind(this));
+            viewMobile.config.$activateButt.on('click', this.viewMobile.bind(
+                this));
         },
         // ----------------------------------------
         // tier 2 functions
@@ -2440,7 +2456,9 @@
                     .attr({
                         'class': 'inputContainer',
                     }),
-                'oems': ['Chevrolet', 'Buick', 'Cadillac', 'GMC', 'Hyundai', 'Volkswagen'],
+                'oems': ['Chevrolet', 'Buick', 'Cadillac', 'GMC', 'Hyundai',
+                    'Volkswagen',
+                ],
                 'oemFiles': [
                     'https://cdn.rawgit.com/cirept/NextGen/master/resources/Chevrolet.json',
                     'https://cdn.rawgit.com/cirept/NextGen/master/resources/Buick.json',
@@ -2479,10 +2497,13 @@
                 .append(seoSimplify.config.$activateButt);
         },
         'bindEvents': function () {
-            seoSimplify.config.$activateButt.on('click', this.simplifySEO.bind(this));
-            seoSimplify.config.$removeBut.on('click', this.removeDisplay.bind(this));
+            seoSimplify.config.$activateButt.on('click', this.simplifySEO.bind(
+                this));
+            seoSimplify.config.$removeBut.on('click', this.removeDisplay.bind(
+                this));
             // add change to text area function
-            seoSimplify.config.$seoDisplay.on('click', this.changeToTextarea.bind(this));
+            seoSimplify.config.$seoDisplay.on('click', this.changeToTextarea.bind(
+                this));
         },
         // ----------------------------------------
         // tier 2 functions
@@ -2692,7 +2713,8 @@
         'emptyTarget': function (elem) {
             var $this = elem;
             // if target is undefined or empty remove target attribute
-            if (seoSimplify.isUndefined($this, 'target') || seoSimplify.isEmpty($this, 'target')) {
+            if (seoSimplify.isUndefined($this, 'target') || seoSimplify.isEmpty(
+                $this, 'target')) {
                 jQuery(elem)
                     .removeAttr('target');
             }
@@ -2780,7 +2802,8 @@
                 .append(widgetOutlines.config.$activateButt);
         },
         'bindEvents': function () {
-            widgetOutlines.config.$activateButt.on('click', this.showWidgets.bind(this));
+            widgetOutlines.config.$activateButt.on('click', this.showWidgets.bind(
+                this));
         },
         'showWidgets': function () {
             this.addOverlay(this.$editableWidgets);
@@ -2803,7 +2826,8 @@
                     var toolClass = 'showWidgetData';
                     var w = $currentObject.width();
                     var h = $currentObject.height();
-                    var addThis = '#' + widgetID + '.' + toolClass + ':after { height: ' + h + 'px; width: ' + w + 'px; }';
+                    var addThis = '#' + widgetID + '.' + toolClass +
+            ':after { height: ' + h + 'px; width: ' + w + 'px; }';
                     // add tool class
                     $currentObject.addClass('showWidgetData');
                     self.bindClickCallback($currentObject, widgetID);
@@ -2813,7 +2837,8 @@
 
                     // add height and width data to widget element
                     $currentObject.attr({
-                        'data-content': widgetID + ' :: ' + w + 'px X ' + h + 'px',
+                        'data-content': widgetID + ' :: ' + w + 'px X ' + h +
+              'px',
                     });
 
                     // save custom css styles that will be added to the toolbox css styles later
@@ -2822,7 +2847,8 @@
         },
         'bindClickCallback': function ($currentObject, widgetID) {
             // bind click event
-            return $currentObject.on('click', this.copyWidgetID($currentObject, widgetID));
+            return $currentObject.on('click', this.copyWidgetID($currentObject,
+                widgetID));
         },
         'copyWidgetID': function ($currentObject, widgetID) {
             // make element blink when user clicks to copy widget ID
@@ -2906,8 +2932,11 @@
                     .attr({
                         'id': 'iconContainer',
                     }),
-                '$thinking': jQuery('<i id="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'),
-                '$done': jQuery('<i class="fa fa-check-circle fa-3x fa-fw"></i>'),
+                '$thinking': jQuery(
+                    '<i id="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'
+                ),
+                '$done': jQuery(
+                    '<i class="fa fa-check-circle fa-3x fa-fw"></i>'),
                 '$hint': jQuery('<div>')
                     .attr({
                         'class': 'hint',
@@ -3075,7 +3104,8 @@
                 $currentLink.addClass('attention');
                 checkLinks.config.totalTests -= 1;
                 return false;
-            } else if (linkURL.indexOf('www') > -1 || linkURL.indexOf('://') > -1) { // test for absolute path URLs
+            } else if (linkURL.indexOf('www') > -1 || linkURL.indexOf('://') >
+        -1) { // test for absolute path URLs
                 if (isImageLink) {
                     $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
                     $linkOverlay.addClass('otherDomain');
@@ -3110,7 +3140,8 @@
             var $cardLinkContainer = $currentCard.find('div.link');
             var $cardSEOContainer = $currentCard.find('div.copy');
             var $cardImageContainer = $currentCard.find('div.media');
-            var cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
+            var cardClass = $currentCard.attr('class') ? $currentCard.attr(
+                'class') : '';
             var isImageLink = false;
             var $cardLinks;
             var $copyTextLinks;
@@ -3119,7 +3150,8 @@
             var $currentLink;
             //            var $image;
 
-            if (cardClass.indexOf('link-clickable') > -1 || cardClass.indexOf('none-clickable') > -1) {
+            if (cardClass.indexOf('link-clickable') > -1 || cardClass.indexOf(
+                'none-clickable') > -1) {
                 // CHECK ALL LINKS DEFINED IN CARD SETTINGS
                 // ----------------------------------------
                 // get all links defined in card
@@ -3128,7 +3160,8 @@
                 meLength = $cardLinks.length;
                 if (meLength > 0) {
                     // set total tests to number of links on page
-                    checkLinks.config.totalTests = checkLinks.config.totalTests + meLength;
+                    checkLinks.config.totalTests = checkLinks.config.totalTests +
+            meLength;
                     this.testLinks($cardLinks);
                 }
 
@@ -3139,10 +3172,12 @@
                 youLength = $copyTextLinks.length;
                 if (youLength > 0) {
                     // set total tests to number of links on page
-                    checkLinks.config.totalTests = checkLinks.config.totalTests + youLength;
+                    checkLinks.config.totalTests = checkLinks.config.totalTests +
+            youLength;
                     this.testLinks($copyTextLinks);
                 }
-            } else if (cardClass.indexOf('card-clickable-v2') > -1 || cardClass.indexOf('card-clickable') > -1) {
+            } else if (cardClass.indexOf('card-clickable-v2') > -1 || cardClass
+                .indexOf('card-clickable') > -1) {
                 $cardLinkContainer = $currentCard.find('div.link');
                 $cardSEOContainer = $currentCard.find('div.copy');
                 $cardImageContainer = $currentCard.find('div.media');
@@ -3156,7 +3191,8 @@
                     isImageLink = true;
                     // find FIRST PRIMARY text link
                     // This is because the card will be linked to the first primary link
-                    $currentLink = $cardLinkContainer.find('a[class*="primary"]:first');
+                    $currentLink = $cardLinkContainer.find(
+                        'a[class*="primary"]:first');
                     $currentLink.addClass('siteLink'); // add default flag class to links
                     //                    $image = $cardImageContainer.find('img');
                     // add div overlay to image
@@ -3175,7 +3211,8 @@
                     meLength = $cardLinks.length;
                     if (meLength > 0) {
                         // set total tests to number of links on page
-                        checkLinks.config.totalTests = checkLinks.config.totalTests + meLength;
+                        checkLinks.config.totalTests = checkLinks.config.totalTests +
+              meLength;
                         this.testLinks($cardLinks);
                     }
 
@@ -3185,7 +3222,8 @@
                     youLength = $copyTextLinks.length;
                     if (youLength > 0) {
                         // set total tests to number of links on page
-                        checkLinks.config.totalTests = checkLinks.config.totalTests + youLength;
+                        checkLinks.config.totalTests = checkLinks.config.totalTests +
+              youLength;
                         this.testLinks($copyTextLinks);
                     }
                 }
@@ -3267,7 +3305,8 @@
         // will return FALSE if no identifier is found
         'checkFor404': function (data) {
             // checks the returned page for key 404 identifiers
-            if (data.indexOf('pageNotFound') > -1 || data.indexOf('not currently a functioning page') > -1) {
+            if (data.indexOf('pageNotFound') > -1 || data.indexOf(
+                'not currently a functioning page') > -1) {
                 return true;
             }
             return false;
@@ -3343,7 +3382,8 @@
                             .length;
                         if (hasImage) {
                             isImageLink = true;
-                            $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                            $linkOverlay = shared.addDivOverlay(isNextGen,
+                                $currentLink);
                         }
 
                         // checks to see if the link has inline css
@@ -3361,16 +3401,19 @@
                         // ADD CLASS FLAGS TO DIV OVERLAY
                         // OTHERWISE ADD CLASS FLAGS TO LINK ELEMENT
                         if (isImageLink || wrappedContents) {
-                            checkLinks.addFlagsToElements($linkOverlay, pageError404);
+                            checkLinks.addFlagsToElements($linkOverlay,
+                                pageError404);
                         } else {
-                            checkLinks.addFlagsToElements($currentLink, pageError404);
+                            checkLinks.addFlagsToElements($currentLink,
+                                pageError404);
                         }
                     }
 
                     if (isNextGen) {
                         // check to see if the card has an image prior to startin the ajax testing
                         if (isImageLink) {
-                            $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
+                            $linkOverlay = shared.addDivOverlay(isNextGen,
+                                $currentLink, $currentCard);
                         }
 
                         // If value is false all class modifications should be done to the link itself
@@ -3380,9 +3423,11 @@
                         // ADD CLASS FLAGS TO DIV OVERLAY
                         // OTHERWISE ADD CLASS FLAGS TO LINK ELEMENT
                         if (isImageLink) {
-                            checkLinks.addFlagsToElements($linkOverlay, pageError404);
+                            checkLinks.addFlagsToElements($linkOverlay,
+                                pageError404);
                         } else {
-                            checkLinks.addFlagsToElements($currentLink, pageError404);
+                            checkLinks.addFlagsToElements($currentLink,
+                                pageError404);
                         }
                     }
                 },
@@ -3412,12 +3457,14 @@
                 },
                 'complete': function () {
                     checkLinks.config.count += 1;
-                    checkLinks.config.$counter.text(checkLinks.config.count + ' of ' + checkLinks.config.totalTests);
+                    checkLinks.config.$counter.text(checkLinks.config.count +
+            ' of ' + checkLinks.config.totalTests);
                 },
             });
         },
         'toggleDisable': function () {
-            checkLinks.config.$activateButt.prop('disabled', function (index, value) {
+            checkLinks.config.$activateButt.prop('disabled', function (index,
+                value) {
                 return !value;
             });
         },
@@ -3533,7 +3580,8 @@
         },
         'bindEvents': function () {
             // bind FA toggle with 'flipTheSwitch' action
-            nextGenToggle.config.$nextGenTogContainer.on('click', this.flipTheSwitch.bind(this));
+            nextGenToggle.config.$nextGenTogContainer.on('click', this.flipTheSwitch
+                .bind(this));
         },
         // ----------------------------------------
         // tier 2 functions
@@ -3641,7 +3689,8 @@
         },
         'bindEvents': function () {
             // bind FA toggle with 'flipTheSwitch' action
-            m4Check.config.$m4Container.on('click', this.flipTheSwitch.bind(this));
+            m4Check.config.$m4Container.on('click', this.flipTheSwitch.bind(
+                this));
         },
         // ----------------------------------------
         // tier 2 functions
@@ -3673,7 +3722,8 @@
         // ----------------------------------------
         'hasParameters': function () {
             // determine if site URL already has custom parameters
-            if (window.location.href.indexOf('&comments=true&relative=true') >= 0) {
+            if (window.location.href.indexOf('&comments=true&relative=true') >=
+        0) {
                 return true;
             } else {
                 return false;
@@ -3749,7 +3799,8 @@
         },
         'bindEvents': function () {
             // bind FA toggle with 'flipTheSwitch' action
-            autofillToggle.config.$autofillTogContainer.on('click', this.flipTheSwitch.bind(this));
+            autofillToggle.config.$autofillTogContainer.on('click', this.flipTheSwitch
+                .bind(this));
         },
         // ----------------------------------------
         // tier 2 functions
@@ -3901,7 +3952,8 @@
             urlModifiers.config.$urlModTitle
                 .on('click', shared.toggleFeature)
                 .on('click', shared.saveState);
-            urlModifiers.config.$autoApplyContainer.on('click', this.flipTheSwitch.bind(this));
+            urlModifiers.config.$autoApplyContainer.on('click', this.flipTheSwitch
+                .bind(this));
         },
         // ----------------------------------------
         // tier 2 functions
@@ -4007,7 +4059,8 @@
                 if (hasKey && isOn) {
                     // if 'parameter is set to false'
                     if (this.newURL.indexOf('nextGen=false') >= 0) {
-                        this.newURL = this.newURL.replace('nextGen=false', 'nextGen=true');
+                        this.newURL = this.newURL.replace('nextGen=false',
+                            'nextGen=true');
                         return false;
                     }
                     // if 'parameter is set to true'
@@ -4023,7 +4076,8 @@
                 if (hasKey && !isOn) {
                     // if 'parameter is set to true'
                     if (this.newURL.indexOf('nextGen=true') >= 0) {
-                        this.newURL = this.newURL.replace('nextGen=true', 'nextGen=false');
+                        this.newURL = this.newURL.replace('nextGen=true',
+                            'nextGen=false');
                         return false;
                     }
                     // if 'parameter is set to false'
@@ -4062,7 +4116,8 @@
                 if (hasKey && isOn) {
                     // if 'parameter is set to false'
                     if (this.newURL.indexOf('disableAutofill=false') >= 0) {
-                        this.newURL = this.newURL.replace('disableAutofill=false', 'disableAutofill=true');
+                        this.newURL = this.newURL.replace('disableAutofill=false',
+                            'disableAutofill=true');
                         return false;
                     }
                     // if 'parameter is set to true'
@@ -4078,13 +4133,15 @@
                 if (hasKey && !isOn) {
                     // if 'parameter is set to true'
                     if (this.newURL.indexOf('disableAutofill=true') >= 0) {
-                        this.newURL = this.newURL.replace('&disableAutofill=true', '');
+                        this.newURL = this.newURL.replace('&disableAutofill=true',
+                            '');
                         return false;
                     }
                     // if 'parameter is set to false'
                     if (this.newURL.indexOf('disableAutofill=false') >= 0) {
                         // remove parameter from url
-                        this.newURL = this.newURL.replace('&disableAutofill=false', '');
+                        this.newURL = this.newURL.replace('&disableAutofill=false',
+                            '');
                         return false;
                     }
                 }
@@ -4124,7 +4181,8 @@
                 // if 'found parameter in url' AND 'toggle is off'
                 if (hasKey && !isOn) {
                     // remove ADDED parameter from URL
-                    this.newURL = this.newURL.replace('&comments=true&relative=true', '');
+                    this.newURL = this.newURL.replace(
+                        '&comments=true&relative=true', '');
                     return false;
                 }
                 // ----------------------------------------
@@ -4269,7 +4327,9 @@
                         'class': 'myEDOBut refreshButt',
                         'title': 'Refresh Page from Server ',
                     }),
-                '$refresh': jQuery('<i class="fa fa-undo fa-flip-horizontal fa-3x">&nbsp;</i>'),
+                '$refresh': jQuery(
+                    '<i class="fa fa-undo fa-flip-horizontal fa-3x">&nbsp;</i>'
+                ),
                 '$refreshTitle': jQuery('<div>')
                     .text('Refresh Button'),
                 '$refreshCheckbox': jQuery('<div>')
@@ -4305,7 +4365,8 @@
         },
         'bindEvents': function () {
             refreshPage.config.$refreshButt.on('click', this.reloadPage);
-            refreshPage.config.$refreshContainer.on('click', this.flipTheSwitch.bind(this));
+            refreshPage.config.$refreshContainer.on('click', this.flipTheSwitch
+                .bind(this));
         },
         'setToggle': function () {
             // get value of custom variable and set toggles accordingly
@@ -4521,7 +4582,9 @@
                     .attr({
                         'class': 'hideToolbox',
                     }),
-                '$minimizeIcon': jQuery('<span class="fa-stack fa-2x"><i class="fa fa-circle fa-stack-1x fa-inverse"></i><i class="fa fa-times-circle fa-stack-1x"></i></span>')
+                '$minimizeIcon': jQuery(
+                    '<span class="fa-stack fa-2x"><i class="fa fa-circle fa-stack-1x fa-inverse"></i><i class="fa fa-times-circle fa-stack-1x"></i></span>'
+                )
                     .attr({
                         'title': 'Click to Hide Toolbox',
                     }),
@@ -4600,7 +4663,8 @@
                         state = variables[key] ? 'show' : 'hide';
                         shared.setState(this.$toolBoxContainer, state);
                         // set display of hide/show button to opposite of main toolbox
-                        dynamicDisplay.config.$showToolbox.addClass(variables[key] ? 'disappear' : 'appear');
+                        dynamicDisplay.config.$showToolbox.addClass(variables[key] ?
+                            'disappear' : 'appear');
                     }
                 }
             }
@@ -4610,7 +4674,8 @@
         // ----------------------------------------
         'checkNextGen': function (nextGenComment) {
             if (nextGenComment) {
-                return nextGenComment.indexOf('Next Gen') === -1 ? 'Tetra' : 'Next Gen';
+                return nextGenComment.indexOf('Next Gen') === -1 ? 'Tetra' :
+                    'Next Gen';
             }
             return 'Tetra';
         },
@@ -4694,8 +4759,9 @@
                 '$toolStyles': jQuery('<link>')
                     .attr({
                         'id': 'toolStyles',
-                        'href': 'https://rawgit.com/cirept/QA_Toolbox/' + GM_info.script.version + '/assets/css/toolbox.min.css', // eslint-disable-line camelcase
-                        'rel': 'stylesheet',
+                        'href': 'https://rawgit.com/cirept/QA_Toolbox/' + GM_info
+                            .script.version + '/assets/css/toolbox.min.css', // eslint-disable-line camelcase
+                        'rel': 'stylesheets',
                         'type': 'text/css',
                     }),
                 '$animate': jQuery('<link>')
@@ -4834,7 +4900,8 @@
 
             // set max height for TETRA sites
             if (!shared.nextGenCheck()) {
-                qaToolbox.config.$changeLogDisplay.dialog('option', 'maxHeight', 800);
+                qaToolbox.config.$changeLogDisplay.dialog('option', 'maxHeight',
+                    800);
             }
         },
     };
