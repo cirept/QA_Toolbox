@@ -7,6 +7,7 @@
 ## Other Useful Links<br>
 [Installation Instructions](Install)<br>
 [Change Log](ChangeLog)<br>
+[Dictionary Word List](https://github.com/cirept/Typo.js/blob/master/typo/dictionaries/en_US/en_US.dic)<br>
 
 <br>
 <br>
