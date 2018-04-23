@@ -1,5 +1,7 @@
 # How to Update the QA Tool
 
+## How to Modify the Code
+
 **Before we start here is a little prerequisite information for this process**
 
 - These instructions will guide you through the process of modifying the QA Tool and releasing your changes to the public. (In case the title is not clear)
@@ -23,7 +25,7 @@
 <br>
 <br>
 
-## and we are off!   :rocket:
+### and we are off!   :rocket:
 In order to modify this tool just follow these simple steps:
 1. [Create your custom branch](#1-create-your-custom-branch)
 2. [Update your branch with your new tool or enhancement](#2-updating-your-branch)
@@ -45,7 +47,7 @@ Allow me to explain these steps in depth to make it as easy as possible to updat
 <br>
 <br>
 
-## 1. Create your custom branch
+### 1. Create your custom branch
 
 > Create a branch from the 'master' repo on GitHub, please use a descriptive name in order to clearly identify branch purpose.
 
@@ -123,10 +125,10 @@ You're done!  Navigate to a CDK page and reload the page, you should see YOUR ve
 <br>
 <br>
 
-## 3. Test your code
+### 3. Test your code
 In this step we will create a pre-release version of the QA Tool.  This step will help weed out any issues that you may encounter when publishing your release to the world.  But before we create a pre-release there is a file that needs updating.
 
-### Update the meta.js file
+#### Update the meta.js file
 
 - QA_Toolbox/assets/js/meta.js
 
@@ -136,7 +138,7 @@ Please update these lines in the meta.js file
 
 > **@require https://cdn.rawgit.com/cirept/QA_Toolbox/XXXXXXXXXX/assets/js/toolBox.js** - update the file path to link to the PRE-RELEASE version you will create.
 
-### Create a Pre-Release
+#### Create a Pre-Release
 
 [Click here to learn how to create a Release](https://help.github.com/articles/creating-releases/)
 
@@ -146,7 +148,7 @@ Now we are ready to create a pre-release version of the QA Tool with YOUR code.
 
 ![Versioning Example](images/versioningExample.jpg)
 
-#### Semantic Versioning
+##### Semantic Versioning
 
 Please follow the semantic versioning increments of the current QA Tool.
 
@@ -158,7 +160,7 @@ Please follow the semantic versioning increments of the current QA Tool.
 
 - Once you get your changes merged to the master branch, you should drop the extra fluff in the version number and it will be just the number.  **3.3.1.5** or **3.3.2** or **3.4**.
 
-### Multiple Pre-Releases
+#### Multiple Pre-Releases
 
 If for some reason, you need to create multiple pre-releases.  Perhaps the meta.js file wasn't updated before you created the pre-release.
 **Please overwrite your current pre-release.**
@@ -181,7 +183,7 @@ If you do create multiple pre-releases, please delete unused copies as they will
 <br>
 <br>
 
-## 4. Documentation
+### 4. Documentation
 
 **Markdown** is used to create the documentation.  It won't be hard to learn.  I promise.
 
@@ -201,7 +203,7 @@ If you do create multiple pre-releases, please delete unused copies as they will
 <br>
 <br>
 
-## 5. Open a pull request
+### 5. Open a pull request
 
 > For a information on how to create a pull request:<br>
 > [How to do a pull request](https://help.github.com/articles/creating-a-pull-request/) || [about pull requests](https://help.github.com/articles/about-pull-requests/) || [commenting on a pull request](https://help.github.com/articles/commenting-on-a-pull-request/)
@@ -212,11 +214,11 @@ If you do create multiple pre-releases, please delete unused copies as they will
 2. Add a **link to the pre-release version** in the comments so the reviewers can easily find the version you want to merge
     > This pre-release should be the same pre-release you used for testing.
 
-### Review Process
+#### Review Process
 
 The review process is split into two (2) parts: **Human Review** and **Code Quality**.
 
-#### Human Review
+##### Human Review
 
 **The 'human review' portion:**
 
@@ -238,7 +240,7 @@ The documentation is important!  The goal of the README instructions is to be ab
 
 > ![Changes Requested](images/changesRequested.jpg)
 
-#### Code Review
+##### Code Review
 
 **The 'code quality' portion:**
 
@@ -256,7 +258,7 @@ If you don't get a passing grade first try, you can navigate to the Codacy page 
 
 > Learning how to do things differently, sometimes more efficiently, is the name of the game here.  **Efficient** *almost always* **= speed**.
 
-## 6. Update meta.js file
+### 6. Update meta.js file
 
 Don't Merge your branch just yet!  Now that you have gotten your pull request approvals.  You need to update the meta.js file again.
 
@@ -286,7 +288,7 @@ Don't Merge your branch just yet!  Now that you have gotten your pull request ap
     // @require https://cdn.rawgit.com/cirept/QA_Toolbox/4.5.6/assets/js/toolBox.js
     ```
 
-## 7. Publishing Your Release
+### 7. Publishing Your Release
 
 You have gotten this far, **Congratulations!**  Once you have successfully merged your branch.  Now in order for everyone to receive the update that you made, we need to publish your pre-release.
 
