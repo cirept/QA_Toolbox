@@ -7,7 +7,7 @@
 ## Other Useful Links<br>
 [Installation Instructions](Install)<br>
 [Change Log](ChangeLog)<br>
-[How to Update Things](HowToUpdate)<br>
+[How to Update Things](HowToUpdate-Dictionary)<br>
 
 <br>
 <br>
