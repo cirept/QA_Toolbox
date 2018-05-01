@@ -1,0 +1,322 @@
+# How to Update the QA Tool
+
+## How to Modify the Code
+
+**Before we start here is a little prerequisite information for this process**
+
+- These instructions will guide you through the process of modifying the QA Tool and releasing your changes to the public. (In case the title is not clear)
+
+- Please follow these instructions when performing modifications to the tool in order to quickly and easily get your changes approved and published to all the QA Tool's users.  If you find a better way.  Then I am all ears.  :]
+
+- If you are not familiar with using Github, don't fret!  There are a ton of guides out there to learn the git workflow.  Here are a few good resources to start you off.
+    - https://guides.github.com/introduction/flow/
+    - https://gist.github.com/blackfalcon/8428401
+
+- The QA Tool is a custom userscript and uses Tampermonkey as a primary userscript manager so I hope you are familiar with it.  And when I say familiar, all I mean is just know how to:
+    1. add a usersctipt
+    2. modify a userscript
+    3. how to force an update request.  <-- I will provide instructions on this step
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+### and we are off!   :rocket:
+In order to modify this tool just follow these simple steps:
+1. [Create your custom branch](#1-create-your-custom-branch)
+2. [Update your branch with your new tool or enhancement](#2-updating-your-branch)
+3. [Test your new code, using Tampermonkey](#3-test-your-code)
+4. [Documentation](#4-documentation)
+5. [Open a pull request to get your code merged with the master and sent out to the world!](#5-open-a-pull-request)
+6. [Update the meta.js file](#6-update-metajs-file)
+7. [Publish Your Release](#7-publishing-your-release)
+
+**Easy Right!?**
+
+Allow me to explain these steps in depth to make it as easy as possible to update this tool.
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+### 1. Create your custom branch
+
+> Create a branch from the 'master' repo on GitHub, please use a descriptive name in order to clearly identify branch purpose.
+
+If you are unable to do so, that means you do not have permission to modify the code.  Please contact the code owner(s) to get set up with the proper permissions.
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+### 2. Updating your branch
+
+1. Write your code and update your branch with w/e enhancement or new tool that your heart desires.
+
+2. If using Tampermonkey, you can write your code and test it very easily.  *(I will explain this next)*
+
+    > **Tip:**  Add a linter addon to your preferred IDE.  Any popular IDE out there should have linter addons for your to install.  Shoot for adding a linter that uses **ESLint.**
+
+#### Tampermonkey Local File Access
+
+With Tampermonkey, you are able to load your local js file and run it on the webpage!  Greeaaatttt right?!  Here's how!
+
+***Disclaimer**: these steps have only been tested with Chrome, so yeah...*
+
+If you don't already have Tampermonkey installed on your Chrome browser, please do that before continuing.
+
+1. Navigate to the **Extensions** menu.
+
+    > Click the link to learn how [https://support.google.com/chrome_webstore/answer/2664769?hl=en](https://support.google.com/chrome_webstore/answer/2664769?hl=en)
+
+2. Find the "Tampermonkey" extension.
+
+    > *if you have a ton of extensions, the list may be long.  Keep scrolling and you should find it eventually*
+
+3. Check the box for "Allow access to file URLs"
+
+    > There will be TWO (2) CHECKBOXES:
+    > - "Allow in incognito"
+    > - "Allow access to file URLs"
+
+4. You are done with this tab, close it out.
+
+5. Click on the Tampermonkey icon in your "extension logo soup" area.
+
+    > ![Click Addon Icon](images/clickIcon.png)
+
+6. Navigate to "Dashboard", the dashboard will show you all the userscripts installed in Tampermonkey.
+7. Create a duplicate copy of the QA Tool userscript.  *We are going to modify the code.*
+8. Replace the **@require** line of code to the main JS file, which should look like this.
+
+    >  // @require https://cdn.rawgit.com/cirept/QA_Toolbox/3.3.1.4-prerelease/assets/js/toolBox.js
+
+    ![Userscript Update](images/localFileAccessBefore.jpg)
+
+**Replace it with**
+
+> // @require file://FULL_FILE_PATH_TO_YOUR_CUSTOM_JS_FILE
+
+![Userscript Update](images/localFileAccessAfter.jpg)
+
+You're done!  Navigate to a CDK page and reload the page, you should see YOUR version of the QA Tool.
+
+[for more information on getting Tampermonkey to read your local js file](https://forum.tampermonkey.net/viewtopic.php?t=316)
+
+> **Tip**: - This project uses strict **ESLint rules**, that are in place to help others read your code, but it often times helps YOU read your own code.  Have you ever had one of those days where you pump out a bazilion lines of code then revisit it a day later then not no what you are looking at?  Well this should help this not happen!
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+### 3. Test your code
+In this step we will create a pre-release version of the QA Tool.  This step will help weed out any issues that you may encounter when publishing your release to the world.  But before we create a pre-release there is a file that needs updating.
+
+#### Update the meta.js file
+
+- QA_Toolbox/assets/js/meta.js
+
+Please update these lines in the meta.js file
+
+> **@version X.X.X.X** - update the version number to what will be the latest version when your changes gets published.  For example, if the current version is 3.3.1 that would mean when your changes are published the version you will be using could be 3.4 or 3.3.2, depending on the modifications you are making (more on Semantic Versioning later).  So you would put either of those two version numbers here.
+
+> **@require https://cdn.rawgit.com/cirept/QA_Toolbox/XXXXXXXXXX/assets/js/toolBox.js** - update the file path to link to the PRE-RELEASE version you will create.
+
+#### Create a Pre-Release
+
+[Click here to learn how to create a Release](https://help.github.com/articles/creating-releases/)
+
+Now we are ready to create a pre-release version of the QA Tool with YOUR code.
+
+> **Tip**: Do not forget to select "This is a pre-release" at the bottom of the release creation page to ensure that your changes are published pre-maturely
+
+![Versioning Example](images/versioningExample.jpg)
+
+##### Semantic Versioning
+
+Please follow the semantic versioning increments of the current QA Tool.
+
+> For more information on Semantic Versioning, [see here](http://semver.org/)
+
+- If the current version is 3.3.1.4, YOUR version should be **3.3.1.5-beta** or **3.3.2-alpha** or **3.4-beta** depending on the type of update you are making.
+
+- One more thing to note is how I included, -beta, -alpha.  This is recommended during the testing phase to reserve that version number for YOUR release, in the event that various updates are made at once.
+
+- Once you get your changes merged to the master branch, you should drop the extra fluff in the version number and it will be just the number.  **3.3.1.5** or **3.3.2** or **3.4**.
+
+#### Multiple Pre-Releases
+
+If for some reason, you need to create multiple pre-releases.  Perhaps the meta.js file wasn't updated before you created the pre-release.
+**Please overwrite your current pre-release.**
+
+While on the "Releases" page, simply click the "Edit" button for your pre-release and update the TAG VERSION area.
+
+> :star: the 'tag version' input will be the first input box on the page.
+
+If you do create multiple pre-releases, please delete unused copies as they will convolute the Release section.  **Goal here is to be able to see the latest release on the first page!**
+
+![pre release updates](images/prereleaseUpdates.jpg)
+*Here is an example of what the RELEASE page should look like if you overwrote your pre-releases correctly.*
+
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+### 4. Documentation
+
+**Markdown** is used to create the documentation.  It won't be hard to learn.  I promise.
+
+1. **Update the README.md** - Update the README with detailed information on the tool that you created or modified.  Follow the general outline of the current README when creating a new section or updating information.
+
+    ![Read me update](images/readmeUpdate.jpg)
+
+2. **Update the ChangeLog.md** - Update the changelog file with a general overview of the changes you made to the tool.  Again follow the general outline of the current information on the ChangeLog file when creating a new section.
+
+    ![Change Log Update](images/changelogUpdate.jpg)
+
+<br>
+<br>
+
+---
+
+<br>
+<br>
+
+### 5. Open a pull request
+
+> For a information on how to create a pull request:<br>
+> [How to do a pull request](https://help.github.com/articles/creating-a-pull-request/) || [about pull requests](https://help.github.com/articles/about-pull-requests/) || [commenting on a pull request](https://help.github.com/articles/commenting-on-a-pull-request/)
+
+**When you create a pull request, please perform these steps:**
+1. Please include a **summary** of what changes that you made in the comments of the pull request.
+
+2. Add a **link to the pre-release version** in the comments so the reviewers can easily find the version you want to merge
+    > This pre-release should be the same pre-release you used for testing.
+
+#### Review Process
+
+The review process is split into two (2) parts: **Human Review** and **Code Quality**.
+
+##### Human Review
+
+**The 'human review' portion:**
+
+- [ ] Test if the update works
+- [ ] Is it bug free
+- [ ] Does it work as expected from reading the README documentation.
+- [ ] Are the instructions easy to understand?
+- [ ] Enhancement suggestions that would make the tool better? *(up to you if you want to develop these features)*
+
+The documentation is important!  The goal of the README instructions is to be able to send someone a link to the README page and that's it!
+
+**If everything is in order, you will get an approval review.**
+
+:star2: An approval review will be given if all the criteria are met.
+
+> ![Approval Given](images/approvalGiven.jpg)
+
+:x: If there are changes needed, the reviewer will place them in the pull request as a comment.
+
+> ![Changes Requested](images/changesRequested.jpg)
+
+##### Code Review
+
+**The 'code quality' portion:**
+
+For this project we are using **ESLint rules** and **Codacy** has been set up using said ESLint rules.  The rules are may be strict at first, but you will get used to writing code with rules.  There are also "best practice" rules as well to ensure that everyone is using good habits while writing code.  If you followed my tip and installed a linter, this part shouldn't take long.  **It is a requirement to get a passing grade by Codacy**.
+
+> For more info on Codacy, please check out their [site](https://www.codacy.com/product)
+
+*These rules help create quality code that is easy to maintain AND make it easy for humans to read.*
+
+If you don't get a passing grade first try, you can navigate to the Codacy page and see what issues you need to fix.
+
+![Navigate to Codacy Site](images/Codacy_details.jpg)
+
+**Look at it as a learning experience!**  **You are learning how to refactor your code!**
+
+> Learning how to do things differently, sometimes more efficiently, is the name of the game here.  **Efficient** *almost always* **= speed**.
+
+### 6. Update meta.js file
+
+Don't Merge your branch just yet!  Now that you have gotten your pull request approvals.  You need to update the meta.js file again.
+
+**Update the meta.js file**
+
+- **@name** - update the version number
+
+    ```
+    Public Release Version Will Be 4.5.6
+    // @name QA Toolbox 4.5.6
+    ```
+
+- **@version** - update the version number
+
+    ```
+    Public Release Version Will Be 4.5.6
+    // @version 4.5.6
+    ```
+
+- **@required** - update the URL for the toolBox.js file to the RELEASE VERSION you will use on your public release.
+
+    ```
+    Pre-Release Version = 4.5.6-alpha9
+    // @require https://cdn.rawgit.com/cirept/QA_Toolbox/4.5.6-alpha9/assets/js/toolBox.js
+
+    Public Release Version Will Be 4.5.6
+    // @require https://cdn.rawgit.com/cirept/QA_Toolbox/4.5.6/assets/js/toolBox.js
+    ```
+
+### 7. Publishing Your Release
+
+You have gotten this far, **Congratulations!**  Once you have successfully merged your branch.  Now in order for everyone to receive the update that you made, we need to publish your pre-release.
+
+1. **Open your Github pre-release** - This is the pre-release that you submitted with your pull request
+
+2. **Change the "Tag Version"** - Shorten the version to only include the version number.
+    - For example:
+    - pre-release version: 4.5.6-alpha9.
+    - public release version : 4.5.6
+
+3. **Uncheck "This is a pre-release"** - at the bottom of the release.
+
+4. **Test the release was done correctly** - Go into Tampermonkey and do a manual update on the QA Tool.  If you DID NOT receive the update, double check that every step was followed then try again.  If problem persists, contact the code owner(s) for assistance.
+
+## How to Update the Dictionary
+
+1. Navigate to the custom dictionary word list.  [Dictionary Work List](https://github.com/cirept/Typo.js/blob/master/typo/dictionaries/en_US/en_US.dic)
+
+2. Choose to Edit the file.
+
+3. Scroll to the bottom of the word list.
+
+4. Add each new word to the list.  One (1) word per line.
+
+5. Once complete, scroll to the bottom of the page and add your comments.  Select "create a **new branch**" option when commiting changes.  The default branch name is fine.
+
+6. Fill out the "Pull Request" window with comments and hit "Create Pull Request."
+
+7. Notify **Eric Tanaka** that you have created a pull request and is ready for a review.
+
+8. Depending on the review, your changes will get merged or will be asked to make changes before an approval is given.
