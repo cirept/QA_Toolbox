@@ -1,11 +1,12 @@
 (function (d) {
+  const version = GM_info.script.version;
   const loadDependencies = d.createElement('script');
   loadDependencies.type = 'text/javascript';
   loadDependencies.async = true;
   loadDependencies.onload = function () {
     loadFiles();
   };
-  loadDependencies.src = '#';
+  loadDependencies.src = `https://rawgit.com/cirept/QA_Toolbox/${version}/assets/js/toolBox.js`;
   loadDependencies.id = 'addParentIdToElements';
   d.getElementsByTagName('head')[0].appendChild(loadDependencies);
 
