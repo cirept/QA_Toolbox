@@ -193,8 +193,3 @@ const main = {
     }
   },
 };
-
-/**
- * initialize toolbox
- */
-main.init();
