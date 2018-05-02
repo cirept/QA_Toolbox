@@ -1,18 +1,16 @@
-/*global jQuery, unsafeWindow, GM_getValue, GM_setValue, GM_setClipboard, GM_openInTab, GM_info, GM_listValues, window, document, NodeFilter, Typo*/
+/* global jQuery, unsafeWindow, GM_getValue, GM_setValue, GM_setClipboard, GM_openInTab, GM_info, GM_listValues, window, document, NodeFilter */
 
 (function () {
-    'use strict';
-
     // ********************************************************************************
     // **************************************** Toolbox Shared Functions ****************************************
     // ********************************************************************************
-    var shared = {
-    /**
-     * Tampermonkey function.
-     * Save value to local storage for program to use.
-     * @param {string} variable The variable that will be looked up.
-     * @param {bool} val The value that the variable will be set too.
-     */
+    const shared = {
+        /**
+         * Tampermonkey function.
+         * Save value to local storage for program to use.
+         * @param {string} variable The variable that will be looked up.
+         * @param {bool} val The value that the variable will be set too.
+         */
         'saveValue': function (variable, val) {
             GM_setValue(variable, val); // eslint-disable-line new-cap
         },
@@ -47,32 +45,34 @@
      * @param {string} openThis A URL that will be opened in a new window.
      */
         'openNewTab': function (openThis) {
-            GM_openInTab(openThis); // eslint-disable-line new-cap
+            GM_openInTab(openThis); // eslint-disable-line
         },
         'nextGenCheck': function () {
-            var nextGenFlag = jQuery.trim(document.firstChild.data);
+            const childNodes = document.childNodes;
 
-            if (typeof nextGenFlag === 'undefined' || nextGenFlag === '') {
-                return false;
-            } else {
-                return true;
+            // loop through document child nodes to check if next gen comment exists
+            for (let x = 0; x < childNodes.length; x += 1) {
+                if (childNodes[x].nodeName.endsWith('comment') && childNodes[x].data.indexOf('Next Gen') > 0) {
+                    return true;
+                }
             }
+            return false;
         },
-        'toggleFeature': function (e) {
-            var $callingElement = jQuery(e.target)
-                .siblings('.toolsPanel');
+        'toggleFeature': (e) => {
+            const $callingElement = jQuery(e.target).siblings('.toolsPanel');
             return $callingElement.slideToggle(500);
         },
-        'saveState': function (e) {
+        getResourceUrl: (name) => {
+            return GM_getResourceURL(name); // eslint-disable-line
+        },
+        'saveState': (e) => {
             // get current state
-            var vName = jQuery(e.target)
-                .siblings('.toolsPanel')
-                .attr('id');
-            var currState = shared.getValue(vName);
+            const vName = jQuery(e.target).siblings('.toolsPanel').attr('id');
+            const currState = shared.getValue(vName);
             // sets usingM4 value
             shared.saveValue(vName, !currState);
         },
-        'setState': function ($panel, state) {
+        setState: function ($panel, state) {
             if (state === 'show') {
                 $panel.addClass('appear');
             }
@@ -81,15 +81,14 @@
                 $panel.addClass('disappear');
             }
         },
-        'programData': function () {
-            var allVariables = shared.programVariables(); // global function
-            var length = allVariables.length;
-            var a = 0;
-            var varList = {};
-            var key = '';
-            var value = '';
+        programData: () => {
+            const allVariables = shared.programVariables(); // global function
+            const length = allVariables.length;
+            const varList = {};
+            let key = '';
+            let value = '';
             // add variables to list
-            for (a; a < length; a += 1) {
+            for (let a = 0; a < length; a += 1) {
                 key = allVariables[a];
                 value = shared.getValue(key);
                 varList[key] = value;
@@ -97,8 +96,8 @@
             return varList;
         },
         'buildLegendContent': function ($legendContent, $legendListContainer) {
-            var key = '';
-            var value = '';
+            let key = '';
+            let value = '';
             // loop through Legend Content list
             for (key in $legendContent) {
                 if ($legendContent.hasOwnProperty(key)) {
@@ -119,10 +118,10 @@
             }
         },
         'displayPanel': function ($toolPanel) {
-            var variables = this.programData();
-            var panelId = $toolPanel.attr('id');
-            var state = '';
-            var key = '';
+            const variables = this.programData();
+            const panelId = $toolPanel.attr('id');
+            let state = '';
+            let key = '';
 
             // loop through variable list to find the panel title
             for (key in variables) {
@@ -145,12 +144,9 @@
         },
         'cacheDOMOverlayElements': function ($currentLink /* , isNextGen*/ ) {
             // IF NEXTGEN SITE
-            this.widthOfImage = $currentLink.find('img')
-                .width();
-            this.heightOfImage = $currentLink.find('img')
-                .height();
-            this.linkTitle = jQuery($currentLink)
-                .attr('title');
+            this.widthOfImage = $currentLink.find('img').width();
+            this.heightOfImage = $currentLink.find('img').height();
+            this.linkTitle = jQuery($currentLink)[0].innerHTML;
         },
         'createOverlayElements': function (isNextGen) {
             // create div overlay
@@ -195,8 +191,11 @@
                 // console.log($currentLink);
             }
         },
+        'toggleOverlayClass': function ($currentImage) {
+            jQuery($currentImage).toggleClass('overlaid');
+        },
         'centerDiv': function ($currentImage, $divOverlay) {
-            var parent = $currentImage.closest('figure');
+            const parent = $currentImage.closest('figure');
             $divOverlay.css({
                 'left': parent.width() / 2 - $divOverlay.width() / 2 + 'px',
             });
@@ -204,14 +203,11 @@
         },
         // FLAG ALL BUTTONS AS A BUTTON ELEMENT
         'flagButtons': function () {
-            var buttons = jQuery('body')
-                .find(':button');
-            var length = buttons.length;
-            var a = 0;
+            const buttons = jQuery('body').find(':button');
+            const length = buttons.length;
 
-            for (a; a < length; a += 1) {
-                jQuery(buttons[a])
-                    .addClass('buttonFlag');
+            for (let a = 0; a < length; a += 1) {
+                jQuery(buttons[a]).addClass('buttonFlag');
             }
         },
     };
@@ -219,7 +215,7 @@
     // ********************************************************************************
     // **************************************** Build container for toolbox ****************************************
     // ********************************************************************************
-    var qaToolbox = {
+    const qaToolbox = {
         'init': function () {
             this.createElements();
             this.cacheDOM();
@@ -279,7 +275,7 @@
     // ********************************************************************************
     // **************************************** Dealership Name ****************************************
     // ********************************************************************************
-    var dealerName = {
+    const dealerName = {
         'init': function () {
             this.createElements();
             this.buildTool();
@@ -322,15 +318,14 @@
             dealerName.config.$dealerName.html(this.dealerName);
         },
         'returnTool': function () {
-            var panel = dealerName.config.$dealerNameContainer;
-            return panel;
+            return dealerName.config.$dealerNameContainer;
         },
     };
 
     // ********************************************************************************
     // **************************************** Web Id ****************************************
     // ********************************************************************************
-    var webID = {
+    const webID = {
         'init': function () {
             this.createElements();
             this.buildTool();
@@ -374,7 +369,7 @@
             webID.config.$webID.html(this.webID);
         },
         'returnTool': function () {
-            var panel = webID.config.$webIDContainer;
+            const panel = webID.config.$webIDContainer;
             return panel;
         },
     };
@@ -382,7 +377,7 @@
     // ********************************************************************************
     // **************************************** Page Name ****************************************
     // ********************************************************************************
-    var pageName = {
+    const pageName = {
         'init': function () {
             this.createElements();
             this.buildTool();
@@ -451,7 +446,7 @@
             }
         },
         'returnTool': function () {
-            var panel = pageName.config.$pageNameContainer;
+            const panel = pageName.config.$pageNameContainer;
             return panel;
         },
     };
@@ -459,7 +454,7 @@
     // ********************************************************************************
     // **************************************** H Tags ****************************************
     // ********************************************************************************
-    var hTags = {
+    const hTags = {
         'init': function () {
             this.createElements();
             this.cacheDOM();
@@ -513,9 +508,9 @@
             };
         },
         'cacheDOM': function () {
-            var key;
-            var total;
-            var tags;
+            let key;
+            let total;
+            let tags;
             for (key in hTags.config.hTagsTotal) {
                 if (hTags.config.hTagsTotal.hasOwnProperty(key)) {
                     // takes key from hTagsTotal and
@@ -541,13 +536,12 @@
                 .append(hTags.config.$removeBut);
         },
         'displayData': function () {
-            var html = '';
-            var key;
-            var $hContainer;
-            var $hCount = jQuery('<span>')
-                .attr({
-                    'class': 'count',
-                });
+            let html = '';
+            let key;
+            let $hContainer;
+            const $hCount = jQuery('<span>').attr({
+                'class': 'count',
+            });
 
             for (key in hTags.config.hTagsTotal) {
                 if (hTags.config.hTagsTotal.hasOwnProperty(key)) {
@@ -570,18 +564,16 @@
             hTags.config.$hTags.html(html);
         },
         'tagDetails': function () {
-            var key;
-            var a = 0;
-            var length;
-            var html = '';
+            let key;
+            let length;
+            let html = '';
 
             for (key in hTags.config.hTags) {
                 if (hTags.config.hTags.hasOwnProperty(key)) {
                     length = hTags.config.hTags[key].length;
                     html += '- ' + key + ' -<br>';
 
-                    a = 0;
-                    for (a; a < length; a += 1) {
+                    for (let a = 0; a < length; a += 1) {
                         html += hTags.config.hTags[key][a].innerHTML + '<br>';
                     }
                 }
@@ -593,15 +585,14 @@
             hTags.config.$removeBut.on('click', this.removeDisplay);
         },
         'returnTool': function () {
-            var panel = hTags.config.$hTagsContainer;
+            const panel = hTags.config.$hTagsContainer;
             return panel;
         },
         // ----------------------------------------
         // tier 2 functions
         // ----------------------------------------
         'highlightZero': function ($hContainer, hCount) {
-            var count = jQuery(hCount)
-                .text();
+            const count = jQuery(hCount).text();
 
             if (count === '0') {
                 $hContainer.attr({
@@ -622,7 +613,7 @@
     // ********************************************************************************
     // **************************************** Page Information Panel ****************************************
     // ********************************************************************************
-    var pageInformation = {
+    const pageInformation = {
         'init': function () {
             // initialize module
             this.createElements();
@@ -696,13 +687,12 @@
         // ----------------------------------------
         'hoverEffect': function (event) {
             // apply hover effects
-            var element = event.currentTarget;
-            jQuery(element)
-                .toggleClass('highlight');
+            const element = event.currentTarget;
+            jQuery(element).toggleClass('highlight');
         },
         'copyToClipboard': function (event) {
             // copy page info
-            var copyThisText = event.currentTarget.innerHTML;
+            const copyThisText = event.currentTarget.innerHTML;
             shared.clipboardCopy(copyThisText);
         },
     };
@@ -714,7 +704,7 @@
     // ********************************************************************************
     // **************************************** QA Tools Panel ****************************************
     // ********************************************************************************
-    var qaTools = {
+    const qaTools = {
         'init': function () {
             // initialize module
             this.createElements();
@@ -775,7 +765,7 @@
     // ********************************************************************************
     // **************************************** image checker ****************************************
     // ********************************************************************************
-    var imageChecker = {
+    const imageChecker = {
         'init': function (callingPanel) {
             this.createElements(callingPanel);
             this.buildLegend();
@@ -871,9 +861,8 @@
         // ----------------------------------------
         'highlightImages': function () {
             // add tool styles
-            var iaLength;
-            var a = 0;
-            var $this;
+            let $this;
+            let iaLength;
 
             // cache data from page
             this.cacheDOM();
@@ -881,7 +870,7 @@
             iaLength = this.imageArrayLength;
 
             // loop through allImages and check for alt text
-            for (a; a < iaLength; a += 1) {
+            for (let a = 0; a < iaLength; a += 1) {
                 $this = jQuery(this.$allImages[a]);
                 // applies div overlay with same size as image
                 this.addDivOverlay($this);
@@ -899,10 +888,9 @@
                 });
         },
         'removeHighlights': function () {
-            var iaLength = this.imageArrayLength;
-            var a = 0;
+            const iaLength = this.imageArrayLength;
             // removes special overlay class on images
-            for (a; a < iaLength; a += 1) {
+            for (let a = 0; a < iaLength; a += 1) {
                 this.toggleOverlayClass(this.$allImages[a]);
             }
             // remove highlight overlay
@@ -924,7 +912,7 @@
             this.attachToImage($currentImage);
         },
         'checkForAltText': function (currentImage) {
-            var $image = jQuery(currentImage);
+            const $image = jQuery(currentImage);
             // find first case that returns true
 
             if (typeof $image.attr('alt') === 'undefined') { // if alt is undefined
@@ -992,7 +980,7 @@
     // ********************************************************************************
     // **************************************** link checker ****************************************
     // ********************************************************************************
-    var linkChecker = {
+    const linkChecker = {
         'init': function (callingPanel) {
             this.createElements(callingPanel);
             this.getData();
@@ -1054,7 +1042,7 @@
             };
         },
         'getData': function () {
-            var datedPagesURL = linkChecker.config.datedPagesfileURL;
+            const datedPagesURL = linkChecker.config.datedPagesfileURL;
             jQuery.getJSON(datedPagesURL, function (data) {
                 linkChecker.config.unsupportedPages = data.datedPages;
             });
@@ -1137,7 +1125,7 @@
                 });
         },
         'removeHighlights': function () {
-            var key;
+            let key;
             // removes special overlay class on images
             for (key in linkChecker.config.$legendContent) {
                 if (linkChecker.config.$legendContent.hasOwnProperty(key)) {
@@ -1170,12 +1158,12 @@
                 .find('a');
         },
         'nextGenSiteCheck': function () {
-            var $sections = this.$sections;
-            var len = $sections.length;
-            var a = 0;
-            var isImageLink;
-            var $currentCard;
-            var cardClass;
+            const $sections = this.$sections;
+            const len = $sections.length;
+            //var a = 0;
+            let isImageLink;
+            let $currentCard;
+            let cardClass;
 
             // TEST LINKS FOUND IN HEADER AND FOOTER OF SITE
             // TESTS TO BODY LINKS WILL BE HANDLED DIFFERENTLY
@@ -1185,7 +1173,7 @@
             // TEST BODY LINKS
             // ASSUMPTION THAT ALL BODY LINKS WILL BE LOCATED INSIDE CARDS
             // ----------------------------------------
-            for (a; a < len; a += 1) {
+            for (let a = 0; a < len; a += 1) {
                 // reset variables
                 isImageLink = false;
                 $currentCard = jQuery($sections[a]);
@@ -1200,19 +1188,19 @@
             }
         },
         'tetraSiteCheck': function () {
-            var length = this.linksArrayLength;
-            var a = 0;
-            var $currentLink;
-            var $image;
-            var isImageLink;
-            var isQLPlink;
-            var dataCell;
-            var $closestLi;
-            var height;
-            var width;
+            const length = this.linksArrayLength;
+            //var a = 0;
+            let $currentLink;
+            let $image;
+            let isImageLink;
+            let isQLPlink;
+            let dataCell;
+            let $closestLi;
+            //let height;
+            //let width;
 
             // loop through all links on page
-            for (a; a < length; a += 1) {
+            for (let a = 0; a < length; a += 1) {
                 // reset variables
                 $image = null;
                 isImageLink = false;
@@ -1267,10 +1255,8 @@
                 if (isQLPlink) {
                     // Only apply the div overlay if the image contained inside the QLP card has a width and a height
                     // if the width and height is 0 that means that there is no image
-                    height = jQuery($image)
-                        .height();
-                    width = jQuery($image)
-                        .width();
+                    let height = jQuery($image).height();
+                    let width = jQuery($image).width();
 
                     if (height !== 0 && width !== 0) {
                         this.addDivOverlay($currentLink, $image, isQLPlink);
@@ -1289,10 +1275,9 @@
             }
         },
         'removeClass': function (array, removeClass) {
-            var arrlength = array.length;
-            var a = 0;
-            var $obj;
-            for (a; a < arrlength; a += 1) {
+            let arrlength = array.length;
+            let $obj;
+            for (let a = 0; a < arrlength; a += 1) {
                 $obj = jQuery(array[a]);
                 $obj.removeClass(removeClass);
             }
@@ -1302,13 +1287,12 @@
         // ----------------------------------------
         'testHeaderFooter': function () {
             // TEST LINKS FOUND IN HEADER AND FOOTER OF SITE
-            var jLength = this.$otherLinks.length;
-            var j = 0;
-            var $currentLink;
-            var isImageLink;
+            const jLength = this.$otherLinks.length;
+            let $currentLink;
+            let isImageLink;
 
             // loop through array of links found in header and footer of site
-            for (j; j < jLength; j += 1) {
+            for (let j = 0; j < jLength; j += 1) {
                 $currentLink = jQuery(this.$otherLinks[j]);
                 $currentLink.addClass('siteLink');
 
@@ -1321,15 +1305,15 @@
             }
         },
         'testCard': function ($currentCard, cardClass, isImageLink) {
-            var $cardLinkContainer = $currentCard.find('div.link');
-            var $cardSEOContainer = $currentCard.find('div.copy');
-            var $cardImageContainer = $currentCard.find('div.media');
-            var $cardLinks;
-            var myLength;
-            var $copyTextLinks;
-            var youLength;
-            var $currentLink;
-            var $linkOverlay;
+            const $cardLinkContainer = $currentCard.find('div.link');
+            const $cardSEOContainer = $currentCard.find('div.copy');
+            const $cardImageContainer = $currentCard.find('div.media');
+            let $cardLinks;
+            let myLength;
+            let $copyTextLinks;
+            let youLength;
+            let $currentLink;
+            let $linkOverlay;
 
             if (cardClass.indexOf('link-clickable') > -1 ||
         cardClass.indexOf('none-clickable') > -1) {
@@ -1436,12 +1420,11 @@
         // Tier 5
         // ----------------------------------------
         'testLinks': function ($linkArray, isImageLink) {
-            var q = 0;
-            var myLength = $linkArray.length;
-            var $currentLink;
+            const myLength = $linkArray.length;
+            let $currentLink;
 
             if (myLength > 1) {
-                for (q; q < myLength; q += 1) {
+                for (let q = 0; q < myLength; q += 1) {
                     $currentLink = jQuery($linkArray[q]);
                     // add tool custom class
                     $currentLink.addClass('siteLink');
@@ -1545,7 +1528,7 @@
         },
         'checkForTitleText': function ($currentLink, isImageLink) {
             // text links
-            var $obj = isImageLink ? this.$divOverlay : $currentLink;
+            const $obj = isImageLink ? this.$divOverlay : $currentLink;
 
             if (typeof $currentLink.attr('title') === 'undefined' ||
         $currentLink.attr('title') === '') { // link has no title
@@ -1555,8 +1538,8 @@
             }
         },
         'checkURL': function ($currentLink, isImageLink) {
-            var href = $currentLink.attr('href');
-            var modElement = isImageLink ? this.$divOverlay : $currentLink;
+            const href = $currentLink.attr('href');
+            const modElement = isImageLink ? this.$divOverlay : $currentLink;
 
             // regular text links
             if (typeof href === 'undefined') { // link is undefined
@@ -1596,7 +1579,7 @@
             }
         },
         'checkURLNextGen': function ($currentLink, isImageLink, $linkOverlay) {
-            var href = $currentLink.attr('href');
+            const href = $currentLink.attr('href');
 
             if (typeof href === 'undefined') { // link is undefined
                 this.apndClass($linkOverlay, 'brokenURL');
@@ -1642,12 +1625,11 @@
         },
         // check if leads to out dated page
         'datedURL': function (elem) {
-            var datedPages = linkChecker.config.unsupportedPages;
-            var datedPagesLength = datedPages.length;
-            var z = 0;
-            var datedPage;
+            const datedPages = linkChecker.config.unsupportedPages;
+            const datedPagesLength = datedPages.length;
+            let datedPage;
 
-            for (z; z < datedPagesLength; z += 1) {
+            for (let z = 0; z < datedPagesLength; z += 1) {
                 datedPage = datedPages[z];
 
                 // TODO create exception json for the specials pages on Hyundai.
@@ -1667,9 +1649,10 @@
     // ********************************************************************************
     // **************************************** Spell Check ****************************************
     // ********************************************************************************
-    var spellCheck = {
+    const spellCheck = {
         'init': function (callingPanel) {
             this.createElements();
+            this.bannedWordsMap();
             this.buildLegend();
             this.cacheDOM(callingPanel);
             this.addTool();
@@ -1711,7 +1694,9 @@
                     }),
                 '$legendContent': {
                     'spell-check misspelled': 'word misspelled',
+                    'spell-check banned': 'Banned by OEM',
                 },
+                'OEMBannedWordsFile': 'https://rawgit.com/cirept/QA_Toolbox/QuinnTest/resources/OEM_Banned_Words.json',
             };
         },
         /**
@@ -1734,9 +1719,10 @@
                 spellCheck.config.$legendList);
         },
         /**
-     * Grab all the information/element references from the DOM
-     * that the tool needs to run.
-     */
+         * Grab all the information/element references from the DOM
+         * that the tool needs to run.
+         * @param {object} callingPanel - the main panel that is calling the function
+         */
         'cacheDOM': function (callingPanel) {
             this.$toolsPanel = jQuery(callingPanel);
             // DOM elements
@@ -1772,13 +1758,12 @@
         // tier 2 functions
         // ----------------------------------------
         /**
-     * traverses the DOM and grabs all visible text
-     * @return {(object:array)} All the visible text on the page
-     */
+         * traverses the DOM and grabs all visible text
+         * @return {object} All the visible text on the page
+         */
         'treeWalk': function () {
-            var treeWalker = document.createTreeWalker(document.body,
-                NodeFilter.SHOW_TEXT, null, false);
-            var wordArray = [];
+            let treeWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+            let wordArray = [];
 
             while (treeWalker.nextNode()) {
                 if (treeWalker.currentNode.nodeType === 3) {
@@ -1787,25 +1772,37 @@
             }
             return wordArray;
         },
+        'bannedWordsMap': function () {
+            const OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;
+            spellCheck.OEMap = new Map();
+            // get banned words JSON
+            $.getJSON(OEMBannedWordsFile, function (d) {
+                $.each(d, function (key, value) {
+                    // sort so that longer words get highlighted over shorter ones
+                    spellCheck.OEMap.set(key, value.sort(function (a, b) {
+                        return b.length - a.length || a.localeCompare(b);
+                    }));
+                });
+            });
+        },
         /**
      * Gets all text on page and tests words against custom dictionary
      */
         'spellCheckPage': function () {
-            var dictionary = new Typo('en_US', false, false, {
+            const dictionary = new Typo('en_US', false, false, { // eslint-disable-line
                 'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/addingAutofillTags/typo/dictionaries/',
                 //                'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/master/typo/dictionaries/',
             });
-            var wordList = [];
-            var self = this;
-            var pElm;
-            var text;
-            var words;
-            var elm;
-            var unmarked;
+            let wordList = [];
+            const self = this;
+            let pElm;
+            let text;
+            let words;
+            let elm;
+            let unmarked;
 
             // get all visible text on page
             wordList = this.treeWalk();
-
             wordList.forEach(function (n) {
                 // get all text on the page
                 text = n.nodeValue;
@@ -1838,10 +1835,63 @@
                 if (!pElm) {
                     pElm = elm;
                 } else if (!pElm.contains(elm)) {
-                    self.replaceMarkers(pElm);
+                    self.replaceMarkers(pElm, true);
                     pElm = elm;
                 }
             });
+            spellCheck.bannedWords();
+        },
+        /**
+         * Highlight all banned words associated with this OEM
+         */
+        'bannedWords': function () {
+            const wordList = this.treeWalk();
+            let bannedWords = [];
+            let text;
+            let pElm;
+            let elm;
+            let unmarked;
+            const self = this;
+            const franchises = unsafeWindow.ContextManager.getFranchises();
+
+            // highlight banned words for every OEM related to this
+            for (let f = 0, len = franchises.length; f < len; f++) {
+                // get banned phrases from OEM franchise
+                bannedWords = self.OEMap.get(franchises[f]);
+
+                if (!bannedWords) {
+                    return;
+                }
+
+                // Check page for banned words
+                wordList.forEach(function (n) {
+                    text = n.nodeValue;
+
+                    elm = n.parentElement;
+
+                    // skip iteration if no words are found
+                    if (!text.match(/[%’'\w]+/g)) {
+                        return;
+                    }
+                    // test text against banned words
+                    for (let w = 0, length = bannedWords.length; w < length; w++) {
+                        let words = bannedWords[w];
+                        // unmarked = new RegExp('\(^|[^~~@])(' + words + '\)(?!@~~)', 'gi');
+                        // find and replace banned words
+                        unmarked = new RegExp('\(' + words + '\)(?!@~~)', 'gi');
+                        text = text.replace(unmarked, '~~@$&@~~');
+                    }
+
+                    n.nodeValue = text;
+                    // replace when the whole area has been searched
+                    if (!pElm) {
+                        pElm = elm;
+                    } else if (!pElm.contains(elm)) {
+                        self.replaceMarkers(pElm, false);
+                        pElm = elm;
+                    }
+                });
+            }
         },
         /**
      * Toggle the tools legend
@@ -1850,12 +1900,14 @@
             spellCheck.config.$legend.slideToggle(500);
         },
         /**
-     * Toggle the 'activate' button from being clicked multiple time
-     * @return {bool} return the opposite of what the current state is
-     */
+         * Toggle the 'activate' button from being clicked multiple time
+         */
         'toggleDisable': function () {
-            spellCheck.config.$activateButt.prop('disabled', function (index,
-                value) {
+            /**
+            * Sets the 'activate' button to the opposite of its current value
+            * @return {boolean} return the opposite of what the current state is
+            */
+            spellCheck.config.$activateButt.prop('disabled', function (index, value) {
                 return !value;
             });
         },
@@ -1867,21 +1919,35 @@
                 .replace(/^'*(.*?)'*$/, '$1')
                 .replace('%', '\%');
         },
-        'replaceMarkers': function (elm) {
+        'replaceMarkers': function (elm, spelling) {
             if (elm) {
-                elm.innerHTML = elm.innerHTML
-                    .replace(/~~@(.*?)@~~/g,
-                        '<span class="spell-check misspelled">$1</span>');
+                if (spelling) {
+                    elm.innerHTML = elm.innerHTML
+                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check misspelled">$1</span>');
+                } else {
+                    elm.innerHTML = elm.innerHTML
+                        .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
+                    if (elm.innerHTML.indexOf('~~@') > -1) {
+                        elm.innerHTML = elm.innerHTML
+                            .replace(/~~@(.*?)@~~/g, '<span class="spell-check banned">$1</span>');
+                    }
+                }
             }
         },
         'removeHighlights': function () {
             // remove highlight overlay
-            jQuery('span.spell-check')
-                .each(function (index, value) {
-                    jQuery(value)
-                        .replaceWith(function () {
-                            return value.childNodes[0].nodeValue;
-                        });
+            jQuery('span.spell-check').each(function (index, value) {
+                jQuery(value).replaceWith(function () {
+                    let string = '';
+                    for (let x = 0; x < value.childNodes.length; x++) {
+                        // debugger;
+                        if (value.childNodes[x].nodeValue == null) {
+                            string += value.childNodes[x].childNodes[0].nodeValue;
+                        } else {
+                            string += value.childNodes[x].nodeValue;
+                        }
+                    }
+                    return string;
                 });
         },
     };
@@ -1889,7 +1955,7 @@
     // ********************************************************************************
     // **************************************** Test WebPage ****************************************
     // ********************************************************************************
-    var speedtestPage = {
+    const speedtestPage = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -1903,27 +1969,22 @@
         // ----------------------------------------
         'createElements': function () {
             speedtestPage.config = {
-                '$activateButt': jQuery('<button>')
-                    .attr({
-                        'class': 'myEDOBut',
-                        'id': 'testPage',
-                        'title': 'Queue up a Page Test',
-                    })
-                    .text('Web Page Test'),
-                'email': GM_getValue('email', 'your.name@cdk.com'), // eslint-disable-line new-cap
-                '$emailTitle': jQuery('<div>')
-                    .text('Enter your email'),
-                '$emailInput': jQuery('<input>')
-                    .attr({
-                        'class': 'WPT email',
-                        'id': 'WPTemail',
-                        'type': 'text',
-                        'placeholder': 'your.name@cdk.com',
-                    }),
-                '$panelContainer': jQuery('<div>')
-                    .attr({
-                        'class': 'WPT input',
-                    }),
+                '$activateButt': jQuery('<button>').attr({
+                    'class': 'myEDOBut',
+                    'id': 'testPage',
+                    'title': 'Queue up a Page Test',
+                }).text('Web Page Test'),
+                'email': GM_getValue('email', 'your.name@cdk.com'), // eslint-disable-line
+                '$emailTitle': jQuery('<div>').text('Enter your email'),
+                '$emailInput': jQuery('<input>').attr({
+                    'class': 'WPT email',
+                    'id': 'WPTemail',
+                    'type': 'text',
+                    'placeholder': 'your.name@cdk.com',
+                }),
+                '$panelContainer': jQuery('<div>').attr({
+                    'class': 'WPT input',
+                }),
                 'browserOptions': {
                     '_IE11': 'IE11',
                     ':Chrome': 'Chrome',
@@ -1967,11 +2028,9 @@
             this.siteURL = this.contextManager.getUrl();
             this.pageName = this.contextManager.getPageName();
             this.$toolsPanel = jQuery(callingPanel);
-            this.nextGen = document.firstChild.data;
-            this.isNextGenPlatform = this.nextGenVar(this.nextGen);
         },
         'buildOptions': function () {
-            var $listItem;
+            let $listItem;
 
             jQuery.each(speedtestPage.config.browserOptions, function (key,
                 text) {
@@ -2022,37 +2081,26 @@
         // ----------------------------------------
         // tier 2 functions
         // ----------------------------------------
-        'nextGenVar': function (nextGen) {
-            if (nextGen) {
-                return nextGen.indexOf('Next Gen') !== -1;
-            } else {
-                return false;
-            }
-        },
         'storeData': function () {
             // save user input
-            var userEmail = jQuery('#WPTemail')
-                .val();
+            const userEmail = jQuery('#WPTemail').val();
             shared.saveValue('email', userEmail);
         },
         'sendPage': function () {
-            var browser = jQuery('#WPTbSelect option:selected')
-                .val();
-            var selectedKey = jQuery('#WPTkeySelect option:selected')
-                .val();
-            var browserName = jQuery('#WPTbSelect option:selected')
-                .text();
-            var email = shared.getValue('email');
-            var params = {
+            const browser = jQuery('#WPTbSelect option:selected').val();
+            const selectedKey = jQuery('#WPTkeySelect option:selected').val();
+            const browserName = jQuery('#WPTbSelect option:selected').text();
+            const email = shared.getValue('email');
+            const params = {
                 'k': selectedKey,
                 'runs': '3',
                 'fvonly': '1',
                 'notify': email,
                 'location': 'Dulles' + browser,
             };
-            var desktopURL;
-            var mobileURL;
-            var testURL = speedtestPage.config.testURL;
+            let desktopURL;
+            let mobileURL;
+            let testURL = speedtestPage.config.testURL;
 
             // build url
             jQuery.each(params, function (index, value) {
@@ -2060,7 +2108,7 @@
             });
 
             // alert user
-            if (this.isNextGenPlatform) {
+            if (shared.nextGenCheck()) {
                 desktopURL = testURL + 'url=' + this.siteURL +
           this.pageName + '?nextGen=true';
 
@@ -2099,7 +2147,7 @@
     // ********************************************************************************
     // **************************************** Other Tools Panel ****************************************
     // ********************************************************************************
-    var otherTools = {
+    const otherTools = {
         'init': function () {
             // initialize module
             this.createElements();
@@ -2160,7 +2208,7 @@
     // ********************************************************************************
     // **************************************** Show Navigation ****************************************
     // ********************************************************************************
-    var showNavigation = {
+    const showNavigation = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -2212,12 +2260,10 @@
             };
         },
         'cacheDOM': function (callingPanel) {
-            this.nextGen = document.firstChild.data;
-            this.isNextGenPlatform = this.nextGenVar(this.nextGen);
             this.$toolsPanel = jQuery(callingPanel);
             this.$legendContainer = jQuery('.legendContainer');
 
-            if (this.nextGenVar(this.nextGen)) {
+            if (shared.nextGenCheck()) {
                 this.$navTabs = jQuery('li[repeat*="mainNav"]');
                 this.$subNavMenuContainer = this.$navTabs.find(
                     'ul[if="cards.length"]');
@@ -2228,13 +2274,6 @@
                 this.$nav = jQuery('#pmenu');
                 this.$navTabs = this.$nav.find('ul');
                 this.$navTabsLinks = this.$navTabs.find('a');
-            }
-        },
-        'nextGenVar': function (nextGen) {
-            if (nextGen) {
-                return nextGen.indexOf('Next Gen') !== -1;
-            } else {
-                return false;
             }
         },
         'buildLegend': function () {
@@ -2275,11 +2314,11 @@
                 .on('click', this.toggleDisable);
         },
         'bindLegendElements': function () {
-            var $myMenu = jQuery('nav');
-            var findThis;
-            var flaggedMajorPages;
-            var flaggedCustomPages;
-            var flaggedCheckedLinks;
+            const $myMenu = jQuery('nav');
+            let findThis;
+            let flaggedMajorPages;
+            let flaggedCustomPages;
+            let flaggedCheckedLinks;
 
             showNavigation.config.$legendList.children()
                 .each(function (index, value) {
@@ -2314,10 +2353,9 @@
         // tier 2 functions
         // ----------------------------------------
         'toggleFeatures': function () {
-            var isNextGen = this.isNextGenPlatform;
-            var majorPages =
-        'a[href*=Form], a[href*=ContactUs], a[href=HoursAndDirections], a[href*=VehicleSearchResults]';
-            if (isNextGen) {
+            const majorPages = 'a[href*=Form], a[href*=ContactUs], a[href=HoursAndDirections], a[href*=VehicleSearchResults]';
+
+            if (shared.nextGenCheck()) {
                 this.$navTabs
                     .toggleClass('showNav customAdd');
                 this.$subNavItem
@@ -2330,7 +2368,7 @@
                     .find(majorPages)
                     .toggleClass('majorPage');
             }
-            if (!isNextGen) {
+            if (!shared.nextGenCheck()) {
                 this.$navTabs
                     .find(majorPages)
                     .toggleClass('majorPage');
@@ -2351,10 +2389,9 @@
                     });
         },
         'bindClicks': function () {
-            var i = 0;
-            var length = this.$navTabsLinks.length;
+            const length = this.$navTabsLinks.length;
 
-            for (i; i < length; i += 1) {
+            for (let i = 0; i < length; i += 1) {
                 jQuery(this.$navTabsLinks[i])
                     .one('mousedown', this.linkChecked(this.$navTabsLinks[i]));
             }
@@ -2373,7 +2410,7 @@
     // ********************************************************************************
     // **************************************** View Mobile Site ****************************************
     // ********************************************************************************
-    var viewMobile = {
+    const viewMobile = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -2412,8 +2449,8 @@
         // tier 2 functions
         // ----------------------------------------
         'viewMobile': function () {
-            var auto = '?device=mobile&nextGen=false';
-            var openThis = this.siteURL + this.pageName + auto;
+            const auto = '?device=mobile&nextGen=false';
+            const openThis = this.siteURL + this.pageName + auto;
             shared.openNewTab(openThis);
         },
     };
@@ -2421,7 +2458,7 @@
     // ********************************************************************************
     // **************************************** SEO Simplify ****************************************
     // ********************************************************************************
-    var seoSimplify = {
+    const seoSimplify = {
         'init': function (callingPanel) {
             this.createElements();
             this.buildElements();
@@ -2477,14 +2514,13 @@
                 .append(seoSimplify.config.$removeBut);
         },
         'loadData': function () {
-            var x = 0;
-            var oems = seoSimplify.config.oemFiles;
-            var vehicles = seoSimplify.config.vehicles;
-            var xLength = oems.length;
+            const oems = seoSimplify.config.oemFiles;
+            const vehicles = seoSimplify.config.vehicles;
+            const xLength = oems.length;
 
             // load link URL information from oem files
             // and save it into local array
-            for (x; x < xLength; x += 1) {
+            for (let x = 0; x < xLength; x += 1) {
                 this.loadArray(vehicles, oems[x]);
             }
         },
@@ -2514,7 +2550,7 @@
             });
         },
         'simplifySEO': function () {
-            var $input = this.getInput();
+            const $input = this.getInput();
 
             // skip cleaning if input is empty
             if ($input === null || $input === '') {
@@ -2532,12 +2568,11 @@
             seoSimplify.config.$seoDisplay.empty();
         },
         'changeToTextarea': function (event) {
-            var $this = jQuery(event.currentTarget);
-            var input = seoSimplify.config.$seoDisplay.html();
-            var $seoTextArea = jQuery('<textarea>')
-                .attr({
-                    'class': 'inputDisplay',
-                });
+            const $this = jQuery(event.currentTarget);
+            const input = seoSimplify.config.$seoDisplay.html();
+            const $seoTextArea = jQuery('<textarea>').attr({
+                'class': 'inputDisplay',
+            });
             $seoTextArea.html(input);
             jQuery($this)
                 .replaceWith($seoTextArea);
@@ -2548,8 +2583,8 @@
         // tier 3 functions
         // ----------------------------------------
         'getInput': function () {
-            var input = prompt('Enter Your SEO Text - HTML format'); // eslint-disable-line no-alert
-            var $input = jQuery('<div>');
+            const input = prompt('Enter Your SEO Text - HTML format'); // eslint-disable-line no-alert
+            const $input = jQuery('<div>');
 
             // trim input
             input = jQuery.trim(input); // eslint-disable-line no-alert
@@ -2599,14 +2634,13 @@
             return $input;
         },
         'cleanUpLinks': function ($input) {
-            var allLinks = $input.find('a');
-            var len = allLinks.length;
-            var i = 0;
-            var linkURL;
-            var $this;
-            var titleText;
+            const allLinks = $input.find('a');
+            const len = allLinks.length;
+            let linkURL;
+            let $this;
+            let titleText;
 
-            for (i; i < len; i += 1) {
+            for (let i = 0; i < len; i += 1) {
                 $this = jQuery(allLinks[i]);
                 // check if title is empty or undefined
                 if (seoSimplify.isUndefined($this, 'title') ||
@@ -2645,10 +2679,9 @@
                 .append($input.html());
         },
         'revertDiv': function (event) {
-            var $this = jQuery(event.target);
-            var $thisText = jQuery(event.target)
-                .text();
-            var $replacementArea = seoSimplify.config.$seoDisplay;
+            const $this = jQuery(event.target);
+            const $thisText = jQuery(event.target).text();
+            const $replacementArea = seoSimplify.config.$seoDisplay;
 
             $replacementArea.html($thisText);
 
@@ -2677,30 +2710,25 @@
             }
         },
         'refineURL': function (url) {
-            var ezURL = url.split('%');
-            var removeThese = ['LINKCONTEXTNAME', 'LINKPAGENAME'];
-            var i = 0;
-            var j = 0;
-            var x = 0;
-            var findThis = 'ModelDetails';
-            var actualURL;
-            var nURL;
-            var len;
+            let ezURL = url.split('%');
+            const removeThese = ['LINKCONTEXTNAME', 'LINKPAGENAME'];
+            const findThis = 'ModelDetails';
+            let actualURL;
 
             ezURL = ezURL.filter(Boolean);
-            nURL = ezURL[0].split('_');
+            let nURL = ezURL[0].split('_');
 
-            for (i; i < nURL.length; i += 1) {
-                for (j; j < removeThese.length; j += 1) {
+            for (let i = 0; i < nURL.length; i += 1) {
+                for (let j = 0; j < removeThese.length; j += 1) {
                     if (nURL[i] === removeThese[j]) {
                         nURL.splice(i, 1);
                     }
                 }
             }
 
-            len = nURL.length;
+            let len = nURL.length;
 
-            for (x; x < len; x += 1) {
+            for (let x = 0; x < len; x += 1) {
                 if (nURL[x] === findThis) {
                     actualURL = this.getURL(nURL[len - 1]);
                     return actualURL;
@@ -2711,7 +2739,7 @@
             }
         },
         'emptyTarget': function (elem) {
-            var $this = elem;
+            const $this = elem;
             // if target is undefined or empty remove target attribute
             if (seoSimplify.isUndefined($this, 'target') || seoSimplify.isEmpty(
                 $this, 'target')) {
@@ -2723,25 +2751,25 @@
         // tier 5 functions
         // ----------------------------------------
         'getURL': function (vehicle) {
-            var vehicleArray = vehicle.split(' ');
-            var make = 'no match found';
-            var model = '';
-            var oems = seoSimplify.config.oems;
-            var oemsLen = oems.length;
-            var x = 0;
-            var b = 1;
-            var detailsURL = '';
-            var vehiclesArr = seoSimplify.config.vehicles;
+            const vehicleArray = vehicle.split(' ');
+            let make = 'no match found';
+            let model = '';
+            const oems = seoSimplify.config.oems;
+            const oemsLen = oems.length;
+            //var x = 0;
+            //var b = 1;
+            let detailsURL = '';
+            const vehiclesArr = seoSimplify.config.vehicles;
 
             if (vehicleArray.length >= 3) {
-                for (b; b < vehicleArray.length; b += 1) {
+                for (let b = 0; b < vehicleArray.length; b += 1) {
                     model += vehicleArray[b];
                 }
             } else {
                 model = vehicleArray[vehicleArray.length - 1];
             }
 
-            for (x; x < oemsLen; x += 1) {
+            for (let x = 0; x < oemsLen; x += 1) {
                 if (vehicleArray[0].indexOf(oems[x]) >= 0) {
                     make = oems[x];
                     break;
@@ -2772,7 +2800,7 @@
     // ********************************************************************************
     // **************************************** add widget outlines ****************************************
     // ********************************************************************************
-    var widgetOutlines = {
+    const widgetOutlines = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -2811,29 +2839,27 @@
             this.addCustomStyles(this);
         },
         'addCustomStyles': function () {
-            var self = this;
-            jQuery(this.overlayStyles)
-                .each(function (index, value) {
-                    self.$toolboxStyles.append(value);
-                });
+            const self = this;
+            jQuery(this.overlayStyles).each(function (index, value) {
+                self.$toolboxStyles.append(value);
+            });
         },
         'addOverlay': function (array) {
-            var self = this;
-            jQuery(array)
-                .each(function (index, value) {
-                    var $currentObject = jQuery(value);
-                    var widgetID = $currentObject.attr('id');
-                    var toolClass = 'showWidgetData';
-                    var w = $currentObject.width();
-                    var h = $currentObject.height();
-                    var addThis = '#' + widgetID + '.' + toolClass +
-            ':after { height: ' + h + 'px; width: ' + w + 'px; }';
-                    // add tool class
-                    $currentObject.addClass('showWidgetData');
-                    self.bindClickCallback($currentObject, widgetID);
-                    $currentObject.attr({
-                        'title': 'Click to Copy Widget ID',
-                    });
+            const self = this;
+            jQuery(array).each(function (index, value) {
+                const $currentObject = jQuery(value);
+                const widgetID = $currentObject.attr('id');
+                const toolClass = 'showWidgetData';
+                const w = $currentObject.width();
+                const h = $currentObject.height();
+                const addThis = `#${widgetID}.${toolClass}:after { height: ${h}px; width: ${w}px;}`;
+
+                // add tool class
+                $currentObject.addClass('showWidgetData');
+                self.bindClickCallback($currentObject, widgetID);
+                $currentObject.attr({
+                    'title': 'Click to Copy Widget ID',
+                });
 
                     // add height and width data to widget element
                     $currentObject.attr({
@@ -2866,7 +2892,7 @@
     // ********************************************************************************
     // **************************************** broken link checker ****************************************
     // ********************************************************************************
-    var checkLinks = {
+    const checkLinks = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -2898,6 +2924,7 @@
                     }),
                 '$legendContent': {
                     'otherDomain': 'Absolute URL*',
+                    'opensWindow': 'Opens In A New Window',
                     'jumpLink': 'Jump Link or "#" URL',
                     'attention': 'URL Empty or Undefined',
                     'mobilePhoneLink': 'Mobile Link',
@@ -3008,11 +3035,54 @@
 
             checkLinks.config.$offButt.on('click', this.showLegend);
         },
+        // Img Overlay Functions for Card-Clickable-V2
+        'addDivOverlay': function ($currentImage) {
+            this.cacheDOMOverlayElements($currentImage);
+            this.createOverlayElements();
+            this.buildOverlayElements();
+            this.attachOverlayToImage($currentImage);
+            return this.$divOverlay;
+        },
+        'cacheDOMOverlayElements': function ($currentImage) {
+            this.imageAlt = jQuery($currentImage)[0].innerHtml;
+            // gets sizing of images
+            this.widthOfImage = jQuery($currentImage).width();
+            this.heightOfImage = jQuery($currentImage).height();
+        },
+        'createOverlayElements': function () {
+            // create div overlay
+            this.$divOverlay = jQuery('<div>').attr({
+                'class': 'imgOverlay',
+            });
+        },
+        'buildOverlayElements': function () {
+            // make the div overlay the same dimensions as the image
+            this.$divOverlay.css({
+                'width': this.widthOfImage + 'px',
+                'height': this.heightOfImage + 'px',
+            });
+        },
+        'attachOverlayToImage': function ($currentImage) {
+            // make parent image relative positioning
+            this.toggleOverlayClass($currentImage);
+            // place div overlay onto image
+            $currentImage
+                .before(this.$divOverlay);
+
+            if (shared.nextGenCheck()) {
+                this.$divOverlay =
+                    shared.centerDiv($currentImage, this.$divOverlay);
+            }
+        },
+        'toggleOverlayClass': function (currentImage) {
+            jQuery(currentImage).toggleClass('overlaid');
+        },
         // ----------------------------------------
         // tier 1 functions
         // ----------------------------------------
+
         'platformChooser': function () {
-            var isNextGen = shared.nextGenCheck();
+            const isNextGen = shared.nextGenCheck();
             if (isNextGen) {
                 this.nextgenTestLinks();
             } else {
@@ -3020,16 +3090,15 @@
             }
         },
         'tetraTestLinks': function () {
-            var j = 0;
-            var $currentLink;
-            var passedChecks = false;
-            var $pageLinks = jQuery('a');
-            var pageLinksLength = $pageLinks.length;
+            let $currentLink;
+            let passedChecks = false;
+            const $pageLinks = jQuery('a');
+            const pageLinksLength = $pageLinks.length;
 
             // set total tests to number of links on page
             checkLinks.config.totalTests = pageLinksLength;
 
-            for (j; j < pageLinksLength; j += 1) {
+            for (let j = 0; j < pageLinksLength; j += 1) {
                 $currentLink = jQuery($pageLinks[j]);
                 $currentLink.addClass('siteLink'); // add default flag class to links
 
@@ -3048,8 +3117,8 @@
         // checks current window URL and if it contains nextGen parameter
         // add the same URL parameters to the link before testing.
         'addURLParameter': function ($currentLink) {
-            var curWindow = window.location.href;
-            var linkURL = jQuery.trim($currentLink.attr('href'));
+            const curWindow = window.location.href;
+            let linkURL = jQuery.trim($currentLink.attr('href'));
             // append nextGen
             if (curWindow.indexOf('nextGen=false') > -1) {
                 // apply nextGen=false
@@ -3070,25 +3139,37 @@
             return linkURL;
         },
         /**
-     * Test link URL.
-     * Add classes to $currentLink if link url does not pass tests
-     */
+         * Test link URL.
+         * Add classes to $currentLink if link url does not pass tests
+         * @param {object} $currentLink - current link being tested
+         */
         'testURLs': function ($currentLink) {
-            var linkURL = jQuery.trim($currentLink.attr('href'));
+            const linkURL = jQuery.trim($currentLink.attr('href'));
             // set variable true or false, if image exists inside link
-            var isImageLink = $currentLink.find('img') > 0;
-            var isNextGen = shared.nextGenCheck();
-            var $linkOverlay;
-            var $image;
+            let isImageLink = $currentLink.find('img') > 0;
+            const isNextGen = shared.nextGenCheck();
+            let $linkOverlay;
+            let $image;
 
             // check if link contains an image
             $image = $currentLink.find('img');
             isImageLink = this.isImageLink($image);
-
+            // check if link goes to another page
+            if ($currentLink.attr('target') === '_blank' ||
+                $currentLink.attr('target') === '_new' ||
+                $currentLink.attr('target') === 'custom') {
+                if (isImageLink) {
+                    $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    $linkOverlay.addClass('opensWindow');
+                } else {
+                    $currentLink.addClass('opensWindow');
+                }
+            }
             if (linkURL.indexOf('tel:') >= 0) {
                 if (isImageLink) {
-                    $linkOverlay =
-            shared.addDivOverlay(isNextGen, $currentLink);
+                    if ($linkOverlay === null) {
+                        $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    }
                     $linkOverlay.addClass('mobilePhoneLink');
                 } else {
                     $currentLink.addClass('mobilePhoneLink');
@@ -3107,7 +3188,9 @@
             } else if (linkURL.indexOf('www') > -1 || linkURL.indexOf('://') >
         -1) { // test for absolute path URLs
                 if (isImageLink) {
-                    $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    if ($linkOverlay === null) {
+                        $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink);
+                    }
                     $linkOverlay.addClass('otherDomain');
                 } else {
                     $currentLink.addClass('otherDomain');
@@ -3118,17 +3201,15 @@
             }
         },
         'nextgenTestLinks': function () {
-            var $currentCard;
-            var $sections = jQuery('main')
-                .find('section');
-            var a = 0;
-            var len = $sections.length;
+            let $currentCard;
+            const $sections = jQuery('main').find('section');
+            const len = $sections.length;
 
             this.testHeaderFooter();
 
             // TEST BODY LINKS
             // ASSUMPTION THAT ALL BODY LINKS WILL BE LOCATED INSIDE CARDS
-            for (a; a < len; a += 1) {
+            for (let a = 0; a < len; a += 1) {
                 $currentCard = jQuery($sections[a]);
 
                 // detect if the section element is a container
@@ -3137,18 +3218,16 @@
             }
         },
         'checkCard': function ($currentCard) {
-            var $cardLinkContainer = $currentCard.find('div.link');
-            var $cardSEOContainer = $currentCard.find('div.copy');
-            var $cardImageContainer = $currentCard.find('div.media');
-            var cardClass = $currentCard.attr('class') ? $currentCard.attr(
-                'class') : '';
-            var isImageLink = false;
-            var $cardLinks;
-            var $copyTextLinks;
-            var meLength;
-            var youLength;
-            var $currentLink;
-            //            var $image;
+            let $cardLinkContainer = $currentCard.children('div.content').find('div.link');
+            let $cardSEOContainer = $currentCard.children('div.content').find('div.copy');
+            let $cardImageContainer = $currentCard.children('div.content').find('div.media');
+            const cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
+            let isImageLink = false;
+            let $cardLinks;
+            let $copyTextLinks;
+            let meLength;
+            let youLength;
+            let $currentLink;
 
             if (cardClass.indexOf('link-clickable') > -1 || cardClass.indexOf(
                 'none-clickable') > -1) {
@@ -3156,12 +3235,12 @@
                 // ----------------------------------------
                 // get all links defined in card
                 // should include all primary, secondary, and tenary links
+                // debugger;
                 $cardLinks = $cardLinkContainer.find('a'); // this is an array
                 meLength = $cardLinks.length;
                 if (meLength > 0) {
                     // set total tests to number of links on page
-                    checkLinks.config.totalTests = checkLinks.config.totalTests +
-            meLength;
+                    checkLinks.config.totalTests += meLength;
                     this.testLinks($cardLinks);
                 }
 
@@ -3172,8 +3251,7 @@
                 youLength = $copyTextLinks.length;
                 if (youLength > 0) {
                     // set total tests to number of links on page
-                    checkLinks.config.totalTests = checkLinks.config.totalTests +
-            youLength;
+                    checkLinks.config.totalTests += youLength;
                     this.testLinks($copyTextLinks);
                 }
             } else if (cardClass.indexOf('card-clickable-v2') > -1 || cardClass
@@ -3211,8 +3289,7 @@
                     meLength = $cardLinks.length;
                     if (meLength > 0) {
                         // set total tests to number of links on page
-                        checkLinks.config.totalTests = checkLinks.config.totalTests +
-              meLength;
+                        checkLinks.config.totalTests += meLength;
                         this.testLinks($cardLinks);
                     }
 
@@ -3222,8 +3299,7 @@
                     youLength = $copyTextLinks.length;
                     if (youLength > 0) {
                         // set total tests to number of links on page
-                        checkLinks.config.totalTests = checkLinks.config.totalTests +
-              youLength;
+                        checkLinks.config.totalTests += youLength;
                         this.testLinks($copyTextLinks);
                     }
                 }
@@ -3234,14 +3310,13 @@
      * TESTS TO BODY LINKS WILL BE HANDLED DIFFERENTLY
      */
         'testHeaderFooter': function () {
-            var jLength = this.$otherLinks.length;
-            var j = 0;
-            var $currentLink;
+            const jLength = this.$otherLinks.length;
+            let $currentLink;
 
             // set total tests to number of links on page
             checkLinks.config.totalTests = jLength;
 
-            for (j; j < jLength; j += 1) {
+            for (let j = 0; j < jLength; j += 1) {
                 $currentLink = jQuery(this.$otherLinks[j]);
                 // add default flag class to links
                 $currentLink.addClass('siteLink');
@@ -3258,15 +3333,13 @@
             }
         },
         'testLinks': function ($linkArray) {
-            var q = 0;
-            var myLength;
-            var $currentLink;
+            let $currentLink;
 
             if ($linkArray.length > 1) {
                 // set limit to for loop
-                myLength = $linkArray.length;
+                const myLength = $linkArray.length;
 
-                for (q; q < myLength; q += 1) {
+                for (let q = 0; q < myLength; q += 1) {
                     $currentLink = jQuery($linkArray[q]);
                     // add default flag class to links
                     $currentLink.addClass('siteLink');
@@ -3350,24 +3423,55 @@
             }
         },
         'ajaxTest': function ($currentLink, isImageLink, $currentCard) {
-            var hasImage = 0;
-            var wrappedContents = false;
-            var $linkOverlay;
-            var pageError404;
-            var linkURL = checkLinks.addURLParameter($currentLink);
-            var isNextGen = shared.nextGenCheck();
-
+            let hasImage = 0;
+            let wrappedContents = false;
+            let $linkOverlay;
+            let pageError404;
+            const linkURL = checkLinks.addURLParameter($currentLink);
+            const isNextGen = shared.nextGenCheck();
+            let cardClass;
+            let $currentImg;
+            let href;
+            let currentURL;
             if (isImageLink) {
                 isImageLink = isImageLink;
             } else {
                 isImageLink = false;
             }
+            // If card-clickable-v2, we want to only overlay the img, as the rest of the card could have links
+            if (isNextGen && isImageLink) {
+                cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
+                if (cardClass.indexOf('card-clickable-v2') > -1) {
+                    $currentCard.remove('.imgOverlay');
+                    $currentImg = jQuery($currentCard.find('img')[0]);
+                    $linkOverlay = this.addDivOverlay($currentImg);
+                } else {
+                    $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
+                }
+                if ($currentLink.attr('target') === '_blank' ||
+                    $currentLink.attr('target') === '_new' ||
+                    $currentLink.attr('target') === 'custom') {
+                    $linkOverlay.addClass('opensWindow');
+                }
+                href = jQuery($currentLink).attr('href');
+                // try in case theres a problem with href
+                try {
+                    currentURL = jQuery.trim(href);
+                    if (currentURL.indexOf('www') > -1 || currentURL.indexOf('://') > -1) {
+                        $linkOverlay.addClass('otherDomain');
+                    }
+                } catch (e) {
+                    if (typeof $currentLink === 'undefined' || linkURL === '') {
+                        $currentLink.addClass('attention');
+                    }
+                }
+            }
+            checkLinks.showURL($currentLink, isImageLink, $linkOverlay, linkURL);
             // NEXT GEN NEEDS LINK AND PARENT CARD TO OVERLAY IMAGE
             //            var $linkOverlay;
             //            var pageError404;
             //            var linkURL = checkLinks.addURLParameter($currentLink);
             //            var isNextGen = shared.nextGenCheck();
-
             // test each link
             jQuery.ajax({
                 'url': linkURL, // be sure to check the right attribute
@@ -3385,7 +3489,6 @@
                             $linkOverlay = shared.addDivOverlay(isNextGen,
                                 $currentLink);
                         }
-
                         // checks to see if the link has inline css
                         // if it does wrap contents in in span tag and add classes to that
                         wrappedContents = Boolean($currentLink.attr('style'));
@@ -3393,10 +3496,8 @@
                             $currentLink.wrapInner('<span></span>');
                             $linkOverlay = jQuery($currentLink.children('span'));
                         }
-
                         // If value is false all class modifications should be done to the link itself
                         pageError404 = checkLinks.checkFor404(data);
-
                         // if link is an image link
                         // ADD CLASS FLAGS TO DIV OVERLAY
                         // OTHERWISE ADD CLASS FLAGS TO LINK ELEMENT
@@ -3408,14 +3509,13 @@
                                 pageError404);
                         }
                     }
-
                     if (isNextGen) {
                         // check to see if the card has an image prior to startin the ajax testing
+                        /*
                         if (isImageLink) {
-                            $linkOverlay = shared.addDivOverlay(isNextGen,
-                                $currentLink, $currentCard);
-                        }
+                            $linkOverlay = shared.addDivOverlay(isNextGen, $currentLink, $currentCard);
 
+                        }*/
                         // If value is false all class modifications should be done to the link itself
                         pageError404 = checkLinks.checkFor404(data);
 
@@ -3462,6 +3562,27 @@
                 },
             });
         },
+        'showURL': function ($currentLink, isImageLink, $linkOverlay) {
+            const linkURL = jQuery.trim($currentLink.attr('href'));
+
+            // went with putting the URL in the title of the link vs.
+            // appending it to the link text for a cleaner look
+            $currentLink.attr('title', linkURL);
+
+            // linkURL = '<br><span class="tooltiptext link_url">URL: ' + linkURL + '</span>';
+            // if (isImageLink) {
+            //     if ($linkOverlay[0].innerHTML.indexOf(linkURL) === -1) {
+            //         if ($linkOverlay !== null) {
+            //             $linkOverlay.append(linkURL);
+            //         }
+            //     }
+            // } else {
+            //     if ($currentLink[0].innerHTML.indexOf(linkURL) === -1) {
+            //         $currentLink.append(linkURL);
+            //     }
+            // }
+        },
+
         'toggleDisable': function () {
             checkLinks.config.$activateButt.prop('disabled', function (index,
                 value) {
@@ -3472,7 +3593,7 @@
             checkLinks.config.$legend.slideToggle(500);
         },
         'separateID': function (myWebID) {
-            var split = myWebID.split('-');
+            const split = myWebID.split('-');
             return split[1];
         },
         'ajaxStart': function () {
@@ -3525,7 +3646,7 @@
     // ********************************************************************************
     // **************************************** next gen toggle ****************************************
     // ********************************************************************************
-    var nextGenToggle = {
+    const nextGenToggle = {
         'init': function (callingPanel) {
             this.createElements();
             this.buildTool();
@@ -3588,21 +3709,21 @@
         // ----------------------------------------
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = nextGenToggle.config.$FAtoggle;
+            const $toggle = nextGenToggle.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-off')
                 .addClass('fa-toggle-on');
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = nextGenToggle.config.$FAtoggle;
+            const $toggle = nextGenToggle.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-on')
                 .addClass('fa-toggle-off');
         },
         'flipTheSwitch': function () {
             // set saved variable to opposite of current value
-            var toggle = shared.getValue('isNextGen');
+            const toggle = shared.getValue('isNextGen');
             shared.saveValue('isNextGen', !toggle);
 
             // set toggle
@@ -3634,7 +3755,7 @@
     // ********************************************************************************
     // **************************************** m4 checkbox toggle ****************************************
     // ********************************************************************************
-    var m4Check = {
+    const m4Check = {
         'init': function (callingPanel) {
             this.createElements();
             this.buildTool();
@@ -3697,21 +3818,21 @@
         // ----------------------------------------
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = m4Check.config.$FAtoggle;
+            const $toggle = m4Check.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-off')
                 .addClass('fa-toggle-on');
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = m4Check.config.$FAtoggle;
+            const $toggle = m4Check.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-on')
                 .addClass('fa-toggle-off');
         },
         'flipTheSwitch': function () {
             // set saved variable to opposite of current value
-            var toggle = shared.getValue('usingM4');
+            const toggle = shared.getValue('usingM4');
             shared.saveValue('usingM4', !toggle);
 
             // set toggle
@@ -3744,7 +3865,7 @@
     // ********************************************************************************
     // **************************************** autofill toggle ****************************************
     // ********************************************************************************
-    var autofillToggle = {
+    const autofillToggle = {
         'init': function (callingPanel) {
             this.createElements();
             this.buildTool();
@@ -3807,21 +3928,21 @@
         // ----------------------------------------
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = autofillToggle.config.$FAtoggle;
+            const $toggle = autofillToggle.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-off')
                 .addClass('fa-toggle-on');
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = autofillToggle.config.$FAtoggle;
+            const $toggle = autofillToggle.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-on')
                 .addClass('fa-toggle-off');
         },
         'flipTheSwitch': function () {
             // set saved variable to opposite of current value
-            var toggle = shared.getValue('applyAutofill');
+            const toggle = shared.getValue('applyAutofill');
             shared.saveValue('applyAutofill', !toggle);
 
             // set toggle
@@ -3852,7 +3973,7 @@
     // ********************************************************************************
     // **************************************** URL MODIFIER Panel ****************************************
     // ********************************************************************************
-    var urlModifiers = {
+    const urlModifiers = {
         'init': function () {
             // initialize module
             this.createElements();
@@ -3933,7 +4054,7 @@
         },
         'setToggle': function () {
             // get value of custom variable and set toggles accordingly
-            var currentToggle = shared.getValue('autoApplyParameters');
+            const currentToggle = shared.getValue('autoApplyParameters');
 
             if (currentToggle) {
                 this.toggleOn();
@@ -3960,29 +4081,29 @@
         // ----------------------------------------
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = urlModifiers.config.$FAtoggle;
+            const $toggle = urlModifiers.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-off')
                 .addClass('fa-toggle-on');
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = urlModifiers.config.$FAtoggle;
+            const $toggle = urlModifiers.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-on')
                 .addClass('fa-toggle-off');
         },
         'applyParameters': function () {
-            var urlParameters2 = {
+            const urlParameters2 = {
                 'nextGen=': nextGenToggle.isToggleOn(),
                 'relative=': m4Check.isToggleOn(),
                 'disableAutofill=': autofillToggle.isToggleOn(),
             };
-            var findThis = '';
-            var key = '';
-            var matchesFound = [];
-            var hasKey;
-            var isOn;
+            let findThis = '';
+            let key = '';
+            let matchesFound = [];
+            let hasKey;
+            let isOn;
 
             for (key in urlParameters2) {
                 if (urlParameters2.hasOwnProperty(key)) {
@@ -4009,7 +4130,7 @@
         },
         'flipTheSwitch': function () {
             // set saved variable to opposite of current value
-            var toggle = shared.getValue('autoApplyParameters');
+            const toggle = shared.getValue('autoApplyParameters');
             shared.saveValue('autoApplyParameters', !toggle);
 
             // set toggle
@@ -4209,12 +4330,11 @@
         'reloadPage': function (matchesFound) {
             // determine if all parameters are found in the URL
             // will stop the page from reloading after initial build.
-            var q = 0;
-            var matchLength = matchesFound.length;
-            var reloadPage = false;
+            const matchLength = matchesFound.length;
+            let reloadPage = false;
 
             // loop through array to determine if page should reload
-            for (q; q < matchLength; q += 1) {
+            for (let q = 0; q < matchLength; q += 1) {
                 // if a match isn't found, break out of loop and reload the page.
                 if (matchesFound[q]) {
                     reloadPage = false;
@@ -4238,7 +4358,7 @@
     // ********************************************************************************
     // **************************************** Toggle Tools Panel ****************************************
     // ********************************************************************************
-    var toggles = {
+    const toggles = {
         'init': function () {
             // initialize module
             this.createElements();
@@ -4299,7 +4419,7 @@
     // ********************************************************************************
     // **************************************** Refresh Page toggle ****************************************
     // ********************************************************************************
-    var refreshPage = {
+    const refreshPage = {
         'init': function (callingPanel) {
             this.createElements();
             this.cacheDOM(callingPanel);
@@ -4386,7 +4506,7 @@
         },
         'flipTheSwitch': function () {
             // set saved variable to opposite of current value
-            var toggle = shared.getValue('useRefreshButton');
+            const toggle = shared.getValue('useRefreshButton');
             shared.saveValue('useRefreshButton', !toggle);
 
             // set toggle
@@ -4394,13 +4514,13 @@
         },
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = refreshPage.config.$FAtoggle;
+            const $toggle = refreshPage.config.$FAtoggle;
             $toggle.removeClass('fa-toggle-off');
             $toggle.addClass('fa-toggle-on');
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = refreshPage.config.$FAtoggle;
+            const $toggle = refreshPage.config.$FAtoggle;
             $toggle.removeClass('fa-toggle-on');
             $toggle.addClass('fa-toggle-off');
         },
@@ -4409,7 +4529,7 @@
     // ********************************************************************************
     // **************************************** hide preview toolbar toggle ****************************************
     // ********************************************************************************
-    var previewBarToggle = {
+    const previewBarToggle = {
         'init': function (callingPanel) {
             this.createElements();
             this.buildTool();
@@ -4448,8 +4568,8 @@
         },
         'setToggle': function () {
             // get value of custom variable and set toggles accordingly
-            var varName = previewBarToggle.config.varName;
-            var storedValue = shared.getValue(varName);
+            const varName = previewBarToggle.config.varName;
+            const storedValue = shared.getValue(varName);
 
             if (storedValue) {
                 this.toggleOn();
@@ -4485,14 +4605,14 @@
         // ----------------------------------------
         'toggleOn': function () {
             // set toggle on image
-            var $toggle = previewBarToggle.config.$FAtoggle;
+            const $toggle = previewBarToggle.config.$FAtoggle;
             $toggle
                 .removeClass('fa-toggle-off')
                 .addClass('fa-toggle-on');
         },
         'togglePreviewToolbar': function () {
-            var varName = previewBarToggle.config.varName;
-            var hidePreviewToolbar = shared.getValue(varName);
+            const varName = previewBarToggle.config.varName;
+            const hidePreviewToolbar = shared.getValue(varName);
 
             // if 'hidePreviewToolbar is toggled ON'
             if (hidePreviewToolbar) {
@@ -4509,13 +4629,13 @@
         },
         'toggleOff': function () {
             // set toggle off image
-            var $toggle = previewBarToggle.config.$FAtoggle;
+            const $toggle = previewBarToggle.config.$FAtoggle;
             $toggle.removeClass('fa-toggle-on');
             $toggle.addClass('fa-toggle-off');
         },
         'flipTheSwitch': function () {
-            var varName = previewBarToggle.config.varName;
-            var storedValue = shared.getValue(varName);
+            const varName = previewBarToggle.config.varName;
+            const storedValue = shared.getValue(varName);
             // set saved variable to opposite of current value
             shared.saveValue(varName, !storedValue);
             // set toggle
@@ -4526,7 +4646,7 @@
     // ********************************************************************************
     // **************************************** dynamic panel ****************************************
     // ********************************************************************************
-    var dynamicDisplay = {
+    const dynamicDisplay = {
         'init': function () {
             this.createElements();
             this.buildPanel();
@@ -4608,8 +4728,6 @@
         'cacheDOM': function () {
             // page info
             this.$toolBoxContainer = jQuery('#showToolbox');
-            this.nextGenComment = document.firstChild.data;
-            this.isNextGen = this.checkNextGen(this.nextGenComment);
             this.variableList = shared.programData();
             // additions
             this.toolbox = jQuery('.toolBox');
@@ -4624,14 +4742,7 @@
             this.$toolBoxContainer.append(dynamicDisplay.config.$hideToolbox);
         },
         'modToolbar': function () {
-            if (this.isNextGen === 'Tetra') {
-                this.toolbox.addClass('tetra');
-                this.edoButts.addClass('tetra');
-                this.lenendContainer.addClass('tetra');
-                dynamicDisplay.config.$hideToolbox.addClass('tetra');
-                dynamicDisplay.config.$showToolbox.addClass('tetra');
-                dynamicDisplay.config.$displayPanel.addClass('tetra');
-            } else if (this.isNextGen === 'Next Gen') {
+            if (shared.nextGenCheck()) {
                 this.toolbox.addClass('nextgen');
                 this.$toolBoxContainer.addClass('nextgen');
                 this.edoButts.addClass('nextgen');
@@ -4639,6 +4750,13 @@
                 dynamicDisplay.config.$hideToolbox.addClass('nextgen');
                 dynamicDisplay.config.$showToolbox.addClass('nextgen');
                 dynamicDisplay.config.$displayPanel.addClass('nextgen');
+            } else {
+                this.toolbox.addClass('tetra');
+                this.edoButts.addClass('tetra');
+                this.lenendContainer.addClass('tetra');
+                dynamicDisplay.config.$hideToolbox.addClass('tetra');
+                dynamicDisplay.config.$showToolbox.addClass('tetra');
+                dynamicDisplay.config.$displayPanel.addClass('tetra');
             }
         },
         'bindEvents': function () {
@@ -4654,9 +4772,9 @@
         },
         'displayPanel': function () {
             // loop through variable list to find the panel title
-            var variables = this.variableList;
-            var state = '';
-            var key = '';
+            const variables = this.variableList;
+            let state = '';
+            let key = '';
             for (key in variables) {
                 if (variables.hasOwnProperty(key)) {
                     if (key === 'showToolbox') {
@@ -4672,13 +4790,6 @@
         // ----------------------------------------
         // tier 2
         // ----------------------------------------
-        'checkNextGen': function (nextGenComment) {
-            if (nextGenComment) {
-                return nextGenComment.indexOf('Next Gen') === -1 ? 'Tetra' :
-                    'Next Gen';
-            }
-            return 'Tetra';
-        },
         'toggleTools': function () {
             // hide / show main tool box
             this.toggleBox();
@@ -4687,8 +4798,8 @@
         },
         'saveState': function () {
             // get current state
-            var vName = 'showToolbox';
-            var currState = shared.getValue(vName, false);
+            const vName = 'showToolbox';
+            const currState = shared.getValue(vName, false);
 
             // sets usingM4 value
             shared.saveValue(vName, !currState);
@@ -4704,7 +4815,7 @@
     // ********************************************************************************
     // **************************************** MAIN ****************************************
     // ********************************************************************************
-    var main = {
+    const main = {
         'init': function () {
             this.cacheDOM();
             this.checkEnvironment();
@@ -4721,7 +4832,6 @@
             this.jQueryUIedits();
         },
         'cacheDOM': function () {
-            this.isNextGenPlatform = shared.nextGenCheck();
             this.contextManager = unsafeWindow.ContextManager;
             this.phoneWrapper = jQuery('body .phone-wrapper');
             this.head = jQuery('head');
@@ -4733,43 +4843,36 @@
         },
         'createElements': function () {
             main.config = {
-                '$toolboxStyles': jQuery('<style></style>')
-                    .attr({
-                        'id': 'qa_toolbox',
-                        'type': 'text/css',
-                    }),
-                '$myFont': jQuery('<link>')
-                    .attr({
-                        'id': 'toolFont',
-                        'href': 'https://fonts.googleapis.com/css?family=Montserrat',
-                        'rel': 'stylesheet',
-                    }),
-                '$fontAw': jQuery('<link>')
-                    .attr({
-                        'id': 'fontAwe',
-                        'href': 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/font-awesome-4.7.0/css/font-awesome.css',
-                        'rel': 'stylesheet',
-                    }),
-                '$jQueryUIcss': jQuery('<link>')
-                    .attr({
-                        'id': 'jqueryUI',
-                        'href': 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/jquery-ui-1.12.1.custom/jquery-ui.min.css',
-                        'rel': 'stylesheet',
-                    }),
-                '$toolStyles': jQuery('<link>')
-                    .attr({
-                        'id': 'toolStyles',
-                        'href': 'https://rawgit.com/cirept/QA_Toolbox/' + GM_info
-                            .script.version + '/assets/css/toolbox.min.css', // eslint-disable-line camelcase
-                        'rel': 'stylesheets',
-                        'type': 'text/css',
-                    }),
-                '$animate': jQuery('<link>')
-                    .attr({
-                        'id': 'animate',
-                        'href': 'https://rawgit.com/cirept/animate.css/master/animate.css',
-                        'rel': 'stylesheet',
-                    }),
+                '$toolboxStyles': jQuery('<style></style>').attr({
+                    'id': 'qa_toolbox',
+                    'type': 'text/css',
+                }),
+                '$myFont': jQuery('<link>').attr({
+                    'id': 'toolFont',
+                    'href': 'https://fonts.googleapis.com/css?family=Montserrat',
+                    'rel': 'stylesheet',
+                }),
+                '$fontAw': jQuery('<link>').attr({
+                    'id': 'fontAwe',
+                    'href': 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/font-awesome-4.7.0/css/font-awesome.css',
+                    'rel': 'stylesheet',
+                }),
+                '$jQueryUIcss': jQuery('<link>').attr({
+                    'id': 'jqueryUI',
+                    'href': 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/jquery-ui-1.12.1.custom/jquery-ui.min.css',
+                    'rel': 'stylesheet',
+                }),
+                '$toolStyles': jQuery('<link>').attr({
+                    'id': 'mycss',
+                    'href': shared.getResourceUrl('toolStyles'), // eslint-disable-line camelcase
+                    'rel': 'stylesheet',
+                    'type': 'text/css',
+                }),
+                '$animate': jQuery('<link>').attr({
+                    'id': 'animate',
+                    'href': 'https://rawgit.com/cirept/animate.css/master/animate.css',
+                    'rel': 'stylesheet',
+                }),
             };
         },
         'attachResources': function () {
@@ -4778,6 +4881,7 @@
                 .append(main.config.$myFont)
                 .append(main.config.$jQueryUIcss)
                 .append(main.config.$toolStyles)
+                .append(main.config.$mycss)
                 .append(main.config.$fontAw)
                 .append(main.config.$animate);
         },
@@ -4788,7 +4892,7 @@
             pageInformation.init();
         },
         'qaToolsPanel': function () {
-            var panelID = '#mainTools';
+            const panelID = '#mainTools';
             qaTools.init();
             imageChecker.init(panelID);
             linkChecker.init(panelID);
@@ -4797,31 +4901,31 @@
             checkLinks.init(panelID);
         },
         'otherToolsPanel': function () {
-            var panelID = '#otherTools';
+            const panelID = '#otherTools';
             otherTools.init();
             showNavigation.init(panelID);
             seoSimplify.init(panelID);
 
             // add tetra specific tool to panel
-            if (!this.isNextGenPlatform) {
+            if (!shared.nextGenCheck()) {
                 widgetOutlines.init(panelID);
                 viewMobile.init(panelID);
             }
         },
         'togglesPanel': function () {
-            var panelID = '#toggleTools';
+            const panelID = '#toggleTools';
             toggles.init();
             refreshPage.init(panelID);
             previewBarToggle.init(panelID);
         },
         'urlModPanel': function () {
-            var panelID = '#urlModTools';
+            const panelID = '#urlModTools';
             urlModifiers.init();
             nextGenToggle.init(panelID);
             autofillToggle.init(panelID);
 
             // add tetra specific tool to panel
-            if (!this.isNextGenPlatform) {
+            if (!shared.nextGenCheck()) {
                 m4Check.init(panelID);
             }
         },
@@ -4873,16 +4977,12 @@
                 .wrapInner('<span></span>');
         },
         'jQueryUIedits': function () {
-            //            this.checkHideChangeLog();
             // should only show the changelog when the user first uses program
             // should also show when the user updates.
             if (!shared.getValue('hideChangeLog')) {
                 this.showChangeLog();
             }
         },
-        //        'checkHideChangeLog': function () {
-        //            var test = 'hide change log? ' + shared.getValue('hideChangeLog');
-        //        },
         'showChangeLog': function () {
             qaToolbox.config.$changeLogDisplay.dialog({
                 'width': 1000,
@@ -4906,12 +5006,8 @@
         },
     };
 
-    // ********************************************************************************
-    // **************************************** initialize toolbox ****************************************
-    // ********************************************************************************
+    /**
+     * initialize toolbox
+     */
     main.init();
-})();
-
-console.log('my local files');
-// extra line
-// extra line
+}());
