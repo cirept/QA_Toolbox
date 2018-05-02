@@ -695,10 +695,10 @@ const checkLinks = {
   showURL($currentLink, isImageLink, $linkOverlay) {
     const linkURL = jQuery.trim($currentLink.attr('href'));
 
-    // went with putting the URL in the title of the link vs.
     // appending it to the link text for a cleaner look
-    // $currentLink.attr('title', linkURL);
+    $currentLink.attr('title', linkURL);
 
+    // attach a custom div element that contains the url text
     const toolTip =
       `<br><div class="tooltiptext link_url">URL: ${linkURL}</div>`;
     if (isImageLink) {
