@@ -44,6 +44,12 @@ const checkLinks = {
           class: 'myEDOBut offButt',
           value: 'remove legend',
         }),
+        $toggleButt: jQuery('<input>')
+          .attr({
+            type: 'button',
+            class: 'myEDOBut feature',
+            value: 'toggle URLs',
+          }),
       $subText: jQuery('<div>')
         .attr({
           class: 'subText hint',
@@ -95,6 +101,7 @@ const checkLinks = {
   },
   buildLegend() {
     checkLinks.config.$legend
+      .append(checkLinks.config.$toggleButt)
       .append(checkLinks.config.$legendTitle)
       .append(checkLinks.config.$legendList)
       .append(checkLinks.config.$subText)
@@ -139,7 +146,14 @@ const checkLinks = {
         });
     });
 
-    checkLinks.config.$offButt.on('click', this.showLegend);
+    checkLinks.config.$offButt.on('click', () => {
+      this.showLegend();
+      jQuery('.tooltiptext.link_url').show();
+    });
+
+    checkLinks.config.$toggleButt.on('click', () => {
+      jQuery('.tooltiptext.link_url').toggle();
+    });
   },
   // Img Overlay Functions for Card-Clickable-V2
   addDivOverlay($currentImage) {
@@ -700,7 +714,7 @@ const checkLinks = {
 
     // attach a custom div element that contains the url text
     const toolTip =
-      `<br><div class="tooltiptext link_url">URL: ${linkURL}</div>`;
+      `<br><div class="tooltiptext link_url">${linkURL}</div>`;
     if (isImageLink) {
       if ($linkOverlay[0].innerHTML.indexOf(linkURL) === -1) {
         if ($linkOverlay !== null) {
