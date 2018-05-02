@@ -42,7 +42,7 @@
     ];
     const version = GM_info.script.version;
     const baseURL =
-      `https://cdn.rawgit.com/cirept/QA_Toolbox/${version}/assets/js/`;
+      `https://cdn.rawgit.com/cirept/QA_Toolbox/${version}/assets/js/dependencies/`;
     const fileEx = '.js';
 
     // attach each file to the document
