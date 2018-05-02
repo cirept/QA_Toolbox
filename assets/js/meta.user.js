@@ -10,6 +10,7 @@
 // @require https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js
 // @require https://cdn.rawgit.com/cirept/Typo.js/master/typo/typo.js
 // @require https://rawgit.com/cirept/QA_Toolbox/3.3.2-beta6/assets/js/toolBox.js
+// @resource toolStyles https://cdn.rawgit.com/cirept/QA_Toolbox/QuinnTest/assets/css/toolbox.css
 // @run-at document-end
 // @grant GM_openInTab
 // @grant GM_setClipboard
@@ -20,5 +21,6 @@
 // @grant GM_listValues
 // @grant GM_addStyle
 // @grant resource
+// @grant GM_getResourceURL
 // @noframes
 // ==/UserScript==

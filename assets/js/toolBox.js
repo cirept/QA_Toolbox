@@ -3567,20 +3567,20 @@
 
             // went with putting the URL in the title of the link vs.
             // appending it to the link text for a cleaner look
-            $currentLink.attr('title', linkURL);
+            //$currentLink.attr('title', linkURL);
 
-            // linkURL = '<br><span class="tooltiptext link_url">URL: ' + linkURL + '</span>';
-            // if (isImageLink) {
-            //     if ($linkOverlay[0].innerHTML.indexOf(linkURL) === -1) {
-            //         if ($linkOverlay !== null) {
-            //             $linkOverlay.append(linkURL);
-            //         }
-            //     }
-            // } else {
-            //     if ($currentLink[0].innerHTML.indexOf(linkURL) === -1) {
-            //         $currentLink.append(linkURL);
-            //     }
-            // }
+             const toolTip = '<br><div class="tooltiptext link_url">URL: ' + linkURL + '</div>';
+             if (isImageLink) {
+                 if ($linkOverlay[0].innerHTML.indexOf(linkURL) === -1) {
+                     if ($linkOverlay !== null) {
+                         $linkOverlay.append(toolTip);
+                     }
+                 }
+             } else {
+                 if ($currentLink[0].innerHTML.indexOf(linkURL) === -1) {
+                     $currentLink.append(toolTip);
+                 }
+             }
         },
 
         'toggleDisable': function () {
