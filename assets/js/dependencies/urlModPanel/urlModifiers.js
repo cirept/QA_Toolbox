@@ -47,7 +47,8 @@ const urlModifiers = {
           id: 'autoApplyIcon',
         }),
       $FAtoggle: jQuery('<i class="fa fa-toggle-off fa-lg"></i>'),
-    };
+          myTimeout: '',
+    }
   },
   buildPanel() {
     // attach panel elements to container
@@ -100,6 +101,23 @@ const urlModifiers = {
       .on('click', shared.saveState);
     urlModifiers.config.$autoApplyContainer.on('click', this.flipTheSwitch
       .bind(this));
+
+      /**
+      * Bind all child elements to trigger a timeout function
+      */
+      urlModifiers.config.$urlModPanel.on('click', '.myParameter', () => {
+        // if the time out has already been set, clear the interval
+        if (urlModifiers.config.myTimeout) {
+          window.clearTimeout(urlModifiers.config.myTimeout);
+        }
+        // set the timeout to expire after 3 seconds
+        urlModifiers.config.myTimeout = window.setTimeout(() => {
+          console.log('timme out');
+          if (shared.getValue('autoApplyParameters')) {
+            this.applyParameters();
+          }
+        }, 2500);
+      })
   },
   // ----------------------------------------
   // tier 2 functions

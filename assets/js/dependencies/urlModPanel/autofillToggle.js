@@ -15,7 +15,7 @@
         $autofillTogContainer: jQuery('<div>')
           .attr({
             id: 'autofillToggleInput',
-            class: 'toggleTool',
+            class: 'toggleTool myParameter',
             title: 'Show all autofill tags on page',
           }),
         $autofillTogTitle: jQuery('<div>')

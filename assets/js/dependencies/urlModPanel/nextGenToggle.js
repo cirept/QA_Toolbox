@@ -15,7 +15,7 @@ const nextGenToggle = {
       $nextGenTogContainer: jQuery('<div>')
         .attr({
           id: 'nextGenToggleInput',
-          class: 'toggleTool',
+          class: 'toggleTool myParameter',
           title: 'Apply NextGen=true',
         }),
       $nextGenTogTitle: jQuery('<div>')

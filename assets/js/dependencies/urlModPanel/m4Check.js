@@ -15,7 +15,7 @@ const m4Check = {
       $m4Container: jQuery('<div>')
         .attr({
           id: 'm4Input',
-          class: 'toggleTool',
+          class: 'toggleTool myParameter',
           title: 'Apply relative and comments parameters',
         }),
       $m4CheckTitle: jQuery('<div>')
