@@ -2,9 +2,6 @@ const main = {
   init() {
     this.cacheDOM();
     this.checkEnvironment();
-    this.createElements();
-    this.attachResources();
-    this.toolContainer();
     this.pageInfoPanel();
     this.qaToolsPanel();
     this.otherToolsPanel();
@@ -17,65 +14,11 @@ const main = {
   cacheDOM() {
     this.contextManager = unsafeWindow.ContextManager;
     this.phoneWrapper = jQuery('body .phone-wrapper');
-    this.head = jQuery('head');
   },
   checkEnvironment() {
     this.editMode();
     this.isCDKsite();
     this.isMobile();
-  },
-  createElements() {
-    main.config = {
-      $toolboxStyles: jQuery('<style></style>')
-        .attr({
-          id: 'qa_toolbox',
-          type: 'text/css',
-        }),
-      $myFont: jQuery('<link>')
-        .attr({
-          id: 'toolFont',
-          href: 'https://fonts.googleapis.com/css?family=Montserrat',
-          rel: 'stylesheet',
-        }),
-      $fontAw: jQuery('<link>')
-        .attr({
-          id: 'fontAwe',
-          href: 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/font-awesome-4.7.0/css/font-awesome.css',
-          rel: 'stylesheet',
-        }),
-      $jQueryUIcss: jQuery('<link>')
-        .attr({
-          id: 'jqueryUI',
-          href: 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/jquery-ui-1.12.1.custom/jquery-ui.min.css',
-          rel: 'stylesheet',
-        }),
-      $toolStyles: jQuery('<link>')
-        .attr({
-          id: 'mycss',
-          href: shared.getResourceUrl('toolStyles'), // eslint-disable-line camelcase
-          rel: 'stylesheet',
-          type: 'text/css',
-        }),
-      $animate: jQuery('<link>')
-        .attr({
-          id: 'animate',
-          href: 'https://rawgit.com/cirept/animate.css/master/animate.css',
-          rel: 'stylesheet',
-        }),
-    };
-  },
-  attachResources() {
-    this.head
-      .append(main.config.$toolboxStyles)
-      .append(main.config.$myFont)
-      .append(main.config.$jQueryUIcss)
-      .append(main.config.$toolStyles)
-      .append(main.config.$mycss)
-      .append(main.config.$fontAw)
-      .append(main.config.$animate);
-  },
-  toolContainer() {
-    qaToolbox.init();
   },
   pageInfoPanel() {
     pageInformation.init();

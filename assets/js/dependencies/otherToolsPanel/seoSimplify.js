@@ -73,13 +73,19 @@ const seoSimplify = {
       .append(seoSimplify.config.$activateButt);
   },
   bindEvents() {
-    seoSimplify.config.$activateButt.on('click', this.simplifySEO.bind(
-      this));
-    seoSimplify.config.$removeBut.on('click', this.removeDisplay.bind(
-      this));
+    seoSimplify.config.$activateButt.on(
+      'click',
+      this.simplifySEO.bind(this),
+    );
+    seoSimplify.config.$removeBut.on(
+      'click',
+      this.removeDisplay.bind(this),
+    );
     // add change to text area function
-    seoSimplify.config.$seoDisplay.on('click', this.changeToTextarea.bind(
-      this));
+    seoSimplify.config.$seoDisplay.on(
+      'click',
+      this.changeToTextarea.bind(this),
+    );
   },
   // ----------------------------------------
   // tier 2 functions
@@ -90,7 +96,7 @@ const seoSimplify = {
     });
   },
   simplifySEO() {
-    const $input = this.getInput();
+    let $input = this.getInput();
 
     // skip cleaning if input is empty
     if ($input === null || $input === '') {
@@ -124,7 +130,7 @@ const seoSimplify = {
   // tier 3 functions
   // ----------------------------------------
   getInput() {
-    const input = prompt('Enter Your SEO Text - HTML format'); // eslint-disable-line no-alert
+    let input = prompt('Enter Your SEO Text - HTML format'); // eslint-disable-line no-alert
     const $input = jQuery('<div>');
 
     // trim input
@@ -141,30 +147,22 @@ const seoSimplify = {
   },
   cleanUpTags($input) {
     // remove all empty elements
-    $input.find('*:empty')
-      .remove();
-    $input.find('*')
-      .each((index, value) => {
-        if (jQuery.trim(jQuery(value)
-            .html()) === '') {
-          jQuery(value)
-            .remove();
-        }
-      });
+    $input.find('*:empty').remove();
+    $input.find('*').each((index, value) => {
+      if (jQuery.trim(jQuery(value).html()) === '') {
+        jQuery(value).remove();
+      }
+    });
 
     // remove all style attributes
-    $input.find('style')
-      .remove();
-    $input.find('*')
-      .removeAttr('style');
+    $input.find('style').remove();
+    $input.find('*').removeAttr('style');
 
     // remove all br elements
-    $input.find('br')
-      .remove();
+    $input.find('br').remove();
 
     // remove all &nbsp; with ' '
-    $input.html($input.html()
-      .replace(/&nbsp;/gi, ' '));
+    $input.html($input.html().replace(/&nbsp;/gi, ' '));
 
     // remove all elements from text
     $input.find('div, font, span, b, strong, i, center, u, p')
@@ -273,15 +271,15 @@ const seoSimplify = {
         actualURL = this.getURL(nURL[len - 1]);
         return actualURL;
       }
-      actualURL = nURL[0];
-      return actualURL;
     }
+    actualURL = nURL[0];
+    return actualURL;
   },
   emptyTarget(elem) {
     const $this = elem;
     // if target is undefined or empty remove target attribute
-    if (seoSimplify.isUndefined($this, 'target') || seoSimplify.isEmpty(
-        $this, 'target')) {
+    if (seoSimplify.isUndefined($this, 'target') ||
+    seoSimplify.isEmpty($this, 'target')) {
       jQuery(elem)
         .removeAttr('target');
     }

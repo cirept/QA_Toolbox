@@ -55,10 +55,8 @@ const showNavigation = {
 
     if (shared.nextGenCheck()) {
       this.$navTabs = jQuery('li[repeat*="mainNav"]');
-      this.$subNavMenuContainer = this.$navTabs.find(
-        'ul[if="cards.length"]');
-      this.$subNavItem = this.$subNavMenuContainer.find(
-        'li[repeat="cards"]');
+      this.$subNavMenuContainer = this.$navTabs.find('ul[if="cards.length"]');
+      this.$subNavItem = this.$subNavMenuContainer.find('li[repeat="cards"]');
       this.$navTabsLinks = this.$subNavItem.find('a');
     } else {
       this.$nav = jQuery('#pmenu');
@@ -111,34 +109,33 @@ const showNavigation = {
     let flaggedCustomPages;
     let flaggedCheckedLinks;
 
-    showNavigation.config.$legendList.children()
-      .each((index, value) => {
-        findThis = jQuery(value)
-          .attr('class');
-        switch (findThis) {
-          case 'majorPage':
-            flaggedMajorPages = $myMenu.find(`.${findThis}`);
-            jQuery(value)
-              .on('click', () => {
-                flaggedMajorPages.toggleClass('majorPage');
-              });
-            break;
-          case 'customPage':
-            flaggedCustomPages = $myMenu.find(`.${findThis}`);
-            jQuery(value)
-              .on('click', () => {
-                flaggedCustomPages.toggleClass('customPage');
-              });
-            break;
-          case 'linkChecked':
-            flaggedCheckedLinks = $myMenu.find(`.${findThis}`);
-            jQuery(value)
-              .on('click', () => {
-                flaggedCheckedLinks.toggleClass('linkChecked');
-              });
-            break;
-        }
-      });
+    showNavigation.config.$legendList.children().each((index, value) => {
+      findThis = jQuery(value).attr('class');
+      switch (findThis) {
+        case 'majorPage':
+        // find all navigation links with majorPage class
+          flaggedMajorPages = $myMenu.find(`.${findThis}`);
+          jQuery(value).on('click', () => {
+            flaggedMajorPages.toggleClass('majorPage');
+          });
+          break;
+        case 'customPage':
+        // find all navigation links with customPage class
+          flaggedCustomPages = $myMenu.find(`.${findThis}`);
+          jQuery(value).on('click', () => {
+            flaggedCustomPages.toggleClass('customPage');
+          });
+          break;
+        case 'linkChecked':
+          flaggedCheckedLinks = $myMenu.find(`.${findThis}`);
+          jQuery(value).on('click', () => {
+            flaggedCheckedLinks.toggleClass('linkChecked');
+          });
+          break;
+        default:
+          // do nothing
+      }
+    });
   },
   // ----------------------------------------
   // tier 2 functions
