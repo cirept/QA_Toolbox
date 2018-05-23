@@ -1,6 +1,6 @@
 # Change Log
 
-## v3.3.2 - beta22 **(5/23/2018)**
+## v3.3.2 - beta24 **(5/23/2018)**
 
 ### Image checker
 
