@@ -14,9 +14,9 @@ const imageChecker = {
         .attr({
           class: 'myEDOBut',
           id: 'imageChecker',
-          title: 'Image Alt Checker',
+          title: 'Image Checker',
         })
-        .text('Image Alt Checker'),
+        .text('Image Checker'),
       $legend: jQuery('<div>')
         .attr({
           class: 'tbLegend imageChecker',
@@ -79,7 +79,7 @@ const imageChecker = {
         .done(() => {
           jQuery('html, body')
             .scrollTop(0);
-          imageChecker.highlightImages();
+          imageChecker.loopThroughImages();
           imageChecker.showLegend();
           imageChecker.toggleDisable();
         });
@@ -93,7 +93,7 @@ const imageChecker = {
   // ----------------------------------------
   // tier 2
   // ----------------------------------------
-  highlightImages() {
+  loopThroughImages() {
     // add tool styles
     let $this;
     let iaLength;
@@ -106,10 +106,14 @@ const imageChecker = {
     // loop through allImages and check for alt text
     for (let a = 0; a < iaLength; a += 1) {
       $this = jQuery(this.$allImages[a]);
+      // set parent positioning to relative
+      $this.parent().css({position: 'relative', display: 'flex', 'justify-content': 'center', 'align-items': 'center'});
       // applies div overlay with same size as image
       this.addDivOverlay($this);
       // check for alt text
       this.checkForAltText($this);
+      // get files size
+      this.getFileSize($this);
     }
   },
   showLegend() {
@@ -155,6 +159,35 @@ const imageChecker = {
       this.togClass($image, 'hasAlt');
     }
   },
+  /**
+  * Gets the images file size using ajax requests
+  * @param {object} currentImage - the html element of the current [img] element to check for file size
+  */
+  getFileSize(currentImage) {
+    let imageOverlay = jQuery(currentImage).prev(); // get previous sibling
+    let imageURL = currentImage["0"].attributes['src'].value.includes('data:image') ?
+      currentImage["0"].attributes['data-src'].value :
+      currentImage["0"].attributes['src'].value; // get current image href url
+
+    // using tampermonkey built in xmlhttprequest function to GET response headers
+    GM_xmlhttpRequest({
+        overrideMimeType: 'text/xml',
+        method: 'HEAD',
+        url: imageURL,
+        onload: (data) => {
+            // format response text to something usuable...
+            const myResponse = data.responseHeaders.replace(/[\r]/g, ';');
+            const myRegexp = /content-length:(.*);/g;
+            let match = myRegexp.exec(myResponse);
+            // convert content length to a number type
+            let byteSize = Number(match[1]);
+            // calculate file size
+            let fileSize = this.bytesToSize(byteSize);
+            // add file size to the div overlay
+            imageOverlay.html(imageOverlay.text() + '<br>image file size: ' + fileSize);
+        }
+    });
+  },
   // ----------------------------------------
   // tier 4
   // ----------------------------------------
@@ -177,8 +210,11 @@ const imageChecker = {
   buildOverlayElements() {
     // make the div overlay the same dimensions as the image
     this.$divOverlay.css({
-      width: `${this.widthOfImage}px`,
-      height: `${this.heightOfImage}px`,
+      // width: `${this.widthOfImage}px`,
+      width: '100%',
+      // height: `${this.heightOfImage}px`,
+      // height: '100%',
+      position: 'absolute',
     });
     // add image alt as text to div
     this.$divOverlay
@@ -191,10 +227,11 @@ const imageChecker = {
     $currentImage
       .before(this.$divOverlay);
 
-    if (shared.nextGenCheck()) {
-      this.$divOverlay =
-        shared.centerDiv($currentImage, this.$divOverlay);
-    }
+    // center overlay div
+    // if (shared.nextGenCheck()) {
+    //   this.$divOverlay =
+    //     shared.centerDiv($currentImage, this.$divOverlay);
+    // }
   },
   togClass($image, addClass) {
     $image.siblings('.imgOverlay')
@@ -206,5 +243,11 @@ const imageChecker = {
   toggleOverlayClass(currentImage) {
     jQuery(currentImage)
       .toggleClass('overlaid');
+  },
+  bytesToSize(bytes) {
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes == 0) return '0 Byte';
+    const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
   },
 };

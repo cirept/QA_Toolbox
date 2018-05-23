@@ -21,7 +21,7 @@ const spellCheck = {
           id: 'spellCheck',
           title: 'Check Spelling',
         })
-        .text('Spellcheck Page'),
+        .text('Spell check'),
       $offButt: jQuery('<input>')
         .attr({
           type: 'button',
