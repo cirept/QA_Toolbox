@@ -5,6 +5,7 @@
 // @author Eric Tanaka
 // @include http:*
 // @include https:*
+// @connect assets-cdk.com
 // @downloadURL https://raw.githubusercontent.com/cirept/QA_Toolbox/master/assets/js/meta.user.js
 // @resource toolStyles https://cdn.rawgit.com/cirept/QA_Toolbox/3.3.2-beta16/assets/css/toolbox.css
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
@@ -48,6 +49,7 @@
 // @grant GM_addStyle
 // @grant resource
 // @grant GM_getResourceURL
+// @grant GM_xmlhttpRequest
 // @noframes
 // ==/UserScript==
 
