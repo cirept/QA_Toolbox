@@ -6,9 +6,9 @@
 // @include http:*
 // @include https:*
 // @connect assets-cdk.com
-// @downloadURL https://raw.githubusercontent.com/cirept/QA_Toolbox/pre-release/assets/js/preRelease.user.js
+// @downloadURL https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/preRelease.user.js
 // @resource toolStyles https://cdn.rawgit.com/cirept/QA_Toolbox/pre-release/assets/css/toolbox.css
-// @resource changeLog https://raw.githubusercontent.com/cirept/QA_Toolbox/pre-release/docs/ChangeLog.md
+// @resource changeLog https://github.com/cirept/QA_Toolbox/raw/pre-release/docs/ChangeLog.md
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
 // @require https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js
 // @require https://cdn.rawgit.com/cirept/Typo.js/master/typo/typo.js
