@@ -9,12 +9,12 @@
 
 ### 404 Link Checker
 
-* Added ability to display the link URLs **(Special Thank to Quinn)**
+* Added ability to display the link URLs **<span style="color: pink;">(Special Thanks to Quinn)</span>**
   * There is a new button on the LEGEND menu that pops up when using the tool. =]
 
 ### Spell Check
 
-* Banned words functionality added **(Special Thank to Quinn)**
+* Banned words functionality added **<span style="color: pink;">(Special Thanks to Quinn)</span>**
   * possible banned words will be highlighted in **YELLOW**
 
 ### URL Modifiers
