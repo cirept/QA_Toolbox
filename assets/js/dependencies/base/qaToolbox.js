@@ -77,9 +77,8 @@ const qaToolbox = {
 
     // load change log details
       let converter = new showdown.Converter();
-      // let jqxhr = jQuery.get(shared.getResourceUrl('changeLog'), (data) => {
-      let jqxhr = jQuery.get('https://raw.githubusercontent.com/cirept/QA_Toolbox/pre-release/docs/ChangeLog.md', (data) => {
-        qaToolbox.config.$changeLogDisplay.html(converter.makeHtml(data));
+      let jqxhr = jQuery.get(shared.getResourceUrl('changeLog'), (data) => {
+        qaToolbox.config.$changeLogDisplay.html(converter.makeHtml(data) + '<br><br><a href="http://showdownjs.com/" target="_blank">MD converted with Showdown.js</a>');
       }, 'text');
 
     // make legend container draggable
