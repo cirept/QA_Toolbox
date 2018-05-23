@@ -72,14 +72,17 @@ const qaToolbox = {
     this.head = jQuery('head');
   },
   buildElements() {
-    qaToolbox.config.$changeLogUpdateContainer
-      .append(qaToolbox.config.$changeLogDisplay);
 
     // load change log details
       let converter = new showdown.Converter();
       let jqxhr = jQuery.get(shared.getResourceUrl('changeLog'), (data) => {
-        qaToolbox.config.$changeLogDisplay.html(converter.makeHtml(data) + '<br><br><a href="http://showdownjs.com/" target="_blank">MD converted with Showdown.js</a>');
+        const changeLog = converter.makeHtml(data);
+        console.log(changeLog);
+        qaToolbox.config.$changeLogDisplay.html(changeLog + '<br><br><a href="http://showdownjs.com/" target="_blank">MD converted with Showdown.js</a>');
       }, 'text');
+
+      qaToolbox.config.$changeLogUpdateContainer
+        .append(qaToolbox.config.$changeLogDisplay);
 
     // make legend container draggable
     qaToolbox.config.$legendContainer.draggable();
