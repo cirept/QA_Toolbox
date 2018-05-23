@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name QA Toolbox - PreRelease
 // @namespace www.cobaltgroup.com/
-// @version 3.3.2-beta22
+// @version 3.3.2-beta23
 // @author Eric Tanaka
 // @include http:*
 // @include https:*
@@ -11,6 +11,7 @@
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
 // @require https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js
 // @require https://cdn.rawgit.com/cirept/Typo.js/master/typo/typo.js
+// @require https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js
 // @require https://cdn.rawgit.com/cirept/QA_Toolbox/pre-release/assets/js/dependencies/pageInformationPanel/pageInformation.js
 // @require https://cdn.rawgit.com/cirept/QA_Toolbox/pre-release/assets/js/dependencies/pageInformationPanel/dealerName.js
 // @require https://cdn.rawgit.com/cirept/QA_Toolbox/pre-release/assets/js/dependencies/pageInformationPanel/webId.js
