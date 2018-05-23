@@ -76,8 +76,10 @@ const qaToolbox = {
       .append(qaToolbox.config.$changeLogDisplay);
 
     // load change log details
-    qaToolbox.config.$changeLogDisplay
-      .load('https://cirept.github.io/QA_Toolbox/ChangeLog section');
+      let converter = new showdown.Converter();
+      let jqxhr = jQuery.get(shared.getResourceUrl('changeLog'), (data) => {
+        qaToolbox.config.$changeLogDisplay.html(converter.makeHtml(data));
+      }, 'text');
 
     // make legend container draggable
     qaToolbox.config.$legendContainer.draggable();

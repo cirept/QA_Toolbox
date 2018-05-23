@@ -1,5 +1,33 @@
 # Change Log
 
+## v3.3.2 - beta22 **(5/23/2018)**
+
+### Image checker
+
+* Image File Size added
+  * The image files size will now show up on the color overlay
+
+### 404 Link Checker
+
+* Added ability to display the link URLs **(Special Thank to Quinn)**
+  * There is a new button on the LEGEND menu that pops up when using the tool. =]
+
+### Spell Check
+
+* Banned words functionality added **(Special Thank to Quinn)**
+  * possible banned words will be highlighted in **YELLOW**
+
+### URL Modifiers
+
+* Auto refresh logic added.
+  * IF the [auto apply modifiers?] toggle is switched **ON**, after selecting a URL modifier, the tool will auto refresh the page after 2.5 seconds.
+
+<br><br>
+
+---
+
+<br><br>
+
 ## v3.3.2 - **(1/31/2018)**
 
 ### Modified spell check tool

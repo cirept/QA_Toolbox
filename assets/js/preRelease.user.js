@@ -10,7 +10,7 @@
 // @resource toolStyles https://cdn.rawgit.com/cirept/QA_Toolbox/pre-release/assets/css/toolbox.css
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
 // @require https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js
-// @require https://cdn.rawgit.com/cirept/Typo.js/pre-release/typo/typo.js
+// @require https://cdn.rawgit.com/cirept/Typo.js/master/typo/typo.js
 // @require https://cdn.rawgit.com/cirept/QA_Toolbox/pre-release/assets/js/dependencies/pageInformationPanel/pageInformation.js
 // @require https://cdn.rawgit.com/cirept/QA_Toolbox/pre-release/assets/js/dependencies/pageInformationPanel/dealerName.js
 // @require https://cdn.rawgit.com/cirept/QA_Toolbox/pre-release/assets/js/dependencies/pageInformationPanel/webId.js
