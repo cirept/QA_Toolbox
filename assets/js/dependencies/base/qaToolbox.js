@@ -77,7 +77,6 @@ const qaToolbox = {
       let converter = new showdown.Converter();
       let jqxhr = jQuery.get(shared.getResourceUrl('changeLog'), (data) => {
         const changeLog = converter.makeHtml(data);
-        console.log(changeLog);
         qaToolbox.config.$changeLogDisplay.html(changeLog + '<br><br><a href="http://showdownjs.com/" target="_blank">MD converted with Showdown.js</a>');
       }, 'text');
 
