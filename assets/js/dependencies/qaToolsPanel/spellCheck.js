@@ -78,7 +78,7 @@ const spellCheck = {
     // DOM elements
     this.$legendContainer = jQuery('.legendContainer');
     // define OEMap
-    this.OEMap =[];
+    this.OEMap = new Map();
   },
   /**
    * Add the tool to the QA toolbox
@@ -127,12 +127,11 @@ const spellCheck = {
   },
   bannedWordsMap() {
     const OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;
-    spellCheck.OEMap = new Map();
     // get banned words JSON
     $.getJSON(OEMBannedWordsFile, (d) => {
       $.each(d, (key, value) => {
         // sort so that longer words get highlighted over shorter ones
-        spellCheck.OEMap.set(key, value.sort((a, b) => b.length -
+        this.OEMap.set(key, value.sort((a, b) => b.length -
           a.length || a.localeCompare(b)));
       });
     });
