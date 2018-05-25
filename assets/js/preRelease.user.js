@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name QA Toolbox - PreRelease
 // @namespace www.cobaltgroup.com/
-// @version 3.3.2-beta25
+// @version 3.3.2-beta26
 // @author Eric Tanaka
 // @include http:*
 // @include https:*
@@ -22,6 +22,7 @@
 // @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/qaToolsPanel/imageChecker.js
 // @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/qaToolsPanel/linkChecker.js
 // @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/qaToolsPanel/spellCheck.js
+// @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/qaToolsPanel/bannedWords.js
 // @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/qaToolsPanel/speedTestPage.js
 // @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/qaToolsPanel/checkLinks.js
 // @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/otherToolsPanel/otherTools.js
