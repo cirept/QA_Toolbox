@@ -45,7 +45,7 @@ const spellCheck = {
         'spell-check misspelled': 'word misspelled',
         'spell-check banned': 'Banned by OEM',
       },
-      OEMBannedWordsFile: 'https://rawgit.com/cirept/QA_Toolbox/QuinnTest/resources/OEM_Banned_Words.json',
+      OEMBannedWordsFile: 'https://rawgit.com/cirept/QA_Toolbox/QuinnTest/resources/OEM_Banned_Words.json'
     };
   },
   /**
@@ -77,6 +77,8 @@ const spellCheck = {
     this.$toolsPanel = jQuery(callingPanel);
     // DOM elements
     this.$legendContainer = jQuery('.legendContainer');
+    // define OEMap
+    this.OEMap =[];
   },
   /**
    * Add the tool to the QA toolbox
@@ -140,8 +142,8 @@ const spellCheck = {
    */
   spellCheckPage() {
     const dictionary = new Typo('en_US', false, false, { // eslint-disable-line
-      dictionaryPath: 'https://raw.githubusercontent.com/cirept/Typo.js/addingAutofillTags/typo/dictionaries/',
-      //                'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/master/typo/dictionaries/',
+      // dictionaryPath: 'https://raw.githubusercontent.com/cirept/Typo.js/addingAutofillTags/typo/dictionaries/',
+      'dictionaryPath': 'https://raw.githubusercontent.com/cirept/Typo.js/master/typo/dictionaries/',
     });
     let wordList = [];
     const self = this;
