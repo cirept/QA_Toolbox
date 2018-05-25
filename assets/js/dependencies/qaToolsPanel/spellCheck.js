@@ -1,7 +1,7 @@
 const spellCheck = {
   init(callingPanel) {
     this.createElements();
-    this.bannedWordsMap();
+    // this.bannedWordsMap();
     this.buildLegend();
     this.cacheDOM(callingPanel);
     this.addTool();
@@ -43,9 +43,9 @@ const spellCheck = {
         }),
       $legendContent: {
         'spell-check misspelled': 'word misspelled',
-        'spell-check banned': 'Banned by OEM',
+        // 'spell-check banned': 'Banned by OEM',
       },
-      OEMBannedWordsFile: 'https://rawgit.com/cirept/QA_Toolbox/QuinnTest/resources/OEM_Banned_Words.json'
+      // OEMBannedWordsFile: 'https://rawgit.com/cirept/QA_Toolbox/QuinnTest/resources/OEM_Banned_Words.json'
     };
   },
   /**
@@ -125,17 +125,17 @@ const spellCheck = {
     }
     return wordArray;
   },
-  bannedWordsMap() {
-    const OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;
-    // get banned words JSON
-    $.getJSON(OEMBannedWordsFile, (d) => {
-      $.each(d, (key, value) => {
-        // sort so that longer words get highlighted over shorter ones
-        this.OEMap.set(key, value.sort((a, b) => b.length -
-          a.length || a.localeCompare(b)));
-      });
-    });
-  },
+  // bannedWordsMap() {
+  //   const OEMBannedWordsFile = spellCheck.config.OEMBannedWordsFile;
+  //   // get banned words JSON
+  //   $.getJSON(OEMBannedWordsFile, (d) => {
+  //     $.each(d, (key, value) => {
+  //       // sort so that longer words get highlighted over shorter ones
+  //       this.OEMap.set(key, value.sort((a, b) => b.length -
+  //         a.length || a.localeCompare(b)));
+  //     });
+  //   });
+  // },
   /**
    * Gets all text on page and tests words against custom dictionary
    */
@@ -190,60 +190,60 @@ const spellCheck = {
         pElm = elm;
       }
     });
-    spellCheck.bannedWords();
+    // spellCheck.bannedWords();
   },
   /**
    * Highlight all banned words associated with this OEM
    */
-  bannedWords() {
-    const wordList = this.treeWalk();
-    let bannedWords = [];
-    let text;
-    let pElm;
-    let elm;
-    let unmarked;
-    const self = this;
-    const franchises = unsafeWindow.ContextManager.getFranchises();
-
-    // highlight banned words for every OEM related to this
-    for (let f = 0, len = franchises.length; f < len; f++) {
-      // get banned phrases from OEM franchise
-      bannedWords = self.OEMap.get(franchises[f]);
-
-      if (!bannedWords) {
-        return;
-      }
-
-      // Check page for banned words
-      wordList.forEach((n) => {
-        text = n.nodeValue;
-
-        elm = n.parentElement;
-
-        // skip iteration if no words are found
-        if (!text.match(/[%’'\w]+/g)) {
-          return;
-        }
-        // test text against banned words
-        for (let w = 0, length = bannedWords.length; w < length; w++) {
-          const words = bannedWords[w];
-          // unmarked = new RegExp('\(^|[^~~@])(' + words + '\)(?!@~~)', 'gi');
-          // find and replace banned words
-          unmarked = new RegExp(`\(${words}\)(?!@~~)`, 'gi');
-          text = text.replace(unmarked, '~~@$&@~~');
-        }
-
-        n.nodeValue = text;
-        // replace when the whole area has been searched
-        if (!pElm) {
-          pElm = elm;
-        } else if (!pElm.contains(elm)) {
-          self.replaceMarkers(pElm, false);
-          pElm = elm;
-        }
-      });
-    }
-  },
+  // bannedWords() {
+  //   const wordList = this.treeWalk();
+  //   let bannedWords = [];
+  //   let text;
+  //   let pElm;
+  //   let elm;
+  //   let unmarked;
+  //   const self = this;
+  //   const franchises = unsafeWindow.ContextManager.getFranchises();
+  //
+  //   // highlight banned words for every OEM related to this
+  //   for (let f = 0, len = franchises.length; f < len; f++) {
+  //     // get banned phrases from OEM franchise
+  //     bannedWords = self.OEMap.get(franchises[f]);
+  //
+  //     if (!bannedWords) {
+  //       return;
+  //     }
+  //
+  //     // Check page for banned words
+  //     wordList.forEach((n) => {
+  //       text = n.nodeValue;
+  //
+  //       elm = n.parentElement;
+  //
+  //       // skip iteration if no words are found
+  //       if (!text.match(/[%’'\w]+/g)) {
+  //         return;
+  //       }
+  //       // test text against banned words
+  //       for (let w = 0, length = bannedWords.length; w < length; w++) {
+  //         const words = bannedWords[w];
+  //         // unmarked = new RegExp('\(^|[^~~@])(' + words + '\)(?!@~~)', 'gi');
+  //         // find and replace banned words
+  //         unmarked = new RegExp(`\(${words}\)(?!@~~)`, 'gi');
+  //         text = text.replace(unmarked, '~~@$&@~~');
+  //       }
+  //
+  //       n.nodeValue = text;
+  //       // replace when the whole area has been searched
+  //       if (!pElm) {
+  //         pElm = elm;
+  //       } else if (!pElm.contains(elm)) {
+  //         self.replaceMarkers(pElm, false);
+  //         pElm = elm;
+  //       }
+  //     });
+  //   }
+  // },
   /**
    * Toggle the tools legend
    */

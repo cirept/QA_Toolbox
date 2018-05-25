@@ -151,11 +151,50 @@ const showNavigation = {
         .toggleClass('showNav customAdd');
       this.$subNavMenuContainer
         .toggleClass('showNav nextgenShowNav');
-      this.$navTabs.find('a[href*=LandingPage]')
-        .toggleClass('customPage');
+      // this.$navTabs.find('a[href*=LandingPage]')
+      //   .toggleClass('customPage');
       this.$navTabs
         .find(majorPages)
         .toggleClass('majorPage');
+
+        // loop through all sub navigation tabs
+        for (let y=0; y<this.$navTabs.length; y+=1){
+          let $linksInNav = jQuery(this.$navTabs[y]).find('a');
+
+          // loop through each link in the sub nav
+            for(let z = 0; z < $linksInNav.length; z += 1){
+
+              // run a xml http request to get the ContextManager on for each page.
+              GM_xmlhttpRequest({
+                method: 'GET',
+                url: $linksInNav[z].href,
+                onload: (data) => {
+                  // set the returned data in an HTML element to perform search
+                  let myDiv = document.createElement('div');
+                  myDiv.innerHTML = data.responseText;
+                  // convert html collection (children) to array type to perform Array.filtering
+                  let childrenArray = Array.from(myDiv.children);
+                  // filter the array to only SCRIPT elements that start with ContextManager
+                  let filteredArray = childrenArray.filter((data) => {
+                    return data.nodeName === 'SCRIPT' && data.innerHTML.indexOf('ContextManager.init') > -1;
+                  });
+                  // these two lines of code is to remove any text that may appear before the context manager code   =]
+                  let start = filteredArray[0].innerHTML.indexOf('ContextManager.init({');
+                  filteredArray[0].innerHTML = filteredArray[0].innerHTML.substring(start);
+                  // find the start and end points of the ContextManager text
+                  start = filteredArray[0].innerHTML.indexOf('{');
+                  let end = filteredArray[0].innerHTML.indexOf('});');
+                  // grab the OBJECT text to convert into an object
+                  let myContextManager = filteredArray[0].innerHTML.substring(start, end + 1);
+                  let myCM = JSON.parse(myContextManager);
+                  // find the pagename property and test if it is a LandingPage
+                  if (myCM.pageName.indexOf('LandingPage') > -1) {
+                    $linksInNav[z].classList.add('customPage');
+                  }
+                }
+              });
+            }
+        }
     }
     if (!shared.nextGenCheck()) {
       this.$navTabs

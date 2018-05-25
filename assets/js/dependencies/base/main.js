@@ -29,6 +29,7 @@ const main = {
     imageChecker.init(panelID);
     linkChecker.init(panelID);
     spellCheck.init(panelID);
+    bannedWords.init(panelID);
     speedtestPage.init(panelID);
     checkLinks.init(panelID);
   },
