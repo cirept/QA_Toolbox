@@ -55,3 +55,6 @@ nextGen_tester_meta.js
 /undefined
 /testplan/404LinkCheckerTesting.xlsx
 /gifs/showNavDEMO.gif
+/node_modules
+/assets/js/rewrite.js
+/assets/js/localFileAccess.user.js

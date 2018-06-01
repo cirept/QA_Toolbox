@@ -215,19 +215,24 @@
 
 ## **Spellcheck Page**<br>
 
-![Spell Checker DEMO](gifs/spellcheckDEMO.gif)
+- This tool will highlight all misspelled words along with all words/phrases that are banned by the OEM.<br>
 
-- This tool will send the current page to be spell checked via third party website, W3.org.<br>
+### **Turning the tool on:**<br>
+- Click the 'web page test' button inside the 'qa tools' panel.<br>
+
+### **Turning the tool off:**<br>
+-- When you are done using the tool, simply click the "turn off" on the legend and the tool will turn itself off.<br>
 
 ### **Features**<br>
 
-- A new tab will open with the page already queued up for spell checking.<br>
-- Once the spell checking is complete the page will autofill with all the ***possible*** miss-spelled words.<br>
+- All misspelled words will be highlighted in red.<br>
+- All banned words will be highlighted in yellow. The banned word lists were compiled by reading requirements from OEM's at the [\\\\Las-mgmt1.lasisi01a.las.san.dsghost.net\associate\sea\CS\\++AssetRepository]. You can find the compiled list of Banned Words for each OEM that is used by the tool here: [Banned Word List](../resources/OEM_Banned_Words.json) <br>
+- There are some contexts were a word that is highlighted as banned may be acceptable. You can read about them here: [Banned Context](BannedContext.md) <br>
 
 | Spell Check Results Example |
 | --- |
 | ![Spell Checker](images/spellCheck.png) |
-| ***Please verify that all the words on the page is in fact spelt wrong*** |
+| ***Please verify that all the words on the page is in fact spelt wrong, and that the context of the banned word warrants it being banned (For example, meet or beat is often banned for pricing, but not for general use)*** |
 
 
 <br>
@@ -300,6 +305,7 @@
 - This tool will check every link on the site and highlight the link according to what the results of the test is.<br>
 - All the links on the page will be tested for validity and then will be highlighted accordingly.<br>
 - For the most part only links that are internal links will be eligible to be flagged as 'Link is Real' due to security restrictions.<br>
+- This tool also appends "URL: " followed by the url of the link after the link's title<br>
 ***This tool works for both TETRA and NEXTGEN***<br>
 
 ### Turning the tool on:<br>
@@ -314,9 +320,11 @@
 
 | 404 Link Checker Legend |
 | --- |
-| ![404 Link Checker Legend](images/link404checkerLegend.png) |
+| ![404 Link Checker Legend](images/404LinkLegend.png) |
 | ***'Absolute URL*'*** |
 | All links that have a complete URL (e.g. http://nitra.wip.gmpsdealer.com/content15/VehicleSearchResults?search=new) as the link will be flagged.<br> All links that lead outside the site (e.g. https://confluence.cdk.com/display/DEV/CX+Innovation) will be flagged.<br> |
+| ***'Opens in new window*'*** |
+| All links that open in a new window will be flagged. This style will mix with link is real, 404 link and absolute url to show as much information as possible.
 | ***'f_link'*** |
 | All links that force the page to be framed in.<br>**This is more common on TETRA then in NEXTGEN** |
 | ***'Empty URL'*** |
@@ -325,7 +333,8 @@
 | All links that lead to an actual page will be flagged. |
 | ***'404 Link'*** |
 | All links that result in a 404 error (link leads to a page that doesn't exist) with be flagged and should be addressed. |
-
+| ***'Href'*** |
+| For every link, "URL: " followed by the url(href) of the link will be appended to the title of the link following, "URL: ". |
 
 <br>
 <br>
