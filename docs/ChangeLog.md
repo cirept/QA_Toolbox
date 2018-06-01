@@ -1,5 +1,21 @@
 # Change Log
 
+## v3.3.2 - beta26 **(5/25/2018)**
+
+### Show navigation
+
+* Fixed the issue where the LandingPage highlights were not getting added correctly.
+
+### Banned Words
+
+* Made banned words into its own tool labeled "banned words"
+
+<br><br>
+
+---
+
+<br><br>
+
 ## v3.3.2 - beta24 **(5/23/2018)**
 
 ### Image checker

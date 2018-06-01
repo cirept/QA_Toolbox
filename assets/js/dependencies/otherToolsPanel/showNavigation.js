@@ -95,6 +95,7 @@ const showNavigation = {
 
     showNavigation.config.$activateButt
       .on('click', this.toggleFeatures.bind(this))
+      .on('click', this.discoverLandingPages.bind(this))
       .on('click', this.toggleDisable)
       .on('click', this.bindClicks.bind(this))
       .on('click', this.bindLegendElements); // test function
@@ -140,6 +141,102 @@ const showNavigation = {
   // ----------------------------------------
   // tier 2 functions
   // ----------------------------------------
+  discoverLandingPages() {
+    const majorPages =
+      'a[href*=Form], a[href*=ContactUs], a[href=HoursAndDirections], a[href*=VehicleSearchResults]';
+
+    if (shared.nextGenCheck()) {
+    // console.log('discover');
+    //   .toggleClass('customPage');
+    this.$navTabs
+      .find(majorPages)
+      .toggleClass('majorPage');
+
+      // set active request count to total number of links found
+      let activeRequests = 0;
+      // let totalRequest = 0;
+
+      // loop through all sub navigation tabs
+      for (let y=0; y<this.$navTabs.length; y+=1){
+        let $linksInNav = jQuery(this.$navTabs[y]).find('a');
+
+            // console.log($linksInNav.length);
+        // activeRequests += $linksInNav.length;
+        // console.log(activeRequests);
+
+        // loop through each link in the sub nav
+          for(let z = 0; z < $linksInNav.length; z += 1){
+
+            // console.log($linksInNav[z]);
+            activeRequests += 1;
+            // totalRequest = activeRequests;
+            // activeRequests += $linksInNav.length;
+
+
+            // run a xml http request to get the ContextManager on for each page.
+            GM_xmlhttpRequest({
+              method: 'GET',
+              url: $linksInNav[z].href,
+              timeout: 5000,
+              onload: (data) => {
+                // reduce the link counter value
+                activeRequests -= 1;
+                // check if Link Counter element exists, if exists update counter number, if doesn't exist create it.
+                document.getElementById('linkCounter') ? document.getElementById('linkCounter').innerHTML = `${activeRequests} links left to check` : showNavigation.config.$legend.prepend(`<div id='linkCounter' style='display: block'>${activeRequests} links left to check</div>`);
+                // document.getElementById('linkCounter').innerHTML === '0' ? document.getElementById('linkCounter').innerHTML = 'Complete' : console.log(typeof document.getElementById('linkCounter').innerHTML);//console.log('checking links');
+                // console.log('activeRequests', activeRequests);
+                if (activeRequests === 0){
+                  // change the text to an 'thumbs up' image
+                  document.getElementById('linkCounter').innerHTML = 'Complete <i class="fas fa-thumbs-up"></i>';
+                  // fade out the element
+                  jQuery('#linkCounter').fadeToggle(3500, () => {
+                    // console.log('fade toggle call back');
+                    // remove counter element after the animation has ended
+                    // setTimeout(() => {
+                      jQuery('#linkCounter').remove();
+                    // }, 3500);
+                  });
+                }
+                // console.log('activeRequests', activeRequests);
+                // console.log('link', $linksInNav[z]);
+                // console.log('onload', data);
+                // set the returned data in an HTML element to perform search
+                let myDiv = document.createElement('div');
+                myDiv.innerHTML = data.responseText;
+                // convert html collection (children) to array type to perform Array.filtering
+                let childrenArray = Array.from(myDiv.children);
+                // filter the array to only SCRIPT elements that start with ContextManager
+                let filteredArray = childrenArray.filter((data) => {
+                  return data.nodeName === 'SCRIPT' && data.innerHTML.indexOf('ContextManager.init') > -1;
+                });
+                // these two lines of code is to remove any text that may appear before the context manager code   =]
+                let start = filteredArray[0].innerHTML.indexOf('ContextManager.init({');
+                filteredArray[0].innerHTML = filteredArray[0].innerHTML.substring(start);
+                // find the start and end points of the ContextManager text
+                start = filteredArray[0].innerHTML.indexOf('{');
+                let end = filteredArray[0].innerHTML.indexOf('});');
+                // grab the OBJECT text to convert into an object
+                let myContextManager = filteredArray[0].innerHTML.substring(start, end + 1);
+                let myCM = JSON.parse(myContextManager);
+                // find the pagename property and test if it is a LandingPage
+                if (myCM.pageName.indexOf('LandingPage') > -1) {
+                  $linksInNav[z].classList.add('customPage');
+                }
+              },
+              onerror: (data) => {
+                activeRequests -= 1;
+                // console.log('activeRequests', activeRequests);
+                console.log('error occured');
+              }
+              // onprogress: (data) => {
+              //   // activeRequests -= 1;
+              //   console.log('onprogress', data.finalUrl);
+              // },
+            });
+          }
+      }
+    }
+  },
   toggleFeatures() {
     const majorPages =
       'a[href*=Form], a[href*=ContactUs], a[href=HoursAndDirections], a[href*=VehicleSearchResults]';
@@ -152,49 +249,94 @@ const showNavigation = {
       this.$subNavMenuContainer
         .toggleClass('showNav nextgenShowNav');
       // this.$navTabs.find('a[href*=LandingPage]')
-      //   .toggleClass('customPage');
-      this.$navTabs
-        .find(majorPages)
-        .toggleClass('majorPage');
-
-        // loop through all sub navigation tabs
-        for (let y=0; y<this.$navTabs.length; y+=1){
-          let $linksInNav = jQuery(this.$navTabs[y]).find('a');
-
-          // loop through each link in the sub nav
-            for(let z = 0; z < $linksInNav.length; z += 1){
-
-              // run a xml http request to get the ContextManager on for each page.
-              GM_xmlhttpRequest({
-                method: 'GET',
-                url: $linksInNav[z].href,
-                onload: (data) => {
-                  // set the returned data in an HTML element to perform search
-                  let myDiv = document.createElement('div');
-                  myDiv.innerHTML = data.responseText;
-                  // convert html collection (children) to array type to perform Array.filtering
-                  let childrenArray = Array.from(myDiv.children);
-                  // filter the array to only SCRIPT elements that start with ContextManager
-                  let filteredArray = childrenArray.filter((data) => {
-                    return data.nodeName === 'SCRIPT' && data.innerHTML.indexOf('ContextManager.init') > -1;
-                  });
-                  // these two lines of code is to remove any text that may appear before the context manager code   =]
-                  let start = filteredArray[0].innerHTML.indexOf('ContextManager.init({');
-                  filteredArray[0].innerHTML = filteredArray[0].innerHTML.substring(start);
-                  // find the start and end points of the ContextManager text
-                  start = filteredArray[0].innerHTML.indexOf('{');
-                  let end = filteredArray[0].innerHTML.indexOf('});');
-                  // grab the OBJECT text to convert into an object
-                  let myContextManager = filteredArray[0].innerHTML.substring(start, end + 1);
-                  let myCM = JSON.parse(myContextManager);
-                  // find the pagename property and test if it is a LandingPage
-                  if (myCM.pageName.indexOf('LandingPage') > -1) {
-                    $linksInNav[z].classList.add('customPage');
-                  }
-                }
-              });
-            }
-        }
+      // //   .toggleClass('customPage');
+      // this.$navTabs
+      //   .find(majorPages)
+      //   .toggleClass('majorPage');
+      //
+      //   // set active request count to total number of links found
+      //   let activeRequests = 0;
+      //   // let totalRequest = 0;
+      //
+      //   // loop through all sub navigation tabs
+      //   for (let y=0; y<this.$navTabs.length; y+=1){
+      //     let $linksInNav = jQuery(this.$navTabs[y]).find('a');
+      //
+      //         // console.log($linksInNav.length);
+      //     // activeRequests += $linksInNav.length;
+      //     // console.log(activeRequests);
+      //
+      //     // loop through each link in the sub nav
+      //       for(let z = 0; z < $linksInNav.length; z += 1){
+      //
+      //         // console.log($linksInNav[z]);
+      //         activeRequests += 1;
+      //         // totalRequest = activeRequests;
+      //         // activeRequests += $linksInNav.length;
+      //
+      //
+      //         // run a xml http request to get the ContextManager on for each page.
+      //         GM_xmlhttpRequest({
+      //           method: 'GET',
+      //           url: $linksInNav[z].href,
+      //           timeout: 5000,
+      //           onload: (data) => {
+      //             // reduce the link counter value
+      //             activeRequests -= 1;
+      //             // check if Link Counter element exists, if exists update counter number, if doesn't exist create it.
+      //             document.getElementById('linkCounter') ? document.getElementById('linkCounter').innerHTML = `${activeRequests} links left to check` : showNavigation.config.$legend.prepend(`<div id='linkCounter' style='display: block'>${activeRequests} links left to check</div>`);
+      //             // document.getElementById('linkCounter').innerHTML === '0' ? document.getElementById('linkCounter').innerHTML = 'Complete' : console.log(typeof document.getElementById('linkCounter').innerHTML);//console.log('checking links');
+      //             console.log('activeRequests', activeRequests);
+      //             if (activeRequests === 0){
+      //               // change the text to an 'thumbs up' image
+      //               document.getElementById('linkCounter').innerHTML = 'Complete <i class="fas fa-thumbs-up"></i>';
+      //               // fade out the element
+      //               jQuery('#linkCounter').fadeToggle(3500, () => {
+      //                 console.log('fade toggle call back');
+      //                 // remove counter element after the animation has ended
+      //                 // setTimeout(() => {
+      //                   jQuery('#linkCounter').remove();
+      //                 // }, 3500);
+      //               });
+      //             }
+      //             // console.log('activeRequests', activeRequests);
+      //             // console.log('link', $linksInNav[z]);
+      //             // console.log('onload', data);
+      //             // set the returned data in an HTML element to perform search
+      //             let myDiv = document.createElement('div');
+      //             myDiv.innerHTML = data.responseText;
+      //             // convert html collection (children) to array type to perform Array.filtering
+      //             let childrenArray = Array.from(myDiv.children);
+      //             // filter the array to only SCRIPT elements that start with ContextManager
+      //             let filteredArray = childrenArray.filter((data) => {
+      //               return data.nodeName === 'SCRIPT' && data.innerHTML.indexOf('ContextManager.init') > -1;
+      //             });
+      //             // these two lines of code is to remove any text that may appear before the context manager code   =]
+      //             let start = filteredArray[0].innerHTML.indexOf('ContextManager.init({');
+      //             filteredArray[0].innerHTML = filteredArray[0].innerHTML.substring(start);
+      //             // find the start and end points of the ContextManager text
+      //             start = filteredArray[0].innerHTML.indexOf('{');
+      //             let end = filteredArray[0].innerHTML.indexOf('});');
+      //             // grab the OBJECT text to convert into an object
+      //             let myContextManager = filteredArray[0].innerHTML.substring(start, end + 1);
+      //             let myCM = JSON.parse(myContextManager);
+      //             // find the pagename property and test if it is a LandingPage
+      //             if (myCM.pageName.indexOf('LandingPage') > -1) {
+      //               $linksInNav[z].classList.add('customPage');
+      //             }
+      //           },
+      //           onerror: (data) => {
+      //             activeRequests -= 1;
+      //             // console.log('activeRequests', activeRequests);
+      //             console.log('error occured');
+      //           }
+      //           // onprogress: (data) => {
+      //           //   // activeRequests -= 1;
+      //           //   console.log('onprogress', data.finalUrl);
+      //           // },
+      //         });
+      //       }
+      //   }
     }
     if (!shared.nextGenCheck()) {
       this.$navTabs

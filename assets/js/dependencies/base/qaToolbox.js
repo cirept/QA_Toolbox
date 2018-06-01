@@ -42,8 +42,11 @@ const qaToolbox = {
       $fontAw: jQuery('<link>')
         .attr({
           id: 'fontAwe',
-          href: 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/font-awesome-4.7.0/css/font-awesome.css',
+          // href: 'https://cdn.rawgit.com/cirept/QA_Toolbox/master/resources/font-awesome-4.7.0/css/font-awesome.css',
+          href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css',
           rel: 'stylesheet',
+          integrity: 'sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp',
+          crossorigin: 'anonymous'
         }),
       $jQueryUIcss: jQuery('<link>')
         .attr({
