@@ -1,4 +1,7 @@
 const showNavigation = {
+  /**
+   * initializes the tool, calling the various sub-functions
+   */
   init(callingPanel) {
     this.createElements();
     this.cacheDOM(callingPanel);
@@ -6,9 +9,9 @@ const showNavigation = {
     this.addTool();
     this.bindEvents();
   },
-  // ----------------------------------------
-  // tier 1 functions
-  // ----------------------------------------
+  /**
+   * Creates the tools elements
+   */
   createElements() {
     showNavigation.config = {
       $activateButt: jQuery('<button>')
@@ -41,6 +44,7 @@ const showNavigation = {
         majorPage: 'Major Page',
         customPage: 'Landing Page',
         linkChecked: 'Link Clicked',
+        error: 'Tool Error with Link'
       },
       $hint: jQuery('<div>')
         .attr({
@@ -49,6 +53,9 @@ const showNavigation = {
         .html('ctrl+left click to open link in a new tab.'),
     };
   },
+  /**
+   * Cache DOM elements that the tool will use
+   */
   cacheDOM(callingPanel) {
     this.$toolsPanel = jQuery(callingPanel);
     this.$legendContainer = jQuery('.legendContainer');
@@ -64,6 +71,9 @@ const showNavigation = {
       this.$navTabsLinks = this.$navTabs.find('a');
     }
   },
+  /**
+   * Builds the tools legend
+   */
   buildLegend() {
     showNavigation.config.$legend
       // attach legend title
@@ -80,126 +90,147 @@ const showNavigation = {
       showNavigation.config.$legendList,
     );
   },
+  /**
+   * Add the tool to the Toolbox and add the legend to the legend panel
+   */
   addTool() {
     this.$toolsPanel
       .append(showNavigation.config.$activateButt);
     this.$legendContainer
       .append(showNavigation.config.$legend);
   },
+  /**
+   * Attach the events to the main tool buttons
+   */
   bindEvents() {
-    //            showNavigation.config.$activateButt.on('click', this.toggleFeatures.bind(this));
-    //            showNavigation.config.$activateButt.on('click', this.toggleDisable);
-    //            showNavigation.config.$activateButt.on('click', this.bindClicks.bind(this));
-    //            showNavigation.config.$offButt.on('click', this.toggleFeatures.bind(this));
-    //            showNavigation.config.$offButt.on('click', this.toggleDisable);
-
     showNavigation.config.$activateButt
-      .on('click', this.toggleFeatures.bind(this))
+      .on('click', this.discoverMajorPages.bind(this))
       .on('click', this.discoverLandingPages.bind(this))
       .on('click', this.toggleDisable)
+      .on('click', this.toggleLegend)
+      .on('click', this.toggleNavigation.bind(this))
       .on('click', this.bindClicks.bind(this))
-      .on('click', this.bindLegendElements); // test function
+      .on('click', this.bindLegendElements);
     showNavigation.config.$offButt
-      .on('click', this.toggleFeatures.bind(this))
+      .on('click', this.removeClasses.bind(this))
+      .on('click', this.toggleLegend)
+      .on('click', this.toggleNavigation.bind(this))
       .on('click', this.toggleDisable);
   },
+  /**
+   * Allows the legend elements to be clickable, allowing the user to
+   * hide/show the highlights for the corresponding legend element that
+   * was clicked
+   */
   bindLegendElements() {
     const $myMenu = jQuery('nav');
-    let findThis;
-    let flaggedMajorPages;
-    let flaggedCustomPages;
-    let flaggedCheckedLinks;
 
+    // loop through legend items
     showNavigation.config.$legendList.children().each((index, value) => {
-      findThis = jQuery(value).attr('class');
-      switch (findThis) {
-        case 'majorPage':
-        // find all navigation links with majorPage class
-          flaggedMajorPages = $myMenu.find(`.${findThis}`);
-          jQuery(value).on('click', () => {
-            flaggedMajorPages.toggleClass('majorPage');
-          });
-          break;
-        case 'customPage':
-        // find all navigation links with customPage class
-          flaggedCustomPages = $myMenu.find(`.${findThis}`);
-          jQuery(value).on('click', () => {
-            flaggedCustomPages.toggleClass('customPage');
-          });
-          break;
-        case 'linkChecked':
-          flaggedCheckedLinks = $myMenu.find(`.${findThis}`);
-          jQuery(value).on('click', () => {
-            flaggedCheckedLinks.toggleClass('linkChecked');
-          });
-          break;
-        default:
-          // do nothing
-      }
+
+      let findThis = jQuery(value).attr('class');
+      let flaggedLinks;
+
+      // bind legend element with onClick functionality
+      jQuery(value).on('click', () => {
+        // do something special for the 'linkChecked' legend item
+        if (findThis === 'linkChecked') {
+          flaggedLinks = $myMenu.find(`.${findThis}`);
+        } else {
+          // IF FLAGGEDLINKS is empty, set a value, otherwise set it euqal to itself.
+          flaggedLinks = flaggedLinks ? flaggedLinks : $myMenu.find(
+            `.${findThis}`);
+        }
+        // toggle all the classses off
+        flaggedLinks.toggleClass(findThis);
+      });
     });
   },
-  // ----------------------------------------
-  // tier 2 functions
-  // ----------------------------------------
+  /**
+   * Removes all custom classes for this particular tool
+   */
+  removeClasses() {
+    // get Keys from legend content
+    // these are the classes that were added to the DOM elements
+    const myClasses = Object.keys(showNavigation.config.$legendContent);
+
+    // loop through the class array
+    for (let y = 0; y < myClasses.length; y += 1) {
+      // removed classes from elements that contain those classes
+      this.$navTabs.find(`a[class*=${myClasses[y]}]`).removeClass(myClasses[y]);
+    }
+  },
+  /**
+   * Hide or show the legend
+   */
+  toggleLegend() {
+    // show/hide navigation
+    showNavigation.config.$legend.slideToggle(500);
+  },
+  /**
+   * Will flag all navigation links that lead to a Landing Page
+   * Checks links in two waves,
+   * Wave 1 : checks URL for 'LandingPage' responseText
+   * Wave 2 : if no LandingPage is found, start an xhr request and get the page info
+   */
   discoverLandingPages() {
-    const majorPages =
-      'a[href*=Form], a[href*=ContactUs], a[href=HoursAndDirections], a[href*=VehicleSearchResults]';
+    // Add customPage class to links that have LandingPage in the URL
+    this.$navTabs
+      .find('a[href*=LandingPage]')
+      .addClass('customPage');
 
     if (shared.nextGenCheck()) {
-    // console.log('discover');
-    //   .toggleClass('customPage');
-    this.$navTabs
-      .find(majorPages)
-      .toggleClass('majorPage');
-
       // set active request count to total number of links found
       let activeRequests = 0;
-      // let totalRequest = 0;
 
       // loop through all sub navigation tabs
-      for (let y=0; y<this.$navTabs.length; y+=1){
+      for (let y = 0; y < this.$navTabs.length; y += 1) {
         let $linksInNav = jQuery(this.$navTabs[y]).find('a');
 
-            // console.log($linksInNav.length);
-        // activeRequests += $linksInNav.length;
-        // console.log(activeRequests);
-
         // loop through each link in the sub nav
-          for(let z = 0; z < $linksInNav.length; z += 1){
+        for (let z = 0; z < $linksInNav.length; z += 1) {
 
-            // console.log($linksInNav[z]);
-            activeRequests += 1;
-            // totalRequest = activeRequests;
-            // activeRequests += $linksInNav.length;
+          // increment counter for every link found
+          activeRequests += 1;
 
+          // if link URL already contains LandingPage, skip xhr check
+          if ($linksInNav[z].href.includes('LandingPage')) {
+            // reduce the link counter value
+            activeRequests -= 1;
+            // skip loop iteration
+            break;
+          }
 
-            // run a xml http request to get the ContextManager on for each page.
-            GM_xmlhttpRequest({
-              method: 'GET',
-              url: $linksInNav[z].href,
-              timeout: 5000,
-              onload: (data) => {
-                // reduce the link counter value
-                activeRequests -= 1;
+          // run a xml http request to get the ContextManager on for each page.
+          GM_xmlhttpRequest({
+            method: 'GET',
+            url: $linksInNav[z].href,
+            timeout: 5000,
+            onload: (data) => {
+              // reduce the link counter value
+              activeRequests -= 1;
+
+              try {
                 // check if Link Counter element exists, if exists update counter number, if doesn't exist create it.
-                document.getElementById('linkCounter') ? document.getElementById('linkCounter').innerHTML = `${activeRequests} links left to check` : showNavigation.config.$legend.prepend(`<div id='linkCounter' style='display: block'>${activeRequests} links left to check</div>`);
-                // document.getElementById('linkCounter').innerHTML === '0' ? document.getElementById('linkCounter').innerHTML = 'Complete' : console.log(typeof document.getElementById('linkCounter').innerHTML);//console.log('checking links');
-                // console.log('activeRequests', activeRequests);
-                if (activeRequests === 0){
+                document.getElementById('linkCounter') ? document.getElementById(
+                    'linkCounter').innerHTML =
+                  `${activeRequests} links left to check` :
+                  showNavigation.config.$legend
+                  .prepend(
+                    `<div id='linkCounter' style='display: block'>${activeRequests} links left to check</div>`
+                  );
+
+                if (activeRequests === 0) {
                   // change the text to an 'thumbs up' image
-                  document.getElementById('linkCounter').innerHTML = 'Complete <i class="fas fa-thumbs-up"></i>';
+                  document.getElementById('linkCounter').innerHTML =
+                    'Complete <i class="fas fa-thumbs-up"></i>';
                   // fade out the element
                   jQuery('#linkCounter').fadeToggle(3500, () => {
-                    // console.log('fade toggle call back');
                     // remove counter element after the animation has ended
-                    // setTimeout(() => {
-                      jQuery('#linkCounter').remove();
-                    // }, 3500);
+                    jQuery('#linkCounter').remove();
                   });
                 }
-                // console.log('activeRequests', activeRequests);
-                // console.log('link', $linksInNav[z]);
-                // console.log('onload', data);
+
                 // set the returned data in an HTML element to perform search
                 let myDiv = document.createElement('div');
                 myDiv.innerHTML = data.responseText;
@@ -207,150 +238,76 @@ const showNavigation = {
                 let childrenArray = Array.from(myDiv.children);
                 // filter the array to only SCRIPT elements that start with ContextManager
                 let filteredArray = childrenArray.filter((data) => {
-                  return data.nodeName === 'SCRIPT' && data.innerHTML.indexOf('ContextManager.init') > -1;
+                  return data.nodeName === 'SCRIPT' && data.innerHTML
+                    .indexOf('ContextManager.init') > -1;
                 });
                 // these two lines of code is to remove any text that may appear before the context manager code   =]
-                let start = filteredArray[0].innerHTML.indexOf('ContextManager.init({');
-                filteredArray[0].innerHTML = filteredArray[0].innerHTML.substring(start);
+                let start = filteredArray[0].innerHTML.indexOf(
+                  'ContextManager.init({');
+                filteredArray[0].innerHTML = filteredArray[0].innerHTML
+                  .substring(
+                    start);
                 // find the start and end points of the ContextManager text
                 start = filteredArray[0].innerHTML.indexOf('{');
                 let end = filteredArray[0].innerHTML.indexOf('});');
                 // grab the OBJECT text to convert into an object
-                let myContextManager = filteredArray[0].innerHTML.substring(start, end + 1);
+                let myContextManager = filteredArray[0].innerHTML.substring(
+                  start, end + 1);
                 let myCM = JSON.parse(myContextManager);
                 // find the pagename property and test if it is a LandingPage
                 if (myCM.pageName.indexOf('LandingPage') > -1) {
                   $linksInNav[z].classList.add('customPage');
                 }
-              },
-              onerror: (data) => {
-                activeRequests -= 1;
-                // console.log('activeRequests', activeRequests);
-                console.log('error occured');
+              } catch (error) {
+                console.log('error occured while checking links', error);
+                $linksInNav[z].classList.add('error');
               }
-              // onprogress: (data) => {
-              //   // activeRequests -= 1;
-              //   console.log('onprogress', data.finalUrl);
-              // },
-            });
-          }
+            },
+            onerror: (data) => {
+              activeRequests -= 1;
+              // console.log('activeRequests', activeRequests);
+              console.log('error occured');
+            }
+          });
+        }
       }
     }
   },
-  toggleFeatures() {
+  /**
+   * add custom classes to the navigation menu in order to show the sub nav
+   */
+  toggleNavigation() {
+    // if NG site do this
+    if (shared.nextGenCheck()) {
+      this.$navTabs.toggleClass('showNav customAdd');
+      this.$subNavItem.toggleClass('showNav customAdd');
+      this.$subNavMenuContainer.toggleClass('showNav nextgenShowNav');
+    } else {
+      this.$navTabs.toggleClass('showNav');
+    }
+  },
+  /**
+   * Flags all navigation items that lead to a MajorPage
+   * See 'majorPage' array for "Major Pages"
+   */
+  discoverMajorPages() {
     const majorPages =
       'a[href*=Form], a[href*=ContactUs], a[href=HoursAndDirections], a[href*=VehicleSearchResults]';
 
+    // flag navigation links with custom class
     if (shared.nextGenCheck()) {
-      this.$navTabs
-        .toggleClass('showNav customAdd');
-      this.$subNavItem
-        .toggleClass('showNav customAdd');
-      this.$subNavMenuContainer
-        .toggleClass('showNav nextgenShowNav');
-      // this.$navTabs.find('a[href*=LandingPage]')
-      // //   .toggleClass('customPage');
-      // this.$navTabs
-      //   .find(majorPages)
-      //   .toggleClass('majorPage');
-      //
-      //   // set active request count to total number of links found
-      //   let activeRequests = 0;
-      //   // let totalRequest = 0;
-      //
-      //   // loop through all sub navigation tabs
-      //   for (let y=0; y<this.$navTabs.length; y+=1){
-      //     let $linksInNav = jQuery(this.$navTabs[y]).find('a');
-      //
-      //         // console.log($linksInNav.length);
-      //     // activeRequests += $linksInNav.length;
-      //     // console.log(activeRequests);
-      //
-      //     // loop through each link in the sub nav
-      //       for(let z = 0; z < $linksInNav.length; z += 1){
-      //
-      //         // console.log($linksInNav[z]);
-      //         activeRequests += 1;
-      //         // totalRequest = activeRequests;
-      //         // activeRequests += $linksInNav.length;
-      //
-      //
-      //         // run a xml http request to get the ContextManager on for each page.
-      //         GM_xmlhttpRequest({
-      //           method: 'GET',
-      //           url: $linksInNav[z].href,
-      //           timeout: 5000,
-      //           onload: (data) => {
-      //             // reduce the link counter value
-      //             activeRequests -= 1;
-      //             // check if Link Counter element exists, if exists update counter number, if doesn't exist create it.
-      //             document.getElementById('linkCounter') ? document.getElementById('linkCounter').innerHTML = `${activeRequests} links left to check` : showNavigation.config.$legend.prepend(`<div id='linkCounter' style='display: block'>${activeRequests} links left to check</div>`);
-      //             // document.getElementById('linkCounter').innerHTML === '0' ? document.getElementById('linkCounter').innerHTML = 'Complete' : console.log(typeof document.getElementById('linkCounter').innerHTML);//console.log('checking links');
-      //             console.log('activeRequests', activeRequests);
-      //             if (activeRequests === 0){
-      //               // change the text to an 'thumbs up' image
-      //               document.getElementById('linkCounter').innerHTML = 'Complete <i class="fas fa-thumbs-up"></i>';
-      //               // fade out the element
-      //               jQuery('#linkCounter').fadeToggle(3500, () => {
-      //                 console.log('fade toggle call back');
-      //                 // remove counter element after the animation has ended
-      //                 // setTimeout(() => {
-      //                   jQuery('#linkCounter').remove();
-      //                 // }, 3500);
-      //               });
-      //             }
-      //             // console.log('activeRequests', activeRequests);
-      //             // console.log('link', $linksInNav[z]);
-      //             // console.log('onload', data);
-      //             // set the returned data in an HTML element to perform search
-      //             let myDiv = document.createElement('div');
-      //             myDiv.innerHTML = data.responseText;
-      //             // convert html collection (children) to array type to perform Array.filtering
-      //             let childrenArray = Array.from(myDiv.children);
-      //             // filter the array to only SCRIPT elements that start with ContextManager
-      //             let filteredArray = childrenArray.filter((data) => {
-      //               return data.nodeName === 'SCRIPT' && data.innerHTML.indexOf('ContextManager.init') > -1;
-      //             });
-      //             // these two lines of code is to remove any text that may appear before the context manager code   =]
-      //             let start = filteredArray[0].innerHTML.indexOf('ContextManager.init({');
-      //             filteredArray[0].innerHTML = filteredArray[0].innerHTML.substring(start);
-      //             // find the start and end points of the ContextManager text
-      //             start = filteredArray[0].innerHTML.indexOf('{');
-      //             let end = filteredArray[0].innerHTML.indexOf('});');
-      //             // grab the OBJECT text to convert into an object
-      //             let myContextManager = filteredArray[0].innerHTML.substring(start, end + 1);
-      //             let myCM = JSON.parse(myContextManager);
-      //             // find the pagename property and test if it is a LandingPage
-      //             if (myCM.pageName.indexOf('LandingPage') > -1) {
-      //               $linksInNav[z].classList.add('customPage');
-      //             }
-      //           },
-      //           onerror: (data) => {
-      //             activeRequests -= 1;
-      //             // console.log('activeRequests', activeRequests);
-      //             console.log('error occured');
-      //           }
-      //           // onprogress: (data) => {
-      //           //   // activeRequests -= 1;
-      //           //   console.log('onprogress', data.finalUrl);
-      //           // },
-      //         });
-      //       }
-      //   }
-    }
-    if (!shared.nextGenCheck()) {
+      // if NG site do this
+      this.$navTabs.find(majorPages).toggleClass('majorPage');
+    } else {
+      // if NOT NG site, do this
       this.$navTabs
         .find(majorPages)
         .toggleClass('majorPage');
-      this.$navTabs
-        .find('a[href*=LandingPage]')
-        .toggleClass('customPage');
-      this.$navTabs.toggleClass('showNav');
     }
-    showNavigation.config.$legend.slideToggle(500);
-    this.$navTabs.find('.linkChecked')
-      .removeClass('linkChecked');
   },
+  /**
+   * Toggles 'disable' the Toolbar button
+   */
   toggleDisable() {
     showNavigation.config.$activateButt
       .prop(
@@ -358,6 +315,9 @@ const showNavigation = {
         (index, value) => !value,
       );
   },
+  /**
+   * Attach an onClick event that will add the 'linkChecked' class to the nav item
+   */
   bindClicks() {
     const length = this.$navTabsLinks.length;
 
@@ -366,9 +326,9 @@ const showNavigation = {
         .one('mousedown', this.linkChecked(this.$navTabsLinks[i]));
     }
   },
-  // ----------------------------------------
-  // tier 3 functions
-  // ----------------------------------------
+  /**
+   * Callback function that will add the custom 'linkchecked' class to element
+   */
   linkChecked(currentLink) {
     return function () {
       jQuery(currentLink)
