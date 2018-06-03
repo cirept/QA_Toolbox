@@ -1,13 +1,30 @@
 # Change Log
 
+## v3.3.2 - beta27 **(6/01/2018)**
+
+### Tool Updates
+
+#### Show Navigation
+
+* Functionality Added
+  * Added ability to turn highlights off by clicking on the legend panel
+
+<br><br>
+
+---
+
+<br><br>
+
 ## v3.3.2 - beta26 **(5/25/2018)**
 
-### Show navigation
+### Tool Updates
 
-* Fixed the issue where the LandingPage highlights were not getting added correctly.
+#### Show Navigation
 
-### Banned Words
+* Bug Fix
+  * Fixed the issue where the LandingPage highlights were not getting added correctly.
 
+#### Banned Words
 * Made banned words into its own tool labeled "banned words"
 
 <br><br>
@@ -18,22 +35,24 @@
 
 ## v3.3.2 - beta24 **(5/23/2018)**
 
-### Image checker
+### Tool Updates
+
+#### Image checker
 
 * Image File Size added
   * The image files size will now show up on the color overlay
 
-### 404 Link Checker
+#### 404 Link Checker
 
 * Added ability to display the link URLs **<span style="color: pink;">(Special Thanks to Quinn)</span>**
   * There is a new button on the LEGEND menu that pops up when using the tool. =]
 
-### Spell Check
+#### Spell Check
 
 * Banned words functionality added **<span style="color: pink;">(Special Thanks to Quinn)</span>**
   * possible banned words will be highlighted in **YELLOW**
 
-### URL Modifiers
+#### URL Modifiers
 
 * Auto refresh logic added.
   * IF the [auto apply modifiers?] toggle is switched **ON**, after selecting a URL modifier, the tool will auto refresh the page after 2.5 seconds.
@@ -46,7 +65,9 @@
 
 ## v3.3.2 - **(1/31/2018)**
 
-### Modified spell check tool
+### Tool Updates
+
+#### Spell Check
 
 * The Spellcheck tool now also checks for banned words
   * Banned word lists for each oem were compiled
@@ -58,7 +79,7 @@
   * A link that opens in a new window will now display with a yellow bar covering the left 25% of the link. If the link is also a success or failure, the other 75% of the link will be that color
   * A bug was fixed that caused each link to be tested the number of times it was nested on the page. The # of links tested will now be accurate, and this eliminated some false positives. It should slightly speed up the checker as well.
 
-### URL Modifiers
+#### URL Modifiers
 
 * After selecting your URL Modifications (NextGen, Show Autofill ,etc)
   * **If the [auto apply modifiers] toggle** is switched **[on]** then after **2.5 seconds** the page will auto refresh and apply the url parameters.
