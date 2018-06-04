@@ -67,7 +67,7 @@
             class: 'iconContainer'
           }),
         $thinking: jQuery(
-          '<i id="showNavigationLoading" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'
+          `<i id="showNavigationLoading" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>`
         ),
         $done: jQuery('<i class="fa fa-check-circle fa-3x fa-fw"></i>'),
         $counter: jQuery('<div>')
@@ -75,6 +75,9 @@
             id: 'showNavigationCount',
             class: 'counterText',
           }),
+        activeRequests: 0,
+        totalRequests: 0,
+
       };
     },
     /**
@@ -85,9 +88,16 @@
       this.$legendContainer = jQuery('.legendContainer');
 
       if (shared.nextGenCheck()) {
-        this.$navTabs = jQuery('li[repeat*="mainNav"]');
-        this.$subNavMenuContainer = this.$navTabs.find('ul[if="cards.length"]');
-        this.$subNavItem = this.$subNavMenuContainer.find('li[repeat="cards"]');
+        this.$nav = jQuery('header nav');
+        // get sub nav links
+        this.$navTabs = this.$nav.children().children();
+
+        this.$subNavMenuContainer = this.$navTabs.find(
+          'ul[if="cards.length"]');
+
+        this.$subNavItem = this.$subNavMenuContainer.find(
+          'li[repeat="cards"]');
+
         this.$navTabsLinks = this.$subNavItem.find('a');
       } else {
         this.$nav = jQuery('#pmenu');
@@ -144,11 +154,11 @@
      * Add the tool to the Toolbox and add the legend to the legend panel
      */
     addTool() {
-      // const {  } =  = this.config;
       const {
         $activateButt,
         $legend
       } = this.config;
+
       this.$toolsPanel
         .append($activateButt);
       this.$legendContainer
@@ -165,13 +175,13 @@
 
       $activateButt
         .on('click', this.startStatus.bind(this))
-        .on('click', this.discoverMajorPages.bind(this))
-        .on('click', this.discoverLandingPages.bind(this))
+        // .on('click', this.discoverMajorPages.bind(this))
+        .on('click', this.scanNavigation.bind(this))
         .on('click', this.toggleDisable.bind(this))
         .on('click', this.toggleLegend.bind(this))
         .on('click', this.toggleNavigation.bind(this))
         .on('click', this.bindClicks.bind(this))
-        .on('click', this.bindLegendElements.bind(this));
+        .on('click', this.bindOnClickLegendElements.bind(this));
 
       $offButt
         .on('click', this.removeClasses.bind(this))
@@ -184,7 +194,7 @@
      * hide/show the highlights for the corresponding legend element that
      * was clicked
      */
-    bindLegendElements() {
+    bindOnClickLegendElements() {
       const {
         $legendList
       } = this.config;
@@ -198,20 +208,25 @@
             .attr('class');
           let flaggedLinks;
 
-          // bind legend element with onClick functionality
           jQuery(value)
             .on('click', () => {
+
               // do something special for the 'linkChecked' legend item
               if (findThis === 'linkChecked') {
                 flaggedLinks = $myMenu.find(`.${findThis}`);
+
               } else {
-                // IF FLAGGEDLINKS is empty, set a value, otherwise set it euqal to itself.
+
+                // IF FLAGGEDLINKS is empty, set a value,
+                // otherwise set it equal to itself.
                 flaggedLinks = flaggedLinks ? flaggedLinks : $myMenu.find(
                   `.${findThis}`);
               }
+
               // toggle all the classses off
               flaggedLinks.toggleClass(findThis);
             });
+
         });
     },
     /**
@@ -290,9 +305,11 @@
      * Updates the counter in the legend with the remaining links that are being
      * checked
      */
-    updateStatus(activeRequests, totalRequests) {
+    updateStatus() {
       const {
         $counter,
+        activeRequests,
+        totalRequests
       } = this.config;
 
       // update counter number
@@ -304,7 +321,7 @@
      * @param {string} data - the data recieved from the AJAX request
      * @return {object} the Context Manager object from the CDK webpage
      */
-    getContextManager(data) {
+    filterCMObject(data) {
       const myDiv = document.createElement('div');
       myDiv.innerHTML = data;
 
@@ -336,72 +353,88 @@
       return myCM;
     },
     /**
+     * ajax request to get the Context Manager object
+     */
+    getContextManager(cLink) {
+      // options for ajax request
+      const options = {
+        url: cLink.href,
+        method: 'GET',
+        crossDomain: true,
+        timeout: 10000,
+        dataType: 'html',
+        dataFilter: (data) => {
+          return this.filterCMObject(data);
+        },
+        error: (xhr, status, error) => {
+          // reduce the link counter value
+          this.config.activeRequests += 1;
+
+          // set these links to Absolute URL.  MOST COMMON ISSUE
+          cLink.classList.add('absoluteURL');
+        },
+        success: (data, status, xhr) => {
+          // find the pagename property and test if it is a LandingPage
+          if (data.pageName.includes('LandingPage')) {
+            cLink.classList.add('customPage');
+          }
+
+          if (data.pageName.endsWith('Form') ||
+            data.pageName.includes('ContactUs') ||
+            data.pageName === 'HoursAndDirections' ||
+            data.pageName === 'VehicleSearchResults') {
+
+            // flag navigation links with custom class
+            cLink.classList.add('majorPage');
+          }
+
+          // reduce the link counter value
+          this.config.activeRequests += 1;
+
+          // Update link counter in the legend
+          this.updateStatus();
+
+          // if counter reaches zero, reset it.
+          if (this.config.activeRequests === this.config.totalRequests) {
+            this.resetLinkCounter();
+          }
+        }
+      };
+
+      // ajax request
+      jQuery.ajax(options);
+    },
+    /**
      * Will flag all navigation links that lead to a Landing Page
      * Checks links.
      */
-    discoverLandingPages() {
+    scanNavigation() {
       // if Next Gen Site Do this.
       if (shared.nextGenCheck()) {
         // set active request count to total number of links found
-        let activeRequests = 0;
-        let totalRequests = 0;
+
+        // Update link counter in the legend
+        this.updateStatus();
 
         // loop through all sub navigation tabs
         for (let y = 0; y < this.$navTabs.length; y += 1) {
 
-          let $linksInNav = jQuery(this.$navTabs[y])
-            .find('a');
+          let $linksInNav = jQuery(this.$navTabs[y]).find('a');
 
           // loop through each link in the sub nav
           for (let z = 0; z < $linksInNav.length; z += 1) {
+
             // increment counter for every link found
-            activeRequests += 1;
-            totalRequests += 1;
+            this.config.totalRequests += 1;
 
-            // if link URL already contains LandingPage, skip xhr check
-            // if ($linksInNav[z].href.includes('LandingPage') ||
-            if ($linksInNav[z].href.includes('VehicleSearchResults?') ||
-              $linksInNav[z].href.includes('_D')) {
-              // reduce the link counter value
-              activeRequests -= 1;
-              // skip loop iteration
-              continue;
-            }
+            // Update link counter in the legend
+            this.updateStatus();
 
-            // ajax request to get the Context Manager object
-            jQuery.ajax({
-              url: $linksInNav[z].href,
-              method: 'GET',
-              crossDomain: true,
-              timeout: 5000,
-              dataType: 'html',
-              dataFilter: (data) => {
-                return this.getContextManager(data);
-              },
-              error: (xhr, status, error) => {
-                // reduce the link counter value
-                activeRequests -= 1;
-                // set these links to Absolute URL.  MOST COMMON ISSUE
-                $linksInNav[z].classList.add('absoluteURL');
-              },
-              success: (data, status, xhr) => {
-                // find the pagename property and test if it is a LandingPage
-                if (data.pageName.indexOf('LandingPage') > -1) {
-                  $linksInNav[z].classList.add('customPage');
-                }
+            // save the current link to an easier to read variable name
+            let cLink = $linksInNav[z];
 
-                // reduce the link counter value
-                activeRequests -= 1;
-
-                // Update link counter in the legend
-                this.updateStatus(activeRequests, totalRequests);
-
-                // if counter reaches zero, reset it.
-                if (activeRequests === 0) {
-                  this.resetLinkCounter();
-                }
-              }
-            });
+            // get Context Manager from page
+            this.getContextManager(cLink);
           }
         }
       }
@@ -419,26 +452,26 @@
         this.$navTabs.toggleClass('showNav');
       }
     },
-    /**
-     * Flags all navigation items that lead to a MajorPage
-     * See 'majorPage' array for "Major Pages"
-     */
-    discoverMajorPages() {
-      const majorPages =
-        'a[href*=Form], a[href*=ContactUs], a[href=HoursAndDirections], a[href*=VehicleSearchResults]';
-
-      // flag navigation links with custom class
-      if (shared.nextGenCheck()) {
-        // if NG site do this
-        this.$navTabs.find(majorPages)
-          .toggleClass('majorPage');
-      } else {
-        // if NOT NG site, do this
-        this.$navTabs
-          .find(majorPages)
-          .toggleClass('majorPage');
-      }
-    },
+    // /**
+    //  * Flags all navigation items that lead to a MajorPage
+    //  * See 'majorPage' array for "Major Pages"
+    //  */
+    // discoverMajorPages() {
+    //   const majorPages =
+    //     'a[href$=Form], a[href~=ContactUs], a[href=HoursAndDirections], a[href~=VehicleSearchResults]';
+    //
+    //   // flag navigation links with custom class
+    //   if (shared.nextGenCheck()) {
+    //     // if NG site do this
+    //     this.$navTabs.find(majorPages)
+    //       .toggleClass('majorPage');
+    //   } else {
+    //     // if NOT NG site, do this
+    //     this.$navTabs
+    //       .find(majorPages)
+    //       .toggleClass('majorPage');
+    //   }
+    // },
     /**
      * Toggles 'disable' the Toolbar button
      */
@@ -459,6 +492,7 @@
     bindClicks() {
       const length = this.$navTabsLinks.length;
 
+      // loop through all links in the navigation
       for (let i = 0; i < length; i += 1) {
         jQuery(this.$navTabsLinks[i])
           .one('mousedown', this.linkChecked(this.$navTabsLinks[i]));

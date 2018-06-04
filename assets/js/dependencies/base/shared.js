@@ -58,8 +58,9 @@ const shared = {
       .siblings('.toolsPanel');
     return $callingElement.slideToggle(500);
   },
-  getResourceUrl: name =>
-    GM_getResourceURL(name), // eslint-disable-line
+  getResourceUrl: name => {
+    return GM_getResourceURL(name);
+  }, // eslint-disable-line
   saveState: (e) => {
     // get current state
     const vName = jQuery(e.target)
