@@ -34,6 +34,7 @@
         $legendTitle: jQuery('<div>')
           .attr({
             class: 'legendTitle',
+            title: 'Drag to move legend',
           })
           .text('Show Navigation Legend'),
         $legendList: jQuery('<ul>')
@@ -77,6 +78,12 @@
           }),
         activeRequests: 0,
         totalRequests: 0,
+        $toggleURLButt: jQuery('<input>')
+          .attr({
+            type: 'button',
+            class: 'myEDOBut feature',
+            value: 'toggle URLs',
+          }),
 
       };
     },
@@ -106,6 +113,35 @@
       }
     },
     /**
+     * Create a span element with the links HREF and attaches
+     * it to the link element
+     */
+    addShowURLFeature(cLink) {
+      const $cLink = jQuery(cLink);
+      const linkURL = jQuery.trim($cLink.attr('href'));
+
+      // appending it to the link text for a cleaner look
+      $cLink.attr('title', linkURL);
+
+      // attach a custom div element that contains the url text
+      const toolTip =
+        `<div class="tooltiptext link_url">${linkURL}</div>`;
+
+      // attach div link to the link element
+      $cLink.append(toolTip);
+    },
+    /**
+    * Remove all link URL elements that the tool attached
+    */
+    removeURLelements(){
+      const $linkURLS = jQuery('.tooltiptext.link_url');
+      $linkURLS.remove();
+      // $linkURLS.each((element) => {
+      //   console.log('element', element);
+      //   // remove();
+      // });
+    },
+    /**
      * Builds the tools legend
      */
     buildLegend() {
@@ -120,7 +156,8 @@
         $legendList,
         $offButt,
         $hint,
-        $legendContent
+        $legendContent,
+        $toggleURLButt
       } = this.config;
 
       // attach 'thinking' icon
@@ -135,6 +172,8 @@
       $legend
         // attach link counter
         .append($linkCounter)
+        // attach toggle url button
+        .append($toggleURLButt)
         // attach legend title
         .append($legendTitle)
         // attach list
@@ -170,9 +209,14 @@
     bindEvents() {
       const {
         $activateButt,
-        $offButt
+        $offButt,
+        $toggleURLButt
       } = this.config;
 
+      // add functionality to toggle url button located on the legend
+      $toggleURLButt.on('click', this.toggleLinkURLS);
+
+      // add functionality to Main Tool button located in the Toolbox
       $activateButt
         .on('click', this.startStatus.bind(this))
         // .on('click', this.discoverMajorPages.bind(this))
@@ -183,11 +227,20 @@
         .on('click', this.bindClicks.bind(this))
         .on('click', this.bindOnClickLegendElements.bind(this));
 
+        // add functionality to OFF button located in the legend
       $offButt
         .on('click', this.removeClasses.bind(this))
         .on('click', this.toggleLegend.bind(this))
         .on('click', this.toggleNavigation.bind(this))
+        .on('click', this.removeURLelements)
         .on('click', this.toggleDisable.bind(this));
+    },
+    /**
+    * Toggle the LINK URL elements that the tool added
+    */
+    toggleLinkURLS() {
+      const $linkURLS = jQuery('.tooltiptext.link_url');
+      $linkURLS.toggle();
     },
     /**
      * Allows the legend elements to be clickable, allowing the user to
@@ -251,6 +304,10 @@
       // show/hide navigation
       this.config.$legend.slideToggle(500);
     },
+    /**
+    * Reset the link counter in the legend
+    * Will fade out the link counter element then empty the containers
+    */
     resetLinkCounter() {
       const {
         $counter,
@@ -374,11 +431,15 @@
           cLink.classList.add('absoluteURL');
         },
         success: (data, status, xhr) => {
+          console.log('page name', data.pageName);
+
           // find the pagename property and test if it is a LandingPage
           if (data.pageName.includes('LandingPage')) {
             cLink.classList.add('customPage');
           }
 
+          // flag links as 'majorPage' if page name contains any of
+          // these identifiers
           if (data.pageName.endsWith('Form') ||
             data.pageName.includes('ContactUs') ||
             data.pageName === 'HoursAndDirections' ||
@@ -433,6 +494,9 @@
             // save the current link to an easier to read variable name
             let cLink = $linksInNav[z];
 
+            // add link url element for tool functionality
+            this.addShowURLFeature(cLink);
+
             // get Context Manager from page
             this.getContextManager(cLink);
           }
@@ -445,6 +509,7 @@
     toggleNavigation() {
       // if NG site do this
       if (shared.nextGenCheck()) {
+        this.$nav.toggleClass('QAtoolCustomNav');
         this.$navTabs.toggleClass('showNav customAdd');
         this.$subNavItem.toggleClass('showNav customAdd');
         this.$subNavMenuContainer.toggleClass('showNav nextgenShowNav');

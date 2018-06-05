@@ -4,20 +4,6 @@ default styles
 ----------------------------------------
 */
 
-/* #linkCounter {
-  font-size: 15px;
-  padding: 15px;
-} */
-
-.counterContainer {
-  /* font-size: 15px; */
-  padding: 15px;
-}
-
-.iconContainer {
-  padding: 5px;
-}
-
 .ui-dialog-titlebar .ui-dialog-titlebar-close {
   display: none;
 }
@@ -87,7 +73,7 @@ default styles
 
 .toolboxContainer {
   bottom: 20px;
-  font-family: "Montserrat";
+  /* font-family: "Montserrat"; */
   font-size: 12px;
   line-height: 20px;
   position: fixed;
@@ -111,6 +97,15 @@ default styles
   color: white;
   cursor: pointer;
   text-transform: lowercase;
+  /* font-family: 'Lato', sans-serif; */
+}
+
+.tbInfo, .myEDOBut {
+  font-family: 'Roboto', sans-serif;
+}
+
+.panelTitle, .tbLabel {
+  font-family: 'Lato', sans-serif;
 }
 
 .disappear {
@@ -127,7 +122,7 @@ default styles
   border: 2px solid rgb(0, 0, 0);
   border-radius: 5px;
   cursor: pointer;
-  font-family: "Montserrat";
+  /* font-family: "Montserrat"; */
   font-size: 12px;
   font-weight: normal;
   top: 15%;
@@ -248,7 +243,7 @@ default styles
 /* legend styles */
 
 .legendContainer {
-  font-family: "Montserrat";
+  /* font-family: "Montserrat"; */
   position: fixed;
   bottom: 15%;
   width: 260px;
@@ -605,7 +600,8 @@ body header .menu>nav>ul .showNav.nextgenShowNav, body header .menu>nav>ul .show
   display: inline-block;
   position: absolute;
   border: none;
-  margin: 1rem 0 0 -1rem;
+  /* margin: 1rem 0 0 -1rem; */
+  margin: 1rem 0 0 0;
   padding: 0;
   width: 20rem;
 }
@@ -613,6 +609,8 @@ body header .menu>nav>ul .showNav.nextgenShowNav, body header .menu>nav>ul .show
 body header .menu>nav>ul li.showNavAdd.customAdd>span, body header .menu>nav>ul li:hover ul.showNav.nextgenShowNav>li.showNav.customAdd>a, body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>a, body header .menu>nav>ul ul.showNav.nextgenShowNav {
   color: white;
   background: black;
+  word-wrap: break-word;
+  z-index: 1;
 }
 
 body header .menu>nav>ul .showNav.nextgenShowNav>.showNav.customAdd {
@@ -624,9 +622,41 @@ body header .menu>nav>ul .showNav.nextgenShowNav>li.showNav.customAdd>a {
 }
 
 html body header.header div.menu>nav>ul li.showNav.customAdd {
-  width: 15rem;
+  width: 16.5rem;
   padding: 1rem 0;
+  font-size: 12px;
+}
+
+/* #linkCounter {
   font-size: 15px;
+  padding: 15px;
+} */
+
+body header.header nav.QAtoolCustomNav {
+  flex-basis: 100% !important;
+}
+
+body header.header nav.QAtoolCustomNav>ul {
+  justify-content: space-evenly !important;
+}
+
+.counterContainer {
+  /* font-size: 15px; */
+  padding: 15px;
+}
+
+.iconContainer {
+  padding: 5px;
+}
+
+.tooltiptext.link_url {
+  font-size: 12px;
+  font-weight: normal;
+  text-transform: lowercase;
+  display: none;
+  font-family: 'Source Code Pro', monospace;
+  letter-spacing: -0.5px;
+  padding: 0 10px;
 }
 
 /*
@@ -812,13 +842,6 @@ body .card .content .media .imgOverlay.opensWindow.opensWindow {
   background: rgb(255, 124, 216);
   background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(240, 0, 0, .75) 26%, rgba(220, 40, 30, .75) 100%) !important;
   border: none;
-}
-
-.tooltiptext.link_url {
-  font-size: 12px;
-  font-weight: normal;
-  text-transform: lowercase;
-  display: none;
 }
 
 /*
