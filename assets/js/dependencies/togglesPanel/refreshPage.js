@@ -24,10 +24,10 @@ const refreshPage = {
       $refreshButt: jQuery('<button>')
         .attr({
           class: 'myEDOBut refreshButt',
-          title: 'Refresh Page from Server ',
+          title: 'Refresh Page',
         }),
       $refresh: jQuery(
-        '<i class="fa fa-undo fa-flip-horizontal fa-3x">&nbsp;</i>'),
+        '<i class="fas fa-redo-alt fa-3x"></i>'),
       $refreshTitle: jQuery('<div>')
         .text('Refresh Button'),
       $refreshCheckbox: jQuery('<div>')
@@ -35,7 +35,7 @@ const refreshPage = {
           id: 'refreshMetoggle',
           title: 'toggle refresh button',
         }),
-      $FAtoggle: jQuery('<i class="fa fa-toggle-off fa-lg"></i>'),
+      $FAtoggle: jQuery('<i class="fas toggle-off fa-lg"></i>'),
     };
   },
   cacheDOM(callingPanel) {
@@ -62,9 +62,10 @@ const refreshPage = {
       .append(refreshPage.config.$refreshButtContainer);
   },
   bindEvents() {
-    refreshPage.config.$refreshButt.on('click', this.reloadPage);
-    refreshPage.config.$refreshContainer.on('click', this.flipTheSwitch
-      .bind(this));
+    refreshPage.config.$refreshButt
+      .on('click', this.reloadPage);
+    refreshPage.config.$refreshContainer
+      .on('click', this.flipTheSwitch.bind(this));
   },
   setToggle() {
     // get value of custom variable and set toggles accordingly
@@ -91,15 +92,17 @@ const refreshPage = {
     this.setToggle();
   },
   toggleOn() {
+    const faPrefix = 'fa-';
     // set toggle on image
     const $toggle = refreshPage.config.$FAtoggle;
-    $toggle.removeClass('fa-toggle-off');
-    $toggle.addClass('fa-toggle-on');
+    $toggle.removeClass(`${faPrefix}toggle-off`);
+    $toggle.addClass(`${faPrefix}toggle-on`);
   },
   toggleOff() {
+    const faPrefix = 'fa-';
     // set toggle off image
     const $toggle = refreshPage.config.$FAtoggle;
-    $toggle.removeClass('fa-toggle-on');
-    $toggle.addClass('fa-toggle-off');
+    $toggle.removeClass(`${faPrefix}toggle-on`);
+    $toggle.addClass(`${faPrefix}toggle-off`);
   },
 };

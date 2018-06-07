@@ -103,7 +103,10 @@ const shared = {
           continue;
         }
 
-        value = $legendContent[key];
+        // set value to value of 'text' key if the legendcontent is an object
+        value = (typeof $legendContent[key]).toLowerCase() === 'object' ?
+          $legendContent[key].text : $legendContent[key];
+
         // build listing element
         this.$listItem = jQuery('<li>')
           .attr({

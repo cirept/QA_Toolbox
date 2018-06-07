@@ -73,7 +73,6 @@ default styles
 
 .toolboxContainer {
   bottom: 20px;
-  /* font-family: "Montserrat"; */
   font-size: 12px;
   line-height: 20px;
   position: fixed;
@@ -97,14 +96,13 @@ default styles
   color: white;
   cursor: pointer;
   text-transform: lowercase;
-  /* font-family: 'Lato', sans-serif; */
 }
 
-.tbInfo, .myEDOBut {
+.tbInfo, .myEDOBut, .tbLegend {
   font-family: 'Roboto', sans-serif;
 }
 
-.panelTitle, .tbLabel {
+.panelTitle, .tbLabel, .legendContainer .legendTitle {
   font-family: 'Lato', sans-serif;
 }
 
@@ -122,7 +120,6 @@ default styles
   border: 2px solid rgb(0, 0, 0);
   border-radius: 5px;
   cursor: pointer;
-  /* font-family: "Montserrat"; */
   font-size: 12px;
   font-weight: normal;
   top: 15%;
@@ -243,11 +240,9 @@ default styles
 /* legend styles */
 
 .legendContainer {
-  /* font-family: "Montserrat"; */
   position: fixed;
   bottom: 15%;
   width: 260px;
-  /*    height: 140px;*/
   z-index: 99999999;
 }
 
@@ -262,7 +257,7 @@ default styles
 
 .legendContainer .legendTitle {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 2rem;
   cursor: move;
 }
 
@@ -290,7 +285,6 @@ default styles
 .hint {
   font-style: italic;
   line-height: 10px;
-  /* margin: 10px 0 0 0; */
   margin: 10px 0;
   cursor: move;
 }
@@ -496,12 +490,9 @@ lnk checker styles
   background: linear-gradient(to right, rgba(249, 255, 209, 0.75) 0%, rgba(160, 255, 206, 0.75) 100%) !important;
   border: none;
   color: #000000;
-  /*        background: rgb(249, 255, 209);*/
-  /*    background: linear-gradient(to right, rgba(249, 255, 209, 0.75) 0%, rgba(160, 255, 206, 0.75) 100%);*/
   -moz-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
-  /*    color: #999999;*/
 }
 
 /*
@@ -600,7 +591,6 @@ body header .menu>nav>ul .showNav.nextgenShowNav, body header .menu>nav>ul .show
   display: inline-block;
   position: absolute;
   border: none;
-  /* margin: 1rem 0 0 -1rem; */
   margin: 1rem 0 0 0;
   padding: 0;
   width: 20rem;
@@ -627,21 +617,17 @@ html body header.header div.menu>nav>ul li.showNav.customAdd {
   font-size: 12px;
 }
 
-/* #linkCounter {
-  font-size: 15px;
-  padding: 15px;
-} */
-
 body header.header nav.QAtoolCustomNav {
   flex-basis: 100% !important;
 }
 
 body header.header nav.QAtoolCustomNav>ul {
   justify-content: space-evenly !important;
+  display: flex !important;
+  flex-flow: row !important;
 }
 
 .counterContainer {
-  /* font-size: 15px; */
   padding: 15px;
 }
 
@@ -883,7 +869,7 @@ toggle tools styles
   background: rgb(251, 211, 233);
   background: linear-gradient(to left, rgb(251, 211, 233), rgb(187, 55, 125));
   width: initial;
-  padding: 5px 20px 5px 15px;
+  padding: 5px 20px;
 }
 
 .refreshButt:hover {

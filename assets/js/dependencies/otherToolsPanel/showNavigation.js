@@ -41,12 +41,39 @@
           .attr({
             class: 'legendList',
           }),
+        // $legendContent: {
+        //   majorPage: 'Major Page',
+        //   customPage: 'Landing Page',
+        //   linkChecked: 'Link Clicked',
+        //   absoluteURL: 'Absolute URL',
+        //   error: 'Tool Error with Link'
+        // },
         $legendContent: {
-          majorPage: 'Major Page',
-          customPage: 'Landing Page',
-          linkChecked: 'Link Clicked',
-          absoluteURL: 'Absolute URL',
-          error: 'Tool Error with Link'
+          majorPage: {
+            text: 'Major Page',
+            count: 0,
+            flag: 'majorPage',
+          },
+          customPage: {
+            text: 'Landing Page',
+            count: 0,
+            flag: 'customPage',
+          },
+          linkChecked: {
+            text: 'Link Clicked',
+            count: 0,
+            flag: 'linkChecked',
+          },
+          absoluteURL: {
+            text: 'Absolute URL',
+            count: 0,
+            flag: 'absoluteURL',
+          },
+          error: {
+            text: 'Tool Error with Link',
+            count: 0,
+            flag: 'error',
+          }
         },
         $hint: jQuery('<div>')
           .attr({
@@ -131,9 +158,9 @@
       $cLink.append(toolTip);
     },
     /**
-    * Remove all link URL elements that the tool attached
-    */
-    removeURLelements(){
+     * Remove all link URL elements that the tool attached
+     */
+    removeURLelements() {
       const $linkURLS = jQuery('.tooltiptext.link_url');
       $linkURLS.remove();
       // $linkURLS.each((element) => {
@@ -219,25 +246,35 @@
       // add functionality to Main Tool button located in the Toolbox
       $activateButt
         .on('click', this.startStatus.bind(this))
-        // .on('click', this.discoverMajorPages.bind(this))
-        .on('click', this.scanNavigation.bind(this))
         .on('click', this.toggleDisable.bind(this))
         .on('click', this.toggleLegend.bind(this))
         .on('click', this.toggleNavigation.bind(this))
         .on('click', this.bindClicks.bind(this))
+        // .on('click', this.discoverMajorPages.bind(this))
+        .on('click', this.scanNavigation.bind(this))
         .on('click', this.bindOnClickLegendElements.bind(this));
 
-        // add functionality to OFF button located in the legend
+      // add functionality to OFF button located in the legend
       $offButt
         .on('click', this.removeClasses.bind(this))
         .on('click', this.toggleLegend.bind(this))
         .on('click', this.toggleNavigation.bind(this))
         .on('click', this.removeURLelements)
+        .on('click', this.resetLegendContent.bind(this))
+        .on('click', this.resetRequestCounters.bind(this))
+        .on('click', this.unbindClicks.bind(this))  // TODO
         .on('click', this.toggleDisable.bind(this));
     },
     /**
-    * Toggle the LINK URL elements that the tool added
+    * Reset counters
     */
+    resetRequestCounters() {
+        this.config.totalRequests = 0;
+        this.config.activeRequests = 0;
+    },
+    /**
+     * Toggle the LINK URL elements that the tool added
+     */
     toggleLinkURLS() {
       const $linkURLS = jQuery('.tooltiptext.link_url');
       $linkURLS.toggle();
@@ -305,9 +342,9 @@
       this.config.$legend.slideToggle(500);
     },
     /**
-    * Reset the link counter in the legend
-    * Will fade out the link counter element then empty the containers
-    */
+     * Reset the link counter in the legend
+     * Will fade out the link counter element then empty the containers
+     */
     resetLinkCounter() {
       const {
         $counter,
@@ -413,11 +450,24 @@
      * ajax request to get the Context Manager object
      */
     getContextManager(cLink) {
+      // console.log('this', this);
+      let {
+        $legendContent,
+        // activeRequests,
+        // totalRequests
+      } = this.config;
+
+      let {
+        customPage,
+        majorPage
+      } = $legendContent
+
       // options for ajax request
       const options = {
         url: cLink.href,
         method: 'GET',
         crossDomain: true,
+        // async: false,
         timeout: 10000,
         dataType: 'html',
         dataFilter: (data) => {
@@ -428,25 +478,46 @@
           this.config.activeRequests += 1;
 
           // set these links to Absolute URL.  MOST COMMON ISSUE
+          console.log('this', this);
+          // this.classList.add('absoluteURL');
           cLink.classList.add('absoluteURL');
         },
         success: (data, status, xhr) => {
-          console.log('page name', data.pageName);
+          console.log('this', this);
+          // console.log('page name', data.uniquePageName);
 
-          // find the pagename property and test if it is a LandingPage
-          if (data.pageName.includes('LandingPage')) {
+          cLink.dataset.page = data.uniquePageName;
+          jQuery(cLink).find('.tooltiptext.link_url').html(jQuery(cLink).find('.tooltiptext.link_url').html() + '<br> Page Name :: ' + data.uniquePageName);
+
+          // find the uniquePageName property and test if it is a LandingPage
+          if (data.uniquePageName.includes('LandingPage')) {
+            // let {
+            //   count
+            // } = customPage;
+            // increment landing page count
+            this.config.$legendContent.customPage.count += 1;
+            // console.log('LandingPage count', count);
+            this.incrementLegendCount(customPage);
+            // add customPage class to element
             cLink.classList.add('customPage');
+            // cLink.dataset.page = data.uniquePageName;
           }
-
           // flag links as 'majorPage' if page name contains any of
           // these identifiers
-          if (data.pageName.endsWith('Form') ||
-            data.pageName.includes('ContactUs') ||
-            data.pageName === 'HoursAndDirections' ||
-            data.pageName === 'VehicleSearchResults') {
-
+          else if (data.uniquePageName.includes('Form') ||
+            data.uniquePageName.includes('ContactUs') ||
+            data.uniquePageName === 'HoursAndDirections' ||
+            data.uniquePageName === 'VehicleSearchResults') {
+            // let {
+            //   count
+            // } = majorPage;
+            // increment major page count
+            this.config.$legendContent.majorPage.count += 1;
+            // console.log('majorPage count', count);
+            this.incrementLegendCount(majorPage);
             // flag navigation links with custom class
             cLink.classList.add('majorPage');
+            //
           }
 
           // reduce the link counter value
@@ -454,7 +525,8 @@
 
           // Update link counter in the legend
           this.updateStatus();
-
+// console.log('activeRequests', this.config.activeRequests);
+// console.log('totalRequests',this.config.totalRequests);
           // if counter reaches zero, reset it.
           if (this.config.activeRequests === this.config.totalRequests) {
             this.resetLinkCounter();
@@ -463,13 +535,125 @@
       };
 
       // ajax request
+//       jQuery.ajax({
+//         url: cLink.href,
+//         method: 'GET',
+//         crossDomain: true,
+//         timeout: 10000,
+//         async: false,
+//         dataType: 'html',
+//         dataFilter: (data) => {
+//           return this.filterCMObject(data);
+//         },
+//         error: (xhr, status, error) => {
+//           // reduce the link counter value
+//           this.config.activeRequests += 1;
+//
+//           // set these links to Absolute URL.  MOST COMMON ISSUE
+//           console.log('cLink', cLink);
+//           // this.classList.add('absoluteURL');
+//           cLink.classList.add('absoluteURL');
+//         },
+//         success: (data, status, xhr) => {
+//             console.log('cLink', cLink);
+//           // console.log('this', this);
+//           // console.log('page name', data.uniquePageName);
+//
+//           cLink.dataset.page = data.uniquePageName;
+//           jQuery(cLink).find('.tooltiptext.link_url').html(jQuery(cLink).find('.tooltiptext.link_url').html() + '<br> Page Name :: ' + data.uniquePageName);
+//
+//           // find the uniquePageName property and test if it is a LandingPage
+//           if (data.uniquePageName.includes('LandingPage')) {
+//             // let {
+//             //   count
+//             // } = customPage;
+//             // increment landing page count
+//             this.config.$legendContent.customPage.count += 1;
+//             // console.log('LandingPage count', count);
+//             this.incrementLegendCount(customPage);
+//             // add customPage class to element
+//             cLink.classList.add('customPage');
+//             // cLink.dataset.page = data.uniquePageName;
+//           }
+//           // flag links as 'majorPage' if page name contains any of
+//           // these identifiers
+//           else if (data.uniquePageName.includes('Form') ||
+//             data.uniquePageName.includes('ContactUs') ||
+//             data.uniquePageName === 'HoursAndDirections' ||
+//             data.uniquePageName === 'VehicleSearchResults') {
+//             // let {
+//             //   count
+//             // } = majorPage;
+//             // increment major page count
+//             this.config.$legendContent.majorPage.count += 1;
+//             // console.log('majorPage count', count);
+//             this.incrementLegendCount(majorPage);
+//             // flag navigation links with custom class
+//             cLink.classList.add('majorPage');
+//             //
+//           }
+//
+//           // reduce the link counter value
+//           this.config.activeRequests += 1;
+//
+//           // Update link counter in the legend
+//           this.updateStatus();
+// // console.log('activeRequests', this.config.activeRequests);
+// // console.log('totalRequests',this.config.totalRequests);
+//           // if counter reaches zero, reset it.
+//           if (this.config.activeRequests === this.config.totalRequests) {
+//             this.resetLinkCounter();
+//           }
+//         }
+//       });
       jQuery.ajax(options);
+    },
+    /**
+     * Increment legend text with class count
+     * @param {object} LegendObject - the legend object to update
+     */
+    incrementLegendCount(legendObject) {
+      // const {
+      //   $legend
+      // } = this.config;
+      const {
+        text,
+        count,
+        flag
+      } = legendObject;
+
+      // console.log('legendObject', legendObject);
+      // console.log('text', text);
+      // console.log('count', count);
+      //   console.log('legendClass', legendClass);
+      // const curText = $legend.find(`.${legendClass}`).html();
+      // console.log('curText', curText);
+      const newText = count > 0 ? `${text} (${count})` : text;
+      // console.log('newText', newText);
+      this.config.$legend.find(`.${flag}`).html(newText);
+      // TODO
+    },
+    /**
+    * Will reset the state of the legend content.
+    * Removes the counter numbers
+    */
+    resetLegendContent() {
+      let legendKeys = Object.keys(this.config.$legendContent);
+      // console.log(legendKeys);
+      legendKeys.map((key, index) => {
+        // console.log('key', key);
+        // console.log('index', index);
+        // console.log(this.config.$legendContent);
+        // console.log(this.config.$legendContent[key]);
+        this.config.$legendContent[key].count = 0;
+      });
     },
     /**
      * Will flag all navigation links that lead to a Landing Page
      * Checks links.
      */
     scanNavigation() {
+      let cLink;
       // if Next Gen Site Do this.
       if (shared.nextGenCheck()) {
         // set active request count to total number of links found
@@ -481,6 +665,7 @@
         for (let y = 0; y < this.$navTabs.length; y += 1) {
 
           let $linksInNav = jQuery(this.$navTabs[y]).find('a');
+  // console.log('$linksInNav', $linksInNav);
 
           // loop through each link in the sub nav
           for (let z = 0; z < $linksInNav.length; z += 1) {
@@ -492,8 +677,9 @@
             this.updateStatus();
 
             // save the current link to an easier to read variable name
-            let cLink = $linksInNav[z];
-
+            cLink = $linksInNav[z];
+  // console.log('cLink', cLink);
+  // console.log('href', cLink.href);
             // add link url element for tool functionality
             this.addShowURLFeature(cLink);
 
@@ -561,6 +747,18 @@
       for (let i = 0; i < length; i += 1) {
         jQuery(this.$navTabsLinks[i])
           .one('mousedown', this.linkChecked(this.$navTabsLinks[i]));
+      }
+    },
+    /**
+     * Attach an onClick event that will add the 'linkChecked' class to the nav item
+     */
+    unbindClicks() {
+      const length = this.$navTabsLinks.length;
+
+      // loop through all links in the navigation
+      for (let i = 0; i < length; i += 1) {
+        jQuery(this.$navTabsLinks[i])
+          .off('mousedown', this.linkChecked(this.$navTabsLinks[i]));
       }
     },
     /**
