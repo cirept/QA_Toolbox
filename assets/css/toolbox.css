@@ -74,7 +74,7 @@ default styles
   /* background: linear-gradient(to left, rgb(176, 181, 238), rgb(227, 231, 244)); */
   background: linear-gradient(to right, rgb(222, 224, 238), rgb(188, 194, 212));
   border: 2px solid rgb(0, 0, 0);
-  box-shadow: 0 0 20px rgba(230, 236, 255, .5)
+  box-shadow: 0 0 20px rgba(217, 217, 255, .5);
 }
 
 .nextgen.toolBox div:last-of-type {
@@ -748,9 +748,9 @@ body header.header nav.QAtoolCustomNav>ul {
 }
 
 .tooltiptext.link_url {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: normal;
-  text-transform: lowercase;
+  text-transform: none;
   display: none;
   font-family: 'Source Code Pro', monospace;
   letter-spacing: -0.5px;
