@@ -734,9 +734,9 @@ body header.header nav.QAtoolCustomNav {
 }
 
 body header.header nav.QAtoolCustomNav>ul {
-  justify-content: space-evenly !important;
-  display: flex !important;
-  flex-flow: row !important;
+  /* justify-content: space-evenly !important; */
+  /* display: flex !important; */
+  /* flex-flow: row !important; */
 }
 
 .counterContainer {

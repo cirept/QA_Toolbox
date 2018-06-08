@@ -1,6 +1,6 @@
 # Change Log
 
-## v3.3.2 - beta27 **(6/01/2018)**
+## v3.3.2 - beta27 **(6/08/2018)**
 
 ### Tool Updates
 
