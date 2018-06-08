@@ -11,7 +11,7 @@ const nextGenToggle = {
   // tier 1 functions
   // ----------------------------------------
   createElements() {
-    nextGenToggle.config = {
+    this.config = {
       $nextGenTogContainer: jQuery('<div>')
         .attr({
           id: 'nextGenToggleInput',
@@ -19,7 +19,7 @@ const nextGenToggle = {
           title: 'Apply NextGen=true',
         }),
       $nextGenTogTitle: jQuery('<div>')
-        .text('nextGen parameters?'),
+        .text('nextGen?'),
       $nextGenTogIcon: jQuery('<div>')
         .attr({
           id: 'nextGenToggleIcon',
@@ -28,10 +28,11 @@ const nextGenToggle = {
     };
   },
   buildTool() {
-    nextGenToggle.config.$nextGenTogIcon.append(nextGenToggle.config.$FAtoggle);
-    nextGenToggle.config.$nextGenTogContainer
-      .append(nextGenToggle.config.$nextGenTogTitle)
-      .append(nextGenToggle.config.$nextGenTogIcon);
+    this.config.$nextGenTogIcon
+      .append(this.config.$FAtoggle);
+    this.config.$nextGenTogContainer
+      .append(this.config.$nextGenTogIcon)
+      .append(this.config.$nextGenTogTitle);
   },
   cacheDOM(callingPanel) {
     this.$toolsPanel = jQuery(callingPanel);
@@ -49,11 +50,11 @@ const nextGenToggle = {
   },
   addTool() {
     // add to main toolbox
-    this.$toolsPanel.append(nextGenToggle.config.$nextGenTogContainer);
+    this.$toolsPanel.append(this.config.$nextGenTogContainer);
   },
   bindEvents() {
     // bind FA toggle with 'flipTheSwitch' action
-    nextGenToggle.config.$nextGenTogContainer.on('click', this.flipTheSwitch
+    this.config.$nextGenTogContainer.on('click', this.flipTheSwitch
       .bind(this));
   },
   // ----------------------------------------
@@ -61,14 +62,14 @@ const nextGenToggle = {
   // ----------------------------------------
   toggleOn() {
     // set toggle on image
-    const $toggle = nextGenToggle.config.$FAtoggle;
+    const $toggle = this.config.$FAtoggle;
     $toggle
       .removeClass('fa-toggle-off')
       .addClass('fa-toggle-on');
   },
   toggleOff() {
     // set toggle off image
-    const $toggle = nextGenToggle.config.$FAtoggle;
+    const $toggle = this.config.$FAtoggle;
     $toggle
       .removeClass('fa-toggle-on')
       .addClass('fa-toggle-off');

@@ -11,7 +11,7 @@ const previewBarToggle = {
   // tier 1 functions
   // ----------------------------------------
   createElements() {
-    previewBarToggle.config = {
+    this.config = {
       $previewBarToggleContainer: jQuery('<div>')
         .attr({
           id: 'previewBarToggleInput',
@@ -19,7 +19,7 @@ const previewBarToggle = {
           title: 'hides PCE toolbar',
         }),
       $previewBarToggleTitle: jQuery('<div>')
-        .text('hide preview toolbar?'),
+        .text('hide CDK toolbar?'),
       $previewBarToggleIcon: jQuery('<div>')
         .attr({
           id: 'previewBarToggleIcon',
@@ -29,15 +29,15 @@ const previewBarToggle = {
     };
   },
   buildTool() {
-    previewBarToggle.config.$previewBarToggleIcon
-      .append(previewBarToggle.config.$FAtoggle);
-    previewBarToggle.config.$previewBarToggleContainer
-      .append(previewBarToggle.config.$previewBarToggleTitle)
-      .append(previewBarToggle.config.$previewBarToggleIcon);
+    this.config.$previewBarToggleIcon
+      .append(this.config.$FAtoggle);
+    this.config.$previewBarToggleContainer
+    .append(this.config.$previewBarToggleIcon)
+      .append(this.config.$previewBarToggleTitle);
   },
   setToggle() {
     // get value of custom variable and set toggles accordingly
-    const varName = previewBarToggle.config.varName;
+    const varName = this.config.varName;
     const storedValue = shared.getValue(varName);
 
     if (storedValue) {
@@ -55,18 +55,18 @@ const previewBarToggle = {
   addTool() {
     // add to main toolbox
     this.$toolsPanel
-      .append(previewBarToggle.config.$previewBarToggleContainer);
+      .append(this.config.$previewBarToggleContainer);
   },
   bindEvents() {
     // bind FA toggle with 'flipTheSwitch' action
-    previewBarToggle.config.$previewBarToggleContainer
+    this.config.$previewBarToggleContainer
       .on('click', this.flipTheSwitch.bind(this))
       .on('click', '#previewToolBarFrame', this.togglePreviewToolbar);
   },
   hideFeature() {
     // hides feature if viewing live site
     if (this.siteState() === 'LIVE') {
-      previewBarToggle.config.$previewBarToggleContainer.toggle();
+      this.config.$previewBarToggleContainer.toggle();
     }
   },
   // ----------------------------------------
@@ -74,13 +74,13 @@ const previewBarToggle = {
   // ----------------------------------------
   toggleOn() {
     // set toggle on image
-    const $toggle = previewBarToggle.config.$FAtoggle;
+    const $toggle = this.config.$FAtoggle;
     $toggle
       .removeClass('fa-toggle-off')
       .addClass('fa-toggle-on');
   },
   togglePreviewToolbar() {
-    const varName = previewBarToggle.config.varName;
+    const varName = this.config.varName;
     const hidePreviewToolbar = shared.getValue(varName);
 
     // if 'hidePreviewToolbar is toggled ON'
@@ -98,12 +98,12 @@ const previewBarToggle = {
   },
   toggleOff() {
     // set toggle off image
-    const $toggle = previewBarToggle.config.$FAtoggle;
+    const $toggle = this.config.$FAtoggle;
     $toggle.removeClass('fa-toggle-on');
     $toggle.addClass('fa-toggle-off');
   },
   flipTheSwitch() {
-    const varName = previewBarToggle.config.varName;
+    const varName = this.config.varName;
     const storedValue = shared.getValue(varName);
     // set saved variable to opposite of current value
     shared.saveValue(varName, !storedValue);

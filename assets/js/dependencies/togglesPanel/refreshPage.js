@@ -11,7 +11,7 @@ const refreshPage = {
   // tier 1 functions
   // ----------------------------------------
   createElements() {
-    refreshPage.config = {
+    this.config = {
       $refreshContainer: jQuery('<div>')
         .attr({
           id: 'refreshMe',
@@ -43,38 +43,31 @@ const refreshPage = {
     this.$togglesContainer = jQuery('.toolboxContainer');
   },
   buildTool() {
-    refreshPage.config.$refreshButt
-      .html(refreshPage.config.$refresh);
-    refreshPage.config.$refreshButtContainer
-      .html(refreshPage.config.$refreshButt);
+    this.config.$refreshButt.html(this.config.$refresh);
+    this.config.$refreshButtContainer.html(this.config.$refreshButt);
     // add icon to mock button
-    refreshPage.config.$refreshCheckbox
-      .append(refreshPage.config.$FAtoggle);
+    this.config.$refreshCheckbox.append(this.config.$FAtoggle);
     // add mock button to container
-    refreshPage.config.$refreshContainer
-      .append(refreshPage.config.$refreshTitle)
-      .append(refreshPage.config.$refreshCheckbox);
+    this.config.$refreshContainer
+      .append(this.config.$refreshCheckbox)
+      .append(this.config.$refreshTitle);
   },
   addTool() {
-    this.$togglesPanel
-      .append(refreshPage.config.$refreshContainer);
-    this.$togglesContainer
-      .append(refreshPage.config.$refreshButtContainer);
+    this.$togglesPanel.append(this.config.$refreshContainer);
+    this.$togglesContainer.append(this.config.$refreshButtContainer);
   },
   bindEvents() {
-    refreshPage.config.$refreshButt
-      .on('click', this.reloadPage);
-    refreshPage.config.$refreshContainer
-      .on('click', this.flipTheSwitch.bind(this));
+    this.config.$refreshButt.on('click', this.reloadPage);
+    this.config.$refreshContainer.on('click', this.flipTheSwitch.bind(this));
   },
   setToggle() {
     // get value of custom variable and set toggles accordingly
     if (shared.getValue('useRefreshButton')) {
       this.toggleOn();
-      refreshPage.config.$refreshButtContainer.show();
+      this.config.$refreshButtContainer.show();
     } else {
       this.toggleOff();
-      refreshPage.config.$refreshButtContainer.hide();
+      this.config.$refreshButtContainer.hide();
     }
   },
   // ----------------------------------------
@@ -94,14 +87,14 @@ const refreshPage = {
   toggleOn() {
     const faPrefix = 'fa-';
     // set toggle on image
-    const $toggle = refreshPage.config.$FAtoggle;
+    const $toggle = this.config.$FAtoggle;
     $toggle.removeClass(`${faPrefix}toggle-off`);
     $toggle.addClass(`${faPrefix}toggle-on`);
   },
   toggleOff() {
     const faPrefix = 'fa-';
     // set toggle off image
-    const $toggle = refreshPage.config.$FAtoggle;
+    const $toggle = this.config.$FAtoggle;
     $toggle.removeClass(`${faPrefix}toggle-on`);
     $toggle.addClass(`${faPrefix}toggle-off`);
   },

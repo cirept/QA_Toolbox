@@ -7,14 +7,14 @@ const urlModifiers = {
     this.setToggle();
     this.addTool();
     this.bindEvents();
-    shared.displayPanel(urlModifiers.config.$urlModPanel);
+    shared.displayPanel(this.config.$urlModPanel);
   },
   // ----------------------------------------
   // tier 1 functions
   // ----------------------------------------
   createElements() {
     // main panel container
-    urlModifiers.config = {
+    this.config = {
       $urlModContainer: jQuery('<div>')
         .attr({
           class: 'toolBox',
@@ -41,36 +41,36 @@ const urlModifiers = {
         .attr({
           class: 'autoApply',
         })
-        .text('Auto Apply Modifiers?'),
+        .text('Auto Apply?'),
       $autoApplyIcon: jQuery('<div>')
         .attr({
           id: 'autoApplyIcon',
         }),
       $FAtoggle: jQuery('<i class="fa fa-toggle-off fa-lg"></i>'),
-          myTimeout: '',
+      myTimeout: '',
     }
   },
   buildPanel() {
     // attach panel elements to container
-    urlModifiers.config.$urlModPanel
+    this.config.$urlModPanel
       .append(nextGenToggle.init())
       .append(m4Check.init())
       .append(autofillToggle.init());
 
-    urlModifiers.config.$autoApplyContainer
-      .append(urlModifiers.config.$autoApplyTitle)
-      .append(urlModifiers.config.$autoApplyIcon);
-    // urlModifiers.config.$autoApplyContainer.append(urlModifiers.config.$autoApplyIcon);
-    urlModifiers.config.$autoApplyIcon
-      .append(urlModifiers.config.$FAtoggle);
-    urlModifiers.config.$urlModPanel
-      .append(urlModifiers.config.$autoApplyContainer);
+    this.config.$autoApplyContainer
+      .append(this.config.$autoApplyIcon)
+      .append(this.config.$autoApplyTitle);
+    // this.config.$autoApplyContainer.append(this.config.$autoApplyIcon);
+    this.config.$autoApplyIcon
+      .append(this.config.$FAtoggle);
+    this.config.$urlModPanel
+      .append(this.config.$autoApplyContainer);
 
     // attach title and URL Mod panel to URL Mod container
-    urlModifiers.config.$urlModContainer
-      .append(urlModifiers.config.$urlModTitle)
-      .append(urlModifiers.config.$urlModPanel);
-    // urlModifiers.config.$urlModContainer.append(urlModifiers.config.$urlModPanel);
+    this.config.$urlModContainer
+      .append(this.config.$urlModTitle)
+      .append(this.config.$urlModPanel);
+    // this.config.$urlModContainer.append(this.config.$urlModPanel);
   },
   cacheDOM() {
     // DOM elements
@@ -92,46 +92,46 @@ const urlModifiers = {
   addTool() {
     // add to main toolbox
     this.$toolBoxContainer
-      .append(urlModifiers.config.$urlModContainer);
+      .append(this.config.$urlModContainer);
   },
   bindEvents() {
     // minimize
-    urlModifiers.config.$urlModTitle
+    this.config.$urlModTitle
       .on('click', shared.toggleFeature)
       .on('click', shared.saveState);
-    urlModifiers.config.$autoApplyContainer.on('click', this.flipTheSwitch
+    this.config.$autoApplyContainer.on('click', this.flipTheSwitch
       .bind(this));
 
-      /**
-      * Bind all child elements to trigger a timeout function
-      */
-      urlModifiers.config.$urlModPanel.on('click', '.myParameter', () => {
-        // if the time out has already been set, clear the interval
-        if (urlModifiers.config.myTimeout) {
-          window.clearTimeout(urlModifiers.config.myTimeout);
+    /**
+     * Bind all child elements to trigger a timeout function
+     */
+    this.config.$urlModPanel.on('click', '.myParameter', () => {
+      // if the time out has already been set, clear the interval
+      if (this.config.myTimeout) {
+        window.clearTimeout(this.config.myTimeout);
+      }
+      // set the timeout to expire after 3 seconds
+      this.config.myTimeout = window.setTimeout(() => {
+        console.log('timme out');
+        if (shared.getValue('autoApplyParameters')) {
+          this.applyParameters();
         }
-        // set the timeout to expire after 3 seconds
-        urlModifiers.config.myTimeout = window.setTimeout(() => {
-          console.log('timme out');
-          if (shared.getValue('autoApplyParameters')) {
-            this.applyParameters();
-          }
-        }, 2500);
-      })
+      }, 2500);
+    })
   },
   // ----------------------------------------
   // tier 2 functions
   // ----------------------------------------
   toggleOn() {
     // set toggle on image
-    const $toggle = urlModifiers.config.$FAtoggle;
+    const $toggle = this.config.$FAtoggle;
     $toggle
       .removeClass('fa-toggle-off')
       .addClass('fa-toggle-on');
   },
   toggleOff() {
     // set toggle off image
-    const $toggle = urlModifiers.config.$FAtoggle;
+    const $toggle = this.config.$FAtoggle;
     $toggle
       .removeClass('fa-toggle-on')
       .addClass('fa-toggle-off');

@@ -11,7 +11,7 @@
     // tier 1 functions
     // ----------------------------------------
     createElements() {
-      autofillToggle.config = {
+      this.config = {
         $autofillTogContainer: jQuery('<div>')
           .attr({
             id: 'autofillToggleInput',
@@ -19,7 +19,7 @@
             title: 'Show all autofill tags on page',
           }),
         $autofillTogTitle: jQuery('<div>')
-          .text('show autofill tags?'),
+          .text('show autofill?'),
         $autofillTogIcon: jQuery('<div>')
           .attr({
             id: 'autofillToggleIcon',
@@ -28,11 +28,11 @@
       };
     },
     buildTool() {
-      autofillToggle.config.$autofillTogIcon
-        .append(autofillToggle.config.$FAtoggle);
-      autofillToggle.config.$autofillTogContainer
-        .append(autofillToggle.config.$autofillTogTitle)
-        .append(autofillToggle.config.$autofillTogIcon);
+      this.config.$autofillTogIcon
+        .append(this.config.$FAtoggle);
+      this.config.$autofillTogContainer
+        .append(this.config.$autofillTogIcon)
+        .append(this.config.$autofillTogTitle);
     },
     setToggle() {
       if (shared.getValue('applyAutofill')) { // if 'applyAutofill is turned on'
@@ -49,11 +49,11 @@
     addTool() {
       // add to main toolbox
       this.$toolsPanel
-        .append(autofillToggle.config.$autofillTogContainer);
+        .append(this.config.$autofillTogContainer);
     },
     bindEvents() {
       // bind FA toggle with 'flipTheSwitch' action
-      autofillToggle.config.$autofillTogContainer.on('click', this.flipTheSwitch
+      this.config.$autofillTogContainer.on('click', this.flipTheSwitch
         .bind(this));
     },
     // ----------------------------------------
@@ -61,14 +61,14 @@
     // ----------------------------------------
     toggleOn() {
       // set toggle on image
-      const $toggle = autofillToggle.config.$FAtoggle;
+      const $toggle = this.config.$FAtoggle;
       $toggle
         .removeClass('fa-toggle-off')
         .addClass('fa-toggle-on');
     },
     toggleOff() {
       // set toggle off image
-      const $toggle = autofillToggle.config.$FAtoggle;
+      const $toggle = this.config.$FAtoggle;
       $toggle
         .removeClass('fa-toggle-on')
         .addClass('fa-toggle-off');
