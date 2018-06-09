@@ -31,7 +31,7 @@ const dynamicDisplay = {
         .attr({
           id: 'version',
         })
-        .text(`version: ${GM_info.script.version}`), // eslint-disable-line camelcase
+        .text(`ver. ${GM_info.script.version}`), // eslint-disable-line camelcase
       $changeLog: jQuery('<div>')
         .attr({
           id: 'changeLog',

@@ -10,6 +10,10 @@
   - Added functionality!
     - Highlights can be turned off by clicking on the legend entries on the legend panel
 
+### Style Update
+
+- Updated style of tool.
+
 <br><br>
 
 ---

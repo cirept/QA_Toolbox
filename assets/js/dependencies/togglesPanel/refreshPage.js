@@ -16,6 +16,7 @@ const refreshPage = {
         .attr({
           id: 'refreshMe',
           class: 'toggleTool',
+          title: 'toggle to add a refresh button',
         }),
       $refreshButtContainer: jQuery('<div>')
         .attr({
@@ -27,7 +28,7 @@ const refreshPage = {
           title: 'Refresh Page',
         }),
       $refresh: jQuery(
-        '<i class="fas fa-redo-alt fa-3x"></i>'),
+        '<i class="fas fa-redo-alt fa-2x"></i>'),
       $refreshTitle: jQuery('<div>')
         .text('Refresh Button'),
       $refreshCheckbox: jQuery('<div>')

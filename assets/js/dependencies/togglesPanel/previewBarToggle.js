@@ -16,7 +16,7 @@ const previewBarToggle = {
         .attr({
           id: 'previewBarToggleInput',
           class: 'toggleTool',
-          title: 'hides PCE toolbar',
+          title: 'toggles PCE toolbar',
         }),
       $previewBarToggleTitle: jQuery('<div>')
         .text('hide CDK toolbar?'),
