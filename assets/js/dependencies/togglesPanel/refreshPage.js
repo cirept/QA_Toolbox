@@ -1,4 +1,8 @@
 const refreshPage = {
+  /**
+   * initialize the tool
+   * calls all the functions to build the tool
+   */
   init(callingPanel) {
     this.createElements();
     this.cacheDOM(callingPanel);
@@ -10,6 +14,9 @@ const refreshPage = {
   // ----------------------------------------
   // tier 1 functions
   // ----------------------------------------
+  /**
+   * Creates all the DOM elements that the tool will use
+   */
   createElements() {
     this.config = {
       $refreshContainer: jQuery('<div>')
@@ -30,7 +37,7 @@ const refreshPage = {
       $refresh: jQuery(
         '<i class="fas fa-redo-alt fa-2x"></i>'),
       $refreshTitle: jQuery('<div>')
-        .text('Refresh Button'),
+        .text('Refresh'),
       $refreshCheckbox: jQuery('<div>')
         .attr({
           id: 'refreshMetoggle',
@@ -39,63 +46,146 @@ const refreshPage = {
       $FAtoggle: jQuery('<i class="fas toggle-off fa-lg"></i>'),
     };
   },
+  /**
+   * Caches things from the DOM that the tool will use.
+   * @param {object} callingPanel - the panel that this tool is located in
+   */
   cacheDOM(callingPanel) {
     this.$togglesPanel = jQuery(callingPanel);
     this.$togglesContainer = jQuery('.toolboxContainer');
   },
+  /**
+   * Builds the tools elements
+   * Combines the cached DOM elements
+   */
   buildTool() {
-    this.config.$refreshButt.html(this.config.$refresh);
-    this.config.$refreshButtContainer.html(this.config.$refreshButt);
+    const {
+      $refreshButt,
+      $refresh,
+      $refreshButtContainer,
+      $FAtoggle,
+      $refreshCheckbox,
+      $refreshContainer,
+      $refreshTitle,
+    } = this.config;
+
+    $refreshButt.html($refresh);
+    $refreshButtContainer.html($refreshButt);
     // add icon to mock button
-    this.config.$refreshCheckbox.append(this.config.$FAtoggle);
+    $refreshCheckbox.append($FAtoggle);
+
     // add mock button to container
-    this.config.$refreshContainer
-      .append(this.config.$refreshCheckbox)
-      .append(this.config.$refreshTitle);
+    $refreshContainer
+      .append($refreshCheckbox)
+      .append($refreshTitle);
   },
+  /**
+   * Adds the combined tool elements to the tool container on the DOM
+   */
   addTool() {
-    this.$togglesPanel.append(this.config.$refreshContainer);
-    this.$togglesContainer.append(this.config.$refreshButtContainer);
+    const {
+      $refreshContainer,
+      $refreshButtContainer
+    } = this.config;
+
+    this.$togglesPanel.append($refreshContainer);
+    this.$togglesContainer.append($refreshButtContainer);
   },
+  /**
+   * Attaches the event listeners that will provide the tools functionality
+   */
   bindEvents() {
-    this.config.$refreshButt.on('click', this.reloadPage);
-    this.config.$refreshContainer.on('click', this.flipTheSwitch.bind(this));
+    const {
+      $refreshButt,
+      $refreshContainer,
+      $refreshTitle,
+    } = this.config;
+
+    // bind click event to reload the page
+    $refreshButt.on('click', this.reloadPage);
+
+    // bind toggle event
+    $refreshContainer.on('click', this.flipTheSwitch.bind(this));
+
+    // apply mouse over hover effect for display text
+    $refreshTitle.on('mouseover', () => {
+      $refreshTitle.fadeOut(250, () => {
+        $refreshTitle.text('Refresh Button')
+          .fadeIn(500);
+      })
+    });
+
+    // apply mouse out hover effect for display text
+    $refreshTitle.on('mouseout', () => {
+      $refreshTitle.fadeOut(250, () => {
+        $refreshTitle.text('Refresh')
+          .fadeIn(500);
+      })
+    });
   },
+  /**
+   * Sets the state of the toggle to the last saved state loaded from
+   * local storage
+   */
   setToggle() {
+    const {
+      $refreshButtContainer,
+    } = this.config;
+
     // get value of custom variable and set toggles accordingly
     if (shared.getValue('useRefreshButton')) {
       this.toggleOn();
-      this.config.$refreshButtContainer.show();
+      $refreshButtContainer.show();
     } else {
       this.toggleOff();
-      this.config.$refreshButtContainer.hide();
+      $refreshButtContainer.hide();
     }
   },
   // ----------------------------------------
   // tier 2 functions
   // ----------------------------------------
+  /**
+   * reloads the page
+   */
   reloadPage() {
     window.location.reload(true);
   },
+  /**
+   * Sets the saved variable to the opposite of what it is currently
+   * and updates the DOM toggle element
+   */
   flipTheSwitch() {
-    // set saved variable to opposite of current value
     const toggle = shared.getValue('useRefreshButton');
     shared.saveValue('useRefreshButton', !toggle);
 
     // set toggle
     this.setToggle();
   },
+  /**
+   * Changed the DOM toggle to the ON state
+   */
   toggleOn() {
+    const {
+      $FAtoggle
+    } = this.config;
+
     const faPrefix = 'fa-';
     // set toggle on image
-    const $toggle = this.config.$FAtoggle;
+    const $toggle = $FAtoggle;
     $toggle.removeClass(`${faPrefix}toggle-off`);
     $toggle.addClass(`${faPrefix}toggle-on`);
   },
+  /**
+   * Changed the DOM toggle to the OFF state
+   */
   toggleOff() {
+    const {
+      $FAtoggle
+    } = this.config;
+
     const faPrefix = 'fa-';
     // set toggle off image
-    const $toggle = this.config.$FAtoggle;
+    const $toggle = $FAtoggle;
     $toggle.removeClass(`${faPrefix}toggle-on`);
     $toggle.addClass(`${faPrefix}toggle-off`);
   },
