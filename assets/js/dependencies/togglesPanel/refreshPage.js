@@ -37,7 +37,7 @@ const refreshPage = {
       $refresh: jQuery(
         '<i class="fas fa-redo-alt fa-2x"></i>'),
       $refreshTitle: jQuery('<div>')
-        .text('Refresh'),
+        .text('Refresh?'),
       $refreshCheckbox: jQuery('<div>')
         .attr({
           id: 'refreshMetoggle',
@@ -110,7 +110,7 @@ const refreshPage = {
     // apply mouse over hover effect for display text
     $refreshTitle.on('mouseover', () => {
       $refreshTitle.fadeOut(250, () => {
-        $refreshTitle.text('Refresh Button')
+        $refreshTitle.text('Toggle Custom Refresh Button?')
           .fadeIn(500);
       })
     });
@@ -118,7 +118,7 @@ const refreshPage = {
     // apply mouse out hover effect for display text
     $refreshTitle.on('mouseout', () => {
       $refreshTitle.fadeOut(250, () => {
-        $refreshTitle.text('Refresh')
+        $refreshTitle.text('Refresh?')
           .fadeIn(500);
       })
     });

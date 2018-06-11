@@ -22,7 +22,7 @@ const previewBarToggle = {
           title: 'toggles PCE toolbar',
         }),
       $previewBarToggleTitle: jQuery('<div>')
-        .text('hide toolbar?'),
+        .text('Toolbar?'),
       $previewBarToggleIcon: jQuery('<div>')
         .attr({
           id: 'previewBarToggleIcon',
@@ -106,7 +106,7 @@ const previewBarToggle = {
     // apply mouse out hover effect for display text
     $previewBarToggleTitle.on('mouseout', () => {
       $previewBarToggleTitle.fadeOut(250, () => {
-        $previewBarToggleTitle.text('Hide Toolbar?')
+        $previewBarToggleTitle.text('Toolbar?')
           .fadeIn(500);
       })
     });
