@@ -36,7 +36,7 @@ const qaToolbox = {
       $myFont: jQuery('<link>')
         .attr({
           id: 'toolFont',
-          href: 'https://fonts.googleapis.com/css?family=Montserrat',
+          href: 'https://fonts.googleapis.com/css?family=Montserrat|Lato|Roboto|Source+Code+Pro',
           rel: 'stylesheet',
         }),
       $fontAw: jQuery('<link>')

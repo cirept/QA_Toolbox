@@ -54,12 +54,14 @@ const shared = {
     return false;
   },
   toggleFeature: (e) => {
+    jQuery(e.target).toggleClass('minimized');
     const $callingElement = jQuery(e.target)
       .siblings('.toolsPanel');
     return $callingElement.slideToggle(500);
   },
-  getResourceUrl: name =>
-    GM_getResourceURL(name), // eslint-disable-line
+  getResourceUrl: name => {
+    return GM_getResourceURL(name);
+  }, // eslint-disable-line
   saveState: (e) => {
     // get current state
     const vName = jQuery(e.target)
@@ -69,13 +71,21 @@ const shared = {
     // sets usingM4 value
     shared.saveValue(vName, !currState);
   },
-  setState($panel, state) {
+  /**
+  * Adds the appear/disappear class to the tool panel which will hide/show
+  * the panel of buttons
+  * @param {object} $panel - the panel of tools to apply the class too
+  * @param {string} state - the last saved state of the panel
+  */
+  setDisplayState($panel, state) {
     if (state === 'show') {
       $panel.addClass('appear');
+      $panel.siblings('.panelTitle').removeClass('minimized');
     }
 
     if (state === 'hide') {
       $panel.addClass('disappear');
+      $panel.siblings('.panelTitle').addClass('minimized');
     }
   },
   programData: () => {
@@ -102,7 +112,10 @@ const shared = {
           continue;
         }
 
-        value = $legendContent[key];
+        // set value to value of 'text' key if the legendcontent is an object
+        value = (typeof $legendContent[key]).toLowerCase() === 'object' ?
+          $legendContent[key].text : $legendContent[key];
+
         // build listing element
         this.$listItem = jQuery('<li>')
           .attr({
@@ -125,7 +138,7 @@ const shared = {
       if (variables.hasOwnProperty(key)) {
         if (key === panelId) {
           state = variables[key] ? 'show' : 'hide';
-          shared.setState($toolPanel, state);
+          shared.setDisplayState($toolPanel, state);
         }
       }
     }
