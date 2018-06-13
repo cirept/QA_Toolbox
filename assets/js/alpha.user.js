@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name QA Toolbox - Alpha
 // @namespace www.cobaltgroup.com/
-// @version 3.3.2-beta27
+// @version 3.3.2-beta28
 // @author Eric Tanaka
 // @include http:*
 // @include https:*
 // @connect assets-cdk.com
-// @downloadURL https://github.com/cirept/QA_Toolbox/raw/develop/assets/js/preRelease.user.js
+// @downloadURL https://github.com/cirept/QA_Toolbox/raw/develop/assets/js/alpha.user.js
 // @resource toolStyles https://github.com/cirept/QA_Toolbox/raw/develop/assets/css/toolbox.css
 // @resource changeLog https://github.com/cirept/QA_Toolbox/raw/develop/docs/ChangeLog.md
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
@@ -15,6 +15,7 @@
 // @require https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js
 // @require https://github.com/cirept/QA_Toolbox/raw/develop/assets/js/dependencies/pageInformationPanel/pageInformation.js
 // @require https://github.com/cirept/QA_Toolbox/raw/develop/assets/js/dependencies/pageInformationPanel/dealerName.js
+// @require https://github.com/cirept/QA_Toolbox/raw/develop/assets/js/dependencies/pageInformationPanel/liveSiteURL.js
 // @require https://github.com/cirept/QA_Toolbox/raw/develop/assets/js/dependencies/pageInformationPanel/webId.js
 // @require https://github.com/cirept/QA_Toolbox/raw/develop/assets/js/dependencies/pageInformationPanel/pageName.js
 // @require https://github.com/cirept/QA_Toolbox/raw/develop/assets/js/dependencies/pageInformationPanel/hTags.js
