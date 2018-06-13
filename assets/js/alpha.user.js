@@ -8,7 +8,7 @@
 // @connect assets-cdk.com
 // @downloadURL https://github.com/cirept/QA_Toolbox/raw/develop/assets/js/alpha.user.js
 // @resource toolStyles https://github.com/cirept/QA_Toolbox/raw/develop/assets/css/toolbox.css
-// @resource changeLog https://github.com/cirept/QA_Toolbox/raw/develop/docs/ChangeLog.md
+// @resource changeLog https://github.com/cirept/QA_Toolbox/raw/develop/docs/CHANGELOG.md
 // @require https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js
 // @require https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js
 // @require https://cdn.rawgit.com/cirept/Typo.js/master/typo/typo.js
