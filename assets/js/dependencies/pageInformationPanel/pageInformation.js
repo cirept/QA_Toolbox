@@ -40,6 +40,7 @@ const pageInformation = {
     pageInformation.config.$pageInfo
       .append(dealerName.init())
       .append(webID.init())
+      .append(liveSiteURL.init())
       .append(pageName.init())
       .append(hTags.init());
     // attach to continer
