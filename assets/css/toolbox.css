@@ -123,10 +123,7 @@ default styles
   border-top-right-radius: 10px;
 }
 
-.tbInfo,
-.myEDOBut,
-.tbLegend,
-.toolBox {
+.tbInfo, .myEDOBut, .tbLegend, .toolBox {
   font-family: 'Roboto', sans-serif;
 }
 
@@ -136,9 +133,7 @@ default styles
   /* width: 100px; */
 }
 
-.panelTitle,
-.tbLabel,
-.legendContainer .legendTitle {
+.panelTitle, .tbLabel, .legendContainer .legendTitle {
   font-family: 'Lato', sans-serif;
 }
 
@@ -184,6 +179,10 @@ default styles
   margin: 1px 0 0 -10px;
   /* margin: 1px 0 0 -5px; */
   /* margin: 1px 0 0 -20px; */
+}
+
+.myEDOBut.nextgen:last-child {
+  margin-bottom: 1px;
 }
 
 .tetra.myEDOBut {
@@ -459,20 +458,17 @@ Image checker
   position: relative;
 }
 
-.hasAlt,
-body .card .content .hasAlt {
+.hasAlt, body .card .content .hasAlt {
   background: rgb(146, 232, 66);
   background: rgba(146, 232, 66, .75);
 }
 
-.noAlt,
-body .card .content .noAlt {
+.noAlt, body .card .content .noAlt {
   background: rgb(255, 124, 216);
   background: rgba(255, 124, 216, .75);
 }
 
-.emptyAlt,
-body .card .content .emptyAlt {
+.emptyAlt, body .card .content .emptyAlt {
   background: rgb(255, 124, 216);
   background: rgba(255, 124, 216, .75);
 }
@@ -485,11 +481,7 @@ lnk checker styles
 
 /* covers all text links and image links */
 
-.unsupportedPageLink,
-footer .card .content .text .link .siteLink.unsupportedPageLink,
-body .card .content .text .copy .siteLink.unsupportedPageLink,
-body .card .content .text .link .siteLink.unsupportedPageLink,
-body .card .content .media .imgOverlay.unsupportedPageLink {
+.unsupportedPageLink, footer .card .content .text .link .siteLink.unsupportedPageLink, body .card .content .text .copy .siteLink.unsupportedPageLink, body .card .content .text .link .siteLink.unsupportedPageLink, body .card .content .media .imgOverlay.unsupportedPageLink {
   -moz-box-shadow: inset 0 0 0 903px rgba(13, 149, 232, .80);
   -webkit-box-shadow: inset 0 0 0 903px rgba(13, 149, 232, .80);
   box-shadow: inset 0 0 0 903px rgba(13, 149, 232, .80);
@@ -497,72 +489,44 @@ body .card .content .media .imgOverlay.unsupportedPageLink {
   color: white;
 }
 
-.noTitle,
-footer .card .content .text .link .siteLink.noTitle,
-body .card .content .text .copy .siteLink.noTitle,
-body .card .content .text .link .siteLink.noTitle,
-body .card .content .media .imgOverlay.noTitle {
+.noTitle, footer .card .content .text .link .siteLink.noTitle, body .card .content .text .copy .siteLink.noTitle, body .card .content .text .link .siteLink.noTitle, body .card .content .media .imgOverlay.noTitle {
   background: rgb(255, 124, 216);
   background: rgba(255, 124, 216, .75) !important;
   border: none;
 }
 
-.hasTitle,
-footer .card .content .text .link .siteLink.hasTitle,
-body .card .content .text .copy .siteLink.hasTitle,
-body .card .content .text .link .siteLink.hasTitle,
-body .card .content .media .imgOverlay.hasTitle {
+.hasTitle, footer .card .content .text .link .siteLink.hasTitle, body .card .content .text .copy .siteLink.hasTitle, body .card .content .text .link .siteLink.hasTitle, body .card .content .media .imgOverlay.hasTitle {
   background: rgb(146, 232, 66);
   background: rgba(146, 232, 66, .75) !important;
   border: none;
 }
 
-.opensWindow,
-footer .card .content .text .link .siteLink.opensWindow,
-body .card .content .text .copy .siteLink.opensWindow,
-body .card .content .text .link .siteLink.opensWindow,
-body .card .content .media .imgOverlay.opensWindow {
+.opensWindow, footer .card .content .text .link .siteLink.opensWindow, body .card .content .text .copy .siteLink.opensWindow, body .card .content .text .link .siteLink.opensWindow, body .card .content .media .imgOverlay.opensWindow {
   background: rgb(255, 165, 0);
   background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(255, 255, 255, 0) 26%, rgba(146, 232, 66, 0) 100%);
   border: none;
   color: black;
 }
 
-.hasTitle.opensWindow,
-footer .card .content .text .link .siteLink.hasTitle.opensWindow,
-body .card .content .text .copy .siteLink.hasTitle.opensWindow,
-body .card .content .text .link .siteLink.hasTitle.opensWindow,
-body .card .content .media .imgOverlay.hasTitle.opensWindow {
+.hasTitle.opensWindow, footer .card .content .text .link .siteLink.hasTitle.opensWindow, body .card .content .text .copy .siteLink.hasTitle.opensWindow, body .card .content .text .link .siteLink.hasTitle.opensWindow, body .card .content .media .imgOverlay.hasTitle.opensWindow {
   background: rgb(146, 232, 66);
   background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(146, 232, 66, 0.75) 26%, rgba(146, 232, 66, 0.75) 99%, rgba(146, 232, 66, 0.75) 100%) !important;
   border: none;
 }
 
-.noTitle.opensWindow,
-footer .card .content .text .link .siteLink.noTitle.opensWindow,
-body .card .content .text .copy .siteLink.noTitle.opensWindow,
-body .card .content .text .link .siteLink.noTitle.opensWindow,
-body .card .content .media .imgOverlay.noTitle.opensWindow {
+.noTitle.opensWindow, footer .card .content .text .link .siteLink.noTitle.opensWindow, body .card .content .text .copy .siteLink.noTitle.opensWindow, body .card .content .text .link .siteLink.noTitle.opensWindow, body .card .content .media .imgOverlay.noTitle.opensWindow {
   background: rgb(255, 124, 216);
   background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(255, 124, 216, 0.75) 26%, rgba(255, 124, 216, 0.75) 100%) !important;
   border: none;
 }
 
-.emptyTitle.opensWindow,
-footer .card .content .text .link .siteLink.emptyTitle.opensWindow,
-body .card .content .text .copy .siteLink.emptyTitle.opensWindow,
-body .card .content .text .link .siteLink.emptyTitle.opensWindow,
-body .card .content .media .imgOverlay.emptyTitle.opensWindow {
+.emptyTitle.opensWindow, footer .card .content .text .link .siteLink.emptyTitle.opensWindow, body .card .content .text .copy .siteLink.emptyTitle.opensWindow, body .card .content .text .link .siteLink.emptyTitle.opensWindow, body .card .content .media .imgOverlay.emptyTitle.opensWindow {
   background: rgb(255, 124, 216);
   background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(255, 124, 216, 0.75) 26%, rgba(255, 124, 216, 0.75) 100%) !important;
   border: none;
 }
 
-.brokenURL,
-footer .card .content .text .link .siteLink.brokenURL,
-body .card .content .text .copy .siteLink.brokenURL,
-body .card .content .text .link .siteLink.brokenURL,
-body .card .content .media .imgOverlay.brokenURL {
+.brokenURL, footer .card .content .text .link .siteLink.brokenURL, body .card .content .text .copy .siteLink.brokenURL, body .card .content .text .link .siteLink.brokenURL, body .card .content .media .imgOverlay.brokenURL {
   color: white;
   -moz-box-shadow: inset 0 0 0 903px rgba(255, 55, 60, .90);
   -webkit-box-shadow: inset 0 0 0 903px rgba(255, 55, 60, .90);
@@ -570,11 +534,7 @@ body .card .content .media .imgOverlay.brokenURL {
   border: none;
 }
 
-.urlIssue,
-footer .card .content .text .link .siteLink.urlIssue,
-body .card .content .text .copy .siteLink.urlIssue,
-body .card .content .text .link .siteLink.urlIssue,
-body .card .content .media .imgOverlay.urlIssue {
+.urlIssue, footer .card .content .text .link .siteLink.urlIssue, body .card .content .text .copy .siteLink.urlIssue, body .card .content .text .link .siteLink.urlIssue, body .card .content .media .imgOverlay.urlIssue {
   color: white;
   -moz-box-shadow: inset 0 0 0 903px rgba(255, 55, 60, .90);
   -webkit-box-shadow: inset 0 0 0 903px rgba(255, 55, 60, .90);
@@ -582,21 +542,14 @@ body .card .content .media .imgOverlay.urlIssue {
   border: none;
 }
 
-.absoluteURL,
-footer .card .content .text .link .siteLink.absoluteURL,
-body .card .content .text .copy .siteLink.absoluteURL,
-body .card .content .text .link .siteLink.absoluteURL,
-body .card .content .media .imgOverlay.absoluteURL {
+.absoluteURL, footer .card .content .text .link .siteLink.absoluteURL, body .card .content .text .copy .siteLink.absoluteURL, body .card .content .text .link .siteLink.absoluteURL, body .card .content .media .imgOverlay.absoluteURL {
   -moz-box-shadow: inset 0 0 0 3px purple;
   -webkit-box-shadow: inset 0 0 0 3px purple;
   box-shadow: inset 0 0 0 3px purple;
   border: none;
 }
 
-.buttonFlag,
-footer .card .content .text .link .siteLink.buttonFlag,
-body .card .content .text .link .siteLink.buttonFlag,
-body .card .content .text .copy .buttonFlag {
+.buttonFlag, footer .card .content .text .link .siteLink.buttonFlag, body .card .content .text .link .siteLink.buttonFlag, body .card .content .text .copy .buttonFlag {
   background: #4568DC !important;
   background: -webkit-linear-gradient(to right, #B06AB3, #4568DC) !important;
   background: linear-gradient(to right, #B06AB3, #4568DC) !important;
@@ -604,17 +557,7 @@ body .card .content .text .copy .buttonFlag {
   border: none;
 }
 
-.linkChecked,
-footer .card .content .text .link .siteLink.linkChecked,
-body .card .content .text .copy .siteLink.linkChecked,
-body .card .content .text .copy .siteLink.linkChecked.hasTitle,
-body .card .content .text .copy .siteLink.linkChecked.noTitle,
-body .card .content .text .link .siteLink.linkChecked,
-body .card .content .text .link .siteLink.linkChecked.hasTitle,
-body .card .content .text .link .siteLink.linkChecked.noTitle,
-body .card .content .media .imgOverlay.linkChecked,
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.linkChecked,
-body header .menu>nav>ul li.showNav.customAdd:hover ul.showNav.nextgenShowNav>li.showNav.customAdd>.linkChecked {
+.linkChecked, footer .card .content .text .link .siteLink.linkChecked, body .card .content .text .copy .siteLink.linkChecked, body .card .content .text .copy .siteLink.linkChecked.hasTitle, body .card .content .text .copy .siteLink.linkChecked.noTitle, body .card .content .text .link .siteLink.linkChecked, body .card .content .text .link .siteLink.linkChecked.hasTitle, body .card .content .text .link .siteLink.linkChecked.noTitle, body .card .content .media .imgOverlay.linkChecked, body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.linkChecked, body header .menu>nav>ul li.showNav.customAdd:hover ul.showNav.nextgenShowNav>li.showNav.customAdd>.linkChecked {
   background: rgb(160, 255, 206);
   background: linear-gradient(to right, rgba(249, 255, 209, 0.75) 0%, rgba(160, 255, 206, 0.75) 100%) !important;
   border: none;
@@ -722,8 +665,7 @@ body .page nav #pmenu .showNav {
   display: block !important;
 }
 
-body header .menu>nav>ul .showNav.nextgenShowNav,
-body header .menu>nav>ul .showNav.nextgenShowNav:hover {
+body header .menu>nav>ul .showNav.nextgenShowNav, body header .menu>nav>ul .showNav.nextgenShowNav:hover {
   display: inline-block;
   position: absolute;
   border: none;
@@ -732,10 +674,7 @@ body header .menu>nav>ul .showNav.nextgenShowNav:hover {
   width: 20rem;
 }
 
-body header .menu>nav>ul li.showNavAdd.customAdd>span,
-body header .menu>nav>ul li:hover ul.showNav.nextgenShowNav>li.showNav.customAdd>a,
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>a,
-body header .menu>nav>ul ul.showNav.nextgenShowNav {
+body header .menu>nav>ul li.showNavAdd.customAdd>span, body header .menu>nav>ul li:hover ul.showNav.nextgenShowNav>li.showNav.customAdd>a, body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>a, body header .menu>nav>ul ul.showNav.nextgenShowNav {
   color: white;
   background: black;
   word-wrap: break-word;
@@ -850,26 +789,14 @@ widget outline
 ----------------------------------------
 */
 
-.attention,
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.attention,
-.header.card .menu nav ul li:hover>ul li a.attention,
-body .card .content .text .copy .siteLink.attention,
-body .card .content .text .link .siteLink.attention,
-body .card .content .media .imgOverlay.attention,
-body .page header #pmenu .attention {
+.attention, body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.attention, .header.card .menu nav ul li:hover>ul li a.attention, body .card .content .text .copy .siteLink.attention, body .card .content .text .link .siteLink.attention, body .card .content .media .imgOverlay.attention, body .page header #pmenu .attention {
   border: none;
   -moz-box-shadow: inset 0 0 0 3px rgb(255, 55, 60);
   -webkit-box-shadow: inset 0 0 0 3px rgb(255, 55, 60);
   box-shadow: inset 0 0 0 3px rgb(255, 55, 60);
 }
 
-.jumpLink,
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.jumpLink,
-.header.card .menu nav ul li:hover>ul li a.jumpLink,
-body .card .content .text .copy .siteLink.jumpLink,
-body .card .content .text .link .siteLink.jumpLink,
-body .card .content .media .imgOverlay.jumpLink,
-body .page header #pmenu .jumpLink {
+.jumpLink, body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.jumpLink, .header.card .menu nav ul li:hover>ul li a.jumpLink, body .card .content .text .copy .siteLink.jumpLink, body .card .content .text .link .siteLink.jumpLink, body .card .content .media .imgOverlay.jumpLink, body .page header #pmenu .jumpLink {
   background: #FFAFBD;
   background: linear-gradient(to left, #FFAFBD, #ffc3a0);
   border: none;
@@ -879,14 +806,7 @@ body .page header #pmenu .jumpLink {
   color: #000000;
 }
 
-.mobilePhoneLink,
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.mobilePhoneLink,
-.header.card .cta a[href^="tel:"].mobilePhoneLink span,
-.header.card .menu nav ul li:hover>ul li a.mobilePhoneLink,
-body .card .content .text .copy .siteLink.mobilePhoneLink,
-body .card .content .text .link .siteLink.mobilePhoneLink,
-body .card .content .media .imgOverlay.mobilePhoneLink,
-body .page header #pmenu .mobilePhoneLink {
+.mobilePhoneLink, body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.mobilePhoneLink, .header.card .cta a[href^="tel:"].mobilePhoneLink span, .header.card .menu nav ul li:hover>ul li a.mobilePhoneLink, body .card .content .text .copy .siteLink.mobilePhoneLink, body .card .content .text .link .siteLink.mobilePhoneLink, body .card .content .media .imgOverlay.mobilePhoneLink, body .page header #pmenu .mobilePhoneLink {
   background: #005588;
   border: none;
   -moz-box-shadow: none;
@@ -895,33 +815,19 @@ body .page header #pmenu .mobilePhoneLink {
   color: #ffffff;
 }
 
-.mobilePhoneLink.opensWindow,
-footer .card .content .text .link .siteLink.hasTitle.opensWindow,
-body .card .content .text .copy .siteLink.hasTitle.opensWindow,
-body .card .content .text .link .siteLink.hasTitle.opensWindow,
-body .card .content .media .imgOverlay.hasTitle.opensWindow {
+.mobilePhoneLink.opensWindow, footer .card .content .text .link .siteLink.hasTitle.opensWindow, body .card .content .text .copy .siteLink.hasTitle.opensWindow, body .card .content .text .link .siteLink.hasTitle.opensWindow, body .card .content .media .imgOverlay.hasTitle.opensWindow {
   background: rgb(146, 232, 66);
   background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(0, 85, 136, 1) 26%, rgba(0, 85, 136, 1) 100%) !important;
   border: none;
 }
 
-.jumpLink.opensWindow,
-footer .card .content .text .link .siteLink.hasTitle.opensWindow,
-body .card .content .text .copy .siteLink.hasTitle.opensWindow,
-body .card .content .text .link .siteLink.hasTitle.opensWindow,
-body .card .content .media .imgOverlay.hasTitle.opensWindow {
+.jumpLink.opensWindow, footer .card .content .text .link .siteLink.hasTitle.opensWindow, body .card .content .text .copy .siteLink.hasTitle.opensWindow, body .card .content .text .link .siteLink.hasTitle.opensWindow, body .card .content .media .imgOverlay.hasTitle.opensWindow {
   background: rgb(146, 232, 66);
   background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, #FFAFBD 26%, #ffc3a0 100%) !important;
   border: none;
 }
 
-.success,
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.success,
-.header.card .menu nav ul li:hover>ul li a.success,
-body .card .content .text .copy .siteLink.success,
-body .card .content .text .link .siteLink.success,
-body .card .content .media .imgOverlay.success,
-body .page header #pmenu .success {
+.success, body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.success, .header.card .menu nav ul li:hover>ul li a.success, body .card .content .text .copy .siteLink.success, body .card .content .text .link .siteLink.success, body .card .content .media .imgOverlay.success, body .page header #pmenu .success {
   background: rgb(86, 171, 47);
   background: linear-gradient(to right, rgba(86, 171, 47, .75), rgba(168, 224, 99, .75));
   border: none;
@@ -931,23 +837,12 @@ body .page header #pmenu .success {
   color: #000000;
 }
 
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.success,
-.header.card .menu nav ul li:hover>ul li a.success,
-body .card .content .text .copy .siteLink.success,
-body .card .content .text .link .siteLink.success,
-body .card .content .media .imgOverlay.success,
-body .page header #pmenu .success {
+body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.success, .header.card .menu nav ul li:hover>ul li a.success, body .card .content .text .copy .siteLink.success, body .card .content .text .link .siteLink.success, body .card .content .media .imgOverlay.success, body .page header #pmenu .success {
   display: inline-grid;
   font-weight: bold;
 }
 
-.otherDomain,
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.otherDomain,
-.header.card .menu nav ul li:hover>ul li a.otherDomain,
-body .card .content .text .copy .siteLink.otherDomain,
-body .card .content .text .link .siteLink.otherDomain,
-body .card .content .media .imgOverlay.otherDomain,
-body .page header #pmenu .otherDomain {
+.otherDomain, body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.otherDomain, .header.card .menu nav ul li:hover>ul li a.otherDomain, body .card .content .text .copy .siteLink.otherDomain, body .card .content .text .link .siteLink.otherDomain, body .card .content .media .imgOverlay.otherDomain, body .page header #pmenu .otherDomain {
   /*background: #92FE9D;
     background: linear-gradient(to left, rgba(0, 201, 255, .75), rgba(146, 254, 157, .75));
     border: none;
@@ -961,23 +856,12 @@ body .page header #pmenu .otherDomain {
   border: none;
 }
 
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.otherDomain,
-.header.card .menu nav ul li:hover>ul li a.otherDomain,
-body .card .content .text .copy .siteLink.otherDomain,
-body .card .content .text .link .siteLink.otherDomain,
-body .card .content .media .imgOverlay.otherDomain,
-body .page header #pmenu .otherDomain {
+body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.otherDomain, .header.card .menu nav ul li:hover>ul li a.otherDomain, body .card .content .text .copy .siteLink.otherDomain, body .card .content .text .link .siteLink.otherDomain, body .card .content .media .imgOverlay.otherDomain, body .page header #pmenu .otherDomain {
   display: inline-grid;
   font-weight: bold;
 }
 
-.error,
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.error,
-.header.card .menu nav ul li:hover>ul li a.error,
-body .card .content .text .copy .siteLink.error,
-body .card .content .text .link .siteLink.error,
-body .card .content .media .imgOverlay.error,
-body .page header #pmenu .error {
+.error, body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.error, .header.card .menu nav ul li:hover>ul li a.error, body .card .content .text .copy .siteLink.error, body .card .content .text .link .siteLink.error, body .card .content .media .imgOverlay.error, body .page header #pmenu .error {
   background: rgb(240, 0, 0);
   background: linear-gradient(to left, rgba(240, 0, 0, .75), rgba(220, 40, 30, .75));
   border: none;
@@ -987,12 +871,7 @@ body .page header #pmenu .error {
   color: #ffffff;
 }
 
-body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.error,
-.header.card .menu nav ul li:hover>ul li a.error,
-body .card .content .text .copy .siteLink.error,
-body .card .content .text .link .siteLink.error,
-body .card .content .media .imgOverlay.error,
-body .page header #pmenu .error {
+body header .menu>nav>ul ul.showNav.nextgenShowNav>li.showNav.customAdd>.error, .header.card .menu nav ul li:hover>ul li a.error, body .card .content .text .copy .siteLink.error, body .card .content .text .link .siteLink.error, body .card .content .media .imgOverlay.error, body .page header #pmenu .error {
   display: inline-grid;
   font-weight: bold;
 }
@@ -1017,21 +896,13 @@ body .card .content .media .imgOverlay.opensWindow.opensWindow {
     border: none;
 }*/
 
-.success.opensWindow,
-.success.opensWindow.otherDomain footer .card .content .text .link .siteLink.success.opensWindow,
-body .card .content .text .copy .siteLink.success.opensWindow,
-body .card .content .text .link .siteLink.success.opensWindow,
-body .card .content .media .imgOverlay.success.opensWindow {
+.success.opensWindow, .success.opensWindow.otherDomain footer .card .content .text .link .siteLink.success.opensWindow, body .card .content .text .copy .siteLink.success.opensWindow, body .card .content .text .link .siteLink.success.opensWindow, body .card .content .media .imgOverlay.success.opensWindow {
   background: rgb(146, 232, 66);
   background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(86, 171, 47, .75) 26%, rgba(168, 224, 99, .75) 100%) !important;
   border: none;
 }
 
-.error.opensWindow,
-footer .card .content .text .link .siteLink.error.opensWindow,
-body .card .content .text .copy .siteLink.error.opensWindow,
-body .card .content .text .link .siteLink.error.opensWindow,
-body .card .content .media .imgOverlay.error.opensWindow {
+.error.opensWindow, footer .card .content .text .link .siteLink.error.opensWindow, body .card .content .text .copy .siteLink.error.opensWindow, body .card .content .text .link .siteLink.error.opensWindow, body .card .content .media .imgOverlay.error.opensWindow {
   background: rgb(255, 124, 216);
   background: linear-gradient(to right, rgba(255, 165, 0, 0.75) 0%, rgba(255, 165, 0, 0.75) 25%, rgba(240, 0, 0, .75) 26%, rgba(220, 40, 30, .75) 100%) !important;
   border: none;
