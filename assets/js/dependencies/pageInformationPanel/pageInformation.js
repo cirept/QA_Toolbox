@@ -39,6 +39,7 @@ const pageInformation = {
     // attach panel elements to container
     pageInformation.config.$pageInfo
       .append(dealerName.init())
+      .append(liveSiteURL.init())
       .append(webID.init())
       .append(pageName.init())
       .append(hTags.init());
