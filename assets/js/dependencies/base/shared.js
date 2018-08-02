@@ -147,10 +147,6 @@ const shared = {
     // sets $currentCard to null for tetra site checks
     $currentCard = $currentCard || null;
 
-console.log("isNextGen", isNextGen);
-console.log("$currentLink", $currentLink.attr("href"));
-console.log("$currentCard", $currentCard);
-
     this.cacheDOMOverlayElements($currentLink);
     this.createOverlayElements(isNextGen);
     this.buildOverlayElements(isNextGen);
@@ -158,8 +154,6 @@ console.log("$currentCard", $currentCard);
     return this.$divOverlay;
   },
   cacheDOMOverlayElements($currentLink /* , isNextGen */ ) {
-    console.log("cacheDOMOverlayElements");
-    console.log("$currentLink", $currentLink);
     // IF NEXTGEN SITE
     this.widthOfImage = $currentLink.find('img')
       .width();
