@@ -197,12 +197,12 @@ const linkChecker = {
 
       // save current card settings
       // if currentCard has a class save it, if no class make variable equal ''
-      cardClass = $currentCard.attr('class') ? $currentCard.attr('class') :
-        '';
+      cardClass = $currentCard.attr('class') ? $currentCard.attr('class') : '';
 
       // test links inside cards
       this.testCard($currentCard, cardClass, isImageLink);
     }
+
   },
   tetraSiteCheck() {
     const length = this.linksArrayLength;
@@ -334,6 +334,11 @@ const linkChecker = {
     let $currentLink;
     let $linkOverlay;
 
+            // if there are no links found in the link container, return
+            if ($cardLinkContainer.children().length === 0) {
+              return;
+            }
+
     if (cardClass.indexOf('link-clickable') > -1 ||
       cardClass.indexOf('none-clickable') > -1) {
       // THERE SHOULD BE NO NEED TO CHECK FOR IMAGES IN THIS STYLE OF CARD
@@ -366,10 +371,12 @@ const linkChecker = {
       } else {
         // find image in the card and apply a div overlay
         isImageLink = true;
+
         // find FIRST PRIMARY text link
-        $currentLink = $cardLinkContainer.find(
-          'a[class*="primary"]:first');
+        $currentLink = $cardLinkContainer.find('a[class*="primary"]:first');
+
         // add div overlay to image
+        // $linkOverlay = this.addDivOverlay(
         $linkOverlay = shared.addDivOverlay(
           true, $currentLink,
           $currentCard,
