@@ -60,7 +60,7 @@ default styles
   z-index: 50000;
   margin: 0 0 5px 0;
   border-radius: 10px;
-  width: 105px;
+  width: 100%;
 }
 
 .tetra.toolBox {
@@ -89,9 +89,9 @@ default styles
   line-height: 20px;
   position: fixed;
   text-transform: lowercase;
-  width: 105px;
+  /* width: 105px; */
   /* width: 95px; */
-  /* width: 140px; */
+  width: 140px;
   z-index: 99999999;
   flex-flow: row wrap;
 }
