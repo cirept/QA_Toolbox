@@ -5,6 +5,8 @@
 // @author Eric Tanaka
 // @include http:*
 // @include https:*
+// @connect assets-cdk.com
+// @connect maps.googleapis.com
 // @downloadURL https://raw.githubusercontent.com/cirept/QA_Toolbox/master/assets/js/meta.user.js
 // @resource toolStyles https://github.com/cirept/QA_Toolbox/raw/3.3.2/assets/css/toolbox.css
 // @resource changeLog https://github.com/cirept/QA_Toolbox/raw/3.3.2/docs/ChangeLog.md
