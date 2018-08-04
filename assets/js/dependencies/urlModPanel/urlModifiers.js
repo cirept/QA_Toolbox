@@ -1,4 +1,8 @@
 const urlModifiers = {
+  /**
+   * initialize the tool
+   * calls all the functions to build the tool
+   */
   init() {
     // initialize module
     this.createElements();
@@ -7,14 +11,17 @@ const urlModifiers = {
     this.setToggle();
     this.addTool();
     this.bindEvents();
-    shared.displayPanel(urlModifiers.config.$urlModPanel);
+    shared.displayPanel(this.config.$urlModPanel);
   },
   // ----------------------------------------
   // tier 1 functions
   // ----------------------------------------
+  /**
+   * Creates all the DOM elements that the tool will use
+   */
   createElements() {
     // main panel container
-    urlModifiers.config = {
+    this.config = {
       $urlModContainer: jQuery('<div>')
         .attr({
           class: 'toolBox',
@@ -35,49 +42,69 @@ const urlModifiers = {
       $autoApplyContainer: jQuery('<div>')
         .attr({
           class: 'toggleTool autoApplyInput',
-          title: 'will auto apply URL modifiers to current URL\n*please reload the page to update the URL to current settings*',
+          title: 'will auto apply URL modifiers to current URL\n*Will auto refresh after a couple of seconds with new URL*',
         }),
       $autoApplyTitle: jQuery('<div>')
         .attr({
           class: 'autoApply',
         })
-        .text('Auto Apply Modifiers?'),
+        .text('Auto Apply?'),
       $autoApplyIcon: jQuery('<div>')
         .attr({
           id: 'autoApplyIcon',
         }),
       $FAtoggle: jQuery('<i class="fa fa-toggle-off fa-lg"></i>'),
-          myTimeout: '',
+      myTimeout: '',
     }
   },
+  /**
+   * Builds the tools elements
+   * Combines the cached DOM elements
+   */
   buildPanel() {
+    const {
+      $urlModPanel,
+      $autoApplyContainer,
+      $autoApplyIcon,
+      $autoApplyTitle,
+      $FAtoggle,
+      $urlModContainer,
+      $urlModTitle,
+    } = this.config;
+
     // attach panel elements to container
-    urlModifiers.config.$urlModPanel
+    $urlModPanel
       .append(nextGenToggle.init())
       .append(m4Check.init())
       .append(autofillToggle.init());
 
-    urlModifiers.config.$autoApplyContainer
-      .append(urlModifiers.config.$autoApplyTitle)
-      .append(urlModifiers.config.$autoApplyIcon);
-    // urlModifiers.config.$autoApplyContainer.append(urlModifiers.config.$autoApplyIcon);
-    urlModifiers.config.$autoApplyIcon
-      .append(urlModifiers.config.$FAtoggle);
-    urlModifiers.config.$urlModPanel
-      .append(urlModifiers.config.$autoApplyContainer);
+    $autoApplyContainer
+      .append($autoApplyIcon)
+      .append($autoApplyTitle);
+    // $autoApplyContainer.append($autoApplyIcon);
+    $autoApplyIcon
+      .append($FAtoggle);
+    $urlModPanel
+      .append($autoApplyContainer);
 
     // attach title and URL Mod panel to URL Mod container
-    urlModifiers.config.$urlModContainer
-      .append(urlModifiers.config.$urlModTitle)
-      .append(urlModifiers.config.$urlModPanel);
-    // urlModifiers.config.$urlModContainer.append(urlModifiers.config.$urlModPanel);
+    $urlModContainer
+      .append($urlModTitle)
+      .append($urlModPanel);
   },
+  /**
+   * Caches things from the DOM that the tool will use.
+   */
   cacheDOM() {
     // DOM elements
     this.variableList = shared.programData();
     this.$toolBoxContainer = jQuery('.toolboxContainer');
     this.newURL = window.location.href;
   },
+  /**
+   * Sets the state of the toggle to the last saved state loaded from
+   * local storage
+   */
   setToggle() {
     // get value of custom variable and set toggles accordingly
     const currentToggle = shared.getValue('autoApplyParameters');
@@ -89,50 +116,98 @@ const urlModifiers = {
       this.toggleOff();
     }
   },
+  /**
+   * Adds the combined tool elements to the tool container on the DOM
+   */
   addTool() {
+    const {
+      $urlModContainer
+    } = this.config;
+
     // add to main toolbox
     this.$toolBoxContainer
-      .append(urlModifiers.config.$urlModContainer);
+      .append($urlModContainer);
   },
+  /**
+   * Attaches the event listeners that will provide the tools functionality
+   */
   bindEvents() {
+    const {
+      $urlModTitle,
+      $autoApplyContainer,
+      $urlModPanel,
+      myTimeout,
+      $autoApplyTitle
+    } = this.config;
+
     // minimize
-    urlModifiers.config.$urlModTitle
+    $urlModTitle
       .on('click', shared.toggleFeature)
       .on('click', shared.saveState);
-    urlModifiers.config.$autoApplyContainer.on('click', this.flipTheSwitch
+    $autoApplyContainer.on('click', this.flipTheSwitch
       .bind(this));
 
-      /**
-      * Bind all child elements to trigger a timeout function
-      */
-      urlModifiers.config.$urlModPanel.on('click', '.myParameter', () => {
-        // if the time out has already been set, clear the interval
-        if (urlModifiers.config.myTimeout) {
-          window.clearTimeout(urlModifiers.config.myTimeout);
+    /**
+     * Bind all child elements to trigger a timeout function
+     */
+    $urlModPanel.on('click', '.myParameter', () => {
+      // if the time out has already been set, clear the interval
+      if (myTimeout) {
+        window.clearTimeout(myTimeout);
+      }
+      // set the timeout to expire after 3 seconds
+      this.config.myTimeout = window.setTimeout(() => {
+        console.log('timme out');
+        if (shared.getValue('autoApplyParameters')) {
+          this.applyParameters();
         }
-        // set the timeout to expire after 3 seconds
-        urlModifiers.config.myTimeout = window.setTimeout(() => {
-          console.log('timme out');
-          if (shared.getValue('autoApplyParameters')) {
-            this.applyParameters();
-          }
-        }, 2500);
+      }, 2500);
+    });
+
+    // apply mouse over hover effect for display text
+    $autoApplyTitle.on('mouseover', () => {
+      $autoApplyTitle.fadeOut(250, () => {
+        $autoApplyTitle.text('Auto URL Parameters to URL?')
+          .fadeIn(500);
       })
+    });
+
+    // apply mouse out hover effect for display text
+    $autoApplyTitle.on('mouseout', () => {
+      $autoApplyTitle.fadeOut(250, () => {
+        $autoApplyTitle.text('Auto Apply?')
+          .fadeIn(500);
+      })
+    });
   },
   // ----------------------------------------
   // tier 2 functions
   // ----------------------------------------
+  /**
+   * Changed the DOM toggle to the ON state
+   */
   toggleOn() {
+    const {
+      $FAtoggle
+    } = this.config;
+
     // set toggle on image
-    const $toggle = urlModifiers.config.$FAtoggle;
-    $toggle
+    // const $toggle = this.config.$FAtoggle;
+    $FAtoggle
       .removeClass('fa-toggle-off')
       .addClass('fa-toggle-on');
   },
+  /**
+   * Changed the DOM toggle to the OFF state
+   */
   toggleOff() {
+    const {
+      $FAtoggle
+    } = this.config;
+
     // set toggle off image
-    const $toggle = urlModifiers.config.$FAtoggle;
-    $toggle
+    // const $toggle = this.config.$FAtoggle;
+    $FAtoggle
       .removeClass('fa-toggle-on')
       .addClass('fa-toggle-off');
   },
@@ -142,6 +217,7 @@ const urlModifiers = {
       'relative=': m4Check.isToggleOn(),
       'disableAutofill=': autofillToggle.isToggleOn(),
     };
+
     let findThis = '';
     let key = '';
     const matchesFound = [];
@@ -171,6 +247,10 @@ const urlModifiers = {
     // reloadPAge
     this.reloadPage(matchesFound);
   },
+  /**
+   * Sets the saved variable to the opposite of what it is currently
+   * and updates the DOM toggle element
+   */
   flipTheSwitch() {
     // set saved variable to opposite of current value
     const toggle = shared.getValue('autoApplyParameters');

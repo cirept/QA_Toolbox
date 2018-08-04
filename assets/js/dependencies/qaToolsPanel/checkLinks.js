@@ -66,10 +66,12 @@ const checkLinks = {
       $counter: jQuery('<div>')
         .attr({
           id: 'count404',
+          class: 'counterText',
         }),
       $iconContainer: jQuery('<div>')
         .attr({
           id: 'iconContainer',
+          class: 'iconContainer',
         }),
       $thinking: jQuery(
         '<i id="loading" class="fa fa-spinner fa-pulse fa-3x fa-fw"></i><span class="sr-only">Loading...</span>'

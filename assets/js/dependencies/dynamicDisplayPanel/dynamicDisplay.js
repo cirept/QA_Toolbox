@@ -10,7 +10,7 @@ const dynamicDisplay = {
   },
   createElements() {
     // main panel container
-    dynamicDisplay.config = {
+    this.config = {
       $displayPanel: jQuery('<div>')
         .attr({
           class: 'toolBox',
@@ -31,7 +31,7 @@ const dynamicDisplay = {
         .attr({
           id: 'version',
         })
-        .text(`version: ${GM_info.script.version}`), // eslint-disable-line camelcase
+        .text(`ver. ${GM_info.script.version}`), // eslint-disable-line camelcase
       $changeLog: jQuery('<div>')
         .attr({
           id: 'changeLog',
@@ -55,7 +55,7 @@ const dynamicDisplay = {
           class: 'hideToolbox',
         }),
       $minimizeIcon: jQuery(
-          '<span class="fa-stack fa-2x"><i class="fa fa-circle fa-stack-1x fa-inverse"></i><i class="fa fa-times-circle fa-stack-1x"></i></span>'
+          '<span class="fa-stack fa-2x"><i class="fa fa-circle fa-stack-1x fa-inverse"></i><i class="fa fa-times-circle fa-stack-1x fa-lg"></i></span>'
         )
         .attr({
           title: 'Click to Hide Toolbox',
@@ -64,18 +64,18 @@ const dynamicDisplay = {
   },
   buildPanel() {
     // attach panel elements to container
-    dynamicDisplay.config.$changeLog
-      .append(dynamicDisplay.config.$changeLogLink);
+    this.config.$changeLog
+      .append(this.config.$changeLogLink);
 
-    dynamicDisplay.config.$displayArea
-      .append(dynamicDisplay.config.$version)
-      .append(dynamicDisplay.config.$changeLog);
+    this.config.$displayArea
+      .append(this.config.$version)
+      .append(this.config.$changeLog);
 
-    dynamicDisplay.config.$displayPanel.append(dynamicDisplay.config.$displayArea);
+    this.config.$displayPanel.append(this.config.$displayArea);
     // attach icon to minimize tab
-    dynamicDisplay.config.$showToolbox.append(dynamicDisplay.config.$icon);
+    this.config.$showToolbox.append(this.config.$icon);
     // attach icon to minimize tab
-    dynamicDisplay.config.$hideToolbox.append(dynamicDisplay.config.$minimizeIcon);
+    this.config.$hideToolbox.append(this.config.$minimizeIcon);
   },
   cacheDOM() {
     // page info
@@ -89,9 +89,9 @@ const dynamicDisplay = {
   },
   addTool() {
     // add to main toolbox
-    this.$toolBoxContainer.append(dynamicDisplay.config.$displayPanel);
-    this.$toolBoxContainer.before(dynamicDisplay.config.$showToolbox);
-    this.$toolBoxContainer.append(dynamicDisplay.config.$hideToolbox);
+    this.$toolBoxContainer.append(this.config.$displayPanel);
+    this.$toolBoxContainer.before(this.config.$showToolbox);
+    this.$toolBoxContainer.append(this.config.$hideToolbox);
   },
   modToolbar() {
     if (shared.nextGenCheck()) {
@@ -99,27 +99,27 @@ const dynamicDisplay = {
       this.$toolBoxContainer.addClass('nextgen');
       this.edoButts.addClass('nextgen');
       this.lenendContainer.addClass('nextgen');
-      dynamicDisplay.config.$hideToolbox.addClass('nextgen');
-      dynamicDisplay.config.$showToolbox.addClass('nextgen');
-      dynamicDisplay.config.$displayPanel.addClass('nextgen');
+      this.config.$hideToolbox.addClass('nextgen');
+      this.config.$showToolbox.addClass('nextgen');
+      this.config.$displayPanel.addClass('nextgen');
     } else {
       this.toolbox.addClass('tetra');
       this.edoButts.addClass('tetra');
       this.lenendContainer.addClass('tetra');
-      dynamicDisplay.config.$hideToolbox.addClass('tetra');
-      dynamicDisplay.config.$showToolbox.addClass('tetra');
-      dynamicDisplay.config.$displayPanel.addClass('tetra');
+      this.config.$hideToolbox.addClass('tetra');
+      this.config.$showToolbox.addClass('tetra');
+      this.config.$displayPanel.addClass('tetra');
     }
   },
   bindEvents() {
     // click
-    dynamicDisplay.config.$hideToolbox
+    this.config.$hideToolbox
       .on('click', this.toggleTools.bind(this))
       .on('click', this.saveState);
-    dynamicDisplay.config.$showToolbox
+    this.config.$showToolbox
       .on('click', this.toggleTools.bind(this))
       .on('click', this.saveState);
-    dynamicDisplay.config.$changeLog
+    this.config.$changeLog
       .on('click', main.showChangeLog);
   },
   displayPanel() {
@@ -131,9 +131,9 @@ const dynamicDisplay = {
       if (variables.hasOwnProperty(key)) {
         if (key === 'showToolbox') {
           state = variables[key] ? 'show' : 'hide';
-          shared.setState(this.$toolBoxContainer, state);
+          shared.setDisplayState(this.$toolBoxContainer, state);
           // set display of hide/show button to opposite of main toolbox
-          dynamicDisplay.config.$showToolbox.addClass(variables[key] ?
+          this.config.$showToolbox.addClass(variables[key] ?
             'disappear' : 'appear');
         }
       }
@@ -146,7 +146,7 @@ const dynamicDisplay = {
     // hide / show main tool box
     this.toggleBox();
     // hide / show toggle button
-    dynamicDisplay.config.$showToolbox.toggle('fade', 500);
+    this.config.$showToolbox.toggle('fade', 500);
   },
   saveState() {
     // get current state

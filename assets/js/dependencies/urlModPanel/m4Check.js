@@ -11,7 +11,7 @@ const m4Check = {
   // tier 1 functions
   // ----------------------------------------
   createElements() {
-    m4Check.config = {
+    this.config = {
       $m4Container: jQuery('<div>')
         .attr({
           id: 'm4Input',
@@ -28,11 +28,11 @@ const m4Check = {
     };
   },
   buildTool() {
-    m4Check.config.$m4Checkbox
-      .append(m4Check.config.$FAtoggle);
-    m4Check.config.$m4Container
-      .append(m4Check.config.$m4CheckTitle)
-      .append(m4Check.config.$m4Checkbox);
+    this.config.$m4Checkbox
+      .append(this.config.$FAtoggle);
+    this.config.$m4Container
+      .append(this.config.$m4Checkbox)
+      .append(this.config.$m4CheckTitle);
   },
   setToggle() {
     if (shared.getValue('usingM4')) { // if 'usingM4 is turned on'
@@ -49,25 +49,25 @@ const m4Check = {
   addTool() {
     // add to main toolbox
     this.$toolsPanel
-      .append(m4Check.config.$m4Container);
+      .append(this.config.$m4Container);
   },
   bindEvents() {
     // bind FA toggle with 'flipTheSwitch' action
-    m4Check.config.$m4Container.on('click', this.flipTheSwitch.bind(this));
+    this.config.$m4Container.on('click', this.flipTheSwitch.bind(this));
   },
   // ----------------------------------------
   // tier 2 functions
   // ----------------------------------------
   toggleOn() {
     // set toggle on image
-    const $toggle = m4Check.config.$FAtoggle;
+    const $toggle = this.config.$FAtoggle;
     $toggle
       .removeClass('fa-toggle-off')
       .addClass('fa-toggle-on');
   },
   toggleOff() {
     // set toggle off image
-    const $toggle = m4Check.config.$FAtoggle;
+    const $toggle = this.config.$FAtoggle;
     $toggle
       .removeClass('fa-toggle-on')
       .addClass('fa-toggle-off');
