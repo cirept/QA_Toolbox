@@ -1,5 +1,20 @@
 # Change Log
 
+## v3.3.2 - beta28 **(6/13/2018)**
+
+### Tool Updates
+
+#### Page Information
+
+- Added the Live Site URL for the currently viewed site.
+  - If the site has a vanity URL (e.g. http://www.nalleyinfinitiatlanta.com/) it will show that URL, otherwise, it will show the generic live site URL (e.g. http://nitra.infinitidealer.com/nalley/)
+
+<br><br>
+
+---
+
+<br><br>
+
 ## v3.3.2 - beta27 **(6/08/2018)**
 
 ### Tool Updates

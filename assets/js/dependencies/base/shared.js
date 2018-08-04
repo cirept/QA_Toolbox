@@ -146,6 +146,7 @@ const shared = {
   addDivOverlay(isNextGen, $currentLink, $currentCard) {
     // sets $currentCard to null for tetra site checks
     $currentCard = $currentCard || null;
+
     this.cacheDOMOverlayElements($currentLink);
     this.createOverlayElements(isNextGen);
     this.buildOverlayElements(isNextGen);
