@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name QA Toolbox - PreRelease
 // @namespace www.cobaltgroup.com/
-// @version 3.3.2-beta29
+// @version 3.3.2-beta30
 // @author Eric Tanaka
 // @include http:*
 // @include https:*
@@ -15,6 +15,7 @@
 // @require https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js
 // @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/pageInformationPanel/pageInformation.js
 // @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/pageInformationPanel/dealerName.js
+// @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/pageInformationPanel/liveSiteURL.js
 // @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/pageInformationPanel/webId.js
 // @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/pageInformationPanel/pageName.js
 // @require https://github.com/cirept/QA_Toolbox/raw/pre-release/assets/js/dependencies/pageInformationPanel/hTags.js
