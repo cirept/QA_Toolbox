@@ -1,14 +1,8 @@
 # Read Me
 
-## Tool Descriptions 
+## Tool Descriptions
 
 ![QA Tool Layout](.gitbook/assets/qa_tool_layout.png)
-
-### Other Useful Links 
-
-[Installation Instructions](https://github.com/cirept/QA_Toolbox/tree/7b8726987f1e7bcf68aa2eac0751ead9e02c96b3/docs/Install/README.md)  
- [Change Log](https://github.com/cirept/QA_Toolbox/tree/7b8726987f1e7bcf68aa2eac0751ead9e02c96b3/docs/ChangeLog/README.md)  
-
 
 ## **Page Information Panel** 
 
@@ -161,7 +155,7 @@ _e.g. LandingPage, HoursAndDirections, MiscPage._
 
 * All misspelled words will be highlighted in red. 
 * All banned words will be highlighted in yellow. The banned word lists were compiled by reading requirements from OEM's at the \[\\Las-mgmt1.lasisi01a.las.san.dsghost.net\associate\sea\CS\++AssetRepository\]. You can find the compiled list of Banned Words for each OEM that is used by the tool here: [Banned Word List](https://github.com/cirept/QA_Toolbox/tree/7b8726987f1e7bcf68aa2eac0751ead9e02c96b3/resources/OEM_Banned_Words.json)  
-* There are some contexts were a word that is highlighted as banned may be acceptable. You can read about them here: [Banned Context](bannedcontext.md)  
+* There are some contexts were a word that is highlighted as banned may be acceptable. You can read about them here: [Banned Context](other-information/bannedcontext.md)  
 
 | Spell Check Results Example |
 | :--- |
