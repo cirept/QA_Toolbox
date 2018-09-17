@@ -502,7 +502,7 @@ Test Scenario<br>
         1.   I switch the **'nextgen parameters?'** toggle **ON**<br>
         2.   Then I switch the **'auto apply modifiers?'** toggle **ON**.<br>
 
-![NextGen Toggle DEMO](gifs/nextgenToggleDEMO.gif)
+![NextGen Toggle DEMO](images/gifs/nextgenToggleDEMO.gif)
 
 - This will cause the page to refresh and the NEXTGEN version of the site visible.<br>
 - *new URL* = http://nitra.proof.gmpsdealer.com/content15?nextGen=true<br>
