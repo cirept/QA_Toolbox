@@ -95,7 +95,7 @@
 
 ### ***Clicking on the area will bring a pop up with all the h tags displayed***<br>
 
-![H Tag Display DEMO](gifs/htagdisplay_DEMO.gif)
+![H Tag Display DEMO](images/gifs/htagdisplay_DEMO.gif)
 
 <br>
 <br>
