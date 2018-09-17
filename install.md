@@ -49,31 +49,31 @@ Link to Latest Toolbar Code:
 
 #### 2. Click the add-on icon in your browser
 
-![Click Addon Icon](https://github.com/cirept/QA_Toolbox/tree/7b8726987f1e7bcf68aa2eac0751ead9e02c96b3/docs/images/clickIcon.png)
+![Click Addon Icon](images/png/clickIcon.png)
 
 #### 3. Click on 'Dashboard' menu item 
 
 This will open a new tab with the extension dashboard displayed _**\(seen in step 3\)**_
 
-![Click Dashboard](https://github.com/cirept/QA_Toolbox/tree/7b8726987f1e7bcf68aa2eac0751ead9e02c96b3/docs/images/clickDashboard.png)
+![Click Dashboard](images/png/clickDashboard.png)
 
 #### 4. Click the icon to add a new userscript 
 
 The icon is located next to "Install userscripts" tab.
 
-![Click New UserScript Icon](https://github.com/cirept/QA_Toolbox/tree/7b8726987f1e7bcf68aa2eac0751ead9e02c96b3/docs/images/clickNewScript.png)
+![Click New UserScript Icon](images/png/clickNewScript.png)
 
 #### 5. Select all text in textarea and paste the code you copied in the 1st step.
 
-![Paste JS Code](https://github.com/cirept/QA_Toolbox/tree/7b8726987f1e7bcf68aa2eac0751ead9e02c96b3/docs/images/pasteCode.png)
+![Paste JS Code](images/png/pasteCode.png)
 
 #### 6. Click the floppy disk to save your changes
 
-![Click Floppy Disk](https://github.com/cirept/QA_Toolbox/tree/7b8726987f1e7bcf68aa2eac0751ead9e02c96b3/docs/images/clickSave.png)
+![Click Floppy Disk](images/png/clickSave.png)
 
 **7. Done. The toolbar will show up on any Proof/Live CDK site** :thumbsup:
 
 ## Tool descriptions
 
-click [here](https://github.com/cirept/QA_Toolbox/tree/7b8726987f1e7bcf68aa2eac0751ead9e02c96b3/docs/index/README.md)
+click [here](README.md)
 
