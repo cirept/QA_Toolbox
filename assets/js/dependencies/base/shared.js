@@ -1,11 +1,18 @@
 const shared = {
   /**
+   * Caches the DOM for website information that'll be used to
+   * turn features on and off in the tool
+   */
+  cacheDOM () {
+    this.contextManager = unsafeWindow.ContextManager;
+  },
+  /**
    * Tampermonkey function.
    * Save value to local storage for program to use.
    * @param {string} variable The variable that will be looked up.
    * @param {bool} val The value that the variable will be set too.
    */
-  saveValue(variable, val) {
+  saveValue (variable, val) {
     GM_setValue(variable, val); // eslint-disable-line new-cap
   },
   /**
@@ -13,7 +20,7 @@ const shared = {
    * Copy text to the clipboard.
    * @param {string} variable The variable that will be copied to the clipboard.
    */
-  clipboardCopy(variable) {
+  clipboardCopy (variable) {
     GM_setClipboard(variable, 'text'); // eslint-disable-line new-cap
   },
   /**
@@ -22,7 +29,7 @@ const shared = {
    * @param {string} variable The variable that will be looked up.
    * @return {bool} The saved value of current variable.
    */
-  getValue(variable) {
+  getValue (variable) {
     return GM_getValue(variable, false); // eslint-disable-line new-cap
   },
   /**
@@ -30,7 +37,7 @@ const shared = {
    * to retrieve all the program variables from local storage.
    * @return {object} The list of saved values.
    */
-  programVariables() {
+  programVariables () {
     return GM_listValues(); // eslint-disable-line new-cap
   },
   /**
@@ -38,20 +45,16 @@ const shared = {
    * to open URL in a new tab.
    * @param {string} openThis A URL that will be opened in a new window.
    */
-  openNewTab(openThis) {
+  openNewTab (openThis) {
     GM_openInTab(openThis); // eslint-disable-line
   },
-  nextGenCheck() {
-    const childNodes = document.childNodes;
-
-    // loop through document child nodes to check if next gen comment exists
-    for (let x = 0; x < childNodes.length; x += 1) {
-      if (childNodes[x].nodeName.endsWith('comment') && childNodes[x].data
-        .indexOf('Next Gen') > 0) {
-        return true;
-      }
-    }
-    return false;
+  /**
+   * Will verify the current viewed web page is a next gen website
+   * by checking the Context Manager Object > nextGen property
+   */
+  nextGenCheck () {
+    this.cacheDOM();
+    return this.contextManager.nextGen;
   },
   toggleFeature: (e) => {
     jQuery(e.target).toggleClass('minimized');
@@ -77,7 +80,7 @@ const shared = {
   * @param {object} $panel - the panel of tools to apply the class too
   * @param {string} state - the last saved state of the panel
   */
-  setDisplayState($panel, state) {
+  setDisplayState ($panel, state) {
     if (state === 'show') {
       $panel.addClass('appear');
       $panel.siblings('.panelTitle').removeClass('minimized');
@@ -102,7 +105,7 @@ const shared = {
     }
     return varList;
   },
-  buildLegendContent($legendContent, $legendListContainer) {
+  buildLegendContent ($legendContent, $legendListContainer) {
     let key = '';
     let value = '';
     // loop through Legend Content list
@@ -127,7 +130,7 @@ const shared = {
       }
     }
   },
-  displayPanel($toolPanel) {
+  displayPanel ($toolPanel) {
     const variables = this.programData();
     const panelId = $toolPanel.attr('id');
     let state = '';
@@ -143,7 +146,7 @@ const shared = {
       }
     }
   },
-  addDivOverlay(isNextGen, $currentLink, $currentCard) {
+  addDivOverlay (isNextGen, $currentLink, $currentCard) {
     // sets $currentCard to null for tetra site checks
     $currentCard = $currentCard || null;
 
@@ -153,7 +156,7 @@ const shared = {
     this.attachToImage(isNextGen, $currentLink, $currentCard);
     return this.$divOverlay;
   },
-  cacheDOMOverlayElements($currentLink /* , isNextGen */ ) {
+  cacheDOMOverlayElements ($currentLink /* , isNextGen */) {
     // IF NEXTGEN SITE
     this.widthOfImage = $currentLink.find('img')
       .width();
@@ -161,7 +164,7 @@ const shared = {
       .height();
     this.linkTitle = jQuery($currentLink)[0].innerHTML;
   },
-  createOverlayElements(isNextGen) {
+  createOverlayElements (isNextGen) {
     // create div overlay
     if (isNextGen) {
       this.$divOverlay = jQuery('<div>')
@@ -175,7 +178,7 @@ const shared = {
         });
     }
   },
-  buildOverlayElements(isNextGen) {
+  buildOverlayElements (isNextGen) {
     if (!isNextGen) {
       // make the div overlay the same dimensions as the image
       this.$divOverlay.css({
@@ -187,7 +190,7 @@ const shared = {
     // ADD THE LINK TITLE
     this.$divOverlay.append(this.linkTitle);
   },
-  attachToImage(isNextGen, $currentLink, $currentCard) {
+  attachToImage (isNextGen, $currentLink, $currentCard) {
     // center div overlay
     try {
       if (isNextGen) {
@@ -204,11 +207,11 @@ const shared = {
       // console.log($currentLink);
     }
   },
-  toggleOverlayClass($currentImage) {
+  toggleOverlayClass ($currentImage) {
     jQuery($currentImage)
       .toggleClass('overlaid');
   },
-  centerDiv($currentImage, $divOverlay) {
+  centerDiv ($currentImage, $divOverlay) {
     const parent = $currentImage.closest('figure');
     $divOverlay.css({
       'left': parent.width() / 2 - $divOverlay.width() / 2 + 'px',
@@ -216,7 +219,7 @@ const shared = {
     return $divOverlay;
   },
   // FLAG ALL BUTTONS AS A BUTTON ELEMENT
-  flagButtons() {
+  flagButtons () {
     const buttons = jQuery('body')
       .find(':button');
     const length = buttons.length;
