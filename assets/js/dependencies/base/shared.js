@@ -54,6 +54,12 @@ const shared = {
    */
   nextGenCheck () {
     this.cacheDOM();
+    if (this.contextManager.nextGen) {
+      console.log('next gen website')
+    }
+    else {
+      console.log('not a next gen site')
+    }
     return this.contextManager.nextGen;
   },
   toggleFeature: (e) => {
