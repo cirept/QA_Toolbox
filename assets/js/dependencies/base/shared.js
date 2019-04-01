@@ -4,8 +4,8 @@ const shared = {
    * turn features on and off in the tool
    */
   cacheDOM () {
+    console.log('Shared Cache Dom');
     this.contextManager = unsafeWindow.ContextManager;
-    console.log(this.contextManager);
   },
   /**
    * Tampermonkey function.
@@ -54,8 +54,6 @@ const shared = {
    * by checking the Context Manager Object > nextGen property
    */
   nextGenCheck () {
-    this.cacheDOM();
-    console.log(this.contextManager.nextGen);
     if (this.contextManager.nextGen) {
       console.log('next gen website')
     }

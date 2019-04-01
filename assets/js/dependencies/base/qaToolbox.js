@@ -5,6 +5,7 @@ const qaToolbox = {
     this.buildElements();
     this.attachTools();
     this.attachResources();
+    shared.cacheDOM();
     main.init();
   },
   // ----------------------------------------
