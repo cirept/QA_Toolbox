@@ -54,6 +54,8 @@ const shared = {
    * by checking the Context Manager Object > nextGen property
    */
   nextGenCheck () {
+    console.log(this.contextManager);
+    console.log(this.contextManager.nextGen);
     if (this.contextManager.nextGen) {
       console.log('next gen website')
     }
