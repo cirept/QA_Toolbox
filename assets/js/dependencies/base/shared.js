@@ -4,7 +4,6 @@ const shared = {
    * turn features on and off in the tool
    */
   cacheDOM () {
-    console.log('Shared Cache Dom');
     this.contextManager = unsafeWindow.ContextManager;
   },
   /**
@@ -54,14 +53,6 @@ const shared = {
    * by checking the Context Manager Object > nextGen property
    */
   nextGenCheck () {
-    console.log(this.contextManager);
-    console.log(this.contextManager.nextGen);
-    if (this.contextManager.nextGen) {
-      console.log('next gen website')
-    }
-    else {
-      console.log('not a next gen site')
-    }
     return this.contextManager.nextGen;
   },
   toggleFeature: (e) => {
