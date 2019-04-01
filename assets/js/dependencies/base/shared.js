@@ -55,6 +55,7 @@ const shared = {
    */
   nextGenCheck () {
     this.cacheDOM();
+    console.log(this.contextManager.nextGen);
     if (this.contextManager.nextGen) {
       console.log('next gen website')
     }
