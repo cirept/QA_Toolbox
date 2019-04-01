@@ -5,6 +5,7 @@ const shared = {
    */
   cacheDOM () {
     this.contextManager = unsafeWindow.ContextManager;
+    console.log(this.contextManager);
   },
   /**
    * Tampermonkey function.
