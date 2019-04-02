@@ -1,15 +1,21 @@
 const qaToolbox = {
-  init() {
-    this.createElements();
-    this.cacheDOM();
-    this.buildElements();
-    this.attachTools();
-    this.attachResources();
-    main.init();
+  init () {
+    /*
+    Delay the start of the script to allow the page to load.  The Context Manager is not attainable unless there is a delay.
+    */
+    setTimeout(() => {
+      this.createElements();
+      this.cacheDOM();
+      this.buildElements();
+      this.attachTools();
+      this.attachResources();
+      shared.cacheDOM();
+      main.init();
+    }, 2000);
   },
   // ----------------------------------------
   // tier 1 functions
-  createElements() {
+  createElements () {
     qaToolbox.config = {
       $legendContainer: jQuery('<div>')
         .attr({
@@ -69,27 +75,27 @@ const qaToolbox = {
         }),
     };
   },
-  cacheDOM() {
+  cacheDOM () {
     this.body = jQuery('body');
     this.phoneWrapper = jQuery('body .phone-wrapper');
     this.head = jQuery('head');
   },
-  buildElements() {
+  buildElements () {
 
     // load change log details
-      let converter = new showdown.Converter();
-      let jqxhr = jQuery.get(shared.getResourceUrl('changeLog'), (data) => {
-        const changeLog = converter.makeHtml(data);
-        qaToolbox.config.$changeLogDisplay.html(changeLog + '<br><br><a href="http://showdownjs.com/" target="_blank">MD converted with Showdown.js</a>');
-      }, 'text');
+    let converter = new showdown.Converter();
+    let jqxhr = jQuery.get(shared.getResourceUrl('changeLog'), (data) => {
+      const changeLog = converter.makeHtml(data);
+      qaToolbox.config.$changeLogDisplay.html(changeLog + '<br><br><a href="http://showdownjs.com/" target="_blank">MD converted with Showdown.js</a>');
+    }, 'text');
 
-      qaToolbox.config.$changeLogUpdateContainer
-        .append(qaToolbox.config.$changeLogDisplay);
+    qaToolbox.config.$changeLogUpdateContainer
+      .append(qaToolbox.config.$changeLogDisplay);
 
     // make legend container draggable
     qaToolbox.config.$legendContainer.draggable();
   },
-  attachTools() {
+  attachTools () {
     this.body
       .after(qaToolbox.config.$toolboxContainer)
       .after(qaToolbox.config.$legendContainer);
@@ -98,7 +104,7 @@ const qaToolbox = {
    * Append stylesheets to the head element, then toggle the visibility of then
    * tool once the files have been attached.
    */
-  attachResources() {
+  attachResources () {
     this.head
       .append(qaToolbox.config.$toolboxStyles)
       .append(qaToolbox.config.$myFont)

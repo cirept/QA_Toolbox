@@ -2,7 +2,7 @@ const liveSiteURL = {
   /**
   * initialize the tool
   */
-  init() {
+  init () {
     this.createElements();
     this.buildTool();
     this.cacheDOM();
@@ -13,7 +13,7 @@ const liveSiteURL = {
   /**
   * Cache the tools DOM elements
   */
-  createElements() {
+  createElements () {
     this.config = {
       $liveSiteURLContainer: jQuery('<div>')
         .attr({
@@ -37,7 +37,7 @@ const liveSiteURL = {
   /**
   * Put the created tool elements together
   */
-  buildTool() {
+  buildTool () {
     const {
       $liveSiteURLContainer,
       $liveSiteURLTitle,
@@ -51,7 +51,7 @@ const liveSiteURL = {
   /**
   * Cache the DOM information that the tool will use
   */
-  cacheDOM() {
+  cacheDOM () {
     this.contextManager = unsafeWindow.ContextManager;
     this.webID = this.contextManager.getWebId();
     this.liveSiteURL = '';
@@ -60,12 +60,12 @@ const liveSiteURL = {
   * Sends a GET request to the CDK API to get the live site URL for the current
   * web ID
   */
-  getInfo() {
+  getInfo () {
     // base url
     const mURL =
       'http://tools.cdkagency.com/node/api/webIdToDomainName?webId=';
 
-      // ajax options
+    // ajax options
     const options = {
       url: `${mURL}${this.webID}`,
       method: 'GET',
@@ -88,17 +88,22 @@ const liveSiteURL = {
   /**
   * Updates the DOM element to display the live site URL
   */
-  displayData() {
+  displayData () {
     const {
       $liveSiteURL
     } = this.config;
+    if (this.liveSiteURL === "error") {
+      this.contextManager = unsafeWindow.ContextManager;
+      $liveSiteURL.html(this.contextManager.url);
+    } else {
+      $liveSiteURL.html(this.liveSiteURL);
+    }
 
-    $liveSiteURL.html(this.liveSiteURL);
   },
   /**
   * Returns the cached DOM elements to the main Panel
   */
-  returnTool() {
+  returnTool () {
     const {
       $liveSiteURLContainer
     } = this.config;
