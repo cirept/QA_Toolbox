@@ -6,11 +6,8 @@
 
 #### Tetra Sites No Longer Supported
 
-- The tools specific to Tetra sites have been removed.
-  - Show Widgets
-  - View Mobile Site
-  - m4 Parameters
-- The tools that remain can still be used on Tetra sites, however if/when they stop working no work will be done to resolve the issue.
+- Show Widgets, View Mobile Site, m4 Parameters have been removed from the tool.  These are Tetra specific and are outdated.
+- The remaining tools can still be used on Tetra sites, however if/when they stop working no work will be done to resolve the issue.
 
 <br><br>
 
