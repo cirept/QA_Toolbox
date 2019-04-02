@@ -4,7 +4,9 @@ const shared = {
    * turn features on and off in the tool
    */
   cacheDOM () {
+    // console.log('context manager cached');
     this.contextManager = unsafeWindow.ContextManager;
+    this.setNextgenFlag();
   },
   /**
    * Tampermonkey function.
@@ -14,6 +16,14 @@ const shared = {
    */
   saveValue (variable, val) {
     GM_setValue(variable, val); // eslint-disable-line new-cap
+  },
+  /**
+  * This is a quick workaround to phase the TETRA functionality for the QA
+  * Tool.  The QA Tool will be forced into NextGen Mode and functionality for 
+  * the various tools by a boolean value that will be stored in local storage. 
+  */
+  setNextgenFlag () {
+    shared.saveValue('nextgenMode', true);
   },
   /**
    * Tampermonkey function.
@@ -53,7 +63,21 @@ const shared = {
    * by checking the Context Manager Object > nextGen property
    */
   nextGenCheck () {
-    return this.contextManager.nextGen;
+    // const varName = "nextgenMode";
+    // const varName = this.config.varName;
+    // const nextgenMode = shared.getValue(varName);
+    // console.log("nextgenMode");
+    // console.log(nextgenMode);
+
+    // this.contextManager = unsafeWindow.ContextManager;
+    // console.log("this.contextManager");
+    // console.log(this.contextManager);
+    // console.log("this.contextManager.nextGen");
+    // console.log(this.contextManager.nextGen);
+    return shared.getValue("nextgenMode");
+    // return nextgenMode;
+    // return this.contextManager.nextGen;
+
   },
   toggleFeature: (e) => {
     jQuery(e.target).toggleClass('minimized');
