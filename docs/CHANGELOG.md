@@ -1,5 +1,23 @@
 # Change Log
 
+## v3.5.3.5 **(4/2/2019)**
+
+### Tool Updates
+
+#### Tetra Sites No Longer Supported
+
+- The tools specific to Tetra sites have been removed.
+  - Show Widgets
+  - View Mobile Site
+  - m4 Parameters
+- The tools that remain can still be used on Tetra sites, however if/when they stop working no work will be done to resolve the issue.
+
+<br><br>
+
+---
+
+<br><br>
+
 ## v3.3.2 - beta28 **(6/13/2018)**
 
 ### Tool Updates
